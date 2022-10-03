@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
   if (!empty($user_name) && !empty($password) && !is_numeric($user_name)) {
 
     //read from database
-    $query = "select * from user where username = '$user_name' and role= '$role' limit 1";
+    $query = "select * from user where userid = '$user_name' and role= '$role' limit 1";
     $result = mysqli_query($con, $query);
 
     if ($result) {
@@ -66,9 +66,15 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <!--Stylesheet-->
-
+  <link rel="stylesheet" href="css/signup.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-
+<header>
+<div class="logo">
+  <img src="image/logo.svg" alt="">
+  </div>
+  <hr class="solid">
+</header>
 <body>
   <?php
   if (isset($_SESSION['status'])) {
@@ -82,41 +88,47 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     unset($_SESSION['status']);
   }
   ?>
-  <h1>Login</h1>
-
-
-
-  <div class="form-group">
+<div class="container-fluid">
+<h1>Login</h1>
+<br>
+<div class="form-group">
     <form id="form" method="POST" enctype="multipart/form-data" autocomplete="off">
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="teacher">
-        <label class="form-check-label" for="inlineRadio1">Teacher</label>
+        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="parent">
+        <label class="form-check-label" for="inlineRadio1">Parent</label>
       </div>
       <div class="form-check form-check-inline">
         <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="staff">
         <label class="form-check-label" for="inlineRadio2">Staff</label>
       </div>
-      
+      <br><br>
       <div class="mb-3">
-        <label for="exampleFormControlInput1" class="form-label">Userid</label>
-        <input type="text" class="form-control" id="exampleFormControlInput1" name="username" placeholder="1234Z0101">
+       
+        <input type="text" class="form-control" id="exampleFormControlInput1" name="username" placeholder="Userid">
       </div>
-
+      <br>
       <div class="mb-3">
-        <label for="exampleFormControlInput1" class="form-label">Password</label>
-        <input type="password" class="form-control" id="exampleFormControlInput1" name="password">
+       
+        <input type="password" class="form-control" id="exampleFormControlInput1" name="password"placeholder="Password">
       </div>
-
+      <br>
 
       <button class="btn btn-primary" type="submit" name="submit" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;margin:auto;">Login</button>
 
     </form>
   </div>
+</div>
 
-  </div>
 
 
-  </form>
+
+
+
+
+
+
+
+
 </body>
 
 </html>

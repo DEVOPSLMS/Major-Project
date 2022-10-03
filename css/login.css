@@ -1,0 +1,17 @@
+
+hr.solid {
+    border-top: 3px solid black;
+    color:black;
+    
+  }
+  @media (max-width: 600px) {
+    .container-fluid{
+      text-align: center;
+ }
+}
+@media (max-width: 600px) {
+    .logo{
+      text-align: center;
+ }
+}
+
