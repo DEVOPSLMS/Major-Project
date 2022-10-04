@@ -1,107 +1,119 @@
-<?php
-include 'Calendar.php';
-$calendar = new Calendar('2021-02-02');
-$calendar->add_event('Birthday', '2021-02-03', 1, 'green');
-$calendar->add_event('Doctors', '2021-02-04', 1, 'red');
-$calendar->add_event('Holiday', '2021-02-16', 7);
-?>
-<style>
-	.calendar {
-    display: flex;
-    flex-flow: column;
-}
-.calendar .header .month-year {
-    font-size: 20px;
-    font-weight: bold;
-    color: #636e73;
-    padding: 20px 0;
-}
-.calendar .days {
-    display: flex;
-    flex-flow: wrap;
-}
-.calendar .days .day_name {
-    width: calc(100% / 7);
-    border-right: 1px solid #2c7aca;
-    padding: 20px;
-    text-transform: uppercase;
-    font-size: 12px;
-    font-weight: bold;
-    color: #818589;
-    color: #fff;
-    background-color: #448cd6;
-}
-.calendar .days .day_name:nth-child(7) {
-    border: none;
-}
-.calendar .days .day_num {
-    display: flex;
-    flex-flow: column;
-    width: calc(100% / 7);
-    border-right: 1px solid #e6e9ea;
-    border-bottom: 1px solid #e6e9ea;
-    padding: 15px;
-    font-weight: bold;
-    color: #7c878d;
-    cursor: pointer;
-    min-height: 100px;
-}
-.calendar .days .day_num span {
-    display: inline-flex;
-    width: 30px;
-    font-size: 14px;
-}
-.calendar .days .day_num .event {
-    margin-top: 10px;
-    font-weight: 500;
-    font-size: 14px;
-    padding: 3px 6px;
-    border-radius: 4px;
-    background-color: #f7c30d;
-    color: #fff;
-    word-wrap: break-word;
-}
-.calendar .days .day_num .event.green {
-    background-color: #51ce57;
-}
-.calendar .days .day_num .event.blue {
-    background-color: #518fce;
-}
-.calendar .days .day_num .event.red {
-    background-color: #ce5151;
-}
-.calendar .days .day_num:nth-child(7n+1) {
-    border-left: 1px solid #e6e9ea;
-}
-.calendar .days .day_num:hover {
-    background-color: #fdfdfd;
-}
-.calendar .days .day_num.ignore {
-    background-color: #fdfdfd;
-    color: #ced2d4;
-    cursor: inherit;
-}
-.calendar .days .day_num.selected {
-    background-color: #f1f2f3;
-    cursor: inherit;
-}
-</style>
+
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<title>Event Calendar</title>
-		<link href="style.css" rel="stylesheet" type="text/css">
-		<link href="calendar.css" rel="stylesheet" type="text/css">
-	</head>
-	<body>
-	    <nav class="navtop">
-	    	<div>
-	    		<h1>Event Calendar</h1>
-	    	</div>
-	    </nav>
-		<div class="content home">
-			<?=$calendar?>
-		</div>
-	</body>
+ <head>
+  <title>Jquery Fullcalandar CRUD(Create, Read, Update, Delete) with PHP Jquery Ajax and Mysql</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.css" />
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
+<?php
+include('connection.php');
+$query = $con->query("SELECT * FROM events ORDER BY id");
+?>
+  <script>
+    $(document).ready(function() {
+     var calendar = $('#calendar').fullCalendar({
+      editable:true,
+      header:{
+       left:'prev,next today',
+       center:'title',
+       right:'month,agendaWeek,agendaDay'
+      },
+      events: [<?php while ($row = $query ->fetch_object()) { ?>{ id : '<?php echo $row->id; ?>', title : '<?php echo $row->title; ?>', start : '<?php echo $row->start_event; ?>', end : '<?php echo $row->end_event; ?>', }, <?php } ?>],
+      selectable:true,
+      selectHelper:true,
+      select: function(start, end, allDay)
+      {
+      var title = prompt("Enter Event Title");
+      if(title)
+      {
+        var start = $.fullCalendar.formatDate(start, "Y-MM-DD HH:mm:ss");
+        var end = $.fullCalendar.formatDate(end, "Y-MM-DD HH:mm:ss");
+        $.ajax({
+        url:"insert.php",
+        type:"POST",
+        data:{title:title, start:start, end:end},
+        success:function(data)
+        {
+          calendar.fullCalendar('refetchEvents');
+          alert("Added Successfully");
+		 
+          window.location.replace("test.php");
+        }
+        })
+      }
+      },
+ 
+      editable:true,
+      eventResize:function(event)
+      {
+      var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH:mm:ss");
+      var end = $.fullCalendar.formatDate(event.end, "Y-MM-DD HH:mm:ss");
+      var title = event.title;
+      var id = event.id;
+      $.ajax({
+        url:"update.php",
+        type:"POST",
+        data:{title:title, start:start, end:end, id:id},
+        success:function(){
+        calendar.fullCalendar('refetchEvents');
+		
+        alert('Event Update');
+        }
+      })
+      },
+ 
+      eventDrop:function(event)
+      {
+      var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH:mm:ss");
+      var end = $.fullCalendar.formatDate(event.end, "Y-MM-DD HH:mm:ss");
+      var title = event.title;
+      var id = event.id;
+      $.ajax({
+        url:"update.php",
+        type:"POST",
+        data:{title:title, start:start, end:end, id:id},
+        success:function()
+        {
+        calendar.fullCalendar('refetchEvents');
+        alert("Event Updated");
+		
+        }
+      });
+      },
+ 
+      eventClick:function(event)
+      {
+      if(confirm("Are you sure you want to remove it?"))
+      {
+        var id = event.id;
+        $.ajax({
+        url:"delete.php",
+        type:"POST",
+        data:{id:id},
+        success:function()
+        {
+          calendar.fullCalendar('refetchEvents');
+          alert("Event Removed");
+        }
+        })
+      }
+      },
+ 
+    });
+  });
+</script>
+ </head>
+ <body>
+  <br />
+  <h2 style="text-align:center"><a href="#">Jquery Fullcalandar CRUD(Create, Read, Update, Delete) with PHP Jquery Ajax and Mysql</a></h2>
+  <br />
+  <div class="container">
+    <div id="calendar"></div>
+   </div>
+ </body>
 </html>
