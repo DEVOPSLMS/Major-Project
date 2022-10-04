@@ -129,6 +129,7 @@ if (isset($_POST["submit"])) {
 
         <label class="form-check-label" for="inlineCheckbox2">Preferred Centre</label>
         <br>
+        
         <div class="form-check form-check-inline">
       
       <input class="form-check-input"name="preferred[]" type="checkbox" id="inlineCheckbox1" value="Pasir Ris Centre">

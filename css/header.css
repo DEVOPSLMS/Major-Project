@@ -156,10 +156,10 @@ nav
    font-size: 22px;
 
  } 
- #menu li:hover
+ #menu a:hover
  {
-
-   background-color: red;
+    
+   background-color: #5EBEC4;
  }
  
  /*
