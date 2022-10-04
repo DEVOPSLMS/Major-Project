@@ -27,7 +27,7 @@
 </head>
 <header>
   <div class="logo">
-  <img src="image/logo.svg" alt="">
+  <a href="index.php"><img src="image/logo.svg" alt=""></a>
   </div>
   <hr class="solid">
 
@@ -43,22 +43,82 @@
     
    
     <ul id="menu">
-      <a href="#"><li>Home</li></a>
-      <a href="#"><li>Schedule</li></a>
-      <a href="#"><li>Attendance</li></a>
-      <a href="#"><li>Submit Leave</li></a>
-      <a href="#"><li>Check-In</li></a>
+      <a href="index.php"><li>Home</li></a>
+      <a href="profile.php"><li>Profile</li></a>
+      <?php if($role == 'teacher'|| $role =='parent')
+      {
+        echo('<a href="#"><li>Schedule</li></a>');
+      }
+      ?>
+       <?php if($role == 'teacher')
+      {
+        echo('<a href="#"><li>Attendance</li></a>');
+      }
+      ?>
+       <?php if($role == 'teacher')
+      {
+        echo('<a href="#"><li>Submit Leave</li></a>');
+      }
+      ?>
+   <?php if($role == 'teacher')
+      {
+        echo('<a href="#"><li>Check-In</li></a>');
+      }
+      ?>
+     
    
-      <?php if($role == 'parent')
+      <?php if($role == 'parent' || $role =='finance'|| $role =='l' || $role =='manager'|| $role =='admin')
       {
         echo('<a href="#"><li>Feedback</li></a>');
       }
       ?>
-      <a href="profile.php"><li>Profile</li></a>
+     
       <?php if($role == 'finance')
       {
         echo('<a href="#"><li>Payslips & Expenses Log</li></a>');
       }
+      ?>
+      <?php if($role == 'l')
+      {
+        echo('<a href="#"><li>Lessons</li></a>');
+        echo('<a href="#"><li>Teachers</li></a>');
+        echo('<a href="#"><li>Broadcast</li></a>');
+      }
+      
+      ?>
+      <?php if($role == 'manager')
+      {
+        echo('<a href="#"><li>Attendance</li></a>');
+        echo('<a href="#"><li>Results</li></a>');
+       
+      }
+      
+      ?>
+      <?php if($role == 'admin')
+      {
+        echo('<a href="#"><li>Students</li></a>');
+        echo('<a href="#"><li>Storage</li></a>');
+       
+      }
+      
+      
+      ?>
+       <?php if($role == 'parent'|| $role =='admin')
+      {
+        echo('<a href="#"><li>Enrolment</li></a>');
+       
+      }
+      
+      
+      ?>
+       <?php if($role == 'parent')
+      {
+        echo('<a href="#"><li>Submit reason of absence</li></a>');
+        echo('<a href="#"><li>Withdrawal of child</li></a>');
+        echo('<a href="#"><li>Results</li></a>');
+      }
+      
+      
       ?>
       <br><br><br><br><br><br><br>
       <div class="bottom-menu">
@@ -66,7 +126,7 @@
 
       <p style="color:black;margin-left:75px;font-size:20px;"><?php echo $username?></p>
  
-      <a href="logout.php"><button class="btn btn-primary text-center" type="submit" name="submit" style="background-color:#F92C85;color:white;border-color:#F92C85;margin-left:65px;">Logout</button></a>
+      <a href="logout.php"><button class="button btn-primary text-center" type="submit" name="submit" style="background-color:#F92C85;color:white;border-color:#F92C85;margin-left:65px;">Logout</button></a>
       </div>
       
     </ul>

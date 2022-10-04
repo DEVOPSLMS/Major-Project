@@ -104,18 +104,35 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
       <br><br>
       <div class="mb-3">
        
-        <input type="text" class="form-control" id="exampleFormControlInput1" name="username" placeholder="Userid">
+        <input type="text" class="form-control" id="exampleFormControlInput1" style="width:300px;"name="username" placeholder="Userid">
+       
+        
+        
       </div>
       <br>
       <div class="mb-3">
        
-        <input type="password" class="form-control" id="exampleFormControlInput1" name="password"placeholder="Password">
+        <input type="password" class="form-control" id="exampleFormControlInput1"style="width:300px;" name="password"placeholder="Password">
       </div>
       <br>
 
       <button class="btn btn-primary" type="submit" name="submit" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;margin:auto;">Login</button>
-
+   
     </form>
+    <br><br>
+    <div class="row">
+    <a href="quick_login.php?role=teacher"class="btn btn-primary"  name="teacher" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;width:80px;height:40px;">Teacher</a>
+        <br>     <br>
+        <a href="quick_login.php?role=finance" class="btn btn-primary"  name="finance" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;width:80px;height:40px;">Finance</a>
+        <br>     <br>
+        <a href="quick_login.php?role=l&d"class="btn btn-primary"  name="l&d" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;width:80px;height:40px;">L&D</a>
+        <br>     <br>
+        <a href="quick_login.php?role=manager"class="btn btn-primary "  name="manager" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;width:100px;height:60px;">Centre Manager</a>
+        <br>     <br>
+        <a href="quick_login.php?role=admin"class="btn btn-primary"  name="admin" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;width:80px;height:40px;">Admin</a>
+        <br>     <br>
+        <a href="quick_login.php?role=hod"class="btn btn-primary"  name="hod" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;width:80px;height:40px;">HOD</a>
+    </div>
   </div>
 </div>
 
@@ -126,7 +143,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
 
 
-
+<input type="date" value ="<?php echo date('Y-m-d') ?>"disabled>
 
 
 </body>
