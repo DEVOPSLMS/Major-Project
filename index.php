@@ -53,7 +53,7 @@ $user_data = check_login($con);
                                 <h1>Submit leave</h1>
                                 <p style="font-size:20px;">Submit your reasons of absence here.</p>
     
-                                <button class="btn btn-primary text-center  " type="submit" name="submit" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;width:100px ;margin-right:20px;float:right;">Submit</button>
+                                <a href="submitleave.php"><button class="btn btn-primary text-center  " type="submit" name="submit" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;width:100px ;margin-right:20px;float:right;">Submit</button></a>
     
     
                             </div>
