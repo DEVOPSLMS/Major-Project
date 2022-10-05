@@ -6,6 +6,7 @@ include("functions.php");
 
 $user_data = check_login($con);
 $username = $user_data['username'];
+
 date_default_timezone_set('Singapore');
 if (isset($_POST["submit"])) {
     $name = $_POST["name"];
@@ -14,7 +15,7 @@ if (isset($_POST["submit"])) {
     $timing = $_POST["timing"];
     $date = $_POST["date"];
     $room = $_POST["room"];
-    $query = "insert into roster(centre_name,subject,timing,teacher_name,taken,room,date) VALUES('$name', '$subject','$timing','nil','no','$room','$date')";
+    $query = "insert into roster(centre_name,subject,timing,teacher_name,taken,room,date,teacher_id) VALUES('$name', '$subject','$timing','nil','no','$room','$date','0')";
     mysqli_query($con, $query);
 
     echo
@@ -25,11 +26,12 @@ if (isset($_POST["submit"])) {
         </script>
         ";
 }
+
+
+
 $date = date("Y-m-d");
 
 $roster = mysqli_query($con, "SELECT * FROM roster ORDER BY date asc");
-
-
 $earlier = new DateTime(date("Y-m-d"));
 $later = new DateTime("2022-10-09");
 
@@ -70,14 +72,18 @@ $abs_diff = $later->diff($earlier)->format("%a"); //3
 
     <body>
         <div class="container-fluid">
+            
             <div class="row">
                 <div class="col-lg-8">
                     <button class="btn btn-primary" style="float:right;margin-right:250px;" type="button" data-toggle="modal" data-target="#studentaddmodal">Add Lesson</button>
-                    <h3>Date: <input type="date" value="<?php echo date('Y-m-d') ?>"></h3>
+                    
+                        <h3>Date: <input type="date" value="<?php echo(date('Y-m-d'));?>">
+                        
+                   
                     <h4>Time: <?php echo date('H:i'); ?></h4>
-
+                   
                 </div>
-
+            
 
                 <div class="col-lg-4">
                     <p style="font-weight:bold;font-size:30px;">Legend:</p>
@@ -122,14 +128,14 @@ $abs_diff = $later->diff($earlier)->format("%a"); //3
                         $your_date = strtotime("2022-010-04");
                         $datediff = $now - $your_date;
 
-                        
+
                         array_push($abs_diff, $later->diff($earlier)->format("%a"), $rosters['centre_name']);
 
 
 
 
 
-                        if ($abs_diff[1] == 'Hougang Centre' && $rosters['taken'] == 'no' && $abs_diff[0] > 2) {
+                        if ($abs_diff[1] == 'Hougang Centre' && $rosters['need_relief'] == 'yes' && $abs_diff[0] > 2) {
                             echo ('
                         <div class="card" style="width: 18rem;">');
 
@@ -141,7 +147,11 @@ $abs_diff = $later->diff($earlier)->format("%a"); //3
                         </div>
                     </div>
                     <br>');
-                        } else if ($abs_diff[1] == 'Hougang Centre' && $rosters['taken'] == 'no' && $abs_diff[0] <= 1) {
+
+                        } else if ($abs_diff[1] == 'Hougang Centre' && $rosters['need_relief'] == 'yes' && $abs_diff[0] <= 1) {
+
+                        
+
                             echo (' 
                         <div class="card" style="width: 18rem;">');
 
@@ -154,7 +164,11 @@ $abs_diff = $later->diff($earlier)->format("%a"); //3
                         </div>
                     </div>
                     <br>');
-                        } else if ($abs_diff[1] == 'Hougang Centre' && $rosters['taken'] == 'no' && $abs_diff[0] <= 2) {
+
+                        } else if ($abs_diff[1] == 'Hougang Centre' && $rosters['need_relief'] == 'yes' && $abs_diff[0] <= 2) {
+
+                        
+
                             echo ('
                         <div class="card" style="width: 18rem;">');
 
@@ -166,7 +180,11 @@ $abs_diff = $later->diff($earlier)->format("%a"); //3
                         </div>
                     </div>
                     <br>');
-                        } else if ($abs_diff[1] == 'Hougang Centre' && $rosters['taken'] == 'yes' && $abs_diff[0] > 0) {
+
+                        } else if ($abs_diff[1] == 'Hougang Centre' && $rosters['need_relief'] == 'no' ) {
+
+                       
+
                             echo ('
                         <div class="card" style="width: 18rem;">');
 
@@ -201,8 +219,13 @@ $abs_diff = $later->diff($earlier)->format("%a"); //3
                         $earlier = new DateTime(date("Y-m-d"));
                         $later = new DateTime($rosters['date']);
                         array_push($abs_diff, $later->diff($earlier)->format("%a"), $rosters['centre_name']);
+
+
+                        if ($abs_diff[1] == 'Sengkang Centre' && $rosters['need_relief'] == 'yes' && $abs_diff[0] > 2) {
+
                         
-                        if ($abs_diff[1] == 'Sengkang Centre' && $rosters['taken'] == 'no' && $abs_diff[0] > 2) {
+                        
+
                             echo ('
                         <div class="card" style="width: 18rem;">');
 
@@ -214,7 +237,11 @@ $abs_diff = $later->diff($earlier)->format("%a"); //3
                         </div>
                     </div>
                     <br>');
-                        } else if ($abs_diff[1] == 'Sengkang Centre' && $rosters['taken'] == 'no' && $abs_diff[0] <= 1) {
+
+                        } else if ($abs_diff[1] == 'Sengkang Centre' && $rosters['need_relief'] == 'yes' && $abs_diff[0] <= 1) {
+
+                        
+
                             echo ('
                         <div class="card" style="width: 18rem;">');
 
@@ -226,7 +253,11 @@ $abs_diff = $later->diff($earlier)->format("%a"); //3
                         </div>
                     </div>
                     <br>');
-                        } else if ($abs_diff[1] == 'Sengkang Centre' && $rosters['taken'] == 'no' && $abs_diff[0] <= 2) {
+
+                        } else if ($abs_diff[1] == 'Sengkang Centre' && $rosters['need_relief'] == 'yes' && $abs_diff[0] <= 2) {
+
+                       
+
                             echo ('
                         <div class="card" style="width: 18rem;">');
 
@@ -235,6 +266,20 @@ $abs_diff = $later->diff($earlier)->format("%a"); //3
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
                             <p class="card-text">Date: ' . $rosters['date'] . '</p>
+                        </div>
+                    </div>
+                    <br>');
+                        }
+                        else if ($abs_diff[1] == 'Sengkang Centre' && $rosters['need_relief'] == 'no' ) {
+                            echo ('
+                        <div class="card" style="width: 18rem;">');
+
+                            echo ('<div class="card-body"style="background-color:white;">
+                            <h3 class="card-title">' . $rosters['subject'] . '</h3>
+                            <p class="card-text">Room: ' . $rosters['room'] . '</p>
+                            <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
+                            <p class="card-text">Date: ' . $rosters['date'] . '</p>
+                            <p class="card-text"style="font-weight:bold;">Taken! </p>
                         </div>
                     </div>
                     <br>');
@@ -257,7 +302,11 @@ $abs_diff = $later->diff($earlier)->format("%a"); //3
                         $earlier = new DateTime(date("Y-m-d"));
                         $later = new DateTime($rosters['date']);
                         array_push($abs_diff, $later->diff($earlier)->format("%a"), $rosters['centre_name']);
-                        if ($abs_diff[1] == 'Punggol Centre' && $rosters['taken'] == 'no' && $abs_diff[0] > 2) {
+
+                        if ($abs_diff[1] == 'Punggol Centre' && $rosters['need_relief'] == 'yes' && $abs_diff[0] > 2) {
+
+                      
+
                             echo ('
                         <div class="card" style="width: 18rem;">');
 
@@ -269,7 +318,11 @@ $abs_diff = $later->diff($earlier)->format("%a"); //3
                         </div>
                     </div>
                     <br>');
-                        } else if ($abs_diff[1] == 'Punggol Centre' && $rosters['taken'] == 'no' && $abs_diff[0] <= 1) {
+
+                        } else if ($abs_diff[1] == 'Punggol Centre' && $rosters['need_relief'] == 'yes' && $abs_diff[0] <= 1) {
+
+                       
+
                             echo ('
                         <div class="card" style="width: 18rem;">');
 
@@ -281,7 +334,11 @@ $abs_diff = $later->diff($earlier)->format("%a"); //3
                         </div>
                     </div>
                     <br>');
-                        } else if ($abs_diff[1] == 'Punggol Centre' && $rosters['taken'] == 'no' && $abs_diff[0] <= 2) {
+
+                        } else if ($abs_diff[1] == 'Punggol Centre' && $rosters['need_relief'] == 'yes' && $abs_diff[0] <= 2) {
+
+                        
+
                             echo ('
                         <div class="card" style="width: 18rem;">');
 
@@ -290,6 +347,20 @@ $abs_diff = $later->diff($earlier)->format("%a"); //3
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
                             <p class="card-text">Date: ' . $rosters['date'] . '</p>
+                        </div>
+                    </div>
+                    <br>');
+                        }
+                        else if ($abs_diff[1] == 'Punggol Centre' && $rosters['need_relief'] == 'no' ) {
+                            echo ('
+                        <div class="card" style="width: 18rem;">');
+
+                            echo ('<div class="card-body"style="background-color:white;">
+                            <h3 class="card-title">' . $rosters['subject'] . '</h3>
+                            <p class="card-text">Room: ' . $rosters['room'] . '</p>
+                            <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
+                            <p class="card-text">Date: ' . $rosters['date'] . '</p>
+                            <p class="card-text"style="font-weight:bold;">Taken! </p>
                         </div>
                     </div>
                     <br>');
@@ -311,7 +382,11 @@ $abs_diff = $later->diff($earlier)->format("%a"); //3
                         $earlier = new DateTime(date("Y-m-d"));
                         $later = new DateTime($rosters['date']);
                         array_push($abs_diff, $later->diff($earlier)->format("%a"), $rosters['centre_name']);
-                        if ($abs_diff[1] == 'Fernvale Centre' && $rosters['taken'] == 'no' && $abs_diff[0] > 2) {
+
+                        if ($abs_diff[1] == 'Fernvale Centre' && $rosters['need_relief'] == 'yes' && $abs_diff[0] > 2) {
+
+                       
+
                             echo ('
                         <div class="card" style="width: 18rem;">');
 
@@ -323,7 +398,11 @@ $abs_diff = $later->diff($earlier)->format("%a"); //3
                         </div>
                     </div>
                     <br>');
-                        } else if ($abs_diff[1] == 'Fernvale Centre' && $rosters['taken'] == 'no' && $abs_diff[0] <= 1) {
+
+                        } else if ($abs_diff[1] == 'Fernvale Centre' && $rosters['need_relief'] == 'yes' && $abs_diff[0] <= 1) {
+
+                       
+
                             echo ('
                         <div class="card" style="width: 18rem;">');
 
@@ -335,7 +414,10 @@ $abs_diff = $later->diff($earlier)->format("%a"); //3
                         </div>
                     </div>
                     <br>');
-                        } else if ($abs_diff[1] == 'Fernvale Centre' && $rosters['taken'] == 'no' && $abs_diff[0] <= 2) {
+
+                        } else if ($abs_diff[1] == 'Fernvale Centre' && $rosters['need_relief'] == 'yes' && $abs_diff[0] <= 2) {
+
+
                             echo ('
                         <div class="card" style="width: 18rem;">');
 
@@ -344,6 +426,20 @@ $abs_diff = $later->diff($earlier)->format("%a"); //3
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
                             <p class="card-text">Date: ' . $rosters['date'] . '</p>
+                        </div>
+                    </div>
+                    <br>');
+                        }
+                        else if ($abs_diff[1] == 'Fernvale Centre' && $rosters['need_relief'] == 'no' ) {
+                            echo ('
+                        <div class="card" style="width: 18rem;">');
+
+                            echo ('<div class="card-body"style="background-color:white;">
+                            <h3 class="card-title">' . $rosters['subject'] . '</h3>
+                            <p class="card-text">Room: ' . $rosters['room'] . '</p>
+                            <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
+                            <p class="card-text">Date: ' . $rosters['date'] . '</p>
+                            <p class="card-text"style="font-weight:bold;">Taken! </p>
                         </div>
                     </div>
                     <br>');
@@ -365,7 +461,11 @@ $abs_diff = $later->diff($earlier)->format("%a"); //3
                         $earlier = new DateTime(date("Y-m-d"));
                         $later = new DateTime($rosters['date']);
                         array_push($abs_diff, $later->diff($earlier)->format("%a"), $rosters['centre_name']);
-                        if ($abs_diff[1] == 'Teck Ghee Centre' && $rosters['taken'] == 'no' && $abs_diff[0] > 2) {
+
+                        if ($abs_diff[1] == 'Teck Ghee Centre' && $rosters['need_relief'] == 'yes' && $abs_diff[0] > 2) {
+
+                        
+
                             echo ('
                         <div class="card" style="width: 18rem;">');
 
@@ -377,7 +477,11 @@ $abs_diff = $later->diff($earlier)->format("%a"); //3
                         </div>
                     </div>
                     <br>');
-                        } else if ($abs_diff[1] == 'Teck Ghee Centre' && $rosters['taken'] == 'no' && $abs_diff[0] <= 1) {
+
+                        } else if ($abs_diff[1] == 'Teck Ghee Centre' && $rosters['need_relief'] == 'yes' && $abs_diff[0] <= 1) {
+
+                       
+
                             echo ('
                         <div class="card" style="width: 18rem;">');
 
@@ -389,7 +493,11 @@ $abs_diff = $later->diff($earlier)->format("%a"); //3
                         </div>
                     </div>
                     <br>');
-                        } else if ($abs_diff[1] == 'Teck Ghee Centre' && $rosters['taken'] == 'no' && $abs_diff[0] <= 2) {
+
+                        } else if ($abs_diff[1] == 'Teck Ghee Centre' && $rosters['need_relief'] == 'yes' && $abs_diff[0] <= 2) {
+
+                       
+
                             echo ('
                         <div class="card" style="width: 18rem;">');
 
@@ -398,6 +506,20 @@ $abs_diff = $later->diff($earlier)->format("%a"); //3
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
                             <p class="card-text">Date: ' . $rosters['date'] . '</p>
+                        </div>
+                    </div>
+                    <br>');
+                        }
+                        else if ($abs_diff[1] == 'Teck Ghee Centre' && $rosters['need_relief'] == 'no' ) {
+                            echo ('
+                        <div class="card" style="width: 18rem;">');
+
+                            echo ('<div class="card-body"style="background-color:white;">
+                            <h3 class="card-title">' . $rosters['subject'] . '</h3>
+                            <p class="card-text">Room: ' . $rosters['room'] . '</p>
+                            <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
+                            <p class="card-text">Date: ' . $rosters['date'] . '</p>
+                            <p class="card-text"style="font-weight:bold;">Taken! </p>
                         </div>
                     </div>
                     <br>');
@@ -419,7 +541,11 @@ $abs_diff = $later->diff($earlier)->format("%a"); //3
                         $earlier = new DateTime(date("Y-m-d"));
                         $later = new DateTime($rosters['date']);
                         array_push($abs_diff, $later->diff($earlier)->format("%a"), $rosters['centre_name']);
-                        if ($abs_diff[1] == 'Kolam Ayer Centre' && $rosters['taken'] == 'no' && $abs_diff[0] > 2) {
+
+                        if ($abs_diff[1] == 'Kolam Ayer Centre' && $rosters['need_relief'] == 'yes' && $abs_diff[0] > 2) {
+
+                        
+
                             echo ('
                         <div class="card" style="width: 18rem;">');
 
@@ -431,7 +557,11 @@ $abs_diff = $later->diff($earlier)->format("%a"); //3
                         </div>
                     </div>
                     <br>');
-                        } else if ($abs_diff[1] == 'Kolam Ayer Centre' && $rosters['taken'] == 'no' && $abs_diff[0] <= 1) {
+
+                        } else if ($abs_diff[1] == 'Kolam Ayer Centre' && $rosters['need_relief'] == 'yes' && $abs_diff[0] <= 1) {
+
+                        
+
                             echo ('
                         <div class="card" style="width: 18rem;">');
 
@@ -443,7 +573,11 @@ $abs_diff = $later->diff($earlier)->format("%a"); //3
                         </div>
                     </div>
                     <br>');
-                        } else if ($abs_diff[1] == 'Kolam Ayer Centre' && $rosters['taken'] == 'no' && $abs_diff[0] <= 2) {
+
+                        } else if ($abs_diff[1] == 'Kolam Ayer Centre' && $rosters['need_relief'] == 'yes' && $abs_diff[0] <= 2) {
+
+                        
+
                             echo ('
                         <div class="card" style="width: 18rem;">');
 
@@ -452,6 +586,20 @@ $abs_diff = $later->diff($earlier)->format("%a"); //3
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
                             <p class="card-text">Date: ' . $rosters['date'] . '</p>
+                        </div>
+                    </div>
+                    <br>');
+                        }
+                        else if ($abs_diff[1] == 'Kolam Ayer Centre' && $rosters['need_relief'] == 'no' ) {
+                            echo ('
+                        <div class="card" style="width: 18rem;">');
+
+                            echo ('<div class="card-body"style="background-color:white;">
+                            <h3 class="card-title">' . $rosters['subject'] . '</h3>
+                            <p class="card-text">Room: ' . $rosters['room'] . '</p>
+                            <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
+                            <p class="card-text">Date: ' . $rosters['date'] . '</p>
+                            <p class="card-text"style="font-weight:bold;">Taken! </p>
                         </div>
                     </div>
                     <br>');
