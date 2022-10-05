@@ -33,3 +33,8 @@ $user_data = check_login($con);
         }
 </style>
 
+<body>
+Hello Sir/Madam, 
+<br>YYD Education Centre is still growing and we value any feedback you can provide us. We will not disclose the information you provide us to anyone.
+<br>You can submit your feedback in this form below. Thank you for taking your time to provide us with insights and areas where we can improve on. Your feedback is greatly appreciated.
+</body>
