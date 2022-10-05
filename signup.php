@@ -198,7 +198,7 @@ if (isset($_POST["submit"])) {
 
 
         <button class="btn btn-primary text-center" type="submit" name="submit" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;">Sign Up</button>
-
+    <a href="login.php">Go To Login</a>
       </form>
     </div>
   </div>

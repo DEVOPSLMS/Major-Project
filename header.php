@@ -80,7 +80,7 @@
       ?>
       <?php if($role == 'l')
       {
-        echo('<a href="#"><li>Lessons</li></a>');
+        echo('<a href="centreroster.php"><li>Lessons</li></a>');
         echo('<a href="#"><li>Teachers</li></a>');
         echo('<a href="#"><li>Broadcast</li></a>');
       }

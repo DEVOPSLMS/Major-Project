@@ -143,7 +143,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
 
 
-<input type="date" value ="<?php echo date('Y-m-d') ?>"disabled>
+
 
 
 </body>

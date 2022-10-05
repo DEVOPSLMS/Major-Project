@@ -53,7 +53,7 @@ $user_data = check_login($con);
                                 <h1>Submit leave</h1>
                                 <p style="font-size:20px;">Submit your reasons of absence here.</p>
     
-                                <button class="btn btn-primary text-center  " type="submit" name="submit" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;width:100px ;margin-right:20px;float:right;">Submit</button>
+                                <a href="submitleave.php"><button class="btn btn-primary text-center  " type="submit" name="submit" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;width:100px ;margin-right:20px;float:right;">Submit</button></a>
     
     
                             </div>
@@ -214,7 +214,7 @@ $user_data = check_login($con);
                         <h1>Lessons</h1>
                         <p style="font-size:20px;">View or create lessons plans and assign it to the
     appropriate teachers</p>
-                        <button class="btn btn-primary text-center  " type="submit" name="submit" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;float:right;margin-top:140px;margin-right:20px;width:100px ;">View</button>
+                        <a href="centreroster.php"><button class="btn btn-primary text-center  " type="submit" name="submit" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;float:right;margin-top:140px;margin-right:20px;width:100px ;">View</button></a>
                     </div>
                 </div>
                 <div class="col-md-6 border border-dark" style="height:500px;">
