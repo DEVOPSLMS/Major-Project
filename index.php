@@ -131,9 +131,9 @@ $user_data = check_login($con);
                             <div class="details" style="margin-left:50px;margin-top:50px;">
                                 <h1>Schedule</h1>
                                 <p style="font-size:20px;">See your childs schedule here.</p>
-    
+                                <a href ="schedule.php">
                                 <button class="btn btn-primary text-center  " type="submit" name="submit" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;width:100px ;margin-right:20px;float:right;">View</button>
-    
+                                </a>
     
                             </div>
                         </div>
@@ -148,9 +148,9 @@ $user_data = check_login($con);
                                 <h1>Feedback</h1>
                                 <p style="font-size:20px;">Send us your feedback so we can improve to make your experience
                                 here better.</p>
-    
+                                <a href="feedback.php">
                                 <button class="btn btn-primary text-center  " type="submit" name="submit" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;width:100px ;margin-right:20px;margin-top:40px;float:right;">View</button>
-    
+                                </a>
     
                             </div>
                 </div>
@@ -160,7 +160,7 @@ $user_data = check_login($con);
                                 <p style="font-size:20px;">Send us your child results so we will know
                                 more about their progress</p>
     
-                                <button class="btn btn-primary text-center  " type="submit" name="submit" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;width:100px ;margin-right:20px;float:right;margin-top:40px;">Submit</button>
+                                <button class="btn btn-primary text-center  " type="submit" name="submit" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;width:100px ;margin-right:20px;float:right;margin-top:10px;">Submit</button>
     
     
                             </div>
