@@ -185,8 +185,10 @@ if (isset($_POST["submit"])) {
                         <option value="P2">P2</option>
                         <option value="P3">P3</option>
                         <option value="P4">P4</option>
-                        <option value="P5">P5</option>
-                        <option value="P6">P6</option>
+                        <option value="P5(N)">P5(N)</option>
+                        <option value="P5(F)">P5(F)</option>
+                        <option value="P6(N)">P6(N)</option>
+                        <option value="P6(F)">P6(F)</option>
 
                     </select>
                 </div>
