@@ -109,7 +109,7 @@ $user_data = check_login($con);
                     <div class="details" style="margin-left:50px;margin-top:200px;">
                         <h1>Enrolment</h1>
                         <p style="font-size:20px;">Submit the form to enrol your child here!</p>
-                        <button class="btn btn-primary text-center  " type="submit" name="submit" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;float:right;margin-top:140px;margin-right:20px;width:100px ;">Start Now</button>
+                        <a href="enrollment.php"><button class="btn btn-primary text-center  " type="submit" name="submit" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;float:right;margin-top:140px;margin-right:20px;width:100px ;">Start Now</button></a>
                     </div>
                 </div>
                 <div class="col-md-6 " style="height:500px;">
@@ -306,10 +306,10 @@ $user_data = check_login($con);
             <div class="row">
                 <div class="col-md-6 border border-dark" style="height:500px;">
                     <div class="details" style="margin-left:50px;margin-top:200px;">
-                        <h1>Enrolment</h1>
+                        <h1>Enrollment</h1>
                         <p style="font-size:20px;">View all new student enrolment information and send for
                         approval. </p>
-                        <button class="btn btn-primary text-center  " type="submit" name="submit" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;float:right;margin-top:140px;margin-right:20px;width:100px ;">View</button>
+                        <a href="enrollment.php"><button class="btn btn-primary text-center  " type="submit" name="submit" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;float:right;margin-top:140px;margin-right:20px;width:100px ;">View</button></a>
                     </div>
                 </div>
                 <div class="col-md-6 border border-dark" style="height:500px;">
