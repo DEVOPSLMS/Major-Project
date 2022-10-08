@@ -4,7 +4,8 @@ session_start();
 include("connection.php");
 include("functions.php");
 
-
+$query = "select * from user where role = 'teacher' ";
+$teacher = mysqli_query($con, $query);
 if (isset($_POST["submit"])) {
   $name = $_POST["username"];
   $email = $_POST["email"];

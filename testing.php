@@ -29,9 +29,9 @@ if (isset($_POST["submit"])) {
 
 
 
+$date = date("Y-m-d");
 
-
-
+$roster = mysqli_query($con, "SELECT * FROM roster ORDER BY date asc");
 $earlier = new DateTime(date("Y-m-d"));
 $later = new DateTime("2022-10-09");
 
@@ -77,16 +77,12 @@ $teacher = mysqli_query($con, $query);
             <div class="row">
                 <div class="col-lg-8">
                     <button class="btn btn-primary" style="float:right;margin-right:250px;" type="button" data-toggle="modal" data-target="#studentaddmodal">Add Lesson</button>
-<form method="POST" class="form">
-  
-<h3>Filter By Date: <input type="date" name="date"value=""id="date">
-<button class="btn btn-primary"  type="submit" name="hi">Filter</button>
-</form>
-                    
+
+                    <h3>Date: <input type="date" value="<?php echo (date('Y-m-d')); ?>">
 
 
                         <h4>Time: <?php echo date('H:i'); ?></h4>
-                        <h4>Today's Date: <?php echo date('H:i'); ?></h4>
+
                 </div>
 
 
@@ -116,189 +112,91 @@ $teacher = mysqli_query($con, $query);
                     <a href="roster.php?name=hougang" title="Click To See Roster">
                         <h3>Hougang</h3>
                     </a>
-                    <?php 
-                    if(!isset($_POST["submit"])){
-                        $date = date("Y-m-d");
-                        $roster = mysqli_query($con, "SELECT * FROM roster where date= '$date' ");
-                        
-                        foreach ($roster as $rosters) {
-                            $abs_diff = array();
-                            $difference = array();
-                            $all_timings = array();
-                            $calculated_timings = array();
-                            $datediff = array();
-                            $earlier = new DateTime(date("Y-m-d"));
-                            $later = new DateTime($rosters['date']);
-                            $datenow = new DateTime(date("H:i"));
-                            $timings = implode('', [$rosters['timing']]);
-                            $all_timings = substr($timings, 0, 2);
-                            // $calculated_timings =$all_timings *60;
-                            // $datediff = $datenow - $calculated_timings;
-                            $now = time(); // or your date as well
-                            $your_date = strtotime("2022-010-04");
-                            $datediff = $now - $your_date;
-    
-    
-                            array_push($abs_diff, $later->diff($earlier)->format("%a"), $rosters['centre_name']);
-    
-    
-    
-    
-    
-                            if ($abs_diff[1] == 'Hougang Centre' && $rosters['need_relief'] == 'yes' && $abs_diff[0] > 2) {
-                                echo ('
-                            <div class="card" style="width: 18rem;">');
-    
-                                echo ('<div class="card-body"style="background-color:yellow;">
-                                <h3 class="card-title">' . $rosters['subject'] . '</h3>
-                                <p class="card-text">Room: ' . $rosters['room'] . '</p>
-                                <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                                <p class="card-text">Date: ' . $rosters['date'] . '</p>
-                            </div>
-                        </div>
-                        <br>');
-                            } else if ($abs_diff[1] == 'Hougang Centre' && $rosters['need_relief'] == 'yes' && $abs_diff[0] <= 1) {
-    
-    
-    
-                                echo (' 
-                            <div class="card" style="width: 18rem;">');
-    
-                                echo ('<div class="card-body"style="background-color:red;">
-                       
-                                <h3 class="card-title">' . $rosters['subject'] . '</h3>
-                                <p class="card-text">Room: ' . $rosters['room'] . '</p>
-                                <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                                <p class="card-text">Date: ' . $rosters['date'] . '</p>
-                            </div>
-                        </div>
-                        <br>');
-                            } else if ($abs_diff[1] == 'Hougang Centre' && $rosters['need_relief'] == 'yes' && $abs_diff[0] <= 2) {
-    
-    
-    
-                                echo ('
-                            <div class="card" style="width: 18rem;">');
-    
-                                echo ('<div class="card-body"style="background-color:orange;">
-                                <h3 class="card-title">' . $rosters['subject'] . '</h3>
-                                <p class="card-text">Room: ' . $rosters['room'] . '</p>
-                                <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                                <p class="card-text">Date: ' . $rosters['date'] . '</p>
-                            </div>
-                        </div>
-                        <br>');
-                            } else if ($abs_diff[1] == 'Hougang Centre' && $rosters['need_relief'] == 'no') {
-    
-    
-    
-                                echo ('
-                            <div class="card" style="width: 18rem;">');
-    
-                                echo ('<div class="card-body"style="background-color:white;">
-                                <h3 class="card-title">' . $rosters['subject'] . '</h3>
-                                <p class="card-text">Room: ' . $rosters['room'] . '</p>
-                                <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                                <p class="card-text">Date: ' . $rosters['date'] . '</p>
-                                <p class="card-text"style="font-weight:bold;">Taken! </p>
-                            </div>
-                        </div>
-                        <br>');
-                            }
-                        }
+                    <?php foreach ($roster as $rosters) {
+                        $abs_diff = array();
+                        $difference = array();
+                        $all_timings = array();
+                        $calculated_timings = array();
+                        $datediff = array();
+                        $earlier = new DateTime(date("Y-m-d"));
+                        $later = new DateTime($rosters['date']);
+                        $datenow = new DateTime(date("H:i"));
+                        $timings = implode('', [$rosters['timing']]);
+                        $all_timings = substr($timings, 0, 2);
+                        // $calculated_timings =$all_timings *60;
+                        // $datediff = $datenow - $calculated_timings;
+                        $now = time(); // or your date as well
+                        $your_date = strtotime("2022-010-04");
+                        $datediff = $now - $your_date;
 
-                    }
-                    if(isset($_POST["hi"])){
-                        $date =  $_POST["date"];;
-                        $roster = mysqli_query($con, "SELECT * FROM roster where date= '$date' ");
-                        
-                        foreach ($roster as $rosters) {
-                            $abs_diff = array();
-                            $difference = array();
-                            $all_timings = array();
-                            $calculated_timings = array();
-                            $datediff = array();
-                            $earlier = new DateTime(date("Y-m-d"));
-                            $later = new DateTime($rosters['date']);
-                            $datenow = new DateTime(date("H:i"));
-                            $timings = implode('', [$rosters['timing']]);
-                            $all_timings = substr($timings, 0, 2);
-                            // $calculated_timings =$all_timings *60;
-                            // $datediff = $datenow - $calculated_timings;
-                            $now = time(); // or your date as well
-                            $your_date = strtotime("2022-010-04");
-                            $datediff = $now - $your_date;
-    
-    
-                            array_push($abs_diff, $later->diff($earlier)->format("%a"), $rosters['centre_name']);
-    
-    
-    
-    
-    
-                            if ($abs_diff[1] == 'Hougang Centre' && $rosters['need_relief'] == 'yes' && $abs_diff[0] > 2) {
-                                echo ('
-                            <div class="card" style="width: 18rem;">');
-    
-                                echo ('<div class="card-body"style="background-color:yellow;">
-                                <h3 class="card-title">' . $rosters['subject'] . '</h3>
-                                <p class="card-text">Room: ' . $rosters['room'] . '</p>
-                                <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                                <p class="card-text">Date: ' . $rosters['date'] . '</p>
-                            </div>
+
+                        array_push($abs_diff, $later->diff($earlier)->format("%a"), $rosters['centre_name']);
+
+
+
+
+
+                        if ($abs_diff[1] == 'Hougang Centre' && $rosters['need_relief'] == 'yes' && $abs_diff[0] > 2) {
+                            echo ('
+                        <div class="card" style="width: 18rem;">');
+
+                            echo ('<div class="card-body"style="background-color:yellow;">
+                            <h3 class="card-title">' . $rosters['subject'] . '</h3>
+                            <p class="card-text">Room: ' . $rosters['room'] . '</p>
+                            <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
+                            <p class="card-text">Date: ' . $rosters['date'] . '</p>
                         </div>
-                        <br>');
-                            } else if ($abs_diff[1] == 'Hougang Centre' && $rosters['need_relief'] == 'yes' && $abs_diff[0] <= 1) {
-    
-    
-    
-                                echo (' 
-                            <div class="card" style="width: 18rem;">');
-    
-                                echo ('<div class="card-body"style="background-color:red;">
-                       
-                                <h3 class="card-title">' . $rosters['subject'] . '</h3>
-                                <p class="card-text">Room: ' . $rosters['room'] . '</p>
-                                <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                                <p class="card-text">Date: ' . $rosters['date'] . '</p>
-                            </div>
+                    </div>
+                    <br>');
+                        } else if ($abs_diff[1] == 'Hougang Centre' && $rosters['need_relief'] == 'yes' && $abs_diff[0] <= 1) {
+
+
+
+                            echo (' 
+                        <div class="card" style="width: 18rem;">');
+
+                            echo ('<div class="card-body"style="background-color:red;">
+                   
+                            <h3 class="card-title">' . $rosters['subject'] . '</h3>
+                            <p class="card-text">Room: ' . $rosters['room'] . '</p>
+                            <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
+                            <p class="card-text">Date: ' . $rosters['date'] . '</p>
                         </div>
-                        <br>');
-                            } else if ($abs_diff[1] == 'Hougang Centre' && $rosters['need_relief'] == 'yes' && $abs_diff[0] <= 2) {
-    
-    
-    
-                                echo ('
-                            <div class="card" style="width: 18rem;">');
-    
-                                echo ('<div class="card-body"style="background-color:orange;">
-                                <h3 class="card-title">' . $rosters['subject'] . '</h3>
-                                <p class="card-text">Room: ' . $rosters['room'] . '</p>
-                                <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                                <p class="card-text">Date: ' . $rosters['date'] . '</p>
-                            </div>
+                    </div>
+                    <br>');
+                        } else if ($abs_diff[1] == 'Hougang Centre' && $rosters['need_relief'] == 'yes' && $abs_diff[0] <= 2) {
+
+
+
+                            echo ('
+                        <div class="card" style="width: 18rem;">');
+
+                            echo ('<div class="card-body"style="background-color:orange;">
+                            <h3 class="card-title">' . $rosters['subject'] . '</h3>
+                            <p class="card-text">Room: ' . $rosters['room'] . '</p>
+                            <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
+                            <p class="card-text">Date: ' . $rosters['date'] . '</p>
                         </div>
-                        <br>');
-                            } else if ($abs_diff[1] == 'Hougang Centre' && $rosters['need_relief'] == 'no') {
-    
-    
-    
-                                echo ('
-                            <div class="card" style="width: 18rem;">');
-    
-                                echo ('<div class="card-body"style="background-color:white;">
-                                <h3 class="card-title">' . $rosters['subject'] . '</h3>
-                                <p class="card-text">Room: ' . $rosters['room'] . '</p>
-                                <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                                <p class="card-text">Date: ' . $rosters['date'] . '</p>
-                                <p class="card-text"style="font-weight:bold;">Taken! </p>
-                            </div>
+                    </div>
+                    <br>');
+                        } else if ($abs_diff[1] == 'Hougang Centre' && $rosters['need_relief'] == 'no') {
+
+
+
+                            echo ('
+                        <div class="card" style="width: 18rem;">');
+
+                            echo ('<div class="card-body"style="background-color:white;">
+                            <h3 class="card-title">' . $rosters['subject'] . '</h3>
+                            <p class="card-text">Room: ' . $rosters['room'] . '</p>
+                            <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
+                            <p class="card-text">Date: ' . $rosters['date'] . '</p>
+                            <p class="card-text"style="font-weight:bold;">Taken! </p>
                         </div>
-                        <br>');
-                            }
+                    </div>
+                    <br>');
                         }
                     }
-                   
 
 
 
