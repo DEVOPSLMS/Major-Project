@@ -322,7 +322,7 @@ if (isset($_POST["submit"])) {
                 <div class="form-group row">
                     <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">Other salary*</label>
                     <div class="col-sm-10">
-                        <input type="number" class="form-control" style="width: 50%;" id="staticEmail" name="father_other">
+                        <input type="text" class="form-control" style="width: 50%;" id="staticEmail" name="father_other">
                     </div>
                 </div>
                 <h2>Particulars Of Mother</h2>
@@ -412,7 +412,7 @@ if (isset($_POST["submit"])) {
                 <div class="form-group row">
                     <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">Other salary*</label>
                     <div class="col-sm-10">
-                        <input type="number" class="form-control" style="width: 50%;" id="staticEmail" name="mother_other">
+                        <input type="text" class="form-control" style="width: 50%;" id="staticEmail" name="mother_other">
                     </div>
                 </div>
                 <h2>Particulars of guardian (applicable only in the event of both parents passing)</h2>

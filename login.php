@@ -119,6 +119,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
       <button class="btn btn-primary" type="submit" name="submit" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;margin:auto;">Login</button>
    
     </form>
+    <a href="signup.php">Sign Up</a>
     <br><br>
     <div class="row">
     <a href="quick_login.php?role=teacher"class="btn btn-primary"  name="teacher" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;width:80px;height:40px;">Teacher</a>
