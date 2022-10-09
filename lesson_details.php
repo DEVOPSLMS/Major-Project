@@ -5,11 +5,17 @@ include("connection.php");
 include("functions.php");
 
 $user_data = check_login($con);
+$username=$user_data['username'];
 $id = intval($_GET['id']);
+$username=$user_data['username'];
 $query = "select * from roster where id = '$id'";
 $result = mysqli_query($con, $query);
 $lesson_details = mysqli_fetch_assoc($result);
 $date= date('Y-m-d');
+$query = "select * from attendance where teacher_name = '$username'and classid='$id'";
+$result = mysqli_query($con, $query);
+$num=mysqli_num_rows($result);
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -44,9 +50,12 @@ $date= date('Y-m-d');
         else{
             echo('<i class="fa fa-circle" style="font-size:25px;margin-left:15px;color:red;"></i>');
         }?></h1>
-    <?php if($lesson_details['date'] == $date || $lesson_details['need_relief']== 'no'){
+    <?php if($lesson_details['date'] == $date && $lesson_details['need_relief']== 'no' && $num <= 0){
         echo('<a href="attendance.php?id='.$id.'"class="btn btn-primary"  name="hod" style="background-color:#F92C85;color:white;border-color:#F92C85;margin:auto;height:40px;">Mark Attendance</a>  ');
+    }else{
+        echo('<h3 style="font-weight:bold;">Attendance Taken!</h3>');
     }
     ?>
+    
 </body>
 </html>
