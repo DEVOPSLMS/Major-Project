@@ -6,6 +6,7 @@ include("functions.php");
 
 $user_data = check_login($con);
 $username = $user_data['username'];
+date_default_timezone_set('Singapore');
 ?>
 <!DOCTYPE html>
 <html>

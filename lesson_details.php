@@ -3,7 +3,7 @@ session_start();
 
 include("connection.php");
 include("functions.php");
-
+date_default_timezone_set('Singapore');
 $user_data = check_login($con);
 $username=$user_data['username'];
 $id = intval($_GET['id']);
@@ -50,11 +50,14 @@ $num=mysqli_num_rows($result);
         else{
             echo('<i class="fa fa-circle" style="font-size:25px;margin-left:15px;color:red;"></i>');
         }?></h1>
-    <?php if($lesson_details['date'] == $date && $lesson_details['need_relief']== 'no' && $num <= 0){
+    <?php if($lesson_details['date'] == $date && $lesson_details['need_relief']== 'no' && $num == 0){
         echo('<a href="attendance.php?id='.$id.'"class="btn btn-primary"  name="hod" style="background-color:#F92C85;color:white;border-color:#F92C85;margin:auto;height:40px;">Mark Attendance</a>  ');
-    }else{
-        echo('<h3 style="font-weight:bold;">Attendance Taken!</h3>');
     }
+        if($num > 0)
+        {
+            echo('<h3 style="font-weight:bold;">Attendance Taken!</h3>');
+        }
+    
     ?>
     
 </body>

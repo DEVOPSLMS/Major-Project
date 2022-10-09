@@ -5,13 +5,32 @@ include("connection.php");
 include("functions.php");
 
 $user_data = check_login($con);
-$id = intval($_GET['id']);
-$query = "select * from roster where id = '$id'";
+$class_id = intval($_GET['id']);
+$query = "select * from roster where id = '$class_id'";
 $result = mysqli_query($con, $query);
 $lesson_details = mysqli_fetch_assoc($result);
 $date = date('jS M');
 $students = (explode(',', $lesson_details['students']));
 $class = $lesson_details['timing'] . ' ' . $lesson_details['subject'] . ' ' . 'Class' . ' ' . $date;
+
+
+?>
+<?php 
+$country=file_get_contents('http://api.hostip.info/get_html.php?ip=');
+echo $country;
+
+// Reformat the data returned (Keep only country and country abbr.)
+$only_country=explode (" ", $country);
+
+
+?>
+<?php
+$query = @unserialize (file_get_contents('http://ip-api.com/php/'));
+if ($query && $query['status'] == 'success') {
+
+}
+
+$recorded=$query['zip'];
 
 
 ?>
@@ -27,7 +46,7 @@ if (isset($_POST["submit"])) {
         $date = date('Y-m-d');
 
 
-        $query = "insert into attendance(student_name,status,date,class,teacher_name,centre_name,classid) values ('$student','$status','$date','$class','$teacher_name','$centre_name','$id')";
+        $query = "insert into attendance(student_name,status,date,class,teacher_name,centre_name,classid,recorded_at) values ('$student','$status','$date','$class','$teacher_name','$centre_name','$class_id','$recorded')";
 
         mysqli_query($con, $query);
         if ($status == 'late') {
@@ -43,7 +62,7 @@ if (isset($_POST["submit"])) {
 
         echo ("<script>
             alert('Successfully Added');
-            document.location.href = 'lesson_details.php?id=$id';
+            document.location.href = 'lesson_details.php?id=$class_id';
           </script>");
     }
 }
