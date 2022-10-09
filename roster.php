@@ -158,15 +158,15 @@ if (isset($_POST["submit"])) {
                                 <label> Timing Of The Class </label>
 
                                 <select class="form-select" style="height:50px;font-size:20px;" name="timing" required>
-                                    <option selected>Timing</option>
-                                    <option value="13 - 1500" name="timing">1-3pm</option>
-                                    <option value="14 - 1600" name="timing">2-4pm</option>
-                                    <option value="16 - 1800" name="timing">4-6pm</option>
-                                    <option value="19 - 2000" name="timing">7-8pm</option>
-                                    <option value="20 - 2100" name="timing">8-9pm</option>
-                                    <option value="21 - 2200" name="timing">9-10pm</option>
+                                        <option selected>Timing</option>
+                                        <option value="1pm - 3pm" name="timing">1-3pm</option>
+                                        <option value="2pm - 4pm" name="timing">2-4pm</option>
+                                        <option value="4pm - 6pm" name="timing">4-6pm</option>
+                                        <option value="7pm - 8pm" name="timing">7-8pm</option>
+                                        <option value="8pm - 9pm" name="timing">8-9pm</option>
+                                        <option value="9pm - 10pm" name="timing">9-10pm</option>
 
-                                </select>
+                                    </select>
                             </div>
 
 

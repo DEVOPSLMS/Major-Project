@@ -10,62 +10,90 @@ if (isset($_POST["submit"])) {
   $name = $_POST["username"];
   $email = $_POST["email"];
   $number = $_POST["number"];
-  
+
 
   $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
   $image = $_FILES["image"];
   $userid = $_POST["userid"];
-  foreach($_POST['teach'] as $teach) {
-    
+  foreach ($_POST['teach'] as $teach) {
+
     $teachList = implode(', ', $_POST['teach']);
   }
-  foreach($_POST['preferred'] as $preferred) {
-    
+  foreach ($_POST['preferred'] as $preferred) {
+
     $preferredList = implode(', ', $_POST['preferred']);
   }
-    
-  if ($_FILES["image"]["error"] == 4) {
-    echo
-    "<script> alert('Image Does Not Exist'); </script>";
+  $query = "select * from user where username = '$name' limit 1";
+  $result = mysqli_query($con, $query);
+  $query2 = "select * from user where email = '$email' limit 1";
+  $see_email = mysqli_query($con, $query2);
+  $query3 = "select * from user where userid = '$userid' limit 1";
+  $see_userid = mysqli_query($con, $query3);
+  if ($result && mysqli_num_rows($result) > 0) {
+    echo '<div class="alert alert-primary" role="alert"style="text-align:center;">
+          <strong>Username is already been used!</strong> 
+          
+        </div>';
   } else {
-    $fileName = $_FILES["image"]["name"];
-    $fileSize = $_FILES["image"]["size"];
-    $tmpName = $_FILES["image"]["tmp_name"];
-
-    $validImageExtension = ['jpg', 'jpeg', 'png'];
-    $imageExtension = explode('.', $fileName);
-    $imageExtension = strtolower(end($imageExtension));
-    if (!in_array($imageExtension, $validImageExtension)) {
-      echo
-      "
-      <script>
-        alert('Invalid Image Extension');
-      </script>
-      ";
-    } else if ($fileSize > 1000000) {
-      echo
-      "
-      <script>
-        alert('Image Size Is Too Large');
-      </script>
-      ";
+    if ($see_email && mysqli_num_rows($see_email) > 0) {
+      echo '<div class="alert alert-primary" role="alert"style="text-align:center;">
+            <strong>Email is already been used!</strong> 
+            
+          </div>';
     } else {
-      $newImageName = uniqid();
-      $newImageName .= '.' . $imageExtension;
-
-      move_uploaded_file($tmpName, 'profile/' . $newImageName);
-      $user_id = random_num(20);
-      $query = "insert into user(email,username,userid,password,role,user_id,image,number,relief,preferred,teach,status) values ('$email','$name','$userid','$password','parent','$user_id','$newImageName','$number','yes','$preferredList','$teachList','present ')";
-
-      mysqli_query($con, $query);
-
-      echo
-      "
-      <script>
-        alert('Successfully Added');
-        document.location.href = 'login.php';
-      </script>
-      ";
+      if ($see_userid && mysqli_num_rows($see_userid) > 0) {
+        echo '<div class="alert alert-primary" role="alert"style="text-align:center;">
+              <strong>Userid is already been used!</strong> 
+              
+            </div>';
+      }
+      else{
+        if ($_FILES["image"]["error"] == 4) {
+          echo
+          "<script> alert('Image Does Not Exist'); </script>";
+        } else {
+          $fileName = $_FILES["image"]["name"];
+          $fileSize = $_FILES["image"]["size"];
+          $tmpName = $_FILES["image"]["tmp_name"];
+  
+          $validImageExtension = ['jpg', 'jpeg', 'png'];
+          $imageExtension = explode('.', $fileName);
+          $imageExtension = strtolower(end($imageExtension));
+          if (!in_array($imageExtension, $validImageExtension)) {
+            echo
+            "
+          <script>
+            alert('Invalid Image Extension');
+          </script>
+          ";
+          } else if ($fileSize > 1000000) {
+            echo
+            "
+          <script>
+            alert('Image Size Is Too Large');
+          </script>
+          ";
+          } else {
+            $newImageName = uniqid();
+            $newImageName .= '.' . $imageExtension;
+  
+            move_uploaded_file($tmpName, 'profile/' . $newImageName);
+            $user_id = random_num(20);
+            $query = "insert into user(email,username,userid,password,role,user_id,image,number,relief,preferred,teach,status) values ('$email','$name','$userid','$password','parent','$user_id','$newImageName','$number','yes','$preferredList','$teachList','present ')";
+  
+            mysqli_query($con, $query);
+  
+            echo
+            "
+          <script>
+            alert('Successfully Added');
+            document.location.href = 'login.php';
+          </script>
+          ";
+          }
+        }
+      }
+      
     }
   }
 }
@@ -130,65 +158,65 @@ if (isset($_POST["submit"])) {
 
         <label class="form-check-label" for="inlineCheckbox2">Preferred Centre</label>
         <br>
-        
+
         <div class="form-check form-check-inline">
-      
-      <input class="form-check-input"name="preferred[]" type="checkbox" id="inlineCheckbox1" value="Pasir Ris Centre">
-      <label class="form-check-label" for="inlineCheckbox1">Pasir Ris Centre</label>
-    </div>
-    <div class="form-check form-check-inline">
-      
-      <input class="form-check-input"name="preferred[]" type="checkbox" id="inlineCheckbox1" value="Tampines Centre">
-      <label class="form-check-label" for="inlineCheckbox1">Tampines Centre</label>
-    </div>
-    <div class="form-check form-check-inline">
-      
-      <input class="form-check-input"name="preferred[]" type="checkbox" id="inlineCheckbox1" value="Sengkang Centre">
-      <label class="form-check-label" for="inlineCheckbox1">Sengkang Centre</label>
-    </div>
-    <div class="form-check form-check-inline">
-      
-      <input class="form-check-input"name="preferred[]" type="checkbox" id="inlineCheckbox1" value="Simei Centre">
-      <label class="form-check-label" for="inlineCheckbox1">Simei Centre</label>
-    </div>
-    <br>
-    <label class="form-check-label" for="inlineCheckbox2">Avaliability</label>
-    <br>
+
+          <input class="form-check-input" name="preferred[]" type="checkbox" id="inlineCheckbox1" value="Pasir Ris Centre">
+          <label class="form-check-label" for="inlineCheckbox1">Pasir Ris Centre</label>
+        </div>
         <div class="form-check form-check-inline">
-      
-          <input class="form-check-input"name="teach[]" type="checkbox" id="inlineCheckbox1" value="Weekdays">
+
+          <input class="form-check-input" name="preferred[]" type="checkbox" id="inlineCheckbox1" value="Tampines Centre">
+          <label class="form-check-label" for="inlineCheckbox1">Tampines Centre</label>
+        </div>
+        <div class="form-check form-check-inline">
+
+          <input class="form-check-input" name="preferred[]" type="checkbox" id="inlineCheckbox1" value="Sengkang Centre">
+          <label class="form-check-label" for="inlineCheckbox1">Sengkang Centre</label>
+        </div>
+        <div class="form-check form-check-inline">
+
+          <input class="form-check-input" name="preferred[]" type="checkbox" id="inlineCheckbox1" value="Simei Centre">
+          <label class="form-check-label" for="inlineCheckbox1">Simei Centre</label>
+        </div>
+        <br>
+        <label class="form-check-label" for="inlineCheckbox2">Avaliability</label>
+        <br>
+        <div class="form-check form-check-inline">
+
+          <input class="form-check-input" name="teach[]" type="checkbox" id="inlineCheckbox1" value="Weekdays">
           <label class="form-check-label" for="inlineCheckbox1">Weekdays</label>
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input" name="teach[]"type="checkbox" id="inlineCheckbox2" value="Weekend">
+          <input class="form-check-input" name="teach[]" type="checkbox" id="inlineCheckbox2" value="Weekend">
           <label class="form-check-label" for="inlineCheckbox2">Weekend</label>
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input"name="teach[]" type="checkbox" id="inlineCheckbox2" value="Monday">
+          <input class="form-check-input" name="teach[]" type="checkbox" id="inlineCheckbox2" value="Monday">
           <label class="form-check-label" for="inlineCheckbox2">Monday</label>
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input"name="teach[]" type="checkbox" id="inlineCheckbox2" value="Tuesday">
+          <input class="form-check-input" name="teach[]" type="checkbox" id="inlineCheckbox2" value="Tuesday">
           <label class="form-check-label" for="inlineCheckbox2">Tuesday</label>
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input"name="teach[]" type="checkbox" id="inlineCheckbox2" value="Wednesday">
+          <input class="form-check-input" name="teach[]" type="checkbox" id="inlineCheckbox2" value="Wednesday">
           <label class="form-check-label" for="inlineCheckbox2">Wednesday</label>
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input"name="teach[]" type="checkbox" id="inlineCheckbox2" value="Thursday">
+          <input class="form-check-input" name="teach[]" type="checkbox" id="inlineCheckbox2" value="Thursday">
           <label class="form-check-label" for="inlineCheckbox2">Thursday</label>
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input"name="teach[]" type="checkbox" id="inlineCheckbox2" value="Friday">
+          <input class="form-check-input" name="teach[]" type="checkbox" id="inlineCheckbox2" value="Friday">
           <label class="form-check-label" for="inlineCheckbox2">Friday</label>
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input"name="teach[]" type="checkbox" id="inlineCheckbox2" value="Saturday">
+          <input class="form-check-input" name="teach[]" type="checkbox" id="inlineCheckbox2" value="Saturday">
           <label class="form-check-label" for="inlineCheckbox2">Saturday</label>
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input"name="teach[]" type="checkbox" id="inlineCheckbox2" value="Sunday">
+          <input class="form-check-input" name="teach[]" type="checkbox" id="inlineCheckbox2" value="Sunday">
           <label class="form-check-label" for="inlineCheckbox2">Sunday</label>
         </div>
         <div class="form-group">
@@ -199,7 +227,7 @@ if (isset($_POST["submit"])) {
 
 
         <button class="btn btn-primary text-center" type="submit" name="submit" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;">Sign Up</button>
-    <a href="login.php">Go To Login</a>
+        <a href="login.php">Go To Login</a>
       </form>
     </div>
   </div>
