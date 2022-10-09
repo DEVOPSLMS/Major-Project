@@ -15,8 +15,15 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
   if (!empty($user_name) && !empty($password) && !is_numeric($user_name)) {
 
     //read from database
-    $query = "select * from user where userid = '$user_name' and role= '$role' limit 1";
-    $result = mysqli_query($con, $query);
+    if($role == 'parent'){
+      $query = "select * from user where userid = '$user_name' and role= '$role' limit 1";
+      $result = mysqli_query($con, $query);
+    }
+    else{
+      $query = "select * from user where userid = '$user_name' ";
+      $result = mysqli_query($con, $query);
+    }
+    
 
     if ($result) {
       if ($result && mysqli_num_rows($result) > 0) {

@@ -16,14 +16,36 @@ $class = $lesson_details['timing'] . ' ' . $lesson_details['subject'] . ' ' . 'C
 
 ?>
 <?php
+
 if (isset($_POST["submit"])) {
-    foreach ($students as $student) {
-        print_r($student);
-        $name = $lesson_details["teacher_name"];
-       
+
+
+    foreach (array_combine($students, $_POST['status']) as $student => $status) {
+        $teacher_name = $lesson_details['teacher_name'];
+
+        $centre_name = $lesson_details['centre_name'];
+        $date = date('Y-m-d');
+
+
+        $query = "insert into attendance(student_name,status,date,class,teacher_name,centre_name,classid) values ('$student','$status','$date','$class','$teacher_name','$centre_name','$id')";
+
+        mysqli_query($con, $query);
+        if ($status == 'late') {
+    
+            $query = "select * from student where student_name = '$student' ";
+            $result = mysqli_query($con, $query);
+            $user_details = mysqli_fetch_assoc($result);
+            $id = $user_details['id'];
+            print_r($id);
+            $sql = "UPDATE `student` SET `late_counter`=+1 WHERE id=$id";
+            mysqli_query($con, $sql);
+        }
+
+        echo ("<script>
+            alert('Successfully Added');
+            document.location.href = 'lesson_details.php?id=$id';
+          </script>");
     }
-    $status = $_POST['status'];
-    print_r($status);
 }
 ?>
 <!DOCTYPE html>
@@ -43,7 +65,7 @@ if (isset($_POST["submit"])) {
 </header>
 
 <body>
-    <form method="POST" name="form1">
+    <form method="POST">
         <br>
         <a href="lesson_details.php?id=<?php echo ($id) ?>" class="btn btn-primary" name="hod" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;width:80px;height:40px;">Back</a>
         <br><br>
@@ -81,7 +103,7 @@ if (isset($_POST["submit"])) {
 
                 <th class="success">Student Name</th>
                 <th class="warning">Attendance <p class="active">
-                        <input type="checkbox" class="select-all checkbox" name="select-all" onclick="selectAll(form1)" />(Mark All As Present)
+                        <input type="checkbox" class="select-all checkbox" name="select-all" />(Mark All As Present)
                     </p>
                 </th>
                 <th class="danger">Remarks</th>
@@ -94,21 +116,28 @@ if (isset($_POST["submit"])) {
                     <td class="active" required>
 
 
-                        <input type="checkbox" class="select-item checkbox" name="status" value="present" />Present
-                        <input type="checkbox" class="select checkbox" name="status" value="late" />Late
-                        <input type="checkbox" class="select checkbox" name="status" value="absent" />Absent
-                       
+                        <input type="checkbox" class="select-item checkbox" name="status[]" value="present" />Present
+                        <input type="checkbox" class="select checkbox" name="status[]" value="late" />Late
+                        <input type="checkbox" class="select checkbox" name="status[]" value="absent" />Absent
+
 
 
                     </td>
                     <td class="success">
-                        <textarea class="form-control" rows="4" cols="50" style="width:100%;"></textarea>
+                        <div class="form-group ">
+
+                            <div class="col-sm-10">
+                                <textarea type="text" class="form-control" style="width: 100%;" id="staticEmail" name="remarks"></textarea>
+                            </div>
+                        </div>
                     </td>
 
 
 
                 </tr>
             <?php endforeach; ?>
+
+
 
 
         </table>

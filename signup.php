@@ -15,6 +15,7 @@ if (isset($_POST["submit"])) {
   $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
   $image = $_FILES["image"];
   $userid = $_POST["userid"];
+  $role = $_POST["role"];
   foreach ($_POST['teach'] as $teach) {
 
     $teachList = implode(', ', $_POST['teach']);
@@ -46,8 +47,7 @@ if (isset($_POST["submit"])) {
               <strong>Userid is already been used!</strong> 
               
             </div>';
-      }
-      else{
+      } else {
         if ($_FILES["image"]["error"] == 4) {
           echo
           "<script> alert('Image Does Not Exist'); </script>";
@@ -55,7 +55,7 @@ if (isset($_POST["submit"])) {
           $fileName = $_FILES["image"]["name"];
           $fileSize = $_FILES["image"]["size"];
           $tmpName = $_FILES["image"]["tmp_name"];
-  
+
           $validImageExtension = ['jpg', 'jpeg', 'png'];
           $imageExtension = explode('.', $fileName);
           $imageExtension = strtolower(end($imageExtension));
@@ -76,13 +76,13 @@ if (isset($_POST["submit"])) {
           } else {
             $newImageName = uniqid();
             $newImageName .= '.' . $imageExtension;
-  
+
             move_uploaded_file($tmpName, 'profile/' . $newImageName);
             $user_id = random_num(20);
-            $query = "insert into user(email,username,userid,password,role,user_id,image,number,relief,preferred,teach,status) values ('$email','$name','$userid','$password','parent','$user_id','$newImageName','$number','yes','$preferredList','$teachList','present ')";
-  
+            $query = "insert into user(email,username,userid,password,role,user_id,image,number,relief,preferred,teach,status) values ('$email','$name','$userid','$password','$role','$user_id','$newImageName','$number','yes','$preferredList','$teachList','present ')";
+
             mysqli_query($con, $query);
-  
+
             echo
             "
           <script>
@@ -93,7 +93,6 @@ if (isset($_POST["submit"])) {
           }
         }
       }
-      
     }
   }
 }
@@ -154,6 +153,18 @@ if (isset($_POST["submit"])) {
         <div class="mb-3">
 
           <input type="text" class="form-control" id="exampleFormControlInput1" name="number" placeholder="Phone Number">
+        </div>
+        <div class="mb-3">
+          <select class="form-select" name="role" required>
+            <option selected>Role Select</option>
+            <option value="parent">Parent</option>
+            <option value="l">L&D</option>
+            <option value="teacher">Teacher</option>
+            <option value="admin">Admin</option>
+            <option value="finance">Finance</option>
+            <option value="manager">Centre Manager</option>
+
+          </select>
         </div>
 
         <label class="form-check-label" for="inlineCheckbox2">Preferred Centre</label>
