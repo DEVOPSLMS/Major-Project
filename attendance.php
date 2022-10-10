@@ -17,7 +17,7 @@ $class = $lesson_details['timing'] . ' ' . $lesson_details['subject'] . ' ' . 'C
 ?>
 <?php 
 $country=file_get_contents('http://api.hostip.info/get_html.php?ip=');
-echo $country;
+
 
 // Reformat the data returned (Keep only country and country abbr.)
 $only_country=explode (" ", $country);
@@ -26,9 +26,6 @@ $only_country=explode (" ", $country);
 ?>
 <?php
 $query = @unserialize (file_get_contents('http://ip-api.com/php/'));
-if ($query && $query['status'] == 'success') {
-
-}
 
 $recorded=$query['zip'];
 
@@ -55,8 +52,21 @@ if (isset($_POST["submit"])) {
             $result = mysqli_query($con, $query);
             $user_details = mysqli_fetch_assoc($result);
             $id = $user_details['id'];
+            $parentid = $user_details['parentid'];
             print_r($id);
-            $sql = "UPDATE `student` SET `late_counter`=+1 WHERE id=$id";
+            $sql = "UPDATE `student` SET `late_counter`=`late_counter`+1 WHERE id=$id";
+            mysqli_query($con, $sql);
+            $query2 = "insert into notification(parentid,notification,status) values ('$parentid','$class','late')";
+            mysqli_query($con, $query2);
+        }
+        if ($status == 'absent') {
+    
+            $query = "select * from student where student_name = '$student' ";
+            $result = mysqli_query($con, $query);
+            $user_details = mysqli_fetch_assoc($result);
+            $id = $user_details['parentid'];
+         
+            $sql = "insert into notification(parentid,notification,status) values ('$id','$class','absent')";
             mysqli_query($con, $sql);
         }
 

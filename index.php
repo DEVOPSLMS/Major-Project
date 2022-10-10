@@ -81,7 +81,7 @@ $user_data = check_login($con);
                                 <h1>Check-in</h1>
                                 <p style="font-size:20px;">Click to check-in to the centre.</p>
     
-                                <button class="btn btn-primary text-center  " type="submit" name="submit" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;width:100px ;margin-right:20px;margin-top:40px;float:right;">Check-in</button>
+                                <a href="check-in.php"><button class="btn btn-primary text-center  " type="submit" name="submit" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;width:100px ;margin-right:20px;margin-top:40px;float:right;">Check-in</button></a>
     
     
                             </div>
@@ -309,7 +309,7 @@ $user_data = check_login($con);
                         <h1>Enrollment</h1>
                         <p style="font-size:20px;">View all new student enrolment information and send for
                         approval. </p>
-                        <a href="enrollment.php"><button class="btn btn-primary text-center  " type="submit" name="submit" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;float:right;margin-top:140px;margin-right:20px;width:100px ;">View</button></a>
+                        <a href="enrollment_review.php"><button class="btn btn-primary text-center  " type="submit" name="submit" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;float:right;margin-top:140px;margin-right:20px;width:100px ;">View</button></a>
                     </div>
                 </div>
                 <div class="col-md-6 border border-dark" style="height:500px;">

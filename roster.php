@@ -5,29 +5,28 @@ include("connection.php");
 include("functions.php");
 
 $user_data = check_login($con);
-$centre = strval($_GET['name']);
-
+$string = strval($_GET['name']);
+$centre = str_replace("-", " ", $string);
 ?>
 <?php
 $query = "select * from user where role = 'teacher' ";
 $teacher = mysqli_query($con, $query);
 $query = "select * from student where centre_name = '$centre Centre' ";
-$students= mysqli_query($con, $query);
+$students = mysqli_query($con, $query);
 
 foreach ($students as $s) {
- 
-$student[]=$s['student_name'];
 
-
-  
-      
+    $student[] = $s['student_name'];
+}
+if(!empty($student)){
+    $student_name = implode(',', ($student));
 }
 
-$student_name = implode(',', ($student));  
 
 if (isset($_POST["submit"])) {
-    $name = $_POST["teacher_name"];
     
+    $name = $_POST["teacher_name"];
+
     $subject = $_POST["subject"];
     $level = $_POST["level"];
     $timing = $_POST["timing"];
@@ -42,7 +41,7 @@ if (isset($_POST["submit"])) {
     "
         <script>
           alert('Successfully Added');
-          document.location.href = 'roster.php?name=".$centre."';
+          document.location.href = 'roster.php?name=" . $centre . "';
         </script>
         ";
 }
@@ -148,25 +147,25 @@ if (isset($_POST["submit"])) {
                             </div>
                             <div class="form-group">
                                 <label> Date </label>
-                                
-                                <input type="date" class="form-control" style="height:50px;font-size:20px;  " id="staticEmail"  name="date">
-                            
+
+                                <input type="date" class="form-control" style="height:50px;font-size:20px;  " id="staticEmail" name="date">
+
 
                             </div>
-                           
+
                             <div class="form-group">
                                 <label> Timing Of The Class </label>
 
                                 <select class="form-select" style="height:50px;font-size:20px;" name="timing" required>
-                                        <option selected>Timing</option>
-                                        <option value="1pm - 3pm" name="timing">1-3pm</option>
-                                        <option value="2pm - 4pm" name="timing">2-4pm</option>
-                                        <option value="4pm - 6pm" name="timing">4-6pm</option>
-                                        <option value="7pm - 8pm" name="timing">7-8pm</option>
-                                        <option value="8pm - 9pm" name="timing">8-9pm</option>
-                                        <option value="9pm - 10pm" name="timing">9-10pm</option>
+                                    <option selected>Timing</option>
+                                    <option value="1pm - 3pm" name="timing">1-3pm</option>
+                                    <option value="2pm - 4pm" name="timing">2-4pm</option>
+                                    <option value="4pm - 6pm" name="timing">4-6pm</option>
+                                    <option value="7pm - 8pm" name="timing">7-8pm</option>
+                                    <option value="8pm - 9pm" name="timing">8-9pm</option>
+                                    <option value="9pm - 10pm" name="timing">9-10pm</option>
 
-                                    </select>
+                                </select>
                             </div>
 
 
@@ -185,12 +184,12 @@ if (isset($_POST["submit"])) {
                             </div>
                             <div class="form-group">
                                 <label> Students </label>
-                                
-                          
-                               <textarea type="text" class="form-control" id="staticEmail" name="students"><?php echo($student_name)?></textarea>
+
+
+                                <textarea type="text" class="form-control" id="staticEmail" name="students"><?php echo ($student_name) ?></textarea>
 
                             </div>
-                            
+
 
                         </div>
                         <div class="modal-footer">
