@@ -316,7 +316,9 @@ $user_data = check_login($con);
                     <div class="details" style="margin-left:50px;margin-top:200px;">
                         <h1>Students</h1>
                         <p style="font-size:20px;">View and edit students details and information.</p>
+                        <a href="studentlist.php">
                         <button class="btn btn-primary text-center  " type="submit" name="submit" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;float:right;margin-top:140px;margin-right:20px;width:100px ;">View</button>
+                        </a>
                     </div>
                 </div>
                 <div class="col-lg-7 border border-dark " style="height:300px;">
