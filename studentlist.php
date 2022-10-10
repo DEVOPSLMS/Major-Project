@@ -67,9 +67,8 @@ $user_data = check_login($con);
                 <td>" . $row["centre_name"] . "</td> 
                 <td>" . $row["student_level"] . "</td>
                 <td>
-                
-                    <button class='btn btn-primary text-center' type='submit' name='submit' style='background-color:#5EBEC4;color:black;border-color:#5EBEC4;' >Transfer</button>
-
+                    <button class='btn btn-success editbtn' type='submit' name='submit' style='background-color:#5EBEC4;color:black;border-color:#5EBEC4;' >Transfer</button>
+                    <button class='btn btn-success deletebtn' type='submit' name='submit' style='background-color:#5EBEC4;color:black;border-color:#5EBEC4;' >Remove</button>
                 </td>
             </tr>";
             }
@@ -77,4 +76,121 @@ $user_data = check_login($con);
         </tbody>
     </table>
   </body>
+
+    <!-- Transfer student modal -->
+    <div class="modal fade" id="editmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"> Transfer student </h5>
+                </div>
+
+                <form action="transferstudent.php" method="POST">
+
+                    <div class="modal-body">
+                        <input type="hidden" name="update_id" id="update_id">
+                        <div class="form-group">
+
+                        <label> Location </label>
+                            <select class="col-sm-10 form-select" id="centre_name" name="centre_name" required>
+                                <option selected></option>
+                                <option value="Hougang Centre">Hougang Centre</option>
+                                <option value="Sengkang Centre">Sengkang Centre</option>
+                                <option value="Punggol Centre">Punggol Centre</option>
+                                <option value="Fernvale Centre">Fernvale Centre</option>
+                                <option value="Teck Ghee Centre">Teck Ghee Centre</option>
+                                <option value="Kolam Ayer Centre">Kolam Ayer Centre</option>
+
+                    </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class='btn btn-success' type="submit" name="updatedata" name='submit' style='background-color:#5EBEC4;color:black;border-color:#5EBEC4;'>Update centre</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+        <!-- DELETE POP UP FORM (Bootstrap MODAL) -->
+        <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"> Remove student data </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <form action="removestudent.php" method="POST">
+
+                    <div class="modal-body">
+
+                        <input type="hidden" name="delete_id" id="delete_id">
+
+                        <h4>Are you sure you want to remove student data?</h4>
+                    </div>
+                    <div class="modal-footer">
+                        <button class='btn btn-success' type="submit" name="updatedata" name='submit' style='background-color:#5EBEC4;color:black;border-color:#5EBEC4;'>Remove</button>
+                    </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+
+    <script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            $('.editbtn').on('click', function () {
+
+                $('#editmodal').modal('show');
+
+                $tr = $(this).closest('tr');
+
+                var data = $tr.children("td").map(function () {
+                    return $(this).text();
+                }).get();
+
+                console.log(data);
+
+                $('#update_id').val(data[0]);
+                $('#centre_name').val(data[1]);
+            });
+        });
+    </script>
+
+<script>
+        $(document).ready(function () {
+
+            $('.deletebtn').on('click', function () {
+
+                $('#deletemodal').modal('show');
+
+                $tr = $(this).closest('tr');
+
+                var data = $tr.children("td").map(function () {
+                    return $(this).text();
+                }).get();
+
+                console.log(data);
+
+                $('#delete_id').val(data[0]);
+
+            });
+        });
+    </script>
+
 </html>
