@@ -123,6 +123,9 @@ $username = $user_data['username'];
           echo ('<li class="nav-item">
           <a class="nav-link" href="enrollment.php"><li>Results</li></a>
           </li>');
+          echo ('<li class="nav-item">
+          <a class="nav-link" href="notification.php"><li>Notification</li></a>
+          </li>');
         }
         ?>
          <li class="nav-item">

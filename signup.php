@@ -118,7 +118,7 @@ if (isset($_POST["submit"])) {
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
-
+  
   <link rel="stylesheet" href="css/signup.css">
   <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
 
@@ -129,30 +129,57 @@ if (isset($_POST["submit"])) {
   </div>
   <hr class="solid">
 </header>
+<script>
+  // Example starter JavaScript for disabling form submissions if there are invalid fields
+(function () {
+  'use strict'
 
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  var forms = document.querySelectorAll('.needs-validation')
+
+  // Loop over them and prevent submission
+  Array.prototype.slice.call(forms)
+    .forEach(function (form) {
+      form.addEventListener('submit', function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+
+        form.classList.add('was-validated')
+      }, false)
+    })
+})()
+  </script>
 <body>
   <div class="container-fluid">
     <h1>Sign Up</h1>
     <div class="form-group">
-      <form id="form" method="POST" enctype="multipart/form-data" autocomplete="off">
+      <form id="form" method="POST" enctype="multipart/form-data" class="needs-validation"autocomplete="off">
         <div class="mb-3">
 
-          <input type="text" class="form-control" id="exampleFormControlInput1" name="email" placeholder="Email">
+          <input type="text" class="form-control" id="exampleFormControlInput1" name="email" placeholder="Email" required>
+          <div class="valid-tooltip">
+        Looks good!
+      </div>
+      <div class="invalid-tooltip">
+          Please choose a unique and valid username.
+        </div>
         </div>
         <div class="mb-3">
 
-          <input type="text" class="form-control" id="exampleFormControlInput1" name="username" placeholder="Username">
+          <input type="text" class="form-control" id="exampleFormControlInput1" name="username" placeholder="Username"required>
         </div>
         <div class="mb-3">
 
-          <input type="text" class="form-control" id="exampleFormControlInput1" name="userid" placeholder="Userid">
+          <input type="text" class="form-control" id="exampleFormControlInput1" name="userid" placeholder="Userid"required>
         </div>
         <div class="mb-3">
-          <input type="password" class="form-control" id="exampleFormControlInput1" name="password" placeholder="Password">
+          <input type="password" class="form-control" id="exampleFormControlInput1" name="password" placeholder="Password"required>
         </div>
         <div class="mb-3">
 
-          <input type="text" class="form-control" id="exampleFormControlInput1" name="number" placeholder="Phone Number">
+          <input type="text" class="form-control" id="exampleFormControlInput1" name="number" placeholder="Phone Number"required>
         </div>
         <div class="mb-3">
           <select class="form-select" name="role" required>
@@ -232,7 +259,7 @@ if (isset($_POST["submit"])) {
         </div>
         <div class="form-group">
           <label for="image">Profile Image : </label>
-          <input type="file" name="image" id="image" accept=".jpg, .jpeg, .png" value="">
+          <input type="file" name="image" id="image"required accept=".jpg, .jpeg, .png" value="">
         </div>
 
 
