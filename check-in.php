@@ -82,15 +82,17 @@ $checkin = mysqli_query($con, $query);
     </header>
 </header>
 <style>
-    .img-thumbnail{
-    transition:transform 0.25s ease;
-}
+    .img-thumbnail {
+        transition: transform 0.25s ease;
+    }
 
-.img-thumbnail:hover {
-    -webkit-transform:scale(1.5); /* or some other value */
-    transform:scale(1.5);
-}
-    </style>
+    .img-thumbnail:hover {
+        -webkit-transform: scale(1.5);
+        /* or some other value */
+        transform: scale(1.5);
+    }
+</style>
+
 <body>
     <div class="d-flex align-items-start">
         <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
@@ -143,45 +145,48 @@ $checkin = mysqli_query($con, $query);
                     </div>
                     <div class="tab-content col-lg-11 " id="v-pills-tabContent">
                         <?php foreach ($checkin as $check) : ?>
-                          <?php 
-                          $date=  date_format(new DateTime($check['time']),'H:i');
-                    
+                            <?php
+                            $date =  date_format(new DateTime($check['time']), 'H:i');
+
                             ?>
                             <div class="tab-pane fade" id="v-pills-<?php echo $check['id'] ?>" role="tabpanel" aria-labelledby="v-pills-<?php echo $check['id'] ?>-tab">
                                 <div class="row">
                                     <div class="col-lg-12">
-                                            <h3>Name:<?php echo $check['teacher_name']?></h3>
-                                            <h3>Location:Zip(<?php echo $check['location']?>)</h3>
-                                            <img src="checkin/<?php echo $check["image"]; ?>" alt="Admin" class="img-thumbnail" width="150"><h5>Hover To Enlarge!</h5>
+                                        <h3>Name:<?php echo $check['teacher_name'] ?></h3>
+                                        <h3>Location:Zip(<?php echo $check['location'] ?>)</h3>
+                                        <img src="checkin/<?php echo $check["image"]; ?>" alt="Admin" class="img-thumbnail" width="150">
+                                        <h5>Hover To Enlarge!</h5>
                                     </div>
                                     <div class="form-group col-lg-12">
-                                <label><h3>Feedback</h3>  </label>
+                                        <label>
+                                            <h3>Feedback</h3>
+                                        </label>
 
 
-                                <textarea type="text" class="form-control" id="staticEmail" name="students"><?php echo $check['feedback'] ?></textarea>
+                                        <textarea type="text" class="form-control" id="staticEmail" name="students"><?php echo $check['feedback'] ?></textarea>
 
-                            </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                            <h3>Time Taken:<?php echo ($date);?></h3>
-                                           
-                                    </div>
-                                    <div class="col-lg-6">
-                                            <h3>Date Taken:<?php echo $check['date']?></h3>
-                                           
                                     </div>
                                 </div>
+                                <div class="col-lg-12">
+                                    <h3>Time Taken:<?php echo ($date); ?></h3>
 
+                                </div>
+                                <div class="col-lg-6">
+                                    <h3>Date Taken:<?php echo $check['date'] ?></h3>
+
+                                </div>
                             </div>
+
+
 
                         <?php endforeach; ?>
                     </div>
-
                 </div>
 
             </div>
 
         </div>
+
     </div>
 
 
