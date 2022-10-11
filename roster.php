@@ -3,7 +3,7 @@ session_start();
 
 include("connection.php");
 include("functions.php");
-
+date_default_timezone_set('Singapore');
 $user_data = check_login($con);
 $string = strval($_GET['name']);
 $centre = str_replace("-", " ", $string);
@@ -26,7 +26,7 @@ if(!empty($student)){
 if (isset($_POST["submit"])) {
     
     $name = $_POST["teacher_name"];
-
+  
     $subject = $_POST["subject"];
     $level = $_POST["level"];
     $timing = $_POST["timing"];
@@ -34,7 +34,25 @@ if (isset($_POST["submit"])) {
     $room = $_POST["room"];
     $students = $_POST["students"];
     $day = $_POST["day"];
-    $query = "insert into roster(centre_name,subject,level,timing,teacher_name,need_relief,room,date,day,students) VALUES('$centre Centre', '$subject','$level','$timing','$name','no','$room','$date','$day','$students')";
+    if($timing == '1pm - 3pm'){
+        $time= '13:00:00';
+    }
+    if($timing == '2pm - 4pm'){
+        $time= '14:00:00';
+    }
+    if($timing == '4pm - 6pm'){
+        $time= '19:00:00';
+    }
+    if($timing == '7pm - 8pm'){
+        $time= '19:00:00';
+    }
+    if($timing == '8pm - 9pm'){
+        $time= '20:00:00';
+    }
+    if($timing == '9pm - 10pm'){
+        $time= '21:00:00';
+    }
+    $query = "insert into roster(centre_name,subject,level,timing,teacher_name,need_relief,room,date,day,students,time,cancelled) VALUES('$centre Centre', '$subject','$level','$timing','$name','no','$room','$date','$day','$students','$time','no')";
     mysqli_query($con, $query);
 
     echo
@@ -158,7 +176,7 @@ if (isset($_POST["submit"])) {
 
                                 <select class="form-select" style="height:50px;font-size:20px;" name="timing" required>
                                     <option selected>Timing</option>
-                                    <option value="1pm - 3pm" name="timing">1-3pm</option>
+                                    <option value="1pm - 3pm" name="timing">1-3pm </option>
                                     <option value="2pm - 4pm" name="timing">2-4pm</option>
                                     <option value="4pm - 6pm" name="timing">4-6pm</option>
                                     <option value="7pm - 8pm" name="timing">7-8pm</option>

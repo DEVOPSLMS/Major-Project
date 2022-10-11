@@ -42,7 +42,7 @@ $user_data = check_login($con);
                     <div class="details" style="margin-left:50px;margin-top:200px;">
                         <h1>Schedule</h1>
                         <p style="font-size:20px;">View timeslots of the classes that you have.</p>
-                        <a href="schedule.php"><button class="btn btn-primary text-center  " type="submit" name="submit" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;float:right;margin-top:140px;margin-right:20px;width:100px ;">View</button></a>
+                        <a href="schedule_teacher.php"><button class="btn btn-primary text-center  " type="submit" name="submit" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;float:right;margin-top:140px;margin-right:20px;width:100px ;">View</button></a>
                     </div>
                 </div>
                 <div class="col-md-6 " style="height:500px;">
@@ -65,7 +65,7 @@ $user_data = check_login($con);
                                 <h1>Attendance</h1>
                                 <p style="font-size:20px;">Click to mark attendance for your classes.</p>
     
-                                <button class="btn btn-primary text-center  " type="submit" name="submit" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;width:100px ;margin-right:20px;float:right;">View</button>
+                                <a href="schedule.php"><button class="btn btn-primary text-center  " type="submit" name="submit" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;width:100px ;margin-right:20px;float:right;">View</button></a>
     
     
                             </div>
@@ -221,7 +221,7 @@ $user_data = check_login($con);
                     <div class="details" style="margin-left:50px;margin-top:200px;">
                         <h1>Teachers</h1>
                         <p style="font-size:20px;">View the teachers profile and information.</p>
-                        <button class="btn btn-primary text-center  " type="submit" name="submit" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;float:right;margin-top:140px;margin-right:20px;width:100px ;">View</button>
+                        <a href="teacher.php"><button class="btn btn-primary text-center  " type="submit" name="submit" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;float:right;margin-top:140px;margin-right:20px;width:100px ;">View</button></a>
                     </div>
                 </div>
                 <div class="col-lg-7 border border-dark text-center" style="height:300px;">

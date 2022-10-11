@@ -58,7 +58,7 @@ $user_data = check_login($con);
 
             $connection = new mysqli($servername, $username, $password, $database);
             
-            $sql = "SELECT * FROM student";
+            $sql = "SELECT * FROM student WHERE status='Enrolled'";
             $result = $connection->query($sql);
 
             while($row = $result->fetch_assoc()){
