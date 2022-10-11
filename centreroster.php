@@ -3,7 +3,7 @@ session_start();
 
 include("connection.php");
 include("functions.php");
-
+error_reporting(E_ERROR | E_PARSE);
 $user_data = check_login($con);
 $username = $user_data['username'];
 
@@ -77,16 +77,16 @@ $teacher = mysqli_query($con, $query);
             <div class="row">
                 <div class="col-lg-8">
                     <button class="btn btn-primary" style="float:right;margin-right:250px;" type="button" data-toggle="modal" data-target="#studentaddmodal">Add Lesson</button>
-<form method="POST" class="form">
-  
-<h3>Filter By Date: <input type="date" name="date"value=""id="date">
-<button class="btn btn-primary"  type="submit" name="hi">Filter</button>
-</form>
-                    
+                    <form method="POST" class="form">
+
+                        <h3>Filter By Date: <input type="date" name="date" value="" id="date">
+                            <button class="btn btn-primary" type="submit" name="hi">Filter</button>
+                    </form>
 
 
-                        <h4>Time: <?php echo date('H:i'); ?></h4>
-                        <h4>Today's Date: <?php echo date('Y-m-d'); ?></h4>
+
+                    <h4>Time: <?php echo date('H:i'); ?></h4>
+                    <h4>Today's Date: <?php echo date('Y-m-d'); ?></h4>
                 </div>
 
 
@@ -116,12 +116,13 @@ $teacher = mysqli_query($con, $query);
                     <a href="roster.php?name=hougang" title="Click To See Roster">
                         <h3>Hougang</h3>
                     </a>
-                    <?php 
-                    if(!isset($_POST["hi"])){
+                    <?php
+                    if (!isset($_POST["hi"])) {
                         $date = date("Y-m-d");
                         $roster = mysqli_query($con, "SELECT * FROM roster where date= '$date' ");
-                        
+                       
                         foreach ($roster as $rosters) {
+                            
                             $abs_diff = array();
                             $difference = array();
                             $all_timings = array();
@@ -137,18 +138,26 @@ $teacher = mysqli_query($con, $query);
                             $now = time(); // or your date as well
                             $your_date = strtotime("2022-010-04");
                             $datediff = $now - $your_date;
-    
-    
+                            $time_now = (date("H:i:s"));
+                            
+                            $to_time = strtotime($rosters['time']);
+                          
+                            $from_time = strtotime($time_now);
+                            $time=round($to_time -$from_time )/60;
+                         
+                            $total_time = round(abs($to_time - $time_now) / 60);
+                            
+                            $id = $rosters['id'];
                             array_push($abs_diff, $later->diff($earlier)->format("%a"), $rosters['centre_name']);
-    
-    
-    
-    
-    
+                           
+                            
+
+
+
                             if ($abs_diff[1] == 'Hougang Centre' && $rosters['need_relief'] == 'yes' && $abs_diff[0] > 2) {
                                 echo ('
                             <div class="card" style="width: 18rem;">');
-    
+
                                 echo ('<div class="card-body"style="background-color:yellow;">
                                 <h3 class="card-title">' . $rosters['subject'] . '</h3>
                                 <p class="card-text">Room: ' . $rosters['room'] . '</p>
@@ -158,28 +167,40 @@ $teacher = mysqli_query($con, $query);
                         </div>
                         <br>');
                             } else if ($abs_diff[1] == 'Hougang Centre' && $rosters['need_relief'] == 'yes' && $abs_diff[0] <= 1) {
-    
-    
-    
+
+
+
                                 echo (' 
                             <div class="card" style="width: 18rem;">');
-    
+
                                 echo ('<div class="card-body"style="background-color:red;">
                        
                                 <h3 class="card-title">' . $rosters['subject'] . '</h3>
                                 <p class="card-text">Room: ' . $rosters['room'] . '</p>
                                 <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                                <p class="card-text">Date: ' . $rosters['date'] . '</p>
-                            </div>
+                                <p class="card-text">Date: ' . $rosters['date'] . '</p>');
+                                if ($time < 30 && $time >= 0) {
+                                    
+                                    echo ('<p class="card-text">Cancelling in ' . $time . ' minutes </p>');
+                                } if ($time == 0) {
+                            
+                                    $sql = mysqli_query($con,"UPDATE `roster` SET `cancelled`='yes' WHERE id=$id");
+                                    
+                                } 
+                                if($rosters['cancelled']=='yes')
+                                {
+                                    echo ('<p class="card-text">Cancelled</p>');
+                                }
+                                echo ('</div>
                         </div>
                         <br>');
                             } else if ($abs_diff[1] == 'Hougang Centre' && $rosters['need_relief'] == 'yes' && $abs_diff[0] <= 2) {
-    
-    
-    
+
+
+
                                 echo ('
                             <div class="card" style="width: 18rem;">');
-    
+
                                 echo ('<div class="card-body"style="background-color:orange;">
                                 <h3 class="card-title">' . $rosters['subject'] . '</h3>
                                 <p class="card-text">Room: ' . $rosters['room'] . '</p>
@@ -189,12 +210,12 @@ $teacher = mysqli_query($con, $query);
                         </div>
                         <br>');
                             } else if ($abs_diff[1] == 'Hougang Centre' && $rosters['need_relief'] == 'no') {
-    
-    
-    
+
+
+
                                 echo ('
                             <div class="card" style="width: 18rem;">');
-    
+
                                 echo ('<div class="card-body"style="background-color:white;">
                                 <h3 class="card-title">' . $rosters['subject'] . '</h3>
                                 <p class="card-text">Room: ' . $rosters['room'] . '</p>
@@ -206,12 +227,11 @@ $teacher = mysqli_query($con, $query);
                         <br>');
                             }
                         }
-
                     }
-                    if(isset($_POST["hi"])){
+                    if (isset($_POST["hi"])) {
                         $date =  $_POST["date"];;
                         $roster = mysqli_query($con, "SELECT * FROM roster where date= '$date' ");
-                        
+
                         foreach ($roster as $rosters) {
                             $abs_diff = array();
                             $difference = array();
@@ -228,18 +248,22 @@ $teacher = mysqli_query($con, $query);
                             $now = time(); // or your date as well
                             $your_date = strtotime("2022-010-04");
                             $datediff = $now - $your_date;
-    
-    
+                            $time_now = (date("H:i:s"));
+                            $to_time = strtotime($rosters['time']);
+                            $from_time = strtotime($time_now);
+                            $total_time = round(abs($to_time - $time_now) / 60, 2);
+                            $id = $rosters['id'];
+                            $time=round($to_time -$from_time )/60;
                             array_push($abs_diff, $later->diff($earlier)->format("%a"), $rosters['centre_name']);
-    
-    
-    
-    
-    
+
+
+
+
+
                             if ($abs_diff[1] == 'Hougang Centre' && $rosters['need_relief'] == 'yes' && $abs_diff[0] > 2) {
                                 echo ('
                             <div class="card" style="width: 18rem;">');
-    
+
                                 echo ('<div class="card-body"style="background-color:yellow;">
                                 <h3 class="card-title">' . $rosters['subject'] . '</h3>
                                 <p class="card-text">Room: ' . $rosters['room'] . '</p>
@@ -249,28 +273,33 @@ $teacher = mysqli_query($con, $query);
                         </div>
                         <br>');
                             } else if ($abs_diff[1] == 'Hougang Centre' && $rosters['need_relief'] == 'yes' && $abs_diff[0] <= 1) {
-    
-    
-    
+
+
+
                                 echo (' 
                             <div class="card" style="width: 18rem;">');
-    
+
                                 echo ('<div class="card-body"style="background-color:red;">
                        
                                 <h3 class="card-title">' . $rosters['subject'] . '</h3>
                                 <p class="card-text">Room: ' . $rosters['room'] . '</p>
                                 <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                                <p class="card-text">Date: ' . $rosters['date'] . '</p>
-                            </div>
+                                <p class="card-text">Date: ' . $rosters['date'] . '</p>');
+                               
+                                if($rosters['cancelled']=='yes')
+                                {
+                                    echo ('<p class="card-text">Cancelled</p>');
+                                }
+                     echo('     </div>
                         </div>
                         <br>');
                             } else if ($abs_diff[1] == 'Hougang Centre' && $rosters['need_relief'] == 'yes' && $abs_diff[0] <= 2) {
-    
-    
-    
+
+
+
                                 echo ('
                             <div class="card" style="width: 18rem;">');
-    
+
                                 echo ('<div class="card-body"style="background-color:orange;">
                                 <h3 class="card-title">' . $rosters['subject'] . '</h3>
                                 <p class="card-text">Room: ' . $rosters['room'] . '</p>
@@ -280,12 +309,12 @@ $teacher = mysqli_query($con, $query);
                         </div>
                         <br>');
                             } else if ($abs_diff[1] == 'Hougang Centre' && $rosters['need_relief'] == 'no') {
-    
-    
-    
+
+
+
                                 echo ('
                             <div class="card" style="width: 18rem;">');
-    
+
                                 echo ('<div class="card-body"style="background-color:white;">
                                 <h3 class="card-title">' . $rosters['subject'] . '</h3>
                                 <p class="card-text">Room: ' . $rosters['room'] . '</p>
@@ -298,7 +327,7 @@ $teacher = mysqli_query($con, $query);
                             }
                         }
                     }
-                   
+
 
 
 
@@ -320,7 +349,17 @@ $teacher = mysqli_query($con, $query);
                         $later = new DateTime($rosters['date']);
                         array_push($abs_diff, $later->diff($earlier)->format("%a"), $rosters['centre_name']);
 
-
+                        $time_now = (date("H:i:s"));
+                            $to_time = strtotime($rosters['time']);
+                            $from_time = strtotime($time_now);
+                            $total_time = round(abs($to_time - $time_now) / 60, 2);
+                            $time_now = (date("H:i:s"));
+                            $to_time = strtotime($rosters['time']);
+                            $from_time = strtotime($time_now);
+                            $total_time = round(abs($to_time - $time_now) / 60, 2);
+                            $id = $rosters['id'];
+                            $time=round($to_time -$from_time )/60;
+                        $id=$rosters['id'];
                         if ($abs_diff[1] == 'Sengkang Centre' && $rosters['need_relief'] == 'yes' && $abs_diff[0] > 2) {
 
 
@@ -348,8 +387,11 @@ $teacher = mysqli_query($con, $query);
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                            <p class="card-text">Date: ' . $rosters['date'] . '</p>
-                        </div>
+                            <p class="card-text">Date: ' . $rosters['date'] . '</p>');
+                              if($rosters['cancelled']=='yes'){
+                                echo ('Cancelled');
+                            }
+                       echo(' </div>
                     </div>
                     <br>');
                         } else if ($abs_diff[1] == 'Sengkang Centre' && $rosters['need_relief'] == 'yes' && $abs_diff[0] <= 2) {
@@ -399,7 +441,11 @@ $teacher = mysqli_query($con, $query);
                         $earlier = new DateTime(date("Y-m-d"));
                         $later = new DateTime($rosters['date']);
                         array_push($abs_diff, $later->diff($earlier)->format("%a"), $rosters['centre_name']);
-
+                        $time_now = (date("H:i:s"));
+                        $to_time = strtotime($rosters['time']);
+                        $from_time = strtotime($time_now);
+                        $total_time = round(abs($to_time - $time_now) / 60, 2);
+                    $id=$rosters['id'];
                         if ($abs_diff[1] == 'Punggol Centre' && $rosters['need_relief'] == 'yes' && $abs_diff[0] > 2) {
 
 
@@ -426,8 +472,11 @@ $teacher = mysqli_query($con, $query);
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                            <p class="card-text">Date: ' . $rosters['date'] . '</p>
-                        </div>
+                            <p class="card-text">Date: ' . $rosters['date'] . '</p>');
+                            if($rosters['cancelled']=='yes'){
+                                echo ('Cancelled');
+                            }
+                       echo(' </div>
                     </div>
                     <br>');
                         } else if ($abs_diff[1] == 'Punggol Centre' && $rosters['need_relief'] == 'yes' && $abs_diff[0] <= 2) {
@@ -476,7 +525,11 @@ $teacher = mysqli_query($con, $query);
                         $earlier = new DateTime(date("Y-m-d"));
                         $later = new DateTime($rosters['date']);
                         array_push($abs_diff, $later->diff($earlier)->format("%a"), $rosters['centre_name']);
-
+                        $time_now = (date("H:i:s"));
+                        $to_time = strtotime($rosters['time']);
+                        $from_time = strtotime($time_now);
+                        $total_time = round(abs($to_time - $time_now) / 60, 2);
+                    $id=$rosters['id'];
                         if ($abs_diff[1] == 'Fernvale Centre' && $rosters['need_relief'] == 'yes' && $abs_diff[0] > 2) {
 
 
@@ -503,8 +556,11 @@ $teacher = mysqli_query($con, $query);
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                            <p class="card-text">Date: ' . $rosters['date'] . '</p>
-                        </div>
+                            <p class="card-text">Date: ' . $rosters['date'] . '</p>');
+                            if($rosters['cancelled']=='yes'){
+                                echo ('Cancelled');
+                            }
+                        echo('</div>
                     </div>
                     <br>');
                         } else if ($abs_diff[1] == 'Fernvale Centre' && $rosters['need_relief'] == 'yes' && $abs_diff[0] <= 2) {
@@ -552,7 +608,11 @@ $teacher = mysqli_query($con, $query);
                         $earlier = new DateTime(date("Y-m-d"));
                         $later = new DateTime($rosters['date']);
                         array_push($abs_diff, $later->diff($earlier)->format("%a"), $rosters['centre_name']);
-
+                        $time_now = (date("H:i:s"));
+                        $to_time = strtotime($rosters['time']);
+                        $from_time = strtotime($time_now);
+                        $total_time = round(abs($to_time - $time_now) / 60, 2);
+                    $id=$rosters['id'];
                         if ($abs_diff[1] == 'Teck Ghee Centre' && $rosters['need_relief'] == 'yes' && $abs_diff[0] > 2) {
 
 
@@ -579,8 +639,11 @@ $teacher = mysqli_query($con, $query);
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                            <p class="card-text">Date: ' . $rosters['date'] . '</p>
-                        </div>
+                            <p class="card-text">Date: ' . $rosters['date'] . '</p>');
+                            if($rosters['cancelled']=='yes'){
+                                echo ('Cancelled');
+                            }
+                        echo('</div>
                     </div>
                     <br>');
                         } else if ($abs_diff[1] == 'Teck Ghee Centre' && $rosters['need_relief'] == 'yes' && $abs_diff[0] <= 2) {
@@ -629,7 +692,11 @@ $teacher = mysqli_query($con, $query);
                         $earlier = new DateTime(date("Y-m-d"));
                         $later = new DateTime($rosters['date']);
                         array_push($abs_diff, $later->diff($earlier)->format("%a"), $rosters['centre_name']);
-
+                        $time_now = (date("H:i:s"));
+                        $to_time = strtotime($rosters['time']);
+                        $from_time = strtotime($time_now);
+                        $total_time = round(abs($to_time - $time_now) / 60, 2);
+                    $id=$rosters['id'];
                         if ($abs_diff[1] == 'Kolam Ayer Centre' && $rosters['need_relief'] == 'yes' && $abs_diff[0] > 2) {
 
 
@@ -656,8 +723,11 @@ $teacher = mysqli_query($con, $query);
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                            <p class="card-text">Date: ' . $rosters['date'] . '</p>
-                        </div>
+                            <p class="card-text">Date: ' . $rosters['date'] . '</p>');
+                            if($rosters['cancelled']=='yes'){
+                                echo ('Cancelled');
+                            }
+                        echo('</div>
                     </div>
                     <br>');
                         } else if ($abs_diff[1] == 'Kolam Ayer Centre' && $rosters['need_relief'] == 'yes' && $abs_diff[0] <= 2) {
@@ -723,37 +793,37 @@ $teacher = mysqli_query($con, $query);
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
-                               
+
                                 <div class="form-group">
                                     <label>Centre </label>
                                     <select class="form-select" style="height:50px;font-size:20px;" required name="centre">
-                                    <option selected>Choose Centre</option>
+                                        <option selected>Choose Centre</option>
 
-                                    <option value="Hougang Centre">Hougang Centre</option>
-                                    <option value="Sengkang Centre">Sengkang Centre</option>
-                                    <option value="Punggol Centre">Punggol Centre</option>
-                                    <option value="Fernvale Centre">Fernvale Centre</option>
-                                    <option value="Teck Ghee Centre">Teck Ghee Centre</option>
-                                    <option value="Kolam Ayer Centre">Kolam Ayer Centre</option>
+                                        <option value="Hougang Centre">Hougang Centre</option>
+                                        <option value="Sengkang Centre">Sengkang Centre</option>
+                                        <option value="Punggol Centre">Punggol Centre</option>
+                                        <option value="Fernvale Centre">Fernvale Centre</option>
+                                        <option value="Teck Ghee Centre">Teck Ghee Centre</option>
+                                        <option value="Kolam Ayer Centre">Kolam Ayer Centre</option>
 
-                                </select>
+                                    </select>
                                 </div>
                                 <div class="form-group">
-                                <label>Level* </label>
-                                <select class="form-select" style="height:50px;font-size:20px;" required name="level">
-                                    <option selected>Choose Level</option>
+                                    <label>Level* </label>
+                                    <select class="form-select" style="height:50px;font-size:20px;" required name="level">
+                                        <option selected>Choose Level</option>
 
-                                    <option value="P1">P1</option>
-                                    <option value="P2">P2</option>
-                                    <option value="P3">P3</option>
-                                    <option value="P4">P4</option>
-                                    <option value="P5(N)">P5(N)</option>
-                                    <option value="P5(F)">P5(F)</option>
-                                    <option value="P6(N)">P6(N)</option>
-                                    <option value="P6(F)">P6(F)</option>
+                                        <option value="P1">P1</option>
+                                        <option value="P2">P2</option>
+                                        <option value="P3">P3</option>
+                                        <option value="P4">P4</option>
+                                        <option value="P5(N)">P5(N)</option>
+                                        <option value="P5(F)">P5(F)</option>
+                                        <option value="P6(N)">P6(N)</option>
+                                        <option value="P6(F)">P6(F)</option>
 
-                                </select>
-                            </div>
+                                    </select>
+                                </div>
                                 <div class="form-group">
                                     <label> Class Subject </label>
                                     <select class="form-select" style="height:50px;font-size:20px;" required name="subject">
