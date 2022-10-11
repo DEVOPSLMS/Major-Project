@@ -109,7 +109,7 @@ $username = $user_data['username'];
         ?>
           <?php if ($role == 'parent' || $role == 'admin') {
           echo ('<li class="nav-item">
-          <a class="nav-link" href="enrollment.php"><li>Enrollment</li></a>
+          <a class="nav-link" href="enrollment_review.php"><li>Enrollment</li></a>
           </li>');
         }
 ?>
