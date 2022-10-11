@@ -159,7 +159,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -172,7 +172,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -187,7 +187,7 @@ $day = date('l', strtotime($date));
                             
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -200,7 +200,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -216,7 +216,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -232,7 +232,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -248,7 +248,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -264,7 +264,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -282,7 +282,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -298,7 +298,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -316,7 +316,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -334,7 +334,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -391,7 +391,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -404,7 +404,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -417,7 +417,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -430,7 +430,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -447,7 +447,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -462,7 +462,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -477,7 +477,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -492,7 +492,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -509,7 +509,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -525,7 +525,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -540,7 +540,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -556,7 +556,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -610,7 +610,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -623,7 +623,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -636,7 +636,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -649,7 +649,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -665,7 +665,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -681,7 +681,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -696,7 +696,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -711,7 +711,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -727,7 +727,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -742,7 +742,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -757,7 +757,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -773,7 +773,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -827,7 +827,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -840,7 +840,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -853,7 +853,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -866,7 +866,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -882,7 +882,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -898,7 +898,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -915,7 +915,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -931,7 +931,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -947,7 +947,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -963,7 +963,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -978,7 +978,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -994,7 +994,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -1048,7 +1048,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -1061,7 +1061,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -1074,7 +1074,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -1087,7 +1087,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -1103,7 +1103,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -1116,7 +1116,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -1131,7 +1131,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -1147,7 +1147,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -1163,7 +1163,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -1180,7 +1180,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -1195,7 +1195,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -1211,7 +1211,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -1265,7 +1265,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -1278,7 +1278,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -1291,7 +1291,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -1304,7 +1304,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -1320,7 +1320,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -1336,7 +1336,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -1351,7 +1351,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -1367,7 +1367,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -1384,7 +1384,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -1400,7 +1400,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -1415,7 +1415,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -1431,7 +1431,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -1485,7 +1485,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -1498,7 +1498,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -1511,7 +1511,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -1524,7 +1524,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -1540,7 +1540,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -1556,7 +1556,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -1571,7 +1571,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -1587,7 +1587,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -1603,7 +1603,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -1619,7 +1619,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -1634,7 +1634,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -1650,7 +1650,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -1705,7 +1705,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -1718,7 +1718,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -1731,7 +1731,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -1744,7 +1744,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -1760,7 +1760,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -1776,7 +1776,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -1791,7 +1791,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -1807,7 +1807,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -1823,7 +1823,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -1839,7 +1839,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -1854,7 +1854,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         
@@ -1870,7 +1870,7 @@ $day = date('l', strtotime($date));
                             <h3 class="card-title">' . $rosters['subject'] . '</h3>
                             <p class="card-text">Room: ' . $rosters['room'] . '</p>
                             <p class="card-text">Timing: ' . $rosters['timing'] . '</p>
-                           
+                            <p class="card-text">Centre Name: ' . $rosters['centre_name'] . '</p>
                         </div>
                     </div>
         

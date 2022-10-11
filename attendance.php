@@ -96,7 +96,7 @@ if (isset($_POST["submit"])) {
 <body>
     <form method="POST">
         <br>
-        <a href="lesson_details.php?id=<?php echo ($id) ?>" class="btn btn-primary" name="hod" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;width:80px;height:40px;">Back</a>
+        <a href="lesson_details.php?id=<?php echo($class_id)?>" class="btn btn-primary" name="hod" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;width:80px;height:40px;">Back</a>
         <br><br>
         <div class="row">
             <div class="col-lg-3 ">
