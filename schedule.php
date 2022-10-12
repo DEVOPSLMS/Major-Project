@@ -35,8 +35,8 @@ date_default_timezone_set('Singapore');
                 
                 <form method="POST" class="form">
 
-                    <h3>Filter By Date: <input type="date" name="date" required id="date">
-                        <h3>Filter By Centre: <select class="form-select" style="height:50px;font-size:20px;width:20%;" required name="centre">
+                    <h3>Filter By Date: <input class="form-control"style="height:50px;font-size:20px;width:20%;" type="date" name="date" required id="date">
+                        <h3>Filter By Centre: <select class="form-control" style="height:50px;font-size:20px;width:20%;" required name="centre">
                                 <option selected>Choose Centre</option>
                                 <option value="Hougang Centre">Hougang Centre</option>
                                 <option value="Sengkang Centre">Sengkang Centre</option>
