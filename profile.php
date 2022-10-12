@@ -35,7 +35,7 @@ $user_details = mysqli_fetch_assoc($result);
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
-<br>
+<br><br><br><br><br><br><br><br><br><br><br>
 
 <body>
 

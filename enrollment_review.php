@@ -6,7 +6,7 @@ include("functions.php");
 
 $user_data = check_login($con);
 
-$query = "select * from student where status ='Pending Interview' | 'Pending Approval' ";
+$query = "select * from student where status ='Pending Interview' || 'Pending Approval' ";
 $result = mysqli_query($con, $query);
 $rowcount = mysqli_num_rows($result);
 
@@ -44,7 +44,7 @@ $rowcount = mysqli_num_rows($result);
 </header>
 
 <body>
-    <a class="btn btn-primary" style="position: absolute; left: 20px;" href="http://localhost/major-project/index.php">Back</a>
+    <a class="btn btn-primary" style="position: absolute; left: 20px;" href="index.php">Back</a>
     <h2 class="text-center"><b>Enrollment Review</b></h2>
 
 

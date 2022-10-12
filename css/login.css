@@ -4,14 +4,20 @@ hr.solid {
     color:black;
     
   }
-  @media (max-width: 600px) {
+  @media (max-width: 950) {
     .container-fluid{
       text-align: center;
  }
 }
-@media (max-width: 600px) {
+@media (max-width: 950px) {
     .logo{
       text-align: center;
  }
+
+}
+@media (max-width: 950px) {
+  form{
+   width:100%
 }
 
+}
