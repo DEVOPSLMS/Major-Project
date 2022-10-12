@@ -37,12 +37,13 @@ $user_data = check_login($con);
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 </head>
 <script type="text/javascript">
-       $(function () {
-         $('select').on('change', function () {
-           $('#filter-posts-form').submit();
-         });
-       });
-     </script>
+    $(function() {
+        $('select').on('change', function() {
+            $('#filter-posts-form').submit();
+        });
+    });
+</script>
+
 <body>
     <a href="index.php">
         <button class="btn btn-primary text-center" type="submit" name="submit" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;float:left;margin-left:30px;margin-top:10px;width:100px ;">Back</button>
@@ -54,44 +55,46 @@ $user_data = check_login($con);
             <tr>
                 <th>Student name</th>
                 <th>
-                    <form method="POST"id="filter-posts-form">
-                        
-                        <select class="form-select" style="width:150px;height:40px;"required name="centre"onchange="this.form.submit();">
-                                    <option selected>Location</option>
-                                    <option value="Hougang Centre">Hougang Centre</option>
-                                        <option value="Sengkang Centre">Sengkang Centre</option>
-                                        <option value="Punggol Centre">Punggol Centre</option>
-                                        <option value="Fernvale Centre">Fernvale Centre</option>
-                                        <option value="Teck Ghee Centre">Teck Ghee Centre</option>
-                                        <option value="Kolam Ayer Centre">Kolam Ayer Centre</option>
-                                        
-                                </select>
-                      
+                    <form method="POST" id="filter-posts-form">
+
+                        <select class="form-select" style="width:150px;height:40px;" required name="centre" onchange="this.form.submit();">
+                            <option selected>Location</option>
+                            <option value="Hougang Centre">Hougang Centre</option>
+                            <option value="Sengkang Centre">Sengkang Centre</option>
+                            <option value="Punggol Centre">Punggol Centre</option>
+                            <option value="Fernvale Centre">Fernvale Centre</option>
+                            <option value="Teck Ghee Centre">Teck Ghee Centre</option>
+                            <option value="Kolam Ayer Centre">Kolam Ayer Centre</option>
+
+                        </select>
+
                     </form>
                 </th>
-                <th><form method="POST"id="filter-posts-form">
-                        
-                        <select class="form-select" style="width:150px;height:40px;"required name="primary"onchange="this.form.submit();">
-                                    <option selected>Primary</option>
-                                    <option value="P1">P1</option>
-                                        <option value="P2">P2</option>
-                                        <option value="P3">P3</option>
-                                        <option value="P4">P4</option>
-                                        <option value="P5(N)">P5(N)</option>
-                                        <option value="P5(F)">P5(F)</option>
-                                        <option value="P6(N)">P6(N)</option>
-                                        <option value="P6(F)">P6(F)</option>
-                                        
-                                </select>
-                      
-                    </form></th>
+                <th>
+                    <form method="POST" id="filter-posts-form">
+
+                        <select class="form-select" style="width:150px;height:40px;" required name="primary" onchange="this.form.submit();">
+                            <option selected>Primary</option>
+                            <option value="P1">P1</option>
+                            <option value="P2">P2</option>
+                            <option value="P3">P3</option>
+                            <option value="P4">P4</option>
+                            <option value="P5(N)">P5(N)</option>
+                            <option value="P5(F)">P5(F)</option>
+                            <option value="P6(N)">P6(N)</option>
+                            <option value="P6(F)">P6(F)</option>
+
+                        </select>
+
+                    </form>
+                </th>
                 <th></th>
             </tr>
         </thead>
 
         <tbody>
             <?php
-            if (!isset($_POST['centre']) &&!isset($_POST['primary'])) {
+            if (!isset($_POST['centre']) && !isset($_POST['primary'])) {
                 $servername = "localhost";
                 $username = "root";
                 $password = "";
@@ -106,7 +109,7 @@ $user_data = check_login($con);
                     echo "<tr>
                     <td>" . $row["student_name"] . "</td>
                     <td>" . $row["centre_name"] . "</td> 
-                    <td>" . $row["student_level"] . "</td>
+                    <td><p style='margin-left:30px;'>" . $row["student_level"] . "</p></td>
                     <td>
                         <button class='btn btn-success editbtn' type='submit' name='submit' style='background-color:#5EBEC4;color:black;border-color:#5EBEC4;' >Transfer</button>
                         <button class='btn btn-success deletebtn' type='submit' name='submit' style='background-color:#5EBEC4;color:black;border-color:#5EBEC4;' >Remove</button>
@@ -121,18 +124,30 @@ $user_data = check_login($con);
                 $database = "website";
 
                 $connection = new mysqli($servername, $username, $password, $database);
-                $centre=$_POST['centre'];
+                $centre = $_POST['centre'];
                 $sql = "SELECT * FROM student WHERE centre_name='$centre'";
                 $result = $connection->query($sql);
+                $rows = mysqli_num_rows($result);
+                if ($rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
 
-                while ($row = $result->fetch_assoc()) {
+                        echo "<tr>
+                        <td>" . $row["student_name"] . "</td>
+                        <td>" . $row["centre_name"] . "</td> 
+                        <td><p style='margin-left:30px;'>" . $row["student_level"] . "</p></td>
+                        <td>
+                            <button class='btn btn-success editbtn' type='submit' name='submit' style='background-color:#5EBEC4;color:black;border-color:#5EBEC4;' >Transfer</button>
+                            <button class='btn btn-success deletebtn' type='submit' name='submit' style='background-color:#5EBEC4;color:black;border-color:#5EBEC4;' >Remove</button>
+                        </td>
+                    </tr>";
+                    }
+                } else {
                     echo "<tr>
-                    <td>" . $row["student_name"] . "</td>
-                    <td>" . $row["centre_name"] . "</td> 
-                    <td>" . $row["student_level"] . "</td>
+                    <td></td>
+                    <td></td> 
+                    <td ><h3 style='margin-right:30px;'>Error 404 : Not Found</h3></td>
                     <td>
-                        <button class='btn btn-success editbtn' type='submit' name='submit' style='background-color:#5EBEC4;color:black;border-color:#5EBEC4;' >Transfer</button>
-                        <button class='btn btn-success deletebtn' type='submit' name='submit' style='background-color:#5EBEC4;color:black;border-color:#5EBEC4;' >Remove</button>
+                        
                     </td>
                 </tr>";
                 }
@@ -144,18 +159,30 @@ $user_data = check_login($con);
                 $database = "website";
 
                 $connection = new mysqli($servername, $username, $password, $database);
-                $primary=$_POST['primary'];
+                $primary = $_POST['primary'];
                 $sql = "SELECT * FROM student WHERE student_level='$primary'";
                 $result = $connection->query($sql);
+                $rows = mysqli_num_rows($result);
+                if ($rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
 
-                while ($row = $result->fetch_assoc()) {
+                        echo "<tr>
+                        <td>" . $row["student_name"] . "</td>
+                        <td>" . $row["centre_name"] . "</td> 
+                        <td><p style='margin-left:30px;'>" . $row["student_level"] . "</p></td>
+                        <td>
+                            <button class='btn btn-success editbtn' type='submit' name='submit' style='background-color:#5EBEC4;color:black;border-color:#5EBEC4;' >Transfer</button>
+                            <button class='btn btn-success deletebtn' type='submit' name='submit' style='background-color:#5EBEC4;color:black;border-color:#5EBEC4;' >Remove</button>
+                        </td>
+                    </tr>";
+                    }
+                } else {
                     echo "<tr>
-                    <td>" . $row["student_name"] . "</td>
-                    <td>" . $row["centre_name"] . "</td> 
-                    <td>" . $row["student_level"] . "</td>
+                    <td></td>
+                    <td></td> 
+                    <td ><h3 style='margin-right:30px;'>Error 404 : Not Found</h3></td>
                     <td>
-                        <button class='btn btn-success editbtn' type='submit' name='submit' style='background-color:#5EBEC4;color:black;border-color:#5EBEC4;' >Transfer</button>
-                        <button class='btn btn-success deletebtn' type='submit' name='submit' style='background-color:#5EBEC4;color:black;border-color:#5EBEC4;' >Remove</button>
+                        
                     </td>
                 </tr>";
                 }

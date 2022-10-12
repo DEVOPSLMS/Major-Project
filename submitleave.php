@@ -72,6 +72,7 @@ if (empty($_POST['password'])) {
 }
 
 ?>
+
 <!DOCTYPE html>
 <html>
 
@@ -90,7 +91,8 @@ if (empty($_POST['password'])) {
         <?php include("header.php") ?>
 
     </header>
-
+    
+<br><br><br><br><br><br><br><br><br><br>
     <body>
         <div class="container-fluid">
 

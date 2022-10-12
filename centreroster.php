@@ -69,7 +69,7 @@ $teacher = mysqli_query($con, $query);
         <?php include("header.php") ?>
 
     </header>
-
+<br><br><br><br><br><br><br><br><br><br><br>
 
     <body>
         <div class="container-fluid">

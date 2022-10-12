@@ -12,7 +12,10 @@ $user_data = check_login($con);
 
 <head>
 
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <title>Home Page</title>
     <link rel="stylesheet" href="css/index.css">
 </head>
@@ -33,6 +36,7 @@ $user_data = check_login($con);
 </style>
 
 <body>
+    <br><br><br> <br>    <br>    <br>    <br>    <br>    <br>    
 <?php if($user_data['role'] == 'teacher')
         {
             echo('<div class="container-fluid">
@@ -42,7 +46,7 @@ $user_data = check_login($con);
                     <div class="details" style="margin-left:50px;margin-top:200px;">
                         <h1>Schedule</h1>
                         <p style="font-size:20px;">View timeslots of the classes that you have.</p>
-                        <a href="schedule_teacher.php"><button class="btn btn-primary text-center  " type="submit" name="submit" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;float:right;margin-top:140px;margin-right:20px;width:100px ;">View</button></a>
+                        <a href="schedule_teacher.php"><button class="btn btn-primary text-center  " type="submit" name="submit" s">View</button></a>
                     </div>
                 </div>
                 <div class="col-md-6 " style="height:500px;">
@@ -53,7 +57,7 @@ $user_data = check_login($con);
                                 <h1>Submit leave</h1>
                                 <p style="font-size:20px;">Submit your reasons of absence here.</p>
     
-                                <a href="submitleave.php"><button class="btn btn-primary text-center  " type="submit" name="submit" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;width:100px ;margin-right:20px;float:right;">Submit</button></a>
+                                <a href="submitleave.php"><button class="btn btn-primary text-center  " type="submit" name="submit" >Submit</button></a>
     
     
                             </div>
@@ -65,7 +69,7 @@ $user_data = check_login($con);
                                 <h1>Attendance</h1>
                                 <p style="font-size:20px;">Click to mark attendance for your classes.</p>
     
-                                <a href="schedule.php"><button class="btn btn-primary text-center  " type="submit" name="submit" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;width:100px ;margin-right:20px;float:right;">View</button></a>
+                                <a href="schedule.php"><button class="btn btn-primary text-center  " type="submit" name="submit" >View</button></a>
     
     
                             </div>
@@ -81,7 +85,7 @@ $user_data = check_login($con);
                                 <h1>Check-in</h1>
                                 <p style="font-size:20px;">Click to check-in to the centre.</p>
     
-                                <a href="check-in.php"><button class="btn btn-primary text-center  " type="submit" name="submit" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;width:100px ;margin-right:20px;margin-top:40px;float:right;">Check-in</button></a>
+                                <a href="check-in.php"><button class="btn btn-primary text-center  " type="submit" name="submit" >Check-in</button></a>
     
     
                             </div>
@@ -91,7 +95,7 @@ $user_data = check_login($con);
                                 <h1>Payslip</h1>
                                 <p style="font-size:20px;">Check your payslips.</p>
     
-                                <button class="btn btn-primary text-center  " type="submit" name="submit" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;width:100px ;margin-right:20px;float:right;margin-top:40px;">View</button>
+                                <button class="btn btn-primary text-center  " type="submit" name="submit" >View</button>
     
     
                             </div>
@@ -109,7 +113,7 @@ $user_data = check_login($con);
                     <div class="details" style="margin-left:50px;margin-top:200px;">
                         <h1>Enrolment</h1>
                         <p style="font-size:20px;">Submit the form to enrol your child here!</p>
-                        <a href="enrollment.php"><button class="btn btn-primary text-center  " type="submit" name="submit" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;float:right;margin-top:140px;margin-right:20px;width:100px ;">Start Now</button></a>
+                        <a href="enrollment.php"><button class="btn btn-primary text-center  " type="submit" name="submit" >Start Now</button></a>
                     </div>
                 </div>
                 <div class="col-md-6 " style="height:500px;">
@@ -120,7 +124,7 @@ $user_data = check_login($con);
                                 <h1>Submit reason of absence</h1>
                                 <p style="font-size:20px;">Submit your reason of absence for your child here.</p>
     
-                                <button class="btn btn-primary text-center  " type="submit" name="submit" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;width:100px ;margin-right:20px;float:right;">Submit</button>
+                                <button class="btn btn-primary text-center  " type="submit" name="submit" >Submit</button>
     
     
                             </div>
@@ -132,7 +136,7 @@ $user_data = check_login($con);
                                 <h1>Schedule</h1>
                                 <p style="font-size:20px;">See your childs schedule here.</p>
                                 <a href ="schedule.php">
-                                <button class="btn btn-primary text-center  " type="submit" name="submit" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;width:100px ;margin-right:20px;float:right;">View</button>
+                                <button class="btn btn-primary text-center  " type="submit" name="submit" >View</button>
                                 </a>
     
                             </div>
@@ -149,7 +153,7 @@ $user_data = check_login($con);
                                 <p style="font-size:20px;">Send us your feedback so we can improve to make your experience
                                 here better.</p>
                                 <a href="feedback.php">
-                                <button class="btn btn-primary text-center  " type="submit" name="submit" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;width:100px ;margin-right:20px;margin-top:40px;float:right;">View</button>
+                                <button class="btn btn-primary text-center  " type="submit" name="submit" >View</button>
                                 </a>
     
                             </div>
@@ -160,7 +164,7 @@ $user_data = check_login($con);
                                 <p style="font-size:20px;">Send us your child results so we will know
                                 more about their progress</p>
     
-                                <button class="btn btn-primary text-center  " type="submit" name="submit" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;width:100px ;margin-right:20px;float:right;margin-top:10px;">Submit</button>
+                                <button class="btn btn-primary text-center  " type="submit" name="submit">Submit</button>
     
     
                             </div>
@@ -177,14 +181,14 @@ $user_data = check_login($con);
                     <div class="details" style="margin-left:50px;margin-top:200px;">
                         <h1>View payslips</h1>
                         <p style="font-size:20px;">Record down payment sent and store in database.</p>
-                        <button class="btn btn-primary text-center  " type="submit" name="submit" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;float:right;margin-top:140px;margin-right:20px;width:100px ;">View</button>
+                        <button class="btn btn-primary text-center  " type="submit" name="submit" >View</button>
                     </div>
                 </div>
                 <div class="col-md-6 border border-dark" style="height:500px;">
                     <div class="details" style="margin-left:50px;margin-top:200px;">
                         <h1>Expenses</h1>
                         <p style="font-size:20px;">Click to see expenses log.</p>
-                        <button class="btn btn-primary text-center  " type="submit" name="submit" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;float:right;margin-top:140px;margin-right:20px;width:100px ;">View</button>
+                        <button class="btn btn-primary text-center  " type="submit" name="submit" >View</button>
                     </div>
                 </div>
                 <div class="col-lg-12 border border-dark text-center" style="height:300px;">
@@ -192,7 +196,7 @@ $user_data = check_login($con);
                                 <h1>Feedback</h1>
                                 <p style="font-size:20px;">Send feedback to whichever department</p>
     
-                                <button class="btn btn-primary text-center  " type="submit" name="submit" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;width:100px ;margin-right:20px;margin-top:40px;float:right;">Send</button>
+                                <button class="btn btn-primary text-center  " type="submit" name="submit" >Send</button>
     
     
                             </div>
@@ -214,14 +218,14 @@ $user_data = check_login($con);
                         <h1>Lessons</h1>
                         <p style="font-size:20px;">View or create lessons plans and assign it to the
     appropriate teachers</p>
-                        <a href="centreroster.php"><button class="btn btn-primary text-center  " type="submit" name="submit" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;float:right;margin-top:140px;margin-right:20px;width:100px ;">View</button></a>
+                        <a href="centreroster.php"><button class="btn btn-primary text-center  " type="submit" name="submit" >View</button></a>
                     </div>
                 </div>
                 <div class="col-md-6 border border-dark" style="height:500px;">
                     <div class="details" style="margin-left:50px;margin-top:200px;">
                         <h1>Teachers</h1>
                         <p style="font-size:20px;">View the teachers profile and information.</p>
-                        <a href="teacher.php"><button class="btn btn-primary text-center  " type="submit" name="submit" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;float:right;margin-top:140px;margin-right:20px;width:100px ;">View</button></a>
+                        <a href="teacher.php"><button class="btn btn-primary text-center  " type="submit" name="submit" >View</button></a>
                     </div>
                 </div>
                 <div class="col-lg-7 border border-dark text-center" style="height:300px;">
@@ -229,7 +233,7 @@ $user_data = check_login($con);
                                 <h1>Broadcast</h1>
                                 <p style="font-size:20px;">Broadcast messages to teacher/parents on important information.</p>
     
-                                <button class="btn btn-primary text-center  " type="submit" name="submit" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;width:100px ;margin-right:20px;margin-top:40px;float:right;">Broadcast</button>
+                                <button class="btn btn-primary text-center  " type="submit" name="submit" >Broadcast</button>
     
     
                             </div>
@@ -239,7 +243,7 @@ $user_data = check_login($con);
                                 <h1>Feedback</h1>
                                 <p style="font-size:20px;">View or send feedback to other departments.</p>
     
-                                <button class="btn btn-primary text-center  " type="submit" name="submit" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;width:100px ;margin-right:20px;margin-top:40px;float:right;">View</button>
+                                <button class="btn btn-primary text-center  " type="submit" name="submit" >View</button>
     
     
                             </div>
@@ -261,7 +265,7 @@ $user_data = check_login($con);
                         <h1>Attendance</h1>
                         <p style="font-size:20px;">See the attendance for all of the students for all of the
     centres.</p>
-                        <button class="btn btn-primary text-center  " type="submit" name="submit" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;float:right;margin-top:200px;margin-right:20px;width:100px ;">View</button>
+                        <button class="btn btn-primary text-center  " type="submit" name="submit" >View</button>
                     </div>
                 </div>
                 <div class="col-md-6 " style="height:700px;">
@@ -273,7 +277,7 @@ $user_data = check_login($con);
                                 <p style="font-size:20px;">See the results for all of the students for all of the
     centres.</p>
     
-                                <button class="btn btn-primary text-center  " type="submit" name="submit" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;width:100px ;margin-right:20px;float:right;">View</button>
+                                <button class="btn btn-primary text-center  " type="submit" name="submit" >View</button>
     
     
                             </div>
@@ -285,7 +289,7 @@ $user_data = check_login($con);
                                 <h1>Feedback</h1>
                                 <p style="font-size:20px;">Send feedback to other departments.</p>
     
-                                <button class="btn btn-primary text-center  " type="submit" name="submit" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;width:100px ;margin-right:20px;float:right;">View</button>
+                                <button class="btn btn-primary text-center  " type="submit" name="submit">View</button>
     
     
                             </div>
@@ -309,7 +313,7 @@ $user_data = check_login($con);
                         <h1>Enrollment</h1>
                         <p style="font-size:20px;">View all new student enrolment information and send for
                         approval. </p>
-                        <a href="enrollment_review.php"><button class="btn btn-primary text-center  " type="submit" name="submit" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;float:right;margin-top:140px;margin-right:20px;width:100px ;">View</button></a>
+                        <a href="enrollment_review.php"><button class="btn btn-primary text-center  " type="submit" name="submit" >View</button></a>
                     </div>
                 </div>
                 <div class="col-md-6 border border-dark" style="height:500px;">
@@ -317,7 +321,7 @@ $user_data = check_login($con);
                         <h1>Students</h1>
                         <p style="font-size:20px;">View and edit students details and information.</p>
                         <a href="studentlist.php">
-                        <button class="btn btn-primary text-center  " type="submit" name="submit" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;float:right;margin-top:140px;margin-right:20px;width:100px ;">View</button>
+                        <button class="btn btn-primary text-center  " type="submit" name="submit" >View</button>
                         </a>
                     </div>
                 </div>
@@ -326,7 +330,7 @@ $user_data = check_login($con);
                                 <h1>Storage</h1>
                                 <p style="font-size:20px;">View and store all forms.</p>
     
-                                <button class="btn btn-primary text-center  " type="submit" name="submit" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;width:100px ;margin-right:20px;margin-top:40px;float:right;">View</button>
+                                <button class="btn btn-primary text-center  " type="submit" name="submit" >View</button>
     
     
                             </div>
@@ -336,7 +340,7 @@ $user_data = check_login($con);
                                 <h1>Feedback</h1>
                                 <p style="font-size:20px;">Send feedback to other departments.</p>
     
-                                <button class="btn btn-primary text-center  " type="submit" name="submit" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;width:100px ;margin-right:20px;margin-top:40px;float:right;">View</button>
+                                <button class="btn btn-primary text-center  " type="submit" name="submit" >View</button>
     
     
                             </div>

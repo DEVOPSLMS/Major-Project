@@ -15,19 +15,19 @@ $class = $lesson_details['timing'] . ' ' . $lesson_details['subject'] . ' ' . 'C
 
 
 ?>
-<?php 
-$country=file_get_contents('http://api.hostip.info/get_html.php?ip=');
+<?php
+$country = file_get_contents('http://api.hostip.info/get_html.php?ip=');
 
 
 // Reformat the data returned (Keep only country and country abbr.)
-$only_country=explode (" ", $country);
+$only_country = explode(" ", $country);
 
 
 ?>
 <?php
-$query = @unserialize (file_get_contents('http://ip-api.com/php/'));
+$query = @unserialize(file_get_contents('http://ip-api.com/php/'));
 
-$recorded=$query['zip'];
+$recorded = $query['zip'];
 
 
 ?>
@@ -47,7 +47,7 @@ if (isset($_POST["submit"])) {
 
         mysqli_query($con, $query);
         if ($status == 'late') {
-    
+
             $query = "select * from student where student_name = '$student' ";
             $result = mysqli_query($con, $query);
             $user_details = mysqli_fetch_assoc($result);
@@ -60,12 +60,12 @@ if (isset($_POST["submit"])) {
             mysqli_query($con, $query2);
         }
         if ($status == 'absent') {
-    
+
             $query = "select * from student where student_name = '$student' ";
             $result = mysqli_query($con, $query);
             $user_details = mysqli_fetch_assoc($result);
             $id = $user_details['parentid'];
-         
+
             $sql = "insert into notification(parentid,notification,status) values ('$id','$class','absent')";
             mysqli_query($con, $sql);
         }
@@ -77,6 +77,11 @@ if (isset($_POST["submit"])) {
     }
 }
 ?>
+<script>
+    function getValue(data) {
+        console.log(data.value)
+    }
+</script>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -96,7 +101,7 @@ if (isset($_POST["submit"])) {
 <body>
     <form method="POST">
         <br>
-        <a href="lesson_details.php?id=<?php echo($class_id)?>" class="btn btn-primary" name="hod" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;width:80px;height:40px;">Back</a>
+        <a href="lesson_details.php?id=<?php echo ($class_id) ?>" class="btn btn-primary" name="hod" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;width:80px;height:40px;">Back</a>
         <br><br>
         <div class="row">
             <div class="col-lg-3 ">
@@ -132,8 +137,7 @@ if (isset($_POST["submit"])) {
 
                 <th class="success">Student Name</th>
                 <th class="warning">Attendance <p class="active">
-                        <input type="checkbox" class="select-all checkbox" name="select-all" />(Mark All As Present)
-                    </p>
+                        
                 </th>
                 <th class="danger">Remarks</th>
 
@@ -145,10 +149,13 @@ if (isset($_POST["submit"])) {
                     <td class="active" required>
 
 
-                        <input type="checkbox" class="select-item checkbox" name="status[]" value="present" />Present
-                        <input type="checkbox" class="select checkbox" name="status[]" value="late" />Late
-                        <input type="checkbox" class="select checkbox" name="status[]" value="absent" />Absent
+                        <select class="form-select" name="status[]" required>
 
+                            <option value="present">Present</option>
+                            <option value="late">Late</option>
+                            <option value="absent">Absent</option>
+
+                        </select>
 
 
                     </td>
