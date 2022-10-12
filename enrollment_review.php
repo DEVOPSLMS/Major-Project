@@ -44,16 +44,17 @@ $rowcount = mysqli_num_rows($result);
 </header>
 
 <body>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
     <a class="btn btn-primary" style="position: absolute; left: 20px;" href="index.php">Back</a>
     <h2 class="text-center"><b>Enrollment Review</b></h2>
-
+    <br><br>
 
     <div>
         <div>
             <!-- insert if no reviews scenario -->
 
-                <!-- <h3 id="text-message" class="text-center">There are currently no enrollments</h3> -->
-           
+            <!-- <h3 id="text-message" class="text-center">There are currently no enrollments</h3> -->
+
             <table id="enrollment_table">
                 <tr style="border-bottom: 1px grey solid">
                     <td class="col-sm-2"></td>
@@ -69,12 +70,12 @@ $rowcount = mysqli_num_rows($result);
                         </td>
 
 
-                        <td class="col-sm-4">
+                        <td class="col-sm-5">
                             <h4><?php echo $x["status"] ?></h4>
                         </td>
 
 
-                        <td class="col-sm-2">
+                        <td class="col-sm-5">
                             <a type='button' href='enrollment_details.php?studentid=<?php echo $x["id"] ?>' class='btn btn-primary' style='margin: 5px;'>View Details</a>
 
                             <button type='button' class='btn btn-primary' style='margin: 5px;'>Approve</button>
@@ -90,7 +91,7 @@ $rowcount = mysqli_num_rows($result);
 
 
             </table>
-                    
+
         </div>
 
 

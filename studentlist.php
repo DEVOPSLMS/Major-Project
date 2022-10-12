@@ -32,6 +32,9 @@ $user_data = check_login($con);
         h1 {
             text-align: center;
         }
+        body{
+            font-size:130%;
+        }
     </style>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
@@ -43,7 +46,7 @@ $user_data = check_login($con);
         });
     });
 </script>
-
+<br><br><br><br><br><br><br><br><br><br>
 <body>
     <a href="index.php">
         <button class="btn btn-primary text-center" type="submit" name="submit" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;float:left;margin-left:30px;margin-top:10px;width:100px ;">Back</button>
