@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+include("check_roster.php");
 include("connection.php");
 include("functions.php");
 $query = @unserialize(file_get_contents('http://ip-api.com/php/'));
