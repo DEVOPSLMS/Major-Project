@@ -48,13 +48,13 @@ $rows = mysqli_num_rows($late);
 
 </header>
 
-
+<br><br><br><br><br><br><br><br><br>
 
 <body>
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-5">
-                <a href="index.php" class="btn btn-primary" name="hod" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;width:80px;height:40px;">Back</a>
+                <a href="index.php" class="btn btn-primary" name="hod" >Back</a>
 
             </div>
             <div class="col-lg-7">

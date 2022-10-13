@@ -72,6 +72,7 @@ if (empty($_POST['password'])) {
 }
 
 ?>
+
 <!DOCTYPE html>
 <html>
 
@@ -90,7 +91,12 @@ if (empty($_POST['password'])) {
         <?php include("header.php") ?>
 
     </header>
-
+    <style>
+        body{
+            font-size:130%;
+        }
+        </style>
+<br><br><br><br><br><br><br><br><br><br>
     <body>
         <div class="container-fluid">
 
@@ -105,7 +111,7 @@ if (empty($_POST['password'])) {
 
 
                     <label for="reason" class="col-sm-2 col-form-label">Reason Of Absence</label>
-                    <select class="col-sm-10 form-select " style="width:50%;" id="reason" name="reason" required>
+                    <select class="col-sm-2 form-control " style="font-size:20px;width:20%;" id="reason" name="reason" required>
                         <option selected></option>
                         <option value="1" name="room"> 1</option>
                         <option value="2" name="room"> 2</option>
@@ -117,7 +123,7 @@ if (empty($_POST['password'])) {
 
 
                     <label for="reason" class="col-sm-2 col-form-label">Leave Date*</label>
-                    <input type="date" class="col-sm-2" name="date_start" id="staticEmail"> <input type="text" readonly class="col-sm-1 form-control-plaintext text-center" style="width:10%;" value="To" id="staticEmail"><br><input type="date" class="col-sm-2" name="date_end" id="staticEmail">
+                    <input type="date" class="col-sm-2 form-control" name="date_start" id="staticEmail"> <input type="text" readonly class="col-sm-1 form-control-plaintext text-center" style="width:10%;" value="To" id="staticEmail"><br><input type="date" class="col-sm-2 form-control" name="date_end" id="staticEmail">
                 </div>
                 <div class="form-group row">
                     <label for="exampleFormControlFile1" class="col-sm-2 col-form-label">Attach picture of MC (if applicable)</label>
@@ -125,11 +131,17 @@ if (empty($_POST['password'])) {
                 </div>
                 <div class="form-group row">
                     <label for="exampleFormControlFile1" class="col-sm-2 col-form-label">Comments (if any)*</label>
-                    <textarea class="col-sm-2 form-control" name="comments" id="exampleFormControlTextarea1" style="width:50%;" rows="3"></textarea>
+                    <textarea class="col-sm-8 form-control" name="comments" id="exampleFormControlTextarea1" style="width:50%;" rows="3"></textarea>
                 </div>
+                <div class="form-group row">
+                    <div class="col-sm-2">
+
+                    </div>
                 <div class="col-sm-9">
-                    <button class="btn btn-primary " style="float:right;margin-right:160px; " type="submit" name="submit">Submit Leave</button>
+                    <button class="btn btn-primary "  type="submit" name="submit">Submit Leave</button>
                 </div>
+                </div>
+            
             </form>
         </div>
 

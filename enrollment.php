@@ -8,7 +8,7 @@ $user_data = check_login($con);
 if (isset($_POST["submit"])) {
     $student_name = $_POST["student_name"];
     $student_nric = $_POST["student_nric"];
-    $student_gender = $_POST["gender"];
+    $student_gender = $_POST["student_gender"];
     $student_dob = $_POST["student_dob"];
     $student_race = $_POST["student_race"];
     $student_citizenship = $_POST["student_citizenship"];
@@ -77,7 +77,7 @@ if (isset($_POST["submit"])) {
     $medical_nric = $_POST["medical_nric"];
     $translator_name = $_POST["translator_name"];
     $translator_nric = $_POST["translator_nric"];
-    $parentid=$user_data['id'];
+    $parentid = $user_data['id'];
 
     $query = "insert into student(student_name,student_nric,student_gender,student_dob,student_race,student_citizenship,student_nationality,student_school,student_level,student_normal_foundation,student_residential,student_bank,student_account,father_name,father_nric,father_dob,father_race,father_citizenship,father_nationality,father_residential,father_number,father_employer,father_company,father_occupation,father_salary,father_other,mother_name,mother_nric,mother_dob,mother_race,mother_citizenship,mother_nationality,mother_residential,mother_number,mother_employer,mother_company,mother_occupation,mother_salary,mother_other,guardian_name,guardian_nric,guardian_dob,guardian_race,guardian_citizenship,guardian_nationality,guardian_residential,guardian_number,guardian_employer,guardian_company,guardian_occupation,guardian_salary,guardian_other,emergency_name,emergency_relationship,emergency_contact,family_name,family_relationship,family_contact,medical_date,medical_conditions,add_here,daily_medication,explain_condition,medical_name,medical_nric,translator_name,translator_nric,status,late_counter,centre_name,parentid,sick) 
     VALUES('$student_name', '$student_nric','$student_gender','$student_dob','$student_race','$student_citizenship','$student_nationality','$student_school','$student_level','$student_normal','$student_residential','$student_bank','$student_account','$father_name','$father_nric','$father_dob','$father_race','$father_citizenship','$father_nationality','$father_residential','$father_number','$father_employer','$father_company','$father_occupation','$father_salary','$father_other','$mother_name','$mother_nric','$mother_dob','$mother_race','$mother_citizenship','$mother_nationality','$mother_residential','$mother_number','$mother_employer','$mother_company','$mother_occupation','$mother_salary','$mother_other','$guardian_name','$guardian_nric','$guardian_dob','$guardian_race','$guardian_citizenship','$guardian_nationality','$guardian_residential','$guardian_number','$guardian_employer','$guardian_company','$guardian_occupation','$guardian_salary','$guardian_other','$emergency_name','$emergency_relationship','$emergency_contact','$family_name','$family_relationship','$family_contact','$medical_date','$medical_conditions','$add_here','$daily_medication','$explain_condition','$medical_name','$medical_nric','$translator_name','$translator_nric','Pending Interview','0','$centre_name','$parentid','no')";
@@ -114,565 +114,602 @@ if (isset($_POST["submit"])) {
         <?php include("header.php") ?>
 
     </header>
+    <script>
+        const sectionContent = ["r1", "r2", "r3", "r4", "r5", "r6", "r7", "r8"];
+        let currentSection = sectionContent[0];
+
+        const displayContent = (q, area) => {
+            document.getElementById(q).classList.add("active");
+            document.getElementById(q + "-button").classList.add("button-active");
+            currentSection = sectionContent[area.indexOf(q)];
+            const toNone = area.filter(e => e !== q);
+            for (i in toNone) {
+                document.getElementById(toNone[i]).classList.remove("active");
+                document.getElementById(toNone[i] + "-button").classList.remove("button-active");
+            }
+            if (sectionContent.indexOf(q) == 0) {
+                document.getElementById("previous").classList.remove("button-active");
+                document.getElementById("next").classList.add("button-active");
+            } else if (sectionContent.indexOf(q) == sectionContent.length - 1) {
+                document.getElementById("previous").classList.add("button-active");
+                document.getElementById("next").classList.remove("button-active");
+            } else {
+                document.getElementById("previous").classList.add("button-active");
+                document.getElementById("next").classList.add("button-active");
+            }
+        }
+
+        const displayR1 = () => displayContent("r1", sectionContent);
+        const displayR2 = () => displayContent("r2", sectionContent);
+        const displayR3 = () => displayContent("r3", sectionContent);
+        const displayR4 = () => displayContent("r4", sectionContent);
+        const displayR5 = () => displayContent("r5", sectionContent);
+        const displayR6 = () => displayContent("r6", sectionContent);
+        const displayR7 = () => displayContent("r7", sectionContent);
+        const displayR8 = () => displayContent("r8", sectionContent);
+        const displayNext = () => displayContent(sectionContent[sectionContent.indexOf(currentSection) + 1], sectionContent);
+        const displayPrevious = () => displayContent(sectionContent[sectionContent.indexOf(currentSection) - 1], sectionContent);
+    </script>
+    <style>
+        .container {
+            display: grid;
+            place-items: center;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+
+        .nav button {
+            background: #ccc;
+            padding: 10px 15px;
+            margin-left: 6px;
+            border-radius: 50%;
+            cursor: pointer;
+            opacity: .5;
+            border: none;
+            height: 80px;
+        }
+
+        .next,
+        .previous {
+            padding: 15px 10px;
+            border-radius: 6px;
+            background: deepskyblue;
+            color: white;
+            border: 0;
+            outline: none;
+            cursor: pointer;
+            width: 100px;
+            visibility: hidden;
+        }
+
+        .button-active {
+            opacity: 1 !important;
+            visibility: visible;
+        }
+
+        body {
+            font-size: 120%;
+        }
+    </style>
+    <br><br><br><br><br><br><br><br><br><br>
 
     <body>
 
-        <div class="form-group ">
-            <h2>Particulars Of Student</h2>
-            <form id="form" method="POST" enctype="multipart/form-data" autocomplete="off">
-                <div class="form-group row">
-                    <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">Name:</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" style="width: 50%;" id="staticEmail" name="student_name">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">NRIC:</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" style="width: 50%;" id="staticEmail" name="student_nric">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">Gender:</label>
-                    <select class="col-sm-10 form-select" style="width:41.2%;margin-left:11px;" id="reason" name="gender" required>
-                        <option selected></option>
-                        <option value="Male" name="room">Male</option>
-                        <option value="Female" name="room">Female</option>
+        <div class="container-fluid">
+            <div class="col-lg-12 ">
+                <nav class="nav " style="margin-left:15%;">
+                    <button class="button-active" id="r1-button" onclick="displayR1()">Student's Particular</button>
+                    <button id="r2-button" onclick="displayR2()">Father's Particular</button>
+                    <button id="r3-button" onclick="displayR3()">Mother's Particular</button>
+                    <button id="r4-button" onclick="displayR4()">Guardian's Particular</button>
+                    <button id="r5-button" onclick="displayR5()">Emergency Contacts</button>
+                    <button id="r6-button" onclick="displayR6()">Other Family Members</button>
+                    <button id="r7-button" onclick="displayR7()">Declaration</button>
+                    <button id="r8-button" onclick="displayR8()">Medical Declaration Form</button>
+                </nav>
+            </div>
+
+            <div class="form-group">
 
 
-                    </select>
-                </div>
+                <form method="POST">
+                    <section id="r1" class="section active">
 
-                <div class="form-group row">
-                    <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">Date Of Birth:</label>
-                    <div class="col-sm-10">
-                        <input type="date" class="form-control" style="width: 50%;" id="staticEmail" name="student_dob">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">Race:</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" style="width: 50%;" id="staticEmail" name="student_race">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">Citizenship:</label>
-                    <select class="col-sm-10 form-select" style="width:41.2%;margin-left:11px;" id="reason" name="student_citizenship" required>
-                        <option selected></option>
-                        <option value="Permanant Resident">Permanant Resident</option>
-                        <option value="Singaporean">Singaporean</option>
-                        <option value="Foreigner">Foreigner</option>
-                        <option value="Other">Other</option>
-                    </select>
-                </div>
-                <div class="form-group row">
-                    <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">If permanent resident, which nationality?:</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" style="width: 50%;" id="staticEmail" name="student_nationality">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">School child is currently attending*:</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" style="width: 50%;" id="staticEmail" name="student_school">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">Primary Level:</label>
-                    <select class="col-sm-10 form-select" style="width:41.2%;margin-left:11px;" id="reason" name="student_level" required>
-                        <option selected></option>
-                        <option value="P1">P1</option>
-                        <option value="P2">P2</option>
-                        <option value="P3">P3</option>
-                        <option value="P4">P4</option>
-                        <option value="P5(N)">P5(N)</option>
-                        <option value="P5(F)">P5(F)</option>
-                        <option value="P6(N)">P6(N)</option>
-                        <option value="P6(F)">P6(F)</option>
-
-                    </select>
-                </div>
-                <div class="form-group row">
-                    <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">Normal/Foundation:</label>
-                    <select class="col-sm-10 form-select" style="width:41.2%;margin-left:11px;" id="reason" name="student_normal" required>
-                        <option selected></option>
-                        <option value="Normal">Normal</option>
-                        <option value="Foundation">Foundation</option>
-
-
-                    </select>
-                </div>
-                <div class="form-group row">
-                    <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">Residential Address:</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" style="width: 50%;" id="staticEmail" name="student_residential">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">Name of student's bank:</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" style="width: 50%;" id="staticEmail" name="student_bank">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">Student's account number:</label>
-                    <div class="col-sm-10">
-                        <input type="number" class="form-control" style="width: 50%;" id="staticEmail" name="student_account">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">Which Centre Do You Want To Go To</label>
-                    
-                    <select class="col-sm-10 form-select" style="width:41.2%;margin-left:11px;" id="reason" name="centre_name" required>
-                        <option selected></option>
-                        <option value="Hougang Centre">Hougang Centre</option>
-                        <option value="Sengkang Centre">Sengkang Centre</option>
-                        <option value="Punggol Centre">Punggol Centre</option>
-                        <option value="Fernvale Centre">Fernvale Centre</option>
-                        <option value="Teck Ghee Centre">Teck Ghee Centre</option>
-                        <option value="Kolam Ayer Centre">Kolam Ayer Centre</option>
-
-                    </select>
-                  
-                </div>
-                <h2>Particulars Of Father</h2>
-
-                <div class="form-group row">
-                    <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">Name:</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" style="width: 50%;" id="staticEmail" name="father_name">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">NRIC:</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" style="width: 50%;" id="staticEmail" name="father_nric">
-                    </div>
-                </div>
-
-
-                <div class="form-group row">
-                    <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">Date Of Birth:</label>
-                    <div class="col-sm-10">
-                        <input type="date" class="form-control" style="width: 50%;" id="staticEmail" name="father_dob">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">Race:</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" style="width: 50%;" id="staticEmail" name="father_race">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">Citizenship:</label>
-                    <select class="col-sm-10 form-select" style="width:41.2%;margin-left:11px;" id="reason" name="father_citizenship" required>
-                        <option selected></option>
-                        <option value="Permanant Resident">Permanant Resident</option>
-                        <option value="Singaporean">Singaporean</option>
-                        <option value="Foreigner">Foreigner</option>
-                        <option value="Other">Other</option>
-                    </select>
-                </div>
-                <div class="form-group row">
-                    <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">If permanent resident, which nationality?:</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" style="width: 50%;" id="staticEmail" name="father_nationality">
-                    </div>
-                </div>
-
-
-
-                <div class="form-group row">
-                    <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">Residential Address:</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" style="width: 50%;" id="staticEmail" name="father_residential">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">Contact Number:</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" style="width: 50%;" id="staticEmail" name="father_number">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">Name of employer:</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" style="width: 50%;" id="staticEmail" name="father_employer">
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">Company address:</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" style="width: 50%;" id="staticEmail" name="father_company">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">Occupation*</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" style="width: 50%;" id="staticEmail" name="father_occupation">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">Gross salary*</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" style="width: 50%;" id="staticEmail" name="father_salary">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">Other salary*</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" style="width: 50%;" id="staticEmail" name="father_other">
-                    </div>
-                </div>
-                <h2>Particulars Of Mother</h2>
-
-                <div class="form-group row">
-                    <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">Name:</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" style="width: 50%;" id="staticEmail" name="mother_name">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">NRIC:</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" style="width: 50%;" id="staticEmail" name="mother_nric">
-                    </div>
-                </div>
-
-
-                <div class="form-group row">
-                    <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">Date Of Birth:</label>
-                    <div class="col-sm-10">
-                        <input type="date" class="form-control" style="width: 50%;" id="staticEmail" name="mother_dob">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">Race:</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" style="width: 50%;" id="staticEmail" name="mother_race">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">Citizenship:</label>
-                    <select class="col-sm-10 form-select" style="width:41.2%;margin-left:11px;" id="reason" name="mother_citizenship" required>
-                        <option selected></option>
-                        <option value="Permanant Resident">Permanant Resident</option>
-                        <option value="Singaporean">Singaporean</option>
-                        <option value="Foreigner">Foreigner</option>
-                        <option value="Other">Other</option>
-                    </select>
-                </div>
-                <div class="form-group row">
-                    <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">If permanent resident, which nationality?:</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" style="width: 50%;" id="staticEmail" name="mother_nationality">
-                    </div>
-                </div>
-
-
-
-                <div class="form-group row">
-                    <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">Residential Address:</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" style="width: 50%;" id="staticEmail" name="mother_residential">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">Contact Number:</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" style="width: 50%;" id="staticEmail" name="mother_number">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">Name of employer:</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" style="width: 50%;" id="staticEmail" name="mother_employer">
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">Company address:</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" style="width: 50%;" id="staticEmail" name="mother_company">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">Occupation*</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" style="width: 50%;" id="staticEmail" name="mother_occupation">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">Gross salary*</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" style="width: 50%;" id="staticEmail" name="mother_salary">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">Other salary*</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" style="width: 50%;" id="staticEmail" name="mother_other">
-                    </div>
-                </div>
-                <h2>Particulars of guardian (applicable only in the event of both parents passing)</h2>
-
-                <div class="form-group row">
-                    <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">Name:</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" style="width: 50%;" id="staticEmail" name="guardian_name">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">NRIC:</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" style="width: 50%;" id="staticEmail" name="guardian_nric">
-                    </div>
-                </div>
-
-
-                <div class="form-group row">
-                    <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">Date Of Birth:</label>
-                    <div class="col-sm-10">
-                        <input type="date" class="form-control" style="width: 50%;" id="staticEmail" name="guardian_dob">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">Race:</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" style="width: 50%;" id="staticEmail" name="guardian_race">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">Citizenship:</label>
-                    <select class="col-sm-10 form-select" style="width:41.2%;margin-left:11px;" id="reason" name="guardian_citizenship" required>
-                        <option selected></option>
-                        <option value="Permanant Resident">Permanant Resident</option>
-                        <option value="Singaporean">Singaporean</option>
-                        <option value="Foreigner">Foreigner</option>
-                        <option value="Other">Other</option>
-                    </select>
-                </div>
-                <div class="form-group row">
-                    <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">If permanent resident, which nationality?:</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" style="width: 50%;" id="staticEmail" name="guardian_nationality">
-                    </div>
-                </div>
-
-
-
-                <div class="form-group row">
-                    <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">Residential Address:</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" style="width: 50%;" id="staticEmail" name="guardian_residential">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">Contact Number:</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" style="width: 50%;" id="staticEmail" name="guardian_number">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">Name of employer:</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" style="width: 50%;" id="staticEmail" name="guardian_employer">
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">Company address:</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" style="width: 50%;" id="staticEmail" name="guardian_company">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">Occupation*</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" style="width: 50%;" id="staticEmail" name="guardian_occupation">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">Gross salary*</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" style="width: 50%;" id="staticEmail" name="guardian_salary">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">Other Salary*</label>
-                    <div class="col-sm-10">
-                        <input type="number" class="form-control" style="width: 50%;" id="staticEmail" name="guardian_other">
-                    </div>
-                </div>
-                <h2>Emergency contacts</h2>
-
-                <div class="form-group row">
-                    <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">Name*</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" style="width: 50%;" id="staticEmail" name="emergency_name">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">Relationship to student*</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" style="width: 50%;" id="staticEmail" name="emergency_relationship">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">Contact No*</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" style="width: 50%;" id="staticEmail" name="emergency_contact">
-                    </div>
-                </div>
-                <h3>Other family members</h3>
-                <div class="form-group row">
-                    <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">Name*</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" style="width: 50%;" id="staticEmail" name="family_name">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">Relationship to student*</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" style="width: 50%;" id="staticEmail" name="family_relationship">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">Contact No*</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" style="width: 50%;" id="staticEmail" name="family_contact">
-                    </div>
-                </div>
-                <h2>Declaration</h2>
-                <p>I hereby authorize YYD Education Centre Ltd, to collect, use, store and disclose information (including personal information), including, but not limited to, information provided
-                    in this application form and obtained during our house visits, in accordance to the Personal Data Protection Act 2012 (PDPA) in Singapore for the processing of this application
-                    and the administration of membership under YYD Education Centre Ltd.
-
-                    I acknowledge that the personal data and information mentioned above may be retained by YYD Education Centre for a reasonable length of time and I authorize such retention
-                    for future recruitment purposes.
-
-                    I understand that the provision of information which is untrue, or failure to provide certain information may affect the outcome of my application. I herby declare that the
-                    information provided by me in this application form are true, complete and accurate. I hereby undertake to inform YYD Education Centre of any changes or error in my
-                    information as soon as possible.</p>
-                <div class="form-group row">
-                    <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">Full name of parent/legal guardian*</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" style="width: 50%;" id="staticEmail">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">Signature of parent/legal guardian*</label>
-                    <div class="col-sm-10">
-                        <input type="file" class="form-control" style="width: 50%;" id="staticEmail">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">Date</label>
-                    <div class="col-sm-10">
-                        <input type="date" class="form-control" style="width: 50%;" id="staticEmail">
-                    </div>
-                </div>
-                <h2>Medical Declaration Form</h2>
-                <div class="form-group row">
-                    <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">Date</label>
-                    <div class="col-sm-10">
-                        <input type="date" class="form-control" style="width: 50%;" id="staticEmail" name="medical_date">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">Child's name*</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" style="width: 50%;" id="staticEmail" name="">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">Level*</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" style="width: 50%;" id="staticEmail" name="">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">Any medical conditions?*</label>
-                    <div class="col-sm-10">
-                        <textarea type="text" class="form-control" style="width: 50%;" id="staticEmail" name="medical_conditions"></textarea>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">If yes, please add here:</label>
-                    <div class="col-sm-10">
-                        <textarea type="text" class="form-control" style="width: 50%;" id="staticEmail" name="add_here"></textarea>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">Is your child on daily medication to treat/prevent relapse?:</label>
-                    <select class="col-sm-10 form-select" style="width:41.2%;margin-left:11px;" id="reason" name="daily_medication" required>
-                        <option selected></option>
-                        <option value="Yes">Yes</option>
-                        <option value="Yes">No</option>
-                    </select>
-                </div>
-               
-                <div class="form-group row">
-                    <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">Does the condition affect his/her learning progress?</label>
-                    <div class="col-sm-10">
-                        <textarea type="text" class="form-control" style="width: 50%;" id="staticEmail"></textarea>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">If yes, please explain in the text box.</label>
-                    <div class="col-sm-10">
-                        <textarea type="text" class="form-control" style="width: 50%;" id="staticEmail"name="explain_condition" ></textarea>
-                    </div>
-                </div>
-                <div class="form-group row">
-                   
-                    <div class="form-group">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="gridCheck">
-                            <label class="form-check-label" for="gridCheck">
-                                I am fully aware that YYD Education tutors are not medically trained to handle my child's medical condition. I will not hold YYD Education Centre or their tutors
-                                responsible for any incident which may happen to my child due to his/her medical condition, as a result from my decision to enrol him/her in the tuition.
-                            </label>
+                        <div class="form-row">
+                            <div class="form-group col-lg-4">
+                                <label for="inputCity">Name</label>
+                                <input type="text" class="form-control" name="student_name" id="inputCity">
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label for="inputCity">NRIC</label>
+                                <input type="text" class="form-control" name="student_nric" id="inputCity">
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label for="inputZip">Gender</label>
+                                <select id="inputState" class="form-control" name="student_gender">
+                                    <option selected>Choose Gender</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="gridCheck">
-                            <label class="form-check-label" for="gridCheck">
-                                I hereby certify that the above information is true and accurate and failure to provide certain information may affect the outcome of my application. I hereby undertake
-                                to inform YYD Education Centre of any changes or error in my information as soon as practicable.
-                            </label>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">Parent / Guardian Name:</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" style="width: 50%;" id="staticEmail" name="medical_name">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">NRIC*</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" style="width: 50%;" id="staticEmail" name="medical_nric">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">Translator Name (if any):</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" style="width: 50%;" id="staticEmail" name="translator_name">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="staticEmail" style="margin-left:100px;" class="col-sm-1 col-form-label">Translator NRIC:</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" style="width: 50%;" id="staticEmail" name="translator_nric">
-                        <button class="btn btn-primary text-center" type="submit" name="submit" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;margin-top:30px;">Submit</button>
-                    </div>
-                   
-                </div>
-                
+                        <div class="form-row">
+                            <div class="form-group col-lg-6">
+                                <label for="inputCity">Date Of Birth</label>
+                                <input type="date" class="form-control" name="student_dob" id="inputCity">
+                            </div>
+                            <div class="form-group col-lg-6">
+                                <label for="inputCity">Race</label>
+                                <select id="inputState" class="form-control" name="student_race">
+                                    <option selected>Choose Race</option>
+                                    <option value="chinese">Chinese</option>
+                                    <option value="malay">Malay</option>
+                                    <option value="indian">Indian</option>
+                                    <option value="others">Others</option>
+                                </select>
+                            </div>
 
-            </form>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-lg-4">
+                                <label for="inputCity">Citizenship</label>
+                                <select id="inputState" class="form-control" name="student_citizenship">
+                                    <option selected>Choose Citizenship</option>
+                                    <option value="Permanant Resident">Permanant Resident</option>
+                                    <option value="Singaporean">Singaporean</option>
+                                    <option value="Foreigner">Foreigner</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label for="inputCity">If Permanent Resident, Which Nationality?</label>
+                                <input type="text" class="form-control" name="student_nationality" id="student_school">
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label for="inputCity">School Child Is Currently Attending</label>
+                                <input type="text" class="form-control" name="student_school" id="student_school">
+                            </div>
+
+                            <div class="form-group col-lg-6">
+                                <label for="inputCity">Primary Level</label>
+                                <select id="inputState" class="form-control" name="student_level">
+                                    <option selected>Choose Level</option>
+                                    <option value="P1">P1</option>
+                                    <option value="P2">P2</option>
+                                    <option value="P3">P3</option>
+                                    <option value="P4">P4</option>
+                                    <option value="P5(N)">P5(N)</option>
+                                    <option value="P5(F)">P5(F)</option>
+                                    <option value="P6(N)">P6(N)</option>
+                                    <option value="P6(F)">P6(F)</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-6">
+                                <label for="inputCity">Normal/Foundation</label>
+                                <select id="inputState" class="form-control" name="student_normal">
+                                    <option selected>Choose</option>
+                                    <option value="Normal">Normal</option>
+                                    <option value="Foundation">Foundation</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-lg-6">
+                                <label for="inputCity">Residential Address</label>
+                                <input type="text" class="form-control" name="student_residential" id="student_school">
+                            </div>
+
+                            <div class="form-group col-lg-6">
+                                <label for="inputCity">Name Of Student's Bank</label>
+                                <input type="text" class="form-control" name="student_bank" id="student_school">
+                            </div>
+                            <div class="form-group col-lg-6">
+                                <label for="inputCity">Student's Account Number</label>
+                                <input type="text" class="form-control" name="student_account" id="student_school">
+                            </div>
+                            <div class="form-group col-lg-6">
+                                <label for="inputCity">Which Centre Do You Want To Go To</label>
+                                <select class="form-control" id="reason" name="centre_name" required>
+                                    <option selected>Choose Centre</option>
+                                    <option value="Hougang Centre">Hougang Centre</option>
+                                    <option value="Sengkang Centre">Sengkang Centre</option>
+                                    <option value="Punggol Centre">Punggol Centre</option>
+                                    <option value="Fernvale Centre">Fernvale Centre</option>
+                                    <option value="Teck Ghee Centre">Teck Ghee Centre</option>
+                                    <option value="Kolam Ayer Centre">Kolam Ayer Centre</option>
+
+                                </select>
+                            </div>
+                        </div>
+
+
+
+
+
+                    </section>
+                    <section id="r2" class="section">
+                        <div class="form-row">
+                            <div class="form-group col-lg-4">
+                                <label for="inputCity">Name</label>
+                                <input type="text" class="form-control" name="father_name" id="inputCity">
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label for="inputCity">NRIC</label>
+                                <input type="text" class="form-control" name="father_nric" id="inputCity">
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label for="inputZip">Date Of Birth</label>
+                                <input type="date" class="form-control" name="father_dob" id="inputCity">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+
+                            <div class="form-group col-lg-4">
+                                <label for="inputCity">Race</label>
+                                <select id="inputState" class="form-control" name="father_race">
+                                    <option selected>Choose Race</option>
+                                    <option value="chinese">Chinese</option>
+                                    <option value="malay">Malay</option>
+                                    <option value="indian">Indian</option>
+                                    <option value="others">Others</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label for="inputCity">Citizenship</label>
+                                <select id="inputState" class="form-control" name="father_citizenship">
+                                    <option selected>Choose Citizenship</option>
+                                    <option value="Permanant Resident">Permanant Resident</option>
+                                    <option value="Singaporean">Singaporean</option>
+                                    <option value="Foreigner">Foreigner</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label for="inputCity">If Permanent Resident, Which Nationality?</label>
+                                <input type="text" class="form-control" name="father_nationality" id="student_school">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-lg-4">
+                                <label for="inputCity">Residential Address</label>
+                                <input type="text" class="form-control" name="father_residential" id="student_school">
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label for="inputCity">Contact Number</label>
+                                <input type="number" class="form-control" name="father_number" id="student_school">
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label for="inputCity">Name Of Employer</label>
+                                <input type="text" class="form-control" name="father_employer" id="student_school">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-lg-6">
+                                <label for="inputCity">Company Address</label>
+                                <input type="text" class="form-control" name="father_company" id="student_school">
+                            </div>
+
+                            <div class="form-group col-lg-6">
+                                <label for="inputCity">Occupation*</label>
+                                <input type="text" class="form-control" name="father_occupation" id="student_school">
+                            </div>
+                            <div class="form-group col-lg-6">
+                                <label for="inputCity">Gross Salary*</label>
+                                <input type="text" class="form-control" name="father_salary" value="$" id="student_school">
+                            </div>
+                            <div class="form-group col-lg-6">
+                                <label for="inputCity">Other Salary*</label>
+                                <input type="text" class="form-control" name="father_other" value="$" id="student_school">
+                            </div>
+                        </div>
+                    </section>
+                    <section id="r3" class="section">
+                        <div class="form-row">
+                            <div class="form-group col-lg-4">
+                                <label for="inputCity">Name</label>
+                                <input type="text" class="form-control" name="mother_name" id="inputCity">
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label for="inputCity">NRIC</label>
+                                <input type="text" class="form-control" name="mother_nric" id="inputCity">
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label for="inputZip">Date Of Birth</label>
+                                <input type="date" class="form-control" name="mother_dob" id="inputCity">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+
+                            <div class="form-group col-lg-4">
+                                <label for="inputCity">Race</label>
+                                <select id="inputState" class="form-control" name="mother_race">
+                                    <option selected>Choose Race</option>
+                                    <option value="chinese">Chinese</option>
+                                    <option value="malay">Malay</option>
+                                    <option value="indian">Indian</option>
+                                    <option value="others">Others</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label for="inputCity">Citizenship</label>
+                                <select id="inputState" class="form-control" name="mother_citizenship">
+                                    <option selected>Choose Citizenship</option>
+                                    <option value="Permanant Resident">Permanant Resident</option>
+                                    <option value="Singaporean">Singaporean</option>
+                                    <option value="Foreigner">Foreigner</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label for="inputCity">If Permanent Resident, Which Nationality?</label>
+                                <input type="text" class="form-control" name="mother_nationality" id="student_school">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-lg-4">
+                                <label for="inputCity">Residential Address</label>
+                                <input type="text" class="form-control" name="mother_residential" id="student_school">
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label for="inputCity">Contact Number</label>
+                                <input type="number" class="form-control" name="mother_number" id="student_school">
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label for="inputCity">Name Of Employer</label>
+                                <input type="text" class="form-control" name="mother_employer" id="student_school">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-lg-6">
+                                <label for="inputCity">Company Address</label>
+                                <input type="text" class="form-control" name="mother_company" id="student_school">
+                            </div>
+
+                            <div class="form-group col-lg-6">
+                                <label for="inputCity">Occupation*</label>
+                                <input type="text" class="form-control" name="mother_occupation" id="student_school">
+                            </div>
+                            <div class="form-group col-lg-6">
+                                <label for="inputCity">Gross Salary*</label>
+                                <input type="text" class="form-control" name="mother_salary" value="$" id="student_school">
+                            </div>
+                            <div class="form-group col-lg-6">
+                                <label for="inputCity">Other Salary*</label>
+                                <input type="text" class="form-control" name="mother_other" value="$" id="student_school">
+                            </div>
+                        </div>
+                    </section>
+                    <section id="r4" class="section">
+                        <div class="form-row">
+                            <div class="form-group col-lg-4">
+                                <label for="inputCity">Name</label>
+                                <input type="text" class="form-control" name="guardian_name" id="inputCity">
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label for="inputCity">NRIC</label>
+                                <input type="text" class="form-control" name="guardian_nric" id="inputCity">
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label for="inputZip">Date Of Birth</label>
+                                <input type="date" class="form-control" name="guardian_dob" id="inputCity">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+
+                            <div class="form-group col-lg-4">
+                                <label for="inputCity">Race</label>
+                                <select id="inputState" class="form-control" name="guardian_race">
+                                    <option selected>Choose Race</option>
+                                    <option value="chinese">Chinese</option>
+                                    <option value="malay">Malay</option>
+                                    <option value="indian">Indian</option>
+                                    <option value="others">Others</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label for="inputCity">Citizenship</label>
+                                <select id="inputState" class="form-control" name="guardian_citizenship">
+                                    <option selected>Choose Citizenship</option>
+                                    <option value="Permanant Resident">Permanant Resident</option>
+                                    <option value="Singaporean">Singaporean</option>
+                                    <option value="Foreigner">Foreigner</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label for="inputCity">If Permanent Resident, Which Nationality?</label>
+                                <input type="text" class="form-control" name="guardian_nationality" id="student_school">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-lg-4">
+                                <label for="inputCity">Residential Address</label>
+                                <input type="text" class="form-control" name="guardian_residential" id="student_school">
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label for="inputCity">Contact Number</label>
+                                <input type="number" class="form-control" name="guardian_number" id="student_school">
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label for="inputCity">Name Of Employer</label>
+                                <input type="text" class="form-control" name="guardian_employer" id="student_school">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-lg-6">
+                                <label for="inputCity">Company Address</label>
+                                <input type="text" class="form-control" name="guardian_company" id="student_school">
+                            </div>
+
+                            <div class="form-group col-lg-6">
+                                <label for="inputCity">Occupation*</label>
+                                <input type="text" class="form-control" name="guardian_occupation" id="student_school">
+                            </div>
+                            <div class="form-group col-lg-6">
+                                <label for="inputCity">Gross Salary*</label>
+                                <input type="text" class="form-control" name="guardian_salary" value="$" id="student_school">
+                            </div>
+                            <div class="form-group col-lg-6">
+                                <label for="inputCity">Other Salary*</label>
+                                <input type="text" class="form-control" name="guardian_other" value="$" id="student_school">
+                            </div>
+                        </div>
+                    </section>
+                    <section id="r5" class="section">
+                        <div class="form-row">
+                            <div class="form-group col-lg-4">
+                                <label for="inputCity">Name*</label>
+                                <input type="text" class="form-control" name="emergency_name" id="inputCity">
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label for="inputCity">Relationship To Student*</label>
+                                <input type="text" class="form-control" name="emergency_relationship" id="inputCity">
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label for="inputZip">Contact</label>
+                                <input type="number" class="form-control" name="emergency_contact" id="inputCity">
+                            </div>
+                        </div>
+                    </section>
+                    <section id="r6" class="section">
+                        <div class="form-row">
+                            <div class="form-group col-lg-4">
+                                <label for="inputCity">Name*</label>
+                                <input type="text" class="form-control" name="family_name" id="inputCity">
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label for="inputCity">Relationship To Student*</label>
+                                <input type="text" class="form-control" name="family_relationship" id="inputCity">
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label for="inputZip">Contact</label>
+                                <input type="number" class="form-control" name="family_contact" id="inputCity">
+                            </div>
+                        </div>
+                    </section>
+                    <section id="r7" class="section">
+                        <h4>I Hereby Authorize YYD Education Centre Ltd, To Collect, Use, Store And Disclose Information (Including Personal Information), Including, But Not Limited To, Information Provided In This Application Form And Obtained During Our House Visits, In Accordance To The Personal Data Protection Act 2012 (PDPA) In Singapore For The Processing Of This Application And The Administration Of Membership Under YYD Education Centre Ltd. I Acknowledge That The Personal Data And Information Mentioned Above May Be Retained By YYD Education Centre For A Reasonable Length Of Time And I Authorize Such Retention For Future Recruitment Purposes. I Understand That The Provision Of Information Which Is Untrue, Or Failure To Provide Certain Information May Affect The Outcome Of My Application. I Herby Declare That The Information Provided By Me In This Application Form Are True, Complete And Accurate. I Hereby Undertake To Inform YYD Education Centre Of Any Changes Or Error In My Information As Soon As Possible.</h4>
+                        <br>
+                        <div class="form-row">
+                            <div class="form-group col-lg-4">
+                                <label for="inputCity">Full Name Of Parent/Legal Guardian*</label>
+                                <input type="text" class="form-control" required>
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label for="inputCity">Signature Of Parent/Legal Guardian*</label>
+                                <input type="file" class="form-control"accept=".jpg, .jpeg, .png" style="height:40px;"required>
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label for="inputZip">Date</label>
+                                <input type="date" class="form-control" required>
+                            </div>
+                        </div>
+                    </section>
+                    <section id="r8" class="section">
+                        <div class="form-row">
+                            <div class="form-group col-lg-4">
+                                <label for="inputCity">Date*</label>
+                                <input type="date" class="form-control" name="medical_date" required>
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label for="inputCity">Child's Name*</label>
+                                <input type="text" class="form-control" required>
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label for="inputZip">Level</label>
+                                <select id="inputState" class="form-control">
+                                    <option selected>Choose Level</option>
+                                    <option value="P1">P1</option>
+                                    <option value="P2">P2</option>
+                                    <option value="P3">P3</option>
+                                    <option value="P4">P4</option>
+                                    <option value="P5(N)">P5(N)</option>
+                                    <option value="P5(F)">P5(F)</option>
+                                    <option value="P6(N)">P6(N)</option>
+                                    <option value="P6(F)">P6(F)</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-6">
+                                <label for="inputCity">Any Medical Conditions?*</label>
+                                <select id="inputState" class="form-control" name="medical_conditions">
+                                    <option selected>Choose</option>
+                                    <option value="yes">Yes</option>
+                                    <option value="no">No</option>
+
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-6">
+                                <label for="inputCity">If Yes, Please Add Here*</label>
+                                <textarea required name="add_here" class="form-control"></textarea>
+                            </div>
+                            <div class="form-group col-lg-6">
+                                <label for="inputCity">Is Your Child On Daily Medication To Treat/Prevent Relapse?</label>
+                                <select id="inputState" class="form-control" name="daily_medication">
+                                    <option selected>Choose</option>
+                                    <option value="yes">Yes</option>
+                                    <option value="no">No</option>
+
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-6">
+                                <label for="inputCity">Does The Condition Affect His/Her Learning Progress?</label>
+                                <select id="inputState" class="form-control" name="daily_medication">
+                                    <option selected>Choose</option>
+                                    <option value="yes">Yes</option>
+                                    <option value="no">No</option>
+
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-12">
+                                <label for="inputCity">If Yes, Please Explain In The Text Box.</label>
+                                <textarea required name="explain_condition" class="form-control"></textarea>
+                            </div>
+                            <div class="form-group col-lg-3">
+                                <label for="inputCity">Parent / Guardian Name*</label>
+                                <input type="text" class="form-control" name="medical_name" required>
+                            </div>
+                            <div class="form-group col-lg-3">
+                                <label for="inputCity">NRIC*</label>
+                                <input type="text" class="form-control" name="medical_nric" required>
+                            </div>
+                            <div class="form-group col-lg-3">
+                                <label for="inputCity">Translator Name (If Any)*</label>
+                                <input type="text" class="form-control" name="translator_name" required>
+                            </div>
+                            <div class="form-group col-lg-3">
+                                <label for="inputCity">Translator NRIC*</label>
+                                <input type="text" class="form-control" name="translator_nric" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                                <label class="form-check-label" style="margin-top:25px;" for="inlineCheckbox1">I Am Fully Aware That YYD Education Tutors Are Not Medically Trained To Handle My Child's Medical Condition. I Will Not Hold YYD Education Centre Or Their Tutors Responsible For Any Incident Which May Happen To My Child Due To His/Her Medical Condition, As A Result From My Decision To Enrol Him/Her In The Tuition.</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                                <label class="form-check-label" style="margin-top:25px;" for="inlineCheckbox1">I Hereby Certify That The Above Information Is True And Accurate And Failure To Provide Certain Information May Affect The Outcome Of My Application. I Hereby Undertake To Inform YYD Education Centre Of Any Changes Or Error In My Information As Soon As Practicable.</label>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary text-center" type="submit" name="submit" style="margin-top:30px;">Submit</button>
+                    </section>
+
+                </form>
+            </div>
+            <nav style="margin-left:48%;">
+                <button class="previous" id="previous" onclick="displayPrevious()">Previous</button>
+                <button class="next button-active" id="next" onclick="displayNext()">Next</button>
+            </nav>
         </div>
 
 

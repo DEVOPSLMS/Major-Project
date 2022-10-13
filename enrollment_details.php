@@ -26,13 +26,19 @@ $student_details = mysqli_fetch_assoc($result);
 
         <?php include("header.php") ?>
 
-        <a class="btn btn-primary" style="position: absolute; left: 20px;" href="enrollment_review.php">Back</a>
-        <h2 class="text-center" style="border-bottom: 1px grey solid; padding-bottom: 20px;"><b>Enrollment Review</b></h2>
+       
     </header>
 </header>
-
+<br><br><br><br><br><br><br><br><br><br><br>
+<style>
+    body{
+        font-size:130%;
+    }
+</style>
 <body>
-
+<a class="btn btn-primary" style=" left: 20px;" href="enrollment_review.php">Back</a>
+<br><br>
+        <h2 class="text-center" style="border-bottom: 1px grey solid; padding-bottom: 20px;"><b>Enrollment Review</b></h2>
     <a href="" class="btn btn-primary" style="position: absolute; right: 20px;">
         <h3>Medical Declaration Form</h3>
     </a>
