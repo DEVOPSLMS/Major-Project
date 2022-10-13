@@ -44,4 +44,19 @@ function random_num($length)
 
 	return $text;
 }
+function check_remmeber()
+{
+
+	if(isset($_COOKIE['key']))
+	{
+	
+		header("Location:index.php");
+		
+	}
+
+	//redirect to login
+	header("Location: login.php");
+	die;
+
+}
 ?>

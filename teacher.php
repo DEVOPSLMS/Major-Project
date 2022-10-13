@@ -36,11 +36,11 @@ $teacher = mysqli_query($con, $query);
 
     </header>
 </header>
-
+<br><br><br><br><br><br><br><br><br>
 <body>
 
     <a href="index.php">
-        <button class="btn btn-primary text-center" type="submit" name="submit" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;float:left;margin-left:30px;margin-top:10px;width:100px ;">Back</button>
+        <button class="btn btn-primary text-center" type="submit" name="submit" >Back</button>
     </a>
     <br><br><br><br>
     <div class="container-fluid">

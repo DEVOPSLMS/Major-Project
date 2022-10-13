@@ -4,11 +4,12 @@
     flex-flow: column;
 }
 .calendar .header .month-year {
-    font-size: 20px;
+    font-size: 40px;
     font-weight: bold;
     color: #636e73;
     padding: 20px 0;
 }
+
 .calendar .days {
     display: flex;
     flex-flow: wrap;
@@ -60,6 +61,21 @@
 .calendar .days .day_num .event.blue {
     background-color: #518fce;
 }
+.calendar .days .day_num .event.purple {
+    background-color: #A020F0;
+}
+.calendar .days .day_num .event.gold {
+    background-color: #FFD700;
+}
+.calendar .days .day_num .event.grey {
+    background-color: #808080;
+}
+.calendar .days .day_num .event.yellow {
+    background-color: black;
+}
+.calendar .days .day_num .event.pink {
+    background-color: #FFC0CB;
+}
 .calendar .days .day_num .event.red {
     background-color: #ce5151;
 }
@@ -78,6 +94,18 @@
     background-color: #f1f2f3;
     cursor: inherit;
 }
+.calendar .date .month-year{
+    font-size:30px;
+}
+@media (max-width: 600px) {
+    .event p{
+    font-size:9px;
+}
+.event{
+    width:50px;
+}
+}
+
 </style>
 <?php
 
@@ -136,11 +164,11 @@ class Calendar {
                 for ($d = 0; $d <= ($event[3]-1); $d++) {
                     if (date('y-m-d', strtotime($this->active_year . '-' . $this->active_month . '-' . $i . ' -' . $d . ' day')) == date('y-m-d', strtotime($event[2]))) {
                         $html .= '<div class="event' . $event[4] . '">';
-                        $html .= $event[0];;
-                        $html .= '<br>'.$event[1];
-                        $html .= '<br>'.$event[5].'';
-                        $html .= '<br>'.$event[6].'';
-                        $html .= '<br>'.$event[7].'';
+                        $html .= '<p>'.$event[0].'</p>';
+                        $html .= '<br><p>'.$event[1].'</p>';
+                        $html .= '<br><p>'.$event[5].'</p>';
+                        $html .= '<br><p>'.$event[6].'</p>';
+                        $html .= '<br><p>'.$event[7].'</p>';
                         $html .= '</div>';
                     }
                 }

@@ -58,6 +58,8 @@ $minus=date("Y-m-d", strtotime("-1 month", $dt))."\n";
 		<meta charset="utf-8">
 		<title>Event Calendar</title>
 		<link href="style.css" rel="stylesheet" type="text/css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
 		<link href="calendar.css" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -95,21 +97,40 @@ body {
     border-bottom: 1px solid #ebebeb;
     color: #666666;
 }
+@media (max-width: 900px) {
+    .content{
+        width: 500px;
+    margin: 0 auto;
+ }
+ 
+ .content h2 {
+    margin: 0;
+    padding: 25px 0;
+    font-size: 30px;
+    border-bottom: 1px solid #ebebeb;
+    color: #666666;
+}
+}
+
+
+
+
     </style>
     <br><br>   <br><br>   <br><br>   <br><br>   <br><br>   <br><br>   <br><br>
 	<body>
         <div class="container-fluid">
       
 		<div class="content home">
-			<?=$calendar?>
-            <br>
-           <form method="POST">
-            <?php echo "<a class='btn'href='events.php?dt=" . $minus. "'>PREV MONTH</a>";
+        <?php echo "<a class='btn'href='events.php?dt=" . $minus. "'>PREV MONTH</a>";
             ?>
              <?php echo "<a class='btn'style='float:right;'' href='events.php?dt=" . $plus. "'>NEXT MONTH</a>";
             ?>
+			<?=$calendar?>
+            <br>
+      
+        
           
-           </form> 
+         
 		</div>
         </div>
 	    
