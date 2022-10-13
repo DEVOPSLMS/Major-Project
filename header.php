@@ -36,7 +36,7 @@ $username = $user_data['username'];
           }
           ?>
         <?php if ($role == 'parent' || $role == 'finance' || $role == 'l' || $role == 'manager' || $role == 'admin') {
-          echo ('<a href="#">Feedback</a>');
+          echo ('<a href="feedback.php">Feedback</a>');
         }
         ?>
          <?php if ($role == 'finance') {
