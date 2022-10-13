@@ -76,7 +76,8 @@ $teacher = mysqli_query($con, $query);
 
             <div class="row">
                 <div class="col-lg-8">
-                    <button class="btn btn-primary" style="float:right;margin-right:250px;" type="button" data-toggle="modal" data-target="#studentaddmodal">Add Lesson</button>
+
+                   <a href="events.php?dt=<?php echo(date('Y-m-d'))?>"> <button class="btn btn-primary" style="float:right;margin-right:250px;" type="button" >Calendar</button></a>
                     <form method="POST" class="form">
 
                         <h3>Filter By Date: <input type="date" name="date" value="" id="date">

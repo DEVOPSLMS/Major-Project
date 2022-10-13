@@ -222,7 +222,7 @@ button{
       <h3>Sign Up Here</h3>
         <div class="mb-3">
           <label>Email</label>
-          <input type="text" class="form-control" id="exampleFormControlInput1" name="email" placeholder="Email" required>
+          <input type="email" class="form-control" id="exampleFormControlInput1" name="email" placeholder="Email" required>
           <div class="valid-tooltip">
         Looks good!
       </div>
