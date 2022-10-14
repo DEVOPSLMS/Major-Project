@@ -5,12 +5,20 @@ include("connection.php");
 include("functions.php");
 include("check_teacher.php");
 $user_data = check_login($con);
-$id = $user_data['id'];
-$sql = "select * from submit_leave_teacher where teacherid = '$id' ORDER BY id desc ";
-$teacher_leave = mysqli_query($con, $sql);
-$results = mysqli_fetch_assoc($teacher_leave);
+$id = intval($_GET['id']);
+
+$query = "select * from student where id = '$id' ";
+$result = mysqli_query($con, $query);
+$student_details = mysqli_fetch_assoc($result);
+
+$student_name = $student_details['student_name'];
+$sql = "select * from student_leave where student_name = '$student_name' ORDER BY id desc ";
+$student_leave = mysqli_query($con, $sql);
+$results = mysqli_fetch_assoc($student_leave);
+
+$date = date('Y-m-d');
 if (isset($_POST["submit"])) {
-    $name = $_POST["name"];
+    $name = $student_details['student_name'];
     $reason = $_POST["reason"];
     $date_start = $_POST["date_start"];
     $date_end = $_POST["date_end"];
@@ -49,16 +57,15 @@ if (isset($_POST["submit"])) {
 
             move_uploaded_file($tmpName, 'submit/' . $newImageName);
 
-            $query = "insert into submit_leave_teacher(name,teacherid,date_start,date_end,image,comments,reason) values ('$name','$id','$date_start','$date_end','$newImageName','$comments','$reason')";
+            $query = "insert into student_leave(student_name,parentid,image,date_start,date_end,reason,comments) values ('$name','$id','$newImageName','$date_start','$date_end','$reason','$comments')";
 
             mysqli_query($con, $query);
 
-            mysqli_query($con, $sql);
             echo
             "
         <script>
           alert('Successfully Added');
-          document.location.href = 'submitleave.php';
+          document.location.href = 'submit_leave_student.php';
         </script>
         ";
         }
@@ -106,14 +113,14 @@ if (empty($_POST['password'])) {
     <body>
         <div class="container-fluid">
             <?php if ($results['date_end'] >= $date) {
-                echo ('<h1 class="text-center">You Already Submitted an MC that will finish on ' . $results['date_end'] . '.Please wait until after ' . $results['date_end'] . ' to submit a new MC</h1>');
+                echo ('<h1 class="text-center">You Already Submitted an MC that will finish on '.$results['date_end'].'.Please wait until after '.$results['date_end'].' to submit a new MC</h1>');
             }
-            if ($results['date_end'] <= $date) {
-                echo(' <form method="POST" enctype="multipart/form-data" autocomplete="off">
+            if($results['date_end'] <= $date){
+                echo('<form method="POST" enctype="multipart/form-data" autocomplete="off">
                 <div class="form-group row">
                     <label for="staticEmail" class="col-sm-2 col-form-label">Name</label>
                     <div class="col-sm-10">
-                        <input type="text" readonly class="form-control-plaintext" name="name" id="staticEmail" value="'.($user_data['username']).'">
+                        <input type="text" readonly class="form-control-plaintext" name="name" id="staticEmail" value="'.$student_details['student_name'].'">
                     </div>
                 </div>
                 <div class="form-group row">
@@ -121,7 +128,7 @@ if (empty($_POST['password'])) {
 
                     <label for="reason" class="col-sm-2 col-form-label">Reason Of Absence</label>
                     <select class="col-sm-2 form-control " style="font-size:20px;width:20%;" id="reason" name="reason" required>
-                        <option selected disabled>Choose..</option>
+                        <option selected></option>
                         <option value="sick" name="room">Sick</option>
                         <option value="vacation" name="room">Vacation</option>
                         <option value="other" name="room">Others</option>
@@ -142,6 +149,7 @@ if (empty($_POST['password'])) {
                     <label for="exampleFormControlFile1" class="col-sm-2 col-form-label">Comments (if any)*</label>
                     <textarea class="col-sm-8 form-control" name="comments" id="exampleFormControlTextarea1" style="width:50%;" rows="3"></textarea>
                 </div>
+
                 <div class="form-group row">
                     <div class="col-sm-2">
 
@@ -153,9 +161,8 @@ if (empty($_POST['password'])) {
 
             </form>');
             }
-
             ?>
-           
+    
         </div>
 
 

@@ -1,6 +1,7 @@
 <?php
 session_start();
 include("check_roster.php");
+include("check_teacher.php");
 include("connection.php");
 include("functions.php");
 error_reporting(E_ERROR | E_PARSE);

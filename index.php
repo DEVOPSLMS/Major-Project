@@ -1,8 +1,9 @@
 <?php
 session_start();
 include("check_roster.php");
+include("check_teacher.php");
 include("connection.php");
-include("functions.php");
+include_once("functions.php");
 
 $user_data = check_login($con);
 
@@ -124,7 +125,7 @@ $user_data = check_login($con);
                                 <h1>Submit reason of absence</h1>
                                 <p style="font-size:20px;">Submit your reason of absence for your child here.</p>
     
-                                <button class="btn btn-primary text-center  " type="submit" name="submit" >Submit</button>
+                               <a href="submit_leave_student.php"> <button class="btn btn-primary text-center  " type="submit" name="submit" >Submit</button></a>
     
     
                             </div>

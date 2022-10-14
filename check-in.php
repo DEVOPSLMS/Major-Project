@@ -3,6 +3,7 @@ session_start();
 include("check_roster.php");
 include("connection.php");
 include("functions.php");
+include("check_teacher.php");
 $query = @unserialize(file_get_contents('http://ip-api.com/php/'));
 date_default_timezone_set('Singapore');
 $recorded = $query['zip'];

@@ -1,5 +1,6 @@
 <?php
 session_start();
+include("check_teacher.php");
 include 'connection.php';
 include 'Calendar.php';
 include("functions.php"); 

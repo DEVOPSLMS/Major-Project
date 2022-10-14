@@ -1,9 +1,10 @@
 <?php
 session_start();
 include("check_roster.php");
+include("check_teacher.php");
 include("connection.php");
 include("functions.php");
-
+error_reporting(E_ERROR | E_PARSE);
 $user_data = check_login($con);
 $class_id = intval($_GET['id']);
 $query = "select * from roster where id = '$class_id'";
@@ -97,11 +98,12 @@ if (isset($_POST["submit"])) {
 <header>
     <?php include('header.php') ?>
 </header>
+<br><br><br><br><br><br><br><br><br><br>
 
 <body>
     <form method="POST">
         <br>
-        <a href="lesson_details.php?id=<?php echo ($class_id) ?>" class="btn btn-primary" name="hod" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;width:80px;height:40px;">Back</a>
+        <a href="lesson_details.php?id=<?php echo ($class_id) ?>" class="btn btn-primary" name="hod">Back</a>
         <br><br>
         <div class="row">
             <div class="col-lg-3 ">
@@ -127,7 +129,7 @@ if (isset($_POST["submit"])) {
             </div>
             <div class="col-lg-1">
 
-                <button class="btn btn-primary" name="submit" type="submit" style="background-color:#F92C85;color:white;border-color:#F92C85;margin:auto;height:40px;">Submit</button>
+                <button class="btn btn-primary" name="submit" type="submit" style="background-color:#F92C85;color:white;border-color:#F92C85;">Submit</button>
             </div>
 
         </div>
@@ -137,7 +139,7 @@ if (isset($_POST["submit"])) {
 
                 <th class="success">Student Name</th>
                 <th class="warning">Attendance <p class="active">
-                        
+
                 </th>
                 <th class="danger">Remarks</th>
 
@@ -147,23 +149,61 @@ if (isset($_POST["submit"])) {
                     <td class="success" name="student_name"><?php echo ($student) ?></td>
 
                     <td class="active" required>
+                        <?php
+                        $date = date('Y-m-d');
+                        $query = "select * from student_leave where student_name = '$student' ORDER BY id desc";
+                        $result = mysqli_query($con, $query);
+                        $student_details = mysqli_fetch_assoc($result);
+
+                        $date = date('Y-m-d');
+
+                        if ($student_details['date_start'] <= $date && $student_details['date_end'] >= $date) {
+                            echo (' <select class="form-select" name="status[]" required>
+                                        <option value="absent">Absent</option>
+                                        <option value="present">Present</option>
+                                        <option value="late">Late</option>
+                                        
+            
+                                    </select>');
+                        } else if ('null') {
+                            echo ('<select class="form-select" name="status[]" required>
+                                        
+                                        <option value="present">Present</option>
+                                        <option value="late">Late</option>
+                                        <option value="absent">Absent</option>
+            
+                                    </select>');
+                        }
 
 
-                        <select class="form-select" name="status[]" required>
 
-                            <option value="present">Present</option>
-                            <option value="late">Late</option>
-                            <option value="absent">Absent</option>
+                        ?>
 
-                        </select>
 
 
                     </td>
                     <td class="success">
+
                         <div class="form-group ">
 
                             <div class="col-sm-10">
-                                <textarea type="text" class="form-control" style="width: 100%;" id="staticEmail" name="remarks"></textarea>
+                                <?php
+                                $date = date('Y-m-d');
+                                $query = "select * from student_leave where student_name = '$student' ORDER BY id desc";
+                                $result = mysqli_query($con, $query);
+                                $student_details = mysqli_fetch_assoc($result);
+
+                                $date = date('Y-m-d');
+                                $id=$student_details['id'];
+                                if ($student_details['date_start'] <= $date && $student_details['date_end'] >= $date) {
+                                    echo ('<a href="view_mc.php?id='.$id.'"><textarea type="text" class="form-control" style="width: 100%;" id="staticEmail" name="remarks">Student is sick view MC </textarea></a>');
+                                } else if ('null') {
+                                    echo ('<textarea type="text" class="form-control" style="width: 100%;" id="staticEmail" name="remarks"></textarea>');
+                                }
+
+
+
+                                ?>
                             </div>
                         </div>
                     </td>
