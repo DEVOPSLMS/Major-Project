@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+include("check_teacher.php");
 include("connection.php");
 include("functions.php");
 include("check_roster.php");
