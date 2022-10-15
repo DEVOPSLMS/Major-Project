@@ -108,7 +108,7 @@ if (empty($_POST['password'])) {
             <?php if ($results['date_end'] >= $date) {
                 echo ('<h1 class="text-center">You Already Submitted an MC that will finish on ' . $results['date_end'] . '.Please wait until after ' . $results['date_end'] . ' to submit a new MC</h1>');
             }
-            if ($results['date_end'] <= $date) {
+            if ($results['date_end'] < $date) {
                 echo(' <form method="POST" enctype="multipart/form-data" autocomplete="off">
                 <div class="form-group row">
                     <label for="staticEmail" class="col-sm-2 col-form-label">Name</label>

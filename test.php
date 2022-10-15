@@ -1,4 +1,45 @@
+<?php
+include('connection.php');
+    $date = date("Y-m-d");
+    $roster = mysqli_query($con, "SELECT * FROM roster ");   
+    error_reporting(E_ERROR | E_PARSE);
+foreach ($roster as $rosters) {
+           
+    $abs_diff = array();
+    $difference = array();
+    $all_timings = array();
+    $calculated_timings = array();
+    $datediff = array();
+    $earlier =   strtotime(date("Y-m-d H:i:s"));
+    $roster_time= $rosters['date'] . ' ' . $rosters['time'] ;
 
+    $later =  strtotime(date($roster_time));
+    $datenow = new DateTime(date("H:i"));
+    $timings = implode('', [$rosters['timing']]);
+    $all_timings = substr($timings, 0, 2);
+    // $calculated_timings =$all_timings *60;
+    // $datediff = $datenow - $calculated_timings;
+    $now = time(); // or your date as well
+    $your_date = strtotime("2022-010-04");
+    $datediff = $now - $your_date;
+    $time_now = (date("H:i:s"));
+    
+    $to_time = strtotime($rosters['time']);
+  
+    $from_time = strtotime($time_now);
+    $time=round($to_time -$from_time )/60;
+ 
+    $total_time = round(abs($to_time - $time_now) / 60);
+    
+    $id = $rosters['id'];
+   
+   $diff=round($later-$earlier)/86400;
+
+
+   
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,34 +60,12 @@
 
 <?php
 // Given password
-if(isset($_POST["submit"])){
-  
-    $password = $_POST['password'];
-    echo$password;
-    // Validate password strength
-    $uppercase = preg_match('@[A-Z]@', $password);
-    $lowercase = preg_match('@[a-z]@', $password);
-    $number    = preg_match('@[0-9]@', $password);
-    $specialChars = preg_match('@[^\w]@', $password);
-    
-    
-  
- 
-}
+
 
 ?>
 
 <body>
-  <form method="POST">
-  <input type="text"placeholder="Password"name="password  ">
-  <br>
-  <span style="color:red"><?php if(!$uppercase || !$lowercase || !$number || !$specialChars || strlen($password) < 8) {
-        echo 'Password should be at least 8 characters in length and should include at least one upper case letter, one number, and one special character.';
-    }else{
-        echo 'Strong password.';
-    }?></span>
-  <button name="submit"type="submit">Submit</button>
-  </form>
+
  
 </body>
 
