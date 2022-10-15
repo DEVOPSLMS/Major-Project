@@ -118,87 +118,93 @@ if (isset($_POST["submit"])) {
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
-  
+
   <link rel="stylesheet" href="css/signup.css">
   <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
 
 </head>
 <header>
-  
+
 </header>
 
-  <style media="screen">
-    ::placeholder{
+<style media="screen">
+  ::placeholder {
     color: #e5e5e5;
-}
-    form{
-    height: 920px;
+  }
+
+  form {
+    height: 950px;
     width: 800px;
-    background-color: rgba(255,255,255,0.13);
+    background-color: rgba(255, 255, 255, 0.13);
     position: absolute;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
     top: 50%;
     left: 50%;
     border-radius: 10px;
     backdrop-filter: blur(10px);
-    border: 2px solid rgba(255,255,255,0.1);
-    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
     padding: 50px 35px;
-}
+  }
 
-form *{
-    font-family: 'Poppins',sans-serif;
+  form * {
+    font-family: 'Poppins', sans-serif;
     color: #ffffff;
     letter-spacing: 0.5px;
     outline: none;
     border: none;
-}
-form h3{
+  }
+
+  form h3 {
     font-size: 32px;
     font-weight: 500;
     line-height: 42px;
     text-align: center;
-}*:before,
-*:after{
+  }
+
+  *:before,
+  *:after {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-}
-body{
+  }
+
+  body {
     background-color: #080710;
-}
-.background{
+  }
+
+  .background {
     width: 430px;
     height: 520px;
     position: absolute;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
     left: 50%;
     top: 50%;
-}
-.background .shape{
+  }
+
+  .background .shape {
     height: 200px;
     width: 200px;
     position: absolute;
     border-radius: 50%;
-}
-.shape:first-child{
-    background: linear-gradient(
-        #1845ad,
-        #23a2f6
-    );
+  }
+
+  .shape:first-child {
+    background: linear-gradient(#1845ad,
+        #23a2f6);
     left: -80px;
     top: -80px;
-}
-.shape:last-child{
-    background: linear-gradient(
-        to right,
+  }
+
+  .shape:last-child {
+    background: linear-gradient(to right,
         #ff512f,
-        #f09819
-    );
+        #f09819);
     right: -30px;
     bottom: -80px;
-}
-button{
+  }
+
+  button {
     margin-top: 50px;
     width: 100%;
     background-color: #ffffff;
@@ -208,52 +214,53 @@ button{
     font-weight: 600;
     border-radius: 5px;
     cursor: pointer;
-}
-    </style>
+  }
+</style>
+
 <body>
   <div class="container-fluid">
-  <div class="background">
-        <div class="shape"></div>
-        <div class="shape"></div>
+    <div class="background">
+      <div class="shape"></div>
+      <div class="shape"></div>
     </div>
 
     <div class="form-group">
-      <form id="form" method="POST" enctype="multipart/form-data" class="needs-validation"autocomplete="off">
-      <h3>Sign Up Here</h3>
+      <form id="form" method="POST" enctype="multipart/form-data" class="needs-validation" autocomplete="off">
+        <h3>Sign Up Here</h3>
         <div class="mb-3">
           <label>Email</label>
           <input type="email" class="form-control" id="exampleFormControlInput1" name="email" placeholder="Email" required>
-  
-      <div class="invalid-tooltip">
-          Please choose a unique and valid username.
-        </div>
-        </div>
-        <div class="mb-3">
-        <label>Username</label>
-          <input type="text" class="form-control" id="exampleFormControlInput1" name="username" placeholder="Username"required>
+
+          <div class="invalid-tooltip">
+            Please choose a unique and valid username.
+          </div>
         </div>
         <div class="mb-3">
-        <label>Userid</label>
-          <input type="text" class="form-control" id="exampleFormControlInput1" name="userid" placeholder="Userid"required>
+          <label>Username</label>
+          <input type="text" class="form-control" id="exampleFormControlInput1" name="username" placeholder="Username" required>
         </div>
         <div class="mb-3">
-        <label>Password</label>
-          <input type="password" class="form-control" id="exampleFormControlInput1" name="password" placeholder="Password"required>
+          <label>Userid</label>
+          <input type="text" class="form-control" id="exampleFormControlInput1" name="userid" placeholder="Userid" required>
         </div>
         <div class="mb-3">
-        <label>Phone Number</label>
-          <input type="text" class="form-control" id="exampleFormControlInput1" name="number" placeholder="Phone Number"required>
+          <label>Password</label>
+          <input type="password" class="form-control" id="exampleFormControlInput1" name="password" placeholder="Password" required>
+        </div>
+        <div class="mb-3">
+          <label>Phone Number</label>
+          <input type="text" class="form-control" id="exampleFormControlInput1" name="number" placeholder="Phone Number" required>
         </div>
         <label>Role</label>
         <div class="mb-3">
           <select class="form-select" name="role" required>
             <option selected style="color:black;">Role Select</option>
-            <option value="parent"style="color:black;">Parent</option>
-            <option value="l"style="color:black;">L&D</option>
-            <option value="teacher"style="color:black;">Teacher</option>
-            <option value="admin"style="color:black;">Admin</option>
-            <option value="finance"style="color:black;">Finance</option>
-            <option value="manager"style="color:black;">Centre Manager</option>
+            <option value="parent" style="color:black;">Parent</option>
+            <option value="l" style="color:black;">L&D</option>
+            <option value="teacher" style="color:black;">Teacher</option>
+            <option value="admin" style="color:black;">Admin</option>
+            <option value="finance" style="color:black;">Finance</option>
+            <option value="manager" style="color:black;">Centre Manager</option>
 
           </select>
         </div>
@@ -263,14 +270,10 @@ button{
 
         <div class="form-check form-check-inline">
 
-          <input class="form-check-input" name="preferred[]" type="checkbox" id="inlineCheckbox1" value="Pasir Ris Centre">
-          <label class="form-check-label" for="inlineCheckbox1">Pasir Ris Centre</label>
+          <input class="form-check-input" name="preferred[]" type="checkbox" id="inlineCheckbox1" value="Hougang Centre">
+          <label class="form-check-label" for="inlineCheckbox1">Hougang Centre</label>
         </div>
-        <div class="form-check form-check-inline">
-
-          <input class="form-check-input" name="preferred[]" type="checkbox" id="inlineCheckbox1" value="Tampines Centre">
-          <label class="form-check-label" for="inlineCheckbox1">Tampines Centre</label>
-        </div>
+      
         <div class="form-check form-check-inline">
 
           <input class="form-check-input" name="preferred[]" type="checkbox" id="inlineCheckbox1" value="Sengkang Centre">
@@ -278,8 +281,23 @@ button{
         </div>
         <div class="form-check form-check-inline">
 
-          <input class="form-check-input" name="preferred[]" type="checkbox" id="inlineCheckbox1" value="Simei Centre">
-          <label class="form-check-label" for="inlineCheckbox1">Simei Centre</label>
+          <input class="form-check-input" name="preferred[]" type="checkbox" id="inlineCheckbox1" value="Punggol Centre">
+          <label class="form-check-label" for="inlineCheckbox1">Punggol Centre</label>
+        </div>
+        <div class="form-check form-check-inline">
+
+          <input class="form-check-input" name="preferred[]" type="checkbox" id="inlineCheckbox1" value="Fernvale Centre">
+          <label class="form-check-label" for="inlineCheckbox1">Fernvale Centre</label>
+        </div>
+        <div class="form-check form-check-inline">
+
+          <input class="form-check-input" name="preferred[]" type="checkbox" id="inlineCheckbox1" value="Teck Ghee Centre">
+          <label class="form-check-label" for="inlineCheckbox1">Teck Ghee Centre</label>
+        </div>
+        <div class="form-check form-check-inline">
+
+          <input class="form-check-input" name="preferred[]" type="checkbox" id="inlineCheckbox1" value="Kolam Ayer Centre">
+          <label class="form-check-label" for="inlineCheckbox1">Kolam Ayer Centre</label>
         </div>
         <br>
         <label class="form-check-label" for="inlineCheckbox2">Avaliability(Only For Teachers)</label>
@@ -321,15 +339,15 @@ button{
           <input class="form-check-input" name="teach[]" type="checkbox" id="inlineCheckbox2" value="Sunday">
           <label class="form-check-label" for="inlineCheckbox2">Sunday</label>
         </div>
-        <br>   <br>
+        <br> <br>
         <div class="form-group text-center">
           <label for="image">Profile Image : </label>
-          <input type="file" name="image" id="image"required accept=".jpg, .jpeg, .png" value="">
+          <input type="file" name="image" id="image" required accept=".jpg, .jpeg, .png" value="">
         </div>
 
 
 
-        <button type="submit" name="submit" >Sign Up</button>
+        <button type="submit" name="submit">Sign Up</button>
         <br>
         <br>
         <p class="text-center">Already Have An Account? <a href="login.php"><span>Login Here.</span></a></p>
