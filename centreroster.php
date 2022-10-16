@@ -1,6 +1,7 @@
 <?php
 session_start();
-
+include("check_roster.php");
+include("check_teacher.php");
 include("connection.php");
 include("functions.php");
 error_reporting(E_ERROR | E_PARSE);
@@ -80,7 +81,7 @@ $teacher = mysqli_query($con, $query);
                    <a href="events.php?dt=<?php echo(date('Y-m-d'))?>"> <button class="btn btn-primary" style="float:right;margin-right:250px;" type="button" >Calendar</button></a>
                     <form method="POST" class="form">
 
-                        <h3>Filter By Date: <input type="date" name="date" value="" id="date">
+                        <h3>Filter By Date: <input type="date" class="form-control"style="height:50px;font-size:20px;width:20%;"name="date" value="" id="date">
                             <button class="btn btn-primary" type="submit" name="hi">Filter</button>
                     </form>
 

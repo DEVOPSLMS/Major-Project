@@ -1,6 +1,7 @@
 <?php
 session_start();
-
+include("check_teacher.php");
+include("check_roster.php");
 include("connection.php");
 include("functions.php");
 date_default_timezone_set('Singapore');
@@ -91,7 +92,7 @@ if (isset($_POST["submit"])) {
         <?php include("header.php") ?>
 
     </header>
-
+<br><br><br><br><br><br><br><br><br><br><br><br>
     <body>
 
         <button class="btn btn-primary" style="float:right;margin-right:250px;" type="button" data-toggle="modal" data-target="#studentaddmodal">Add Lesson</button>
@@ -109,7 +110,7 @@ if (isset($_POST["submit"])) {
                         <div class="modal-body" style="font-size:20px;">
                             <div class="form-group">
                                 <label>Name Of Teacher </label>
-                                <select class="form-select" style="height:50px;font-size:20px;" required name="teacher_name">
+                                <select class="form-control" style="height:50px;font-size:20px;" required name="teacher_name">
                                     <option selected>Choose Teacher</option>
                                     <?php foreach ($teacher as $teachers) : ?>
                                         <option value="<?php echo $teachers["username"] ?>"><?php echo $teachers["username"] ?></option>
@@ -123,7 +124,7 @@ if (isset($_POST["submit"])) {
                             </div>
                             <div class="form-group">
                                 <label>Level* </label>
-                                <select class="form-select" style="height:50px;font-size:20px;" required name="level">
+                                <select class="form-control" style="height:50px;font-size:20px;" required name="level">
                                     <option selected>Choose Level</option>
 
                                     <option value="P1">P1</option>
@@ -139,7 +140,7 @@ if (isset($_POST["submit"])) {
                             </div>
                             <div class="form-group">
                                 <label> Class Subject </label>
-                                <select class="form-select" style="height:50px;font-size:20px;" required name="subject">
+                                <select class="form-control" style="height:50px;font-size:20px;" required name="subject">
                                     <option selected>Subject</option>
 
                                     <option value="Math" name="subject">Math</option>
@@ -151,7 +152,7 @@ if (isset($_POST["submit"])) {
                             <div class="form-group">
                                 <label> Day Of The Week </label>
 
-                                <select class="form-select" style="height:50px;font-size:20px;" name="day" required>
+                                <select class="form-control" style="height:50px;font-size:20px;" name="day" required>
                                     <option selected>Choose Day</option>
                                     <option value="Monday">Monday</option>
                                     <option value="Tuesday">Tuesday</option>
@@ -174,7 +175,7 @@ if (isset($_POST["submit"])) {
                             <div class="form-group">
                                 <label> Timing Of The Class </label>
 
-                                <select class="form-select" style="height:50px;font-size:20px;" name="timing" required>
+                                <select class="form-control" style="height:50px;font-size:20px;" name="timing" required>
                                     <option selected>Timing</option>
                                     <option value="1pm - 3pm" name="timing">1-3pm </option>
                                     <option value="2pm - 4pm" name="timing">2-4pm</option>
@@ -192,7 +193,7 @@ if (isset($_POST["submit"])) {
 
                             <div class="form-group">
                                 <label> Room </label>
-                                <select class="form-select" style="height:50px;font-size:20px;" name="room" required>
+                                <select class="form-control" style="height:50px;font-size:20px;" name="room" required>
                                     <option selected>Class Number</option>
                                     <option value="Class 1" name="room">Class 1</option>
                                     <option value="Class 2" name="room">Class 2</option>
@@ -204,7 +205,7 @@ if (isset($_POST["submit"])) {
                                 <label> Students </label>
 
 
-                                <textarea type="text" class="form-control" id="staticEmail" name="students"><?php echo ($student_name) ?></textarea>
+                                <textarea type="text" class="form-control" id="staticEmail" style="font-size:100%;"name="students"><?php echo ($student_name) ?></textarea>
 
                             </div>
 

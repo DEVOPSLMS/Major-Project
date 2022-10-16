@@ -1,10 +1,14 @@
 <?php
 session_start();
-
+include("check_roster.php");
 include("connection.php");
 include("functions.php");
-
+include("check_teacher.php");
 $user_data = check_login($con);
+$id = $user_data['id'];
+$sql = "select * from submit_leave_teacher where teacherid = '$id' ORDER BY id desc ";
+$teacher_leave = mysqli_query($con, $sql);
+$results = mysqli_fetch_assoc($teacher_leave);
 if (isset($_POST["submit"])) {
     $name = $_POST["name"];
     $reason = $_POST["reason"];
@@ -49,6 +53,7 @@ if (isset($_POST["submit"])) {
 
             mysqli_query($con, $query);
 
+            mysqli_query($con, $sql);
             echo
             "
         <script>
@@ -92,19 +97,23 @@ if (empty($_POST['password'])) {
 
     </header>
     <style>
-        body{
-            font-size:130%;
+        body {
+            font-size: 130%;
         }
-        </style>
-<br><br><br><br><br><br><br><br><br><br>
+    </style>
+    <br><br><br><br><br><br><br><br><br><br>
+
     <body>
         <div class="container-fluid">
-
-            <form method="POST"enctype="multipart/form-data"autocomplete="off">
+            <?php if ($results['date_end'] >= $date) {
+                echo ('<h1 class="text-center">You Already Submitted an MC that will finish on ' . $results['date_end'] . '.Please wait until after ' . $results['date_end'] . ' to submit a new MC</h1>');
+            }
+            if ($results['date_end'] < $date) {
+                echo(' <form method="POST" enctype="multipart/form-data" autocomplete="off">
                 <div class="form-group row">
                     <label for="staticEmail" class="col-sm-2 col-form-label">Name</label>
                     <div class="col-sm-10">
-                        <input type="text" readonly class="form-control-plaintext" name="name" id="staticEmail" value=<?php echo ($user_data['username']); ?>>
+                        <input type="text" readonly class="form-control-plaintext" name="name" id="staticEmail" value="'.($user_data['username']).'">
                     </div>
                 </div>
                 <div class="form-group row">
@@ -112,10 +121,10 @@ if (empty($_POST['password'])) {
 
                     <label for="reason" class="col-sm-2 col-form-label">Reason Of Absence</label>
                     <select class="col-sm-2 form-control " style="font-size:20px;width:20%;" id="reason" name="reason" required>
-                        <option selected></option>
-                        <option value="1" name="room"> 1</option>
-                        <option value="2" name="room"> 2</option>
-                        <option value="3" name="room"> 3</option>
+                        <option selected disabled>Choose..</option>
+                        <option value="sick" name="room">Sick</option>
+                        <option value="vacation" name="room">Vacation</option>
+                        <option value="other" name="room">Others</option>
 
                     </select>
                 </div>
@@ -137,17 +146,21 @@ if (empty($_POST['password'])) {
                     <div class="col-sm-2">
 
                     </div>
-                <div class="col-sm-9">
-                    <button class="btn btn-primary "  type="submit" name="submit">Submit Leave</button>
+                    <div class="col-sm-9">
+                        <button class="btn btn-primary " type="submit" name="submit">Submit Leave</button>
+                    </div>
                 </div>
-                </div>
-            
-            </form>
+
+            </form>');
+            }
+
+            ?>
+           
         </div>
 
 
 
-        </div>
+
 
 
     </body>

@@ -1,6 +1,7 @@
 <?php
 session_start();
-
+include("check_teacher.php");
+include("check_roster.php");
 include("connection.php");
 include("functions.php");
 date_default_timezone_set('Singapore');
@@ -36,10 +37,10 @@ $num=mysqli_num_rows($result);
    
 </header>
 
-
+<br><br><br><br><br><br><br><br><br><br>
 
 <body>
-<a href="schedule.php"class="btn btn-primary"  name="hod" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;width:80px;height:40px;">Back</a>
+<a href="schedule.php"class="btn btn-primary"  name="hod" >Back</a>
     <h1>Lesson Details</h1>
     <h1>Level/Subject: <?php echo($lesson_details['level'])?>/<?php echo($lesson_details['subject'])?></h1>
     <h1>Teacher: <?php echo($lesson_details['teacher_name'])?></h1>
@@ -51,7 +52,7 @@ $num=mysqli_num_rows($result);
             echo('<i class="fa fa-circle" style="font-size:25px;margin-left:15px;color:red;"></i>');
         }?></h1>
     <?php if($lesson_details['date'] == $date && $lesson_details['need_relief']== 'no' && $num == 0){
-        echo('<a href="attendance.php?id='.$id.'"class="btn btn-primary"  name="hod" style="background-color:#F92C85;color:white;border-color:#F92C85;margin:auto;height:40px;">Mark Attendance</a>  ');
+        echo('<a href="attendance.php?id='.$id.'"class="btn "  name="hod" >Mark Attendance</a>  ');
     }
         if($num > 0)
         {

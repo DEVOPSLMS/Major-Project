@@ -32,7 +32,10 @@ $username = $user_data['username'];
         <?php if ($role == 'teacher') {
             echo ('<a href="schedule.php">Attendance</a>
             <a href="submitleave.php">Submit Leave</a>
-            <a href="check-in.php">Check In</a>');
+            <a href="check-in.php">Check In</a>
+            <a href="#">Payslip</a>'
+          );
+            
           }
           ?>
         <?php if ($role == 'parent' || $role == 'finance' || $role == 'l' || $role == 'manager' || $role == 'admin') {
@@ -63,14 +66,18 @@ $username = $user_data['username'];
           echo ('<a href="#">Submit Reason Of Absence</a>');
           echo ('<a href="#">Withdrawl of Child</a>');
           echo ('<a href="#">Results</a>');
-          echo ('<a href="notification.php">Notification</a>');
+         
         }
         ?>
     </nav>
 
     <div class="icons">
         <div class="fas fa-bars" id="menu-btn"></div>
-       
+        <?php if ($role == 'parent') {
+          echo (' <a  href="notification.php"title="Notification Page"><div class="fa fa-bell" id="login-btn"></div></a>');
+         
+        }
+        ?>
         <a  href="profile.php"title="Profile Page"><div class="fas fa-user" id="login-btn"></div></a>
         <a  href="logout.php"title="Logout"><div class='fa fa-sign-out'></div></a>
     </div>

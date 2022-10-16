@@ -3,14 +3,11 @@ session_start();
 
 include("connection.php");
 include("functions.php");
-
+include("check_roster.php");
+include("check_teacher.php");
 $user_data = check_login($con);
-
 $getfeedback = "SELECT * FROM feedback";
 $result = mysqli_query($con, $getfeedback);
-
-
-
 ?>
 <!DOCTYPE html>
 <html>

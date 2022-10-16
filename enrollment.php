@@ -1,9 +1,9 @@
 <?php
 session_start();
-
+include("check_teacher.php");
 include("connection.php");
 include("functions.php");
-
+include("check_roster.php");
 $user_data = check_login($con);
 if (isset($_POST["submit"])) {
     $student_name = $_POST["student_name"];

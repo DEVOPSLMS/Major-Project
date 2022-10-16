@@ -1,12 +1,43 @@
 <?php
-session_start();
+include('connection.php');
+    $date = date("Y-m-d");
+    $roster = mysqli_query($con, "SELECT * FROM roster ");   
+    error_reporting(E_ERROR | E_PARSE);
+foreach ($roster as $rosters) {
+           
+    $abs_diff = array();
+    $difference = array();
+    $all_timings = array();
+    $calculated_timings = array();
+    $datediff = array();
+    $earlier =   strtotime(date("Y-m-d H:i:s"));
+    $roster_time= $rosters['date'] . ' ' . $rosters['time'] ;
 
-include("connection.php");
-include("functions.php");
+    $later =  strtotime(date($roster_time));
+    $datenow = new DateTime(date("H:i"));
+    $timings = implode('', [$rosters['timing']]);
+    $all_timings = substr($timings, 0, 2);
+    // $calculated_timings =$all_timings *60;
+    // $datediff = $datenow - $calculated_timings;
+    $now = time(); // or your date as well
+    $your_date = strtotime("2022-010-04");
+    $datediff = $now - $your_date;
+    $time_now = (date("H:i:s"));
+    
+    $to_time = strtotime($rosters['time']);
+  
+    $from_time = strtotime($time_now);
+    $time=round($to_time -$from_time )/60;
+ 
+    $total_time = round(abs($to_time - $time_now) / 60);
+    
+    $id = $rosters['id'];
+   
+   $diff=round($later-$earlier)/86400;
 
-$user_data = check_login($con);
 
-
+   
+}
 
 ?>
 <!DOCTYPE html>
@@ -17,55 +48,25 @@ $user_data = check_login($con);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></script>
 
 
 </head>
 
 
 
-<header class="header">
-    <?php include('header.php') ?>
-</header>
-<br><br><br><br><br><br><br><br><br><br><br><br>
 <?php
+// Given password
+
+
 ?>
+
 <body>
-<div class="container">	
-	<div class="page-header">
-		<div class="pull-right form-inline">
-			<div class="btn-group">
-				<button class="btn btn-primary" data-calendar-nav="prev"><< Prev</button>
-				<button class="btn btn-default" data-calendar-nav="today">Today</button>
-				<button class="btn btn-primary" data-calendar-nav="next">Next >></button>
-			</div>
-			<div class="btn-group">
-				<button class="btn btn-warning" data-calendar-view="year">Year</button>
-				<button class="btn btn-warning active" data-calendar-view="month">Month</button>
-				<button class="btn btn-warning" data-calendar-view="week">Week</button>
-				<button class="btn btn-warning" data-calendar-view="day">Day</button>
-			</div>
-		</div>
-		<h3></h3>
-		<small>To see example with events navigate to Februray 2018</small>
-	</div>
-	<div class="row">
-		<div class="col-md-9">
-			<div id="showEventCalendar"></div>
-		</div>
-		<div class="col-md-3">
-			<h4>All Events List</h4>
-			<ul id="eventlist" class="nav nav-list"></ul>
-		</div>
-	</div>	
-</div>
 
-
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
-<script type="text/javascript" src="js/calendar.js"></script>
-<script type="text/javascript" src="js/events.js"></script>
+ 
 </body>
 
 </html>
