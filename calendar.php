@@ -79,9 +79,16 @@
 .calendar .days .day_num .event.red {
     background-color: #ce5151;
 }
+.calendar .days .day_num .event.orange {
+    background-color: orange;
+}
+.calendar .days .day_num .event.white {
+    background-color: white;
+}
 .calendar .days .day_num:nth-child(7n+1) {
     border-left: 1px solid #e6e9ea;
 }
+
 .calendar .days .day_num:hover {
     background-color: #fdfdfd;
 }

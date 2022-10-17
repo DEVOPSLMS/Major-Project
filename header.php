@@ -4,6 +4,10 @@ include("connection.php");
 
 $role = $user_data['role'];
 $username = $user_data['username'];
+$id=$user_data['id'];
+$sql = "SELECT * FROM notification WHERE seen=0 and parentid='$id' ";
+$res = mysqli_query($con, $sql);
+$num=mysqli_num_rows($res);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -74,7 +78,7 @@ $username = $user_data['username'];
     <div class="icons">
         <div class="fas fa-bars" id="menu-btn"></div>
         <?php if ($role == 'parent') {
-          echo (' <a  href="notification.php"title="Notification Page"><div class="fa fa-bell" id="login-btn"></div></a>');
+          echo (' <a href="notification.php" title="Notification Page"class="notification"><div class="fa fa-bell" id="login-btn"><span class="badge">'.$num.'</span></div></a>');
          
         }
         ?>
@@ -90,6 +94,16 @@ $username = $user_data['username'];
  
 </header>
 <style>
+    .notification .badge {
+    position: absolute;
+    
+    padding: 5px 10px;
+    border-radius: 50%;
+    background: red;
+    color: white;
+  }
+  
+
 
 </style>
 <body>

@@ -49,7 +49,7 @@ if(isset($_POST['submit'])){
         <h2 class="text-center">This is needed so that we know you are the owner of this account!</h2>
         <form method="POST">
         <input type="password" placeholder="Enter Password"style="height:50px;" name="password"class="form-control">
-        <button type="submit"class="btn"name="submit"style="font-size:15px;float:right;">Submit</button>
+        <button type="submit"class="btn"name="submit"style="font-size:15px;float:left;">Submit</button>
         </form>
        
     </div>

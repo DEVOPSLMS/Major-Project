@@ -5,8 +5,11 @@ include("check_roster.php");
 include("connection.php");
 include("functions.php");
 
+
 $user_data = check_login($con);
 $id = $user_data['id'];
+$sql = "UPDATE notification SET seen='1'WHERE parentid='$id' ";
+$res = mysqli_query($con, $sql);
 ?>
 <?php
 $query2 = "select * from student where parentid = '$id'";
@@ -55,28 +58,30 @@ $rows = mysqli_num_rows($late);
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-5">
-                <a href="index.php" class="btn btn-primary" name="hod" >Back</a>
+                <a href="index.php" class="btn btn-primary" name="hod">Back</a>
 
             </div>
             <div class="col-lg-7">
                 <H3>Notifications</H3>
             </div>
-            <br><br>
+            <br><br>  <br><br>
             <?php
-            foreach($absent as $a){
-                $classList[]=$a['notification'];
+            foreach ($absent as $a) {
+                $classList[] = $a['notification'];
             }
-            if(!empty($classList)){
+            if (!empty($classList)) {
                 $class_name = implode(', ', ($classList));
             }
             if ($row > 0) {
-                echo (' <div class="alert alert-warning alert-dismissible fade show" role="alert" type="button" class="close" data-toggle="modal" data-target="#exampleModal">
-                <strong>Warning!</strong>Your child has been absent for ' . $row . ' times for class.
+                echo (' 
+               
+            <div class="col-lg-12 ">
+            <div class="alert alert-warning alert-dismissible fade show" role="alert" type="button" class="close"style="width:100%;height:50px;" data-toggle="modal" data-target="#exampleModal">
+            <strong>Warning!</strong>Your child has been absent for ' . $row . ' times for class.
 
 
-            </div>
-            <div class="col-lg-12 p-5">
-                
+        
+        </div>
             </div>
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
            
@@ -102,7 +107,7 @@ $rows = mysqli_num_rows($late);
                 I have acknowledge this information. This notification will not show again.
                 </label>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                   <a href="deletenotification.php?id='.$id.'"> <button type="button" class="btn btn-primary">Delete Notification</button></a>
+                   <a href="deletenotification.php?id=' . $id . '"> <button type="button" class="btn btn-primary">Delete Notification</button></a>
                 </div>
             </div>
         </div>
@@ -111,10 +116,10 @@ $rows = mysqli_num_rows($late);
             }
             ?>
             <?php
-            foreach($late as $a){
-                $classList[]=$a['notification'];
+            foreach ($late as $a) {
+                $classList[] = $a['notification'];
             }
-            if(!empty($classList)){
+            if (!empty($classList)) {
                 $class_name = implode(', ', ($classList));
             }
             if ($rows > 0) {
@@ -150,7 +155,7 @@ $rows = mysqli_num_rows($late);
                 I have acknowledge this information. This notification will not show again.
                 </label>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                   <a href="deletenotificationlate.php?id='.$id.'"> <button type="button" class="btn btn-primary">Delete Notification</button></a>
+                   <a href="deletenotificationlate.php?id=' . $id . '"> <button type="button" class="btn btn-primary">Delete Notification</button></a>
                 </div>
             </div>
         </div>
@@ -158,7 +163,7 @@ $rows = mysqli_num_rows($late);
     </div>');
             }
             ?>
-            
+
 
         </div>
     </div>
