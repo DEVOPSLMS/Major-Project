@@ -16,31 +16,56 @@ $roster = mysqli_query($con, "SELECT * FROM roster WHERE centre_name='$centre Ce
 
 
 foreach ($roster as $rosters) {
+    $earlier =   strtotime(date("Y-m-d H:i:s"));
+    $roster_time = $rosters['date'] . ' ' . $rosters['time'];
+    $abs_diff = array();
+    $difference = array();
+    $all_timings = array();
+    $calculated_timings = array();
+    $datediff = array();
+    $earlier =   strtotime(date("Y-m-d H:i:s"));
+    $roster_time = $rosters['date'] . ' ' . $rosters['time'];
+
+    $later =  strtotime(date($roster_time));
+    $datenow = new DateTime(date("H:i"));
+    $timings = implode('', [$rosters['timing']]);
+    $all_timings = substr($timings, 0, 2);
+    // $calculated_timings =$all_timings *60;
+    // $datediff = $datenow - $calculated_timings;
+    $now = time(); // or your date as well
+    $your_date = strtotime("2022-010-04");
+    $datediff = $now - $your_date;
+    $time_now = (date("H:i:s"));
+
+    $to_time = strtotime($rosters['time']);
+
+    $from_time = strtotime($time_now);
+    $time = (round($to_time - $from_time) / 60);
+    $accurate=round($time,0,PHP_ROUND_HALF_UP);
+
+    $id = $rosters['id'];
+
+    $diff = round(abs($later - $earlier)) / 86400;
+    $later =  strtotime(date($roster_time));
     $description = $rosters['level'] . ' ' . $rosters['subject'] . ' ' . 'Timing' . ' ' . $rosters['timing'];
-    if ($rosters['level'] == 'P1') {
-        $calendar->add_event($description, $rosters['centre_name'], $rosters['date'], 1, 'green', 'Teacher Name:' . $rosters['teacher_name'] . '', 'Cancelled: ' . $rosters['cancelled'] . '', 'Relief Needed: ' . $rosters['need_relief'] . '');
+    if ($diff > 2 && $rosters['need_relief']=='yes'&&$rosters['cancelled']=='no') {
+        $calendar->add_event($description, $rosters['centre_name'], $rosters['date'], 1, 'green', 'Teacher Name:' . $rosters['teacher_name'] . '', 'Cancelled: ' . $rosters['cancelled'] . '', 'Relief Needed: ' . $rosters['need_relief'] . '<br><br><a style="color:black;font-size:15px;"class=""href="change_teacher.php?id='.$rosters['id'].'">Change Teacher</a>');
     }
-    if ($rosters['level'] == 'P2') {
+    if ($diff <= 2 && $diff > 1 && $rosters['need_relief']=='yes'&&$rosters['cancelled']=='no') {
+        $calendar->add_event($description, $rosters['centre_name'], $rosters['date'], 1, 'orange', 'Teacher Name:' . $rosters['teacher_name'] . '', 'Cancelled: ' . $rosters['cancelled'] . '', 'Relief Needed: ' . $rosters['need_relief'] . '<br><br><a style="color:black;font-size:15px;"class=""href="change_teacher.php?id='.$rosters['id'].'">Change Teacher</a>');
+    }
+    if ($diff <= 1 && $diff > 0 && $rosters['need_relief']=='yes'&&$rosters['cancelled']=='no') {
+        $calendar->add_event($description, $rosters['centre_name'], $rosters['date'], 1, 'red', 'Teacher Name:' . $rosters['teacher_name'] . '', 'Cancelled: ' . $rosters['cancelled'] . '', 'Relief Needed: ' . $rosters['need_relief'] . '<br><br>'.$accurate.' Minutes Till Lesson Starts<br><br><a style="color:black;font-size:15px;"class=""href="change_teacher.php?id='.$rosters['id'].'">Change Teacher</a>');
+    }
+    if ($rosters['need_relief']=='no') {
         $calendar->add_event($description, $rosters['centre_name'], $rosters['date'], 1, 'purple', 'Teacher Name:' . $rosters['teacher_name'] . '', 'Cancelled: ' . $rosters['cancelled'] . '', 'Relief Needed: ' . $rosters['need_relief'] . '');
     }
-    if ($rosters['level'] == 'P3') {
-        $calendar->add_event($description, $rosters['centre_name'], $rosters['date'], 1, 'blue', 'Teacher Name:' . $rosters['teacher_name'] . '', 'Cancelled: ' . $rosters['cancelled'] . '', 'Relief Needed: ' . $rosters['need_relief'] . '');
-    }
-    if ($rosters['level'] == 'P4') {
-        $calendar->add_event($description, $rosters['centre_name'], $rosters['date'], 1, 'red', 'Teacher Name:' . $rosters['teacher_name'] . '', 'Cancelled: ' . $rosters['cancelled'] . '', 'Relief Needed: ' . $rosters['need_relief'] . '');
-    }
-    if ($rosters['level'] == 'P5(N)') {
-        $calendar->add_event($description, $rosters['centre_name'], $rosters['date'], 1, 'gold', 'Teacher Name:' . $rosters['teacher_name'] . '', 'Cancelled: ' . $rosters['cancelled'] . '', 'Relief Needed: ' . $rosters['need_relief'] . '');
-    }
-    if ($rosters['level'] == 'P5(F)') {
+    if ($rosters['cancelled']=='yes') {
         $calendar->add_event($description, $rosters['centre_name'], $rosters['date'], 1, 'yellow', 'Teacher Name:' . $rosters['teacher_name'] . '', 'Cancelled: ' . $rosters['cancelled'] . '', 'Relief Needed: ' . $rosters['need_relief'] . '');
     }
-    if ($rosters['level'] == 'P6(N)') {
-        $calendar->add_event($description, $rosters['centre_name'], $rosters['date'], 1, 'grey', 'Teacher Name:' . $rosters['teacher_name'] . '', 'Cancelled: ' . $rosters['cancelled'] . '', 'Relief Needed: ' . $rosters['need_relief'] . '');
-    }
-    if ($rosters['level'] == 'P6(F)') {
-        $calendar->add_event($description, $rosters['centre_name'], $rosters['date'], 1, 'pink', 'Teacher Name:' . $rosters['teacher_name'] . '', 'Cancelled: ' . $rosters['cancelled'] . '', 'Relief Needed: ' . $rosters['need_relief'] . '');
-    }
+   
+   
+    
 }
 
 $dt = strtotime(date($_GET['dt']));
@@ -316,7 +341,7 @@ if (isset($_POST["submit"])) {
                 ?>
                 <?php echo "<a class='btn'style='float:right;'' href='roster.php?name=" . $centre . "&dt=" . $plus . "'>NEXT MONTH</a>";
                 ?>
-                <a class="btn btn-primary " style="margin-left:400px;" type="button" href="add_roster.php?name=<?php echo $centre?>">Add Lesson</a>
+                <a class="btn btn-primary " style="margin-left:400px;" type="button" href="add_roster.php?name=<?php echo $centre ?>">Add Lesson</a>
                 <?= $calendar ?>
                 <br>
 
