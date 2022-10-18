@@ -6,10 +6,10 @@ include("functions.php");
 include("check_teacher.php");
 $user_data = check_login($con);
 
-$query = "select * from student where status ='Pending Interview' || 'Pending Approval' ";
+// remove  OR status = 'Enrolled' OR status = 'Disapproved' when done 
+$query = "SELECT * FROM student WHERE status = 'Pending Interview' OR status = 'Pending Approval' OR status = 'Enrolled' OR status = 'Disapproved'";
 $result = mysqli_query($con, $query);
 $rowcount = mysqli_num_rows($result);
-
 
 
 
@@ -64,9 +64,14 @@ $rowcount = mysqli_num_rows($result);
                 </tr>
 
                 <?php foreach ($result as $x) : ?>
+                    <?php 
+                    $xId = $x["id"]; 
+                    $xStudentName = $x["student_name"];
+                    ?>
+
                     <tr style='border-bottom: 1px grey solid; padding-top:10px; padding-bottom:20px;'>
                         <td class="col-sm-2">
-                            <h4 style='margin-left: 30px;'><b><?php echo $x["student_name"] ?></b></h4>
+                            <h4 style='margin-left: 30px;'><b><?php echo $xStudentName ?></b></h4>
                         </td>
 
 
@@ -76,15 +81,39 @@ $rowcount = mysqli_num_rows($result);
 
 
                         <td class="col-sm-5">
-                            <a type='button' href='enrollment_details.php?studentid=<?php echo $x["id"] ?>' class='btn btn-primary' style='margin: 5px;'>View Details</a>
+                            <form method="POST">
+                                <a type='button' href='enrollment_details.php?studentid=<?php echo $xId ?>' class='btn btn-primary' style='margin: 5px;'>View Details</a>
+                                <?php
+                                if (isset($_POST["approve"])) {
 
-                            <button type='button' class='btn btn-primary' style='margin: 5px;'>Approve</button>
-                            <button type='button' class='btn btn-primary' style='margin: 5px;'>Disapprove</button>
+                                    $editQuery = "UPDATE student SET status = 'Enrolled' WHERE id = $xId";
 
+                                    mysqli_query($con, $editQuery);
+                                    echo
+                                    "<script>
+                                        alert('Enrolled $xStudentName!');
+                                        document.location.href = 'enrollment_review.php';
+                                    </script>";
+                                }
+                                if (isset($_POST["disapprove"])) {
+
+                                    $editQuery = "UPDATE student SET status = 'Disapproved' WHERE id = $xId";
+
+                                    mysqli_query($con, $editQuery);
+                                    echo
+                                    "<script>
+                                        alert('Disapproved $xStudentName!');
+                                        document.location.href = 'enrollment_review.php';
+                                    </script>";
+                                }
+
+                                ?>
+                                <button type='submit' name="approve" class='btn btn-primary' style='margin: 5px;'>Approve</button>
+                                <button type='submit' name="disapprove" class='btn btn-primary' style='margin: 5px;'>Disapprove</button>
+                            </form>
 
                         </td>
 
-                        <?php ?>
 
                     </tr>
                 <?php endforeach; ?>
