@@ -19,8 +19,11 @@ if(isset($_POST['submit'])){
                     $update_password=mysqli_query($con,$update);
                     if($update_password)
                     {
-                        echo ("<script>alert('Successfully Updated!')</script>");
-                        header("Location:login.php");
+                        echo ( "<script>
+                        alert('Successfully Updated!');
+                        document.location.href = 'login.php';
+                    </script>");
+                        
                         exit(0);
                     }
                     else{
