@@ -38,6 +38,18 @@ foreach ($roster as $rosters) {
 
    
 }
+$test=['1','2'];
+$a=['3','4','5'];
+foreach($test as $t){
+    echo($t);
+
+    foreach($a as $b){
+        echo$b;
+        
+    }
+
+}
+
 
 ?>
 <!DOCTYPE html>
@@ -57,33 +69,11 @@ foreach ($roster as $rosters) {
 
 </head>
 
-<script>
-$(document).ready(function() {
-    ajax();
-});
-function ajax(){
-    $.ajax({
-        url : 'test.php',
-        type : 'POST',
-        data : $('#hidden-form').serialize(),
-        success: function() {
-            alert('form was submitted');
-        }
-    });
-    return false;
-};
-
-</script>
 <body>
 
 
  
-<form method="POST">
-  <input name="name" placeholder="Name" />
-  <input name="phone" type="tel" placeholder="Phone" />
 
-  <input name="submit" type="submit" />
-</form>
 
 </body>
 
