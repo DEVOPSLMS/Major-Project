@@ -7,7 +7,7 @@ include("check_teacher.php");
 $user_data = check_login($con);
 
 // remove  OR status = 'Enrolled' OR status = 'Disapproved' when done 
-$query = "SELECT * FROM student WHERE status = 'Pending Interview' OR status = 'Pending Approval' OR status = 'Enrolled' OR status = 'Disapproved'";
+$query = "SELECT * FROM student WHERE status = 'Pending Interview' OR status = 'Pending Approval'";
 $result = mysqli_query($con, $query);
 $rowcount = mysqli_num_rows($result);
 
@@ -84,9 +84,9 @@ $rowcount = mysqli_num_rows($result);
                             <form method="POST">
                                 <a type='button' href='enrollment_details.php?studentid=<?php echo $xId ?>' class='btn btn-primary' style='margin: 5px;'>View Details</a>
                                 <?php
-                                if (isset($_POST["approve"])) {
+                                if (isset($_POST["approve$xId"])) {
 
-                                    $editQuery = "UPDATE student SET status = 'Enrolled' WHERE id = $xId";
+                                    $editQuery = "UPDATE `student` SET `status` = 'Enrolled' WHERE id = $xId";
 
                                     mysqli_query($con, $editQuery);
                                     echo
@@ -95,9 +95,9 @@ $rowcount = mysqli_num_rows($result);
                                         document.location.href = 'enrollment_review.php';
                                     </script>";
                                 }
-                                if (isset($_POST["disapprove"])) {
+                                if (isset($_POST["disapprove$xId"])) {
 
-                                    $editQuery = "UPDATE student SET status = 'Disapproved' WHERE id = $xId";
+                                    $editQuery = "UPDATE `student` SET `status` = 'Disapproved' WHERE id = $xId";
 
                                     mysqli_query($con, $editQuery);
                                     echo
@@ -108,8 +108,8 @@ $rowcount = mysqli_num_rows($result);
                                 }
 
                                 ?>
-                                <button type='submit' name="approve" class='btn btn-primary' style='margin: 5px;'>Approve</button>
-                                <button type='submit' name="disapprove" class='btn btn-primary' style='margin: 5px;'>Disapprove</button>
+                                <button type='submit' name="approve<?php echo$xId?>" class='btn btn-primary' style='margin: 5px;'>Approve</button>
+                                <button type='submit' name="disapprove<?php echo$xId?>" class='btn btn-primary' style='margin: 5px;'>Disapprove</button>
                             </form>
 
                         </td>
