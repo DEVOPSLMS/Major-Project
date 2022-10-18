@@ -4,10 +4,74 @@ include("check_teacher.php");
 include("check_roster.php");
 include("connection.php");
 include("functions.php");
+include 'Calendar.php';
 date_default_timezone_set('Singapore');
 $user_data = check_login($con);
 $string = strval($_GET['name']);
 $centre = str_replace("-", " ", $string);
+
+$date = date($_GET['dt']);
+$calendar = new Calendar($date);
+$roster = mysqli_query($con, "SELECT * FROM roster WHERE centre_name='$centre Centre' ");
+
+
+foreach ($roster as $rosters) {
+    $earlier =   strtotime(date("Y-m-d H:i:s"));
+    $roster_time = $rosters['date'] . ' ' . $rosters['time'];
+    $abs_diff = array();
+    $difference = array();
+    $all_timings = array();
+    $calculated_timings = array();
+    $datediff = array();
+    $earlier =   strtotime(date("Y-m-d H:i:s"));
+    $roster_time = $rosters['date'] . ' ' . $rosters['time'];
+
+    $later =  strtotime(date($roster_time));
+    $datenow = new DateTime(date("H:i"));
+    $timings = implode('', [$rosters['timing']]);
+    $all_timings = substr($timings, 0, 2);
+    // $calculated_timings =$all_timings *60;
+    // $datediff = $datenow - $calculated_timings;
+    $now = time(); // or your date as well
+    $your_date = strtotime("2022-010-04");
+    $datediff = $now - $your_date;
+    $time_now = (date("H:i:s"));
+
+    $to_time = strtotime($rosters['time']);
+
+    $from_time = strtotime($time_now);
+    $time = (round($to_time - $from_time) / 60);
+    $accurate=round($time,0,PHP_ROUND_HALF_UP);
+
+    $id = $rosters['id'];
+
+    $diff = round(abs($later - $earlier)) / 86400;
+    $later =  strtotime(date($roster_time));
+    $description = $rosters['level'] . ' ' . $rosters['subject'] . ' ' . 'Timing' . ' ' . $rosters['timing'];
+    if ($diff > 2 && $rosters['need_relief']=='yes'&&$rosters['cancelled']=='no') {
+        $calendar->add_event($description, $rosters['centre_name'], $rosters['date'], 1, 'green', 'Teacher Name:' . $rosters['teacher_name'] . '', 'Cancelled: ' . $rosters['cancelled'] . '', 'Relief Needed: ' . $rosters['need_relief'] . '<br><br><a style="color:black;font-size:15px;"class=""href="change_teacher.php?id='.$rosters['id'].'">Change Teacher</a>');
+    }
+    if ($diff <= 2 && $diff > 1 && $rosters['need_relief']=='yes'&&$rosters['cancelled']=='no') {
+        $calendar->add_event($description, $rosters['centre_name'], $rosters['date'], 1, 'orange', 'Teacher Name:' . $rosters['teacher_name'] . '', 'Cancelled: ' . $rosters['cancelled'] . '', 'Relief Needed: ' . $rosters['need_relief'] . '<br><br><a style="color:black;font-size:15px;"class=""href="change_teacher.php?id='.$rosters['id'].'">Change Teacher</a>');
+    }
+    if ($diff <= 1 && $diff > 0 && $rosters['need_relief']=='yes'&&$rosters['cancelled']=='no') {
+        $calendar->add_event($description, $rosters['centre_name'], $rosters['date'], 1, 'red', 'Teacher Name:' . $rosters['teacher_name'] . '', 'Cancelled: ' . $rosters['cancelled'] . '', 'Relief Needed: ' . $rosters['need_relief'] . '<br><br>'.$accurate.' Minutes Till Lesson Starts<br><br><a style="color:black;font-size:15px;"class=""href="change_teacher.php?id='.$rosters['id'].'">Change Teacher</a>');
+    }
+    if ($rosters['need_relief']=='no') {
+        $calendar->add_event($description, $rosters['centre_name'], $rosters['date'], 1, 'purple', 'Teacher Name:' . $rosters['teacher_name'] . '', 'Cancelled: ' . $rosters['cancelled'] . '', 'Relief Needed: ' . $rosters['need_relief'] . '');
+    }
+    if ($rosters['cancelled']=='yes') {
+        $calendar->add_event($description, $rosters['centre_name'], $rosters['date'], 1, 'yellow', 'Teacher Name:' . $rosters['teacher_name'] . '', 'Cancelled: ' . $rosters['cancelled'] . '', 'Relief Needed: ' . $rosters['need_relief'] . '');
+    }
+   
+   
+    
+}
+
+$dt = strtotime(date($_GET['dt']));
+
+$plus = date("Y-m-d", strtotime("+1 month", $dt)) . "\n";
+$minus = date("Y-m-d", strtotime("-1 month", $dt)) . "\n";
 ?>
 <?php
 $query = "select * from user where role = 'teacher' ";
@@ -19,15 +83,15 @@ foreach ($students as $s) {
 
     $student[] = $s['student_name'];
 }
-if(!empty($student)){
+if (!empty($student)) {
     $student_name = implode(',', ($student));
 }
 
 
 if (isset($_POST["submit"])) {
-    
+
     $name = $_POST["teacher_name"];
-  
+
     $subject = $_POST["subject"];
     $level = $_POST["level"];
     $timing = $_POST["timing"];
@@ -35,23 +99,23 @@ if (isset($_POST["submit"])) {
     $room = $_POST["room"];
     $students = $_POST["students"];
     $day = $_POST["day"];
-    if($timing == '1pm - 3pm'){
-        $time= '13:00:00';
+    if ($timing == '1pm - 3pm') {
+        $time = '13:00:00';
     }
-    if($timing == '2pm - 4pm'){
-        $time= '14:00:00';
+    if ($timing == '2pm - 4pm') {
+        $time = '14:00:00';
     }
-    if($timing == '4pm - 6pm'){
-        $time= '19:00:00';
+    if ($timing == '4pm - 6pm') {
+        $time = '19:00:00';
     }
-    if($timing == '7pm - 8pm'){
-        $time= '19:00:00';
+    if ($timing == '7pm - 8pm') {
+        $time = '19:00:00';
     }
-    if($timing == '8pm - 9pm'){
-        $time= '20:00:00';
+    if ($timing == '8pm - 9pm') {
+        $time = '20:00:00';
     }
-    if($timing == '9pm - 10pm'){
-        $time= '21:00:00';
+    if ($timing == '9pm - 10pm') {
+        $time = '21:00:00';
     }
     $query = "insert into roster(centre_name,subject,level,timing,teacher_name,need_relief,room,date,day,students,time,cancelled) VALUES('$centre Centre', '$subject','$level','$timing','$name','no','$room','$date','$day','$students','$time','no')";
     mysqli_query($con, $query);
@@ -86,16 +150,65 @@ if (isset($_POST["submit"])) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <title></title>
 </head>
+
+<style>
+    * {
+        box-sizing: border-box;
+        font-family: -apple-system, BlinkMacSystemFont, "segoe ui", roboto, oxygen, ubuntu, cantarell, "fira sans", "droid sans", "helvetica neue", Arial, sans-serif;
+        font-size: 16px;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+        background-color: #FFFFFF;
+        margin: 0;
+    }
+
+    .date {
+        font-size: 30px;
+        font-weight: bold;
+    }
+
+    .content {
+        width: 1400px;
+        margin: 0 auto;
+    }
+
+    .content h2 {
+        margin: 0;
+        padding: 25px 0;
+        font-size: 22px;
+        border-bottom: 1px solid #ebebeb;
+        color: #666666;
+    }
+
+    @media (max-width: 900px) {
+        .content {
+            width: 500px;
+            margin: 0 auto;
+        }
+
+        .content h2 {
+            margin: 0;
+            padding: 25px 0;
+            font-size: 30px;
+            border-bottom: 1px solid #ebebeb;
+            color: #666666;
+        }
+    }
+</style>
 <header>
     <header class="header">
 
         <?php include("header.php") ?>
 
     </header>
-<br><br><br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br><br><br><br><br>
+
     <body>
 
-        <button class="btn btn-primary" style="float:right;margin-right:250px;" type="button" data-toggle="modal" data-target="#studentaddmodal">Add Lesson</button>
+
         <div class="modal fade bd-example-modal-lg" id="studentaddmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog mw-100 w-50" role="document">
                 <div class="modal-content">
@@ -205,7 +318,7 @@ if (isset($_POST["submit"])) {
                                 <label> Students </label>
 
 
-                                <textarea type="text" class="form-control" id="staticEmail" style="font-size:100%;"name="students"><?php echo ($student_name) ?></textarea>
+                                <textarea type="text" class="form-control" id="staticEmail" style="font-size:100%;" name="students"><?php echo ($student_name) ?></textarea>
 
                             </div>
 
@@ -219,6 +332,22 @@ if (isset($_POST["submit"])) {
                     </form>
 
                 </div>
+            </div>
+        </div>
+        <div class="container-fuid">
+
+            <div class="content home">
+                <?php echo "<a class='btn'href='roster.php?name=" . $centre . "&dt=" . $minus . "'>PREV MONTH</a>";
+                ?>
+                <?php echo "<a class='btn'style='float:right;'' href='roster.php?name=" . $centre . "&dt=" . $plus . "'>NEXT MONTH</a>";
+                ?>
+                <a class="btn btn-primary " style="margin-left:400px;" type="button" href="add_roster.php?name=<?php echo $centre ?>">Add Lesson</a>
+                <?= $calendar ?>
+                <br>
+
+
+
+
             </div>
         </div>
     </body>

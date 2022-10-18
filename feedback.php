@@ -44,7 +44,7 @@ $result = mysqli_query($con, $getfeedback);
                 <h3><b>Feedback</b></h3>
             </li>
 
-            <li style="">
+            <li >
                 <h4>Submit a Feedback</h4>
             </li>
 

@@ -43,8 +43,10 @@ function send_password_reset($get_email, $token)
     $mail->isHTML(true);                                  //Set email format to HTML
     $mail->Subject = 'Here is the subject';
     $email_template = "
-    <h2>Hello</h2>
-    <a href='http://localhost:1234/majorproject/password-reset-page.php?token=$token&email=$get_email'>Click Me</a>
+    <h2>Hello! This Is YYD Education Centre</h2>
+    <img src='https://www.yyd.org.sg/images/logo.jpg'style='width:300px;height200px;'>
+    <h3>You have receive this link to reset your password. Click On The Link To Reset Your Password!</h3>
+    <a href='http://localhost:1234/majorproject/password-reset-page.php?token=$token&email=$get_email'>Click Here To Reset Password</a>
     ";
     $mail->Body = $email_template;
     $mail->send();
