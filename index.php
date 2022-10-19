@@ -25,16 +25,7 @@ $user_data = check_login($con);
 
 
 </header>
-<style>
-    @media(max-width:500px) {
-            .btn {
- 
-                /* It hides the button text
-                when screen size <=768px */
-                display: none;
-            }
-        }
-</style>
+
 
 <body>
     <br><br><br> <br>    <br>    <br>    <br>    <br>    <br>    

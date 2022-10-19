@@ -41,31 +41,28 @@ foreach ($roster as $rosters) {
 
     $from_time = strtotime($time_now);
     $time = (round($to_time - $from_time) / 60);
-    $accurate=round($time,0,PHP_ROUND_HALF_UP);
+    $accurate = round($time, 0, PHP_ROUND_HALF_UP);
 
     $id = $rosters['id'];
 
     $diff = round(abs($later - $earlier)) / 86400;
     $later =  strtotime(date($roster_time));
     $description = $rosters['level'] . ' ' . $rosters['subject'] . ' ' . 'Timing' . ' ' . $rosters['timing'];
-    if ($diff > 2 && $rosters['need_relief']=='yes'&&$rosters['cancelled']=='no') {
-        $calendar->add_event($description, $rosters['centre_name'], $rosters['date'], 1, 'green', 'Teacher Name:' . $rosters['teacher_name'] . '', 'Cancelled: ' . $rosters['cancelled'] . '', 'Relief Needed: ' . $rosters['need_relief'] . '<br><br><a style="color:black;font-size:15px;"class=""href="change_teacher.php?id='.$rosters['id'].'">Change Teacher</a>');
+    if ($diff > 2 && $rosters['need_relief'] == 'yes' && $rosters['cancelled'] == 'no') {
+        $calendar->add_event($description, $rosters['centre_name'], $rosters['date'], 1, 'green', 'Teacher Name:' . $rosters['teacher_name'] . '', 'Cancelled: ' . $rosters['cancelled'] . '', 'Relief Needed: ' . $rosters['need_relief'] . '<br><br><a style="color:black;font-size:15px;"class="change"href="change_teacher.php?id=' . $rosters['id'] . '">Change Teacher</a>');
     }
-    if ($diff <= 2 && $diff > 1 && $rosters['need_relief']=='yes'&&$rosters['cancelled']=='no') {
-        $calendar->add_event($description, $rosters['centre_name'], $rosters['date'], 1, 'orange', 'Teacher Name:' . $rosters['teacher_name'] . '', 'Cancelled: ' . $rosters['cancelled'] . '', 'Relief Needed: ' . $rosters['need_relief'] . '<br><br><a style="color:black;font-size:15px;"class=""href="change_teacher.php?id='.$rosters['id'].'">Change Teacher</a>');
+    if ($diff <= 2 && $diff > 1 && $rosters['need_relief'] == 'yes' && $rosters['cancelled'] == 'no') {
+        $calendar->add_event($description, $rosters['centre_name'], $rosters['date'], 1, 'orange', 'Teacher Name:' . $rosters['teacher_name'] . '', 'Cancelled: ' . $rosters['cancelled'] . '', 'Relief Needed: ' . $rosters['need_relief'] . '<br><br><a style="color:black;font-size:15px;"class="change"href="change_teacher.php?id=' . $rosters['id'] . '">Change Teacher</a>');
     }
-    if ($diff <= 1 && $diff > 0 && $rosters['need_relief']=='yes'&&$rosters['cancelled']=='no') {
-        $calendar->add_event($description, $rosters['centre_name'], $rosters['date'], 1, 'red', 'Teacher Name:' . $rosters['teacher_name'] . '', 'Cancelled: ' . $rosters['cancelled'] . '', 'Relief Needed: ' . $rosters['need_relief'] . '<br><br>'.$accurate.' Minutes Till Lesson Starts<br><br><a style="color:black;font-size:15px;"class=""href="change_teacher.php?id='.$rosters['id'].'">Change Teacher</a>');
+    if ($diff <= 1 && $diff > 0 && $rosters['need_relief'] == 'yes' && $rosters['cancelled'] == 'no') {
+        $calendar->add_event($description, $rosters['centre_name'], $rosters['date'], 1, 'red', 'Teacher Name:' . $rosters['teacher_name'] . '', 'Cancelled: ' . $rosters['cancelled'] . '', 'Relief Needed: ' . $rosters['need_relief'] . '<br><br>' . $accurate . ' Minutes Till Lesson Starts<br><br><a style="color:black;font-size:15px;"class="change"href="change_teacher.php?id=' . $rosters['id'] . '">Change Teacher</a>');
     }
-    if ($rosters['need_relief']=='no') {
+    if ($rosters['need_relief'] == 'no') {
         $calendar->add_event($description, $rosters['centre_name'], $rosters['date'], 1, 'purple', 'Teacher Name:' . $rosters['teacher_name'] . '', 'Cancelled: ' . $rosters['cancelled'] . '', 'Relief Needed: ' . $rosters['need_relief'] . '');
     }
-    if ($rosters['cancelled']=='yes') {
+    if ($rosters['cancelled'] == 'yes') {
         $calendar->add_event($description, $rosters['centre_name'], $rosters['date'], 1, 'yellow', 'Teacher Name:' . $rosters['teacher_name'] . '', 'Cancelled: ' . $rosters['cancelled'] . '', 'Relief Needed: ' . $rosters['need_relief'] . '');
     }
-   
-   
-    
 }
 
 $dt = strtotime(date($_GET['dt']));
@@ -158,6 +155,7 @@ if (isset($_POST["submit"])) {
         font-size: 16px;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
+        
     }
 
     body {
@@ -185,8 +183,23 @@ if (isset($_POST["submit"])) {
 
     @media (max-width: 900px) {
         .content {
-            width: 500px;
+            width: 100%;
             margin: 0 auto;
+        }
+
+        .event {
+
+
+            font-size: 9px;
+         
+            
+        }
+        .day_num{
+            padding:0 !important;
+        }
+
+        .content #add {
+            text-align: center !important;
         }
 
         .content h2 {
@@ -195,6 +208,9 @@ if (isset($_POST["submit"])) {
             font-size: 30px;
             border-bottom: 1px solid #ebebeb;
             color: #666666;
+        }
+        .change{
+            font-size:9px !important;
         }
     }
 </style>
@@ -209,140 +225,21 @@ if (isset($_POST["submit"])) {
     <body>
 
 
-        <div class="modal fade bd-example-modal-lg" id="studentaddmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog mw-100 w-50" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel" style="font-size:20px;">Add Centre Roster </h5>
 
-
-                    </div>
-
-                    <form method="POST" enctype="multipart/form-data" autocomplete="off">
-
-                        <div class="modal-body" style="font-size:20px;">
-                            <div class="form-group">
-                                <label>Name Of Teacher </label>
-                                <select class="form-control" style="height:50px;font-size:20px;" required name="teacher_name">
-                                    <option selected>Choose Teacher</option>
-                                    <?php foreach ($teacher as $teachers) : ?>
-                                        <option value="<?php echo $teachers["username"] ?>"><?php echo $teachers["username"] ?></option>
-
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Centre Name </label>
-                                <input type="text" class="form-control" disabled style="height:50px;font-size:20px; text-transform: capitalize; " id="staticEmail" name="centre" value="<?php echo $centre ?> Centre">
-                            </div>
-                            <div class="form-group">
-                                <label>Level* </label>
-                                <select class="form-control" style="height:50px;font-size:20px;" required name="level">
-                                    <option selected>Choose Level</option>
-
-                                    <option value="P1">P1</option>
-                                    <option value="P2">P2</option>
-                                    <option value="P3">P3</option>
-                                    <option value="P4">P4</option>
-                                    <option value="P5(N)">P5(N)</option>
-                                    <option value="P5(F)">P5(F)</option>
-                                    <option value="P6(N)">P6(N)</option>
-                                    <option value="P6(F)">P6(F)</option>
-
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label> Class Subject </label>
-                                <select class="form-control" style="height:50px;font-size:20px;" required name="subject">
-                                    <option selected>Subject</option>
-
-                                    <option value="Math" name="subject">Math</option>
-                                    <option value="Science" name="subject">Science</option>
-                                    <option value="English" name="subject">English</option>
-
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label> Day Of The Week </label>
-
-                                <select class="form-control" style="height:50px;font-size:20px;" name="day" required>
-                                    <option selected>Choose Day</option>
-                                    <option value="Monday">Monday</option>
-                                    <option value="Tuesday">Tuesday</option>
-                                    <option value="Wednesday">Wednesday</option>
-                                    <option value="Thursday">Thursday</option>
-                                    <option value="Friday">Friday</option>
-                                    <option value="Saturday">Saturday</option>
-                                    <option value="Sunday">Sunday</option>
-
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label> Date </label>
-
-                                <input type="date" class="form-control" style="height:50px;font-size:20px;  " id="staticEmail" name="date">
-
-
-                            </div>
-
-                            <div class="form-group">
-                                <label> Timing Of The Class </label>
-
-                                <select class="form-control" style="height:50px;font-size:20px;" name="timing" required>
-                                    <option selected>Timing</option>
-                                    <option value="1pm - 3pm" name="timing">1-3pm </option>
-                                    <option value="2pm - 4pm" name="timing">2-4pm</option>
-                                    <option value="4pm - 6pm" name="timing">4-6pm</option>
-                                    <option value="7pm - 8pm" name="timing">7-8pm</option>
-                                    <option value="8pm - 9pm" name="timing">8-9pm</option>
-                                    <option value="9pm - 10pm" name="timing">9-10pm</option>
-
-                                </select>
-                            </div>
-
-
-
-
-
-                            <div class="form-group">
-                                <label> Room </label>
-                                <select class="form-control" style="height:50px;font-size:20px;" name="room" required>
-                                    <option selected>Class Number</option>
-                                    <option value="Class 1" name="room">Class 1</option>
-                                    <option value="Class 2" name="room">Class 2</option>
-                                    <option value="Class 3" name="room">Class 3</option>
-
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label> Students </label>
-
-
-                                <textarea type="text" class="form-control" id="staticEmail" style="font-size:100%;" name="students"><?php echo ($student_name) ?></textarea>
-
-                            </div>
-
-
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" name="submit" class="btn btn-primary">Add Roster</button>
-                        </div>
-
-                    </form>
-
-                </div>
-            </div>
-        </div>
         <div class="container-fuid">
 
             <div class="content home">
+
+
+                <a class="btn btn-primary  " id="add" style="width:100%;" type="button" href="add_roster.php?name=<?php echo $centre ?>">Add Lesson</a>
+                <br>
                 <?php echo "<a class='btn'href='roster.php?name=" . $centre . "&dt=" . $minus . "'>PREV MONTH</a>";
                 ?>
                 <?php echo "<a class='btn'style='float:right;'' href='roster.php?name=" . $centre . "&dt=" . $plus . "'>NEXT MONTH</a>";
                 ?>
-                <a class="btn btn-primary " style="margin-left:400px;" type="button" href="add_roster.php?name=<?php echo $centre ?>">Add Lesson</a>
+
                 <?= $calendar ?>
+
                 <br>
 
 

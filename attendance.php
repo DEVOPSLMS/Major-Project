@@ -57,7 +57,7 @@ if (isset($_POST["submit"])) {
             print_r($id);
             $sql = "UPDATE `student` SET `late_counter`=`late_counter`+1 WHERE id=$id";
             mysqli_query($con, $sql);
-            $query2 = "insert into notification(parentid,notification,status,seen) values ('$parentid','$class','late','0')";
+            $query2 = "insert into notification(parentid,student_name,notification,status,seen) values ('$parentid','$student','$class','late','0')";
             mysqli_query($con, $query2);
         }
         if ($status == 'absent') {
@@ -67,7 +67,7 @@ if (isset($_POST["submit"])) {
             $user_details = mysqli_fetch_assoc($result);
             $id = $user_details['parentid'];
 
-            $sql = "insert into notification(parentid,notification,status,seen) values ('$id','$class','absent','0')";
+            $sql = "insert into notification(parentid,student_name,notification,status,seen) values ('$id','$student','$class','absent','0')";
             mysqli_query($con, $sql);
         }
 
