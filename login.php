@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
   //something was posted
   $user_name = $_POST['username'];
   $password = $_POST['password'];
-
+  $check = $_POST['check'];
 
   if (!empty($user_name) && !empty($password) && !is_numeric($user_name)) {
 
@@ -27,22 +27,22 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $user_data = mysqli_fetch_assoc($result);
 
         if (password_verify($password, $user_data['password'])) {
-         
+          if ($check != '') {
             $_SESSION['user_id'] = $user_data['user_id'];
+            $id=$user_data['id'];
             $week = new DateTime('+1 week');
-            $words = preg_split('//', 'abcdefghijklmnopqrstuvwxyz0123456789', -1);
-            shuffle($words);
-            $random=implode("",$words);
-            setcookie('key', $random, $week->getTimestamp(), '/', null, null, true);
+            $token = md5(rand());
+            $sql = "UPDATE `user` SET `check_token`='$token'WHERE id=$id";
+            mysqli_query($con, $sql);
+            setcookie('key', $token, $week->getTimestamp(), '/', null, null, true);
             header("Location: index.php");
             die;
-      
-         
-            
+          } else {
+            $_SESSION['user_id'] = $user_data['user_id'];
+            header("Location: index.php");
+            die;
           }
-
-          
-         else {
+        } else {
           echo '<div class="alert alert-primary" role="alert"style="text-align:center;">
         <strong>Password Is Incorrect!</strong> 
         
@@ -126,7 +126,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     }
 
     form {
-      height: 530px;
+      height: 600px;
       width: 400px;
       background-color: rgba(255, 255, 255, 0.13);
       position: absolute;
@@ -271,7 +271,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
       <label for="password">Password</label>
       <input class="help" type="password" placeholder="Password" name="password" id="password">
-    
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="check" name="check" id="flexCheckDefault">
+        <label class="form-check-label" for="flexCheckDefault">
+          Remember Me
+        </label>
+        
+      </div>
+      <span>(Expires After 1 Week)</span>
       <button type="submit" value="Login">Log In</button>
 
       <br><br>
