@@ -21,7 +21,7 @@ $res = mysqli_query($con, $sql);
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
   <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
   <link rel="stylesheet" href="css/header.css" />
-  
+
 
 </head>
 
@@ -87,69 +87,69 @@ $res = mysqli_query($con, $sql);
     <a href="logout.php" title="Logout">
       <div class='fa fa-sign-out'></div>
     </a>
-    
+
   </div>
   <div class="shopping-cart">
-  <?php if ($role == 'parent') {
-    $query = "select * from notification where parentid = '$id' and status='absent' and seen = 0";
-    $result = mysqli_query($con, $query);
-  
-   ?>
-    <?php foreach ($result as $r) : ?>
-     <div class="box">
-              
-            <div class="content">
-                <h3>Your Child, <?php echo $r['student_name']?> Is Absent For Class <?php echo $r['notification']?></h3>
-                
-            </div>
-        </div>
-       
-        <hr>
-        
-       
+    <?php if ($role == 'parent') {
+      $query = "select * from notification where parentid = '$id' and status='absent' and seen = 0";
+      $result = mysqli_query($con, $query);
 
-    
-   
-    <?php endforeach?>
-    
-  
-    <?php
-    $query = "select * from notification where parentid = '$id' and status='late' and seen = 0";
-    $result = mysqli_query($con, $query);?>
-    
-    <?php foreach ($result as $r) :?>
-      <div class="box">
-              
-            <div class="content">
-                <h3>Your Child, <?php echo $r['student_name']?> Is Late For Class <?php echo $r['notification']?></h3>
-                
-            </div>
+    ?>
+      <?php foreach ($result as $r) : ?>
+        <div class="box">
+
+          <div class="content">
+            <h3>Your Child, <?php echo $r['student_name'] ?> Is Absent For Class <?php echo $r['notification'] ?></h3>
+
+          </div>
         </div>
-       
+
         <hr>
-        
-        
-  <?php endforeach ?>
-  
-  <?php } ?>
-</div>
+
+
+
+
+
+      <?php endforeach ?>
+
+
+      <?php
+      $query = "select * from notification where parentid = '$id' and status='late' and seen = 0";
+      $result = mysqli_query($con, $query); ?>
+
+      <?php foreach ($result as $r) : ?>
+        <div class="box">
+
+          <div class="content">
+            <h3>Your Child, <?php echo $r['student_name'] ?> Is Late For Class <?php echo $r['notification'] ?></h3>
+
+          </div>
+        </div>
+
+        <hr>
+
+
+      <?php endforeach ?>
+
+    <?php } ?>
+  </div>
 
 
 
 </header>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script>
-    $(document).ready(function() {
-      $("#noti-btn").on("click", function() {
-        $.ajax({
-          url: "readnoti.php",
-          success: function(res) {
-            console.log(res);
-          }
-        });
+<script>
+  $(document).ready(function() {
+    $("#noti-btn").on("click", function() {
+      $.ajax({
+        url: "readnoti.php",
+        success: function(res) {
+          console.log(res);
+        }
       });
     });
-  </script>
+  });
+</script>
 <script>
   let shoppingCart = document.querySelector('.shopping-cart');
   document.querySelector('#noti-btn').onclick = () => {

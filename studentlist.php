@@ -5,8 +5,37 @@ include("connection.php");
 include("functions.php");
 include("check_teacher.php");
 $user_data = check_login($con);
+if (!isset($_GET['centre']) && !isset($_GET['primary'])&&!isset($_GET['search'])) {
+    $student = mysqli_query($con, "SELECT * FROM student WHERE status='Enrolled' ");
+    $num = mysqli_num_rows($student);
 
+}
 ?>
+<style>
+    .pagination {
+        display: inline-block;
+        
+       
+    }
+
+    .pagination a {
+        font-weight: bold;
+        font-size: 18px;
+        color: black;
+        float: left;
+        padding: 8px 16px;
+        text-decoration: none;
+        border: 1px solid black;
+    }
+
+    .pagination a.active {
+        background-color: pink;
+    }
+
+    .pagination a:hover:not(.active) {
+        background-color: skyblue;
+    }
+</style>
 <!doctype html>
 <html lang="en">
 
@@ -41,16 +70,19 @@ $user_data = check_login($con);
 </head>
 <script type="text/javascript">
     $(function() {
-        $('select').on('change', function() {
+        $('#centre').on('change', function() {
             $('#filter-posts-form').submit();
+        });
+    });
+    $(function() {
+        $('#primary').on('change', function() {
+            $('#filter-posts').submit();
         });
     });
 </script>
 <br><br><br><br><br><br><br><br><br><br>
 <body>
-    <a href="index.php">
-        <button class="btn btn-primary text-center" type="submit" name="submit" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;float:left;margin-left:30px;margin-top:10px;width:100px ;">Back</button>
-    </a>
+   
     <h1>List of Students</h1>
     <br>
     <table class="table">
@@ -58,10 +90,10 @@ $user_data = check_login($con);
             <tr>
                 <th>Student name</th>
                 <th>
-                    <form method="POST" id="filter-posts-form">
+                    <form method="get" id="filter-posts-form"onchange="this.form.submit()">
 
-                        <select class="form-select" style="width:150px;height:40px;" required name="centre" onchange="this.form.submit();">
-                            <option selected>Location</option>
+                        <select class="form-select" id="centre"style="width:150px;height:40px;" required name="centre" >
+                            <option selected >Location</option>
                             <option value="Hougang Centre">Hougang Centre</option>
                             <option value="Sengkang Centre">Sengkang Centre</option>
                             <option value="Punggol Centre">Punggol Centre</option>
@@ -74,9 +106,9 @@ $user_data = check_login($con);
                     </form>
                 </th>
                 <th>
-                    <form method="POST" id="filter-posts-form">
+                    <form method="get" id="filter-posts"onchange="this.form.submit()">
 
-                        <select class="form-select" style="width:150px;height:40px;" required name="primary" onchange="this.form.submit();">
+                        <select class="form-select" id="primary"style="width:150px;height:40px;" required name="primary" >
                             <option selected>Primary</option>
                             <option value="P1">P1</option>
                             <option value="P2">P2</option>
@@ -91,13 +123,20 @@ $user_data = check_login($con);
 
                     </form>
                 </th>
-                <th></th>
+                <th>
+                    <form action=""method="get"onsubmit="this.form.submit()">
+                    <input type="text"name="search"placeholder="Search Student Name"class="form-control"style="width:50%;"value="<?php if (isset($_GET['search'])) {
+                                                    echo $_GET['search'];
+                                                } ?>">
+                    </form>
+                    
+                </th>
             </tr>
         </thead>
 
         <tbody>
             <?php
-            if (!isset($_POST['centre']) && !isset($_POST['primary'])) {
+            if (!isset($_GET['centre']) && !isset($_GET['primary'])&&!isset($_GET['search'])) {
                 $servername = "localhost";
                 $username = "root";
                 $password = "";
@@ -107,85 +146,169 @@ $user_data = check_login($con);
 
                 $sql = "SELECT * FROM student WHERE status='Enrolled'";
                 $result = $connection->query($sql);
-
-                while ($row = $result->fetch_assoc()) {
+                $per_page_record = 10;  // Number of entries to show in a page.   
+                // Look for a GET variable page if not found default is 1.        
+                if (isset($_GET["page"])) {
+                    $page  = $_GET["page"];
+                } else {
+                    $page = 1;
+                }
+                
+                $start_from = ($page - 1) * $per_page_record;
+            
+                $query = "SELECT * FROM student Where status ='Enrolled'LIMIT $start_from, $per_page_record";
+                $rs_result = mysqli_query($con, $query);
+                $rowcount = mysqli_num_rows($rs_result);
+                $total_records = $num;
+                while ($row = $rs_result->fetch_assoc()) {
                     echo "<tr>
                     <td>" . $row["student_name"] . "</td>
                     <td>" . $row["centre_name"] . "</td> 
                     <td><p style='margin-left:30px;'>" . $row["student_level"] . "</p></td>
                     <td>
-                        <button class='btn btn-success editbtn' type='submit' name='submit' style='background-color:#5EBEC4;color:black;border-color:#5EBEC4;' >Transfer</button>
-                        <button class='btn btn-success deletebtn' type='submit' name='submit' style='background-color:#5EBEC4;color:black;border-color:#5EBEC4;' >Remove</button>
+                        <button class='btn btn-success editbtn' type='submit' name='submit'  >Transfer</button>
+                        <button class='btn btn-success deletebtn' type='submit' name='submit'  >Remove</button>
                     </td>
                 </tr>";
                 }
             }
-            if (isset($_POST['centre'])) {
+            if (isset($_GET['centre'])) {
                 $servername = "localhost";
                 $username = "root";
                 $password = "";
                 $database = "website";
 
                 $connection = new mysqli($servername, $username, $password, $database);
-                $centre = $_POST['centre'];
-                $sql = "SELECT * FROM student WHERE centre_name='$centre'";
+                $centre = $_GET['centre'];
+                $sql = "SELECT * FROM student WHERE centre_name='$centre'and status='Enrolled'";
                 $result = $connection->query($sql);
                 $rows = mysqli_num_rows($result);
+                $result = $connection->query($sql);
+                $per_page_record = 10;  // Number of entries to show in a page.   
+                // Look for a GET variable page if not found default is 1.        
+                if (isset($_GET["page"])) {
+                    $page  = $_GET["page"];
+                } else {
+                    $page = 1;
+                }
+            
+                $start_from = ($page - 1) * $per_page_record;
+            
+                $query = "SELECT * FROM student WHERE centre_name='$centre'and status='Enrolled' LIMIT $start_from, $per_page_record";
+                $rs_result = mysqli_query($con, $query);
+                $rowcount = mysqli_num_rows($rs_result);
+                $total_records = $rows;
                 if ($rows > 0) {
-                    while ($row = $result->fetch_assoc()) {
+                    while ($row = $rs_result->fetch_assoc()) {
 
                         echo "<tr>
                         <td>" . $row["student_name"] . "</td>
                         <td>" . $row["centre_name"] . "</td> 
                         <td><p style='margin-left:30px;'>" . $row["student_level"] . "</p></td>
                         <td>
-                            <button class='btn btn-success editbtn' type='submit' name='submit' style='background-color:#5EBEC4;color:black;border-color:#5EBEC4;' >Transfer</button>
-                            <button class='btn btn-success deletebtn' type='submit' name='submit' style='background-color:#5EBEC4;color:black;border-color:#5EBEC4;' >Remove</button>
+                            <button class='btn btn-success editbtn' type='submit' name='submit'  >Transfer</button>
+                            <button class='btn btn-success deletebtn' type='submit' name='submit'  >Remove</button>
                         </td>
                     </tr>";
                     }
                 } else {
                     echo "<tr>
-                    <td></td>
-                    <td></td> 
-                    <td ><h3 style='margin-right:30px;'>Error 404 : Not Found</h3></td>
-                    <td>
-                        
+                    <td colspan='4'class='text-center 'style='font-weight:bold;'><h3>No Record Found</h3>
+
                     </td>
                 </tr>";
                 }
             }
-            if (isset($_POST['primary'])) {
+            if (isset($_GET['primary'])) {
                 $servername = "localhost";
                 $username = "root";
                 $password = "";
                 $database = "website";
 
                 $connection = new mysqli($servername, $username, $password, $database);
-                $primary = $_POST['primary'];
-                $sql = "SELECT * FROM student WHERE student_level='$primary'";
+                $primary = $_GET['primary'];
+                $sql = "SELECT * FROM student WHERE student_level='$primary'and status='Enrolled'";
                 $result = $connection->query($sql);
                 $rows = mysqli_num_rows($result);
+                $result = $connection->query($sql);
+                $per_page_record = 10;  // Number of entries to show in a page.   
+                // Look for a GET variable page if not found default is 1.        
+                if (isset($_GET["page"])) {
+                    $page  = $_GET["page"];
+                } else {
+                    $page = 1;
+                }
+            
+                $start_from = ($page - 1) * $per_page_record;
+            
+                $query = "SELECT * FROM student WHERE student_level='$primary'and status='Enrolled' LIMIT $start_from, $per_page_record";
+                $rs_result = mysqli_query($con, $query);
+                $rowcount = mysqli_num_rows($rs_result);
+                $total_records = $rows;
                 if ($rows > 0) {
-                    while ($row = $result->fetch_assoc()) {
+                    while ($row = $rs_result->fetch_assoc()) {
 
                         echo "<tr>
                         <td>" . $row["student_name"] . "</td>
                         <td>" . $row["centre_name"] . "</td> 
                         <td><p style='margin-left:30px;'>" . $row["student_level"] . "</p></td>
                         <td>
-                            <button class='btn btn-success editbtn' type='submit' name='submit' style='background-color:#5EBEC4;color:black;border-color:#5EBEC4;' >Transfer</button>
-                            <button class='btn btn-success deletebtn' type='submit' name='submit' style='background-color:#5EBEC4;color:black;border-color:#5EBEC4;' >Remove</button>
+                            <button class='btn btn-success editbtn' type='submit' name='submit'  >Transfer</button>
+                            <button class='btn btn-success deletebtn' type='submit' name='submit'  >Remove</button>
                         </td>
                     </tr>";
                     }
                 } else {
                     echo "<tr>
-                    <td></td>
-                    <td></td> 
-                    <td ><h3 style='margin-right:30px;'>Error 404 : Not Found</h3></td>
-                    <td>
-                        
+                    <td colspan='4'class='text-center 'style='font-weight:bold;'><h3>No Record Found</h3>
+
+                    </td>
+                </tr>";
+                }
+            }
+            if (isset($_GET['search'])) {
+                $servername = "localhost";
+                $username = "root";
+                $password = "";
+                $database = "website";
+
+                $connection = new mysqli($servername, $username, $password, $database);
+                $search = $_GET['search'];
+                $sql = "SELECT * FROM student WHERE  status='Enrolled' and student_name  LIKE '%" . $search . "%' ";
+                $result = $connection->query($sql);
+                $rows = mysqli_num_rows($result);
+                $result = $connection->query($sql);
+                $per_page_record = 10;  // Number of entries to show in a page.   
+                // Look for a GET variable page if not found default is 1.        
+                if (isset($_GET["page"])) {
+                    $page  = $_GET["page"];
+                } else {
+                    $page = 1;
+                }
+            
+                $start_from = ($page - 1) * $per_page_record;
+            
+                $query = "SELECT * FROM student WHERE  status='Enrolled' and student_name  LIKE '%" . $search . "%'  LIMIT $start_from, $per_page_record";
+                $rs_result = mysqli_query($con, $query);
+                $rowcount = mysqli_num_rows($rs_result);
+                $total_records = $rows;
+                if ($rows > 0) {
+                    while ($row = $rs_result->fetch_assoc()) {
+
+                        echo "<tr>
+                        <td>" . $row["student_name"] . "</td>
+                        <td>" . $row["centre_name"] . "</td> 
+                        <td><p style='margin-left:30px;'>" . $row["student_level"] . "</p></td>
+                        <td>
+                            <button class='btn btn-success editbtn' type='submit' name='submit'  >Transfer</button>
+                            <button class='btn btn-success deletebtn' type='submit' name='submit' >Remove</button>
+                        </td>
+                    </tr>";
+                    }
+                } else {
+                    echo "<tr>
+                    <td colspan='4'class='text-center 'style='font-weight:bold;'><h3>No Record Found</h3>
+
                     </td>
                 </tr>";
                 }
@@ -193,6 +316,137 @@ $user_data = check_login($con);
             ?>
         </tbody>
     </table>
+    <?php if (!isset($_GET['centre']) && !isset($_GET['primary'])&&!isset($_GET['search'])) { ?>
+        <div class="pagination" style="float:right;">
+            <?php
+
+
+            echo "</br>";
+            // Number of pages required.   
+            $total_pages = ceil($total_records / $per_page_record);
+            $pagLink = "";
+
+            if ($page >= 2) {
+                echo "<a href='studentlist.php?page=" . ($page - 1) . "'>  Prev </a>";
+            }
+
+            for ($i = 1; $i <= $total_pages; $i++) {
+                if ($i == $page) {
+                    $pagLink .= "<a class = 'active' href='studentlist.php?page="
+                        . $i . "'>" . $i . " </a>";
+                } else {
+                    $pagLink .= "<a href='studentlist.php?page=" . $i . "'>   
+                                                " . $i . " </a>";
+                }
+            };
+            echo $pagLink;
+
+            if ($page < $total_pages) {
+                echo "<a href='studentlist.php?page=" . ($page + 1) . "'>  Next </a>";
+            }
+
+            ?>
+        </div>
+    <?php } ?>
+    <?php if (isset($_GET['centre'])) { ?>
+
+<div class="pagination"style="float:right;">
+    <?php
+
+
+    echo "</br>";
+    // Number of pages required.   
+    $total_pages = ceil($total_records / $per_page_record);
+    $pagLink = "";
+
+    if ($page >= 2) {
+        echo "<a href='studentlist.php?centre=$centre&page=" . ($page - 1) . "'>  Prev </a>";
+    }
+
+    for ($i = 1; $i <= $total_pages; $i++) {
+        if ($i == $page) {
+            $pagLink .= "<a class = 'active' href='studentlist.php?centre=$centre&page="
+                . $i . "'>" . $i . " </a>";
+        } else {
+            $pagLink .= "<a href='studentlist.php?centre=$centre&page=" . $i . "'>   
+                        " . $i . " </a>";
+        }
+    };
+    echo $pagLink;
+
+    if ($page < $total_pages) {
+        echo "<a href='studentlist.php?centre=$centre&page=" . ($page + 1) . "'>  Next </a>";
+    }
+
+    ?>
+</div>
+<?php } ?>
+<?php if (isset($_GET['primary'])) { ?>
+
+<div class="pagination"style="float:right;">
+    <?php
+
+
+    echo "</br>";
+    // Number of pages required.   
+    $total_pages = ceil($total_records / $per_page_record);
+    $pagLink = "";
+
+    if ($page >= 2) {
+        echo "<a href='studentlist.php?primary=$primary&page=" . ($page - 1) . "'>  Prev </a>";
+    }
+
+    for ($i = 1; $i <= $total_pages; $i++) {
+        if ($i == $page) {
+            $pagLink .= "<a class = 'active' href='studentlist.php?primary=$primary&page="
+                . $i . "'>" . $i . " </a>";
+        } else {
+            $pagLink .= "<a href='studentlist.php?primary=$primary&page=" . $i . "'>   
+                        " . $i . " </a>";
+        }
+    };
+    echo $pagLink;
+
+    if ($page < $total_pages) {
+        echo "<a href='studentlist.php?primary=$primary&page=" . ($page + 1) . "'>  Next </a>";
+    }
+
+    ?>
+</div>
+<?php } ?>
+<?php if (isset($_GET['search'])) { ?>
+
+<div class="pagination"style="float:right;">
+    <?php
+
+
+    echo "</br>";
+    // Number of pages required.   
+    $total_pages = ceil($total_records / $per_page_record);
+    $pagLink = "";
+
+    if ($page >= 2) {
+        echo "<a href='studentlist.php?search=$search&page=" . ($page - 1) . "'>  Prev </a>";
+    }
+
+    for ($i = 1; $i <= $total_pages; $i++) {
+        if ($i == $page) {
+            $pagLink .= "<a class = 'active' href='studentlist.php?search=$search&page="
+                . $i . "'>" . $i . " </a>";
+        } else {
+            $pagLink .= "<a href='studentlist.php?search=$search&page=" . $i . "'>   
+                        " . $i . " </a>";
+        }
+    };
+    echo $pagLink;
+
+    if ($page < $total_pages) {
+        echo "<a href='studentlist.php?search=$search&page=" . ($page + 1) . "'>  Next </a>";
+    }
+
+    ?>
+</div>
+<?php } ?>
 </body>
 
 <!-- Transfer student modal -->

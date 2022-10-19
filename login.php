@@ -4,7 +4,7 @@ session_start();
 
 include("connection.php");
 include("functions.php");
-
+error_reporting(E_ERROR | E_PARSE);
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
   //something was posted
@@ -43,23 +43,15 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             die;
           }
         } else {
-          echo '<div class="alert alert-primary" role="alert"style="text-align:center;">
-        <strong>Password Is Incorrect!</strong> 
-        
-      </div>';
+          $errs_password='Password is Incorrect!';
         }
       } else {
-        echo '<div class="alert alert-primary" role="alert"style="text-align:center;">
-          <strong>Userid Does Not Exist!</strong> 
-          
-        </div>';
+        $errs='Username Is Incorrect!';
       }
     }
   } else {
-    echo '<div class="alert alert-warning alert-dismissible fade show" role="alert"style="text-align:center;">
-      <strong>Input Your Username Or Password!</strong> 
-      
-    </div>';
+    $errs='Enter Userid';
+    $errs_password='Enter Password';
   }
 }
 
@@ -126,7 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     }
 
     form {
-      height: 600px;
+      height: 700px;
       width: 400px;
       background-color: rgba(255, 255, 255, 0.13);
       position: absolute;
@@ -268,9 +260,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
       <label for="username">Userid</label>
       <input class="help" type="text" placeholder="Userid" name="username" id="username">
-
+      <span style="color:red;"><?php echo $errs?></span>
       <label for="password">Password</label>
       <input class="help" type="password" placeholder="Password" name="password" id="password">
+      <span style="color:red;"><?php echo $errs_password?></span>
       <div class="form-check">
         <input class="form-check-input" type="checkbox" value="check" name="check" id="flexCheckDefault">
         <label class="form-check-label" for="flexCheckDefault">
