@@ -3,15 +3,15 @@ session_start();
 
 include("connection.php");
 include("functions.php");
-
+error_reporting(E_ERROR | E_PARSE);
 $query = "select * from user where role = 'teacher' ";
 $teacher = mysqli_query($con, $query);
 if (isset($_POST["submit"])) {
   $name = $_POST["username"];
   $email = $_POST["email"];
   $number = $_POST["number"];
-
-
+  $confim = $_POST["confirm"];
+  $check = $_POST['password'];
   $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
   $image = $_FILES["image"];
   $userid = $_POST["userid"];
@@ -31,65 +31,61 @@ if (isset($_POST["submit"])) {
   $query3 = "select * from user where userid = '$userid' limit 1";
   $see_userid = mysqli_query($con, $query3);
   if ($result && mysqli_num_rows($result) > 0) {
-    echo '<div class="alert alert-primary" role="alert"style="text-align:center;">
-          <strong>Username is already been used!</strong> 
-          
-        </div>';
+    $errs_username='Username Already Exists';
   } else {
     if ($see_email && mysqli_num_rows($see_email) > 0) {
-      echo '<div class="alert alert-primary" role="alert"style="text-align:center;">
-            <strong>Email is already been used!</strong> 
-            
-          </div>';
+      $errs_email='Email Already Exists';
     } else {
       if ($see_userid && mysqli_num_rows($see_userid) > 0) {
-        echo '<div class="alert alert-primary" role="alert"style="text-align:center;">
-              <strong>Userid is already been used!</strong> 
-              
-            </div>';
+        $errs_userid='Userid Already Exists';
       } else {
-        if ($_FILES["image"]["error"] == 4) {
-          echo
-          "<script> alert('Image Does Not Exist'); </script>";
+        if ($check != $password) {
+          $errs_password='Passwords Do Not Match';
+          $errs_confirm='Passwords Do Not Match';
         } else {
-          $fileName = $_FILES["image"]["name"];
-          $fileSize = $_FILES["image"]["size"];
-          $tmpName = $_FILES["image"]["tmp_name"];
-
-          $validImageExtension = ['jpg', 'jpeg', 'png'];
-          $imageExtension = explode('.', $fileName);
-          $imageExtension = strtolower(end($imageExtension));
-          if (!in_array($imageExtension, $validImageExtension)) {
+          if ($_FILES["image"]["error"] == 4) {
             echo
-            "
-          <script>
-            alert('Invalid Image Extension');
-          </script>
-          ";
-          } else if ($fileSize > 1000000) {
-            echo
-            "
-          <script>
-            alert('Image Size Is Too Large');
-          </script>
-          ";
+            "<script> alert('Image Does Not Exist'); </script>";
           } else {
-            $newImageName = uniqid();
-            $newImageName .= '.' . $imageExtension;
+            $fileName = $_FILES["image"]["name"];
+            $fileSize = $_FILES["image"]["size"];
+            $tmpName = $_FILES["image"]["tmp_name"];
 
-            move_uploaded_file($tmpName, 'profile/' . $newImageName);
-            $user_id = random_num(20);
-            $query = "insert into user(email,username,userid,password,role,user_id,image,number,relief,preferred,teach,status) values ('$email','$name','$userid','$password','$role','$user_id','$newImageName','$number','yes','$preferredList','$teachList','present ')";
+            $validImageExtension = ['jpg', 'jpeg', 'png'];
+            $imageExtension = explode('.', $fileName);
+            $imageExtension = strtolower(end($imageExtension));
+            if (!in_array($imageExtension, $validImageExtension)) {
+              echo
+              "
+            <script>
+              alert('Invalid Image Extension');
+            </script>
+            ";
+            } else if ($fileSize > 1000000) {
+              echo
+              "
+            <script>
+              alert('Image Size Is Too Large');
+            </script>
+            ";
+            } else {
+              $newImageName = uniqid();
+              $newImageName .= '.' . $imageExtension;
 
-            mysqli_query($con, $query);
+              move_uploaded_file($tmpName, 'profile/' . $newImageName);
+              $user_id = random_num(20);
+              $query = "insert into user(email,username,userid,password,role,user_id,image,number,relief,preferred,teach,status) values ('$email','$name','$userid','$password','$role','$user_id','$newImageName','$number','yes','$preferredList','$teachList','present ')";
 
-            echo
-            "
-          <script>
-            alert('Successfully Added');
-            document.location.href = 'login.php';
-          </script>
-          ";
+              mysqli_query($con, $query);
+
+              echo
+              "
+            <script>
+              alert('Successfully Added');
+              document.location.href = 'login.php';
+            </script>
+            ";
+            }
           }
         }
       }
@@ -133,7 +129,7 @@ if (isset($_POST["submit"])) {
   }
 
   form {
-    height: 950px;
+    height: 1050px;
     width: 800px;
     background-color: rgba(255, 255, 255, 0.13);
     position: absolute;
@@ -230,7 +226,7 @@ if (isset($_POST["submit"])) {
         <div class="mb-3">
           <label>Email</label>
           <input type="email" class="form-control" id="exampleFormControlInput1" name="email" placeholder="Email" required>
-
+          <span style="color:red;"><?php echo $errs_email?></span>
           <div class="invalid-tooltip">
             Please choose a unique and valid username.
           </div>
@@ -239,14 +235,22 @@ if (isset($_POST["submit"])) {
           <label>Username</label>
           <input type="text" class="form-control" id="exampleFormControlInput1" name="username" placeholder="Username" required>
         </div>
+        <span style="color:red;"><?php echo $errs_username?></span>
         <div class="mb-3">
           <label>Userid</label>
           <input type="text" class="form-control" id="exampleFormControlInput1" name="userid" placeholder="Userid" required>
         </div>
+        <span style="color:red;"><?php echo $errs_userid?></span>
         <div class="mb-3">
           <label>Password</label>
           <input type="password" class="form-control" id="exampleFormControlInput1" name="password" placeholder="Password" required>
         </div>
+        <span style="color:red;"><?php echo $errs_password?></span>
+        <div class="mb-3">
+          <label>Confirm Password</label>
+          <input type="password" class="form-control" id="exampleFormControlInput1" name="confirm" placeholder="Confirm Password" required>
+        </div>
+        <span style="color:red;"><?php echo $errs_confirm?></span>
         <div class="mb-3">
           <label>Phone Number</label>
           <input type="text" class="form-control" id="exampleFormControlInput1" name="number" placeholder="Phone Number" required>
@@ -273,7 +277,7 @@ if (isset($_POST["submit"])) {
           <input class="form-check-input" name="preferred[]" type="checkbox" id="inlineCheckbox1" value="Hougang Centre">
           <label class="form-check-label" for="inlineCheckbox1">Hougang Centre</label>
         </div>
-      
+
         <div class="form-check form-check-inline">
 
           <input class="form-check-input" name="preferred[]" type="checkbox" id="inlineCheckbox1" value="Sengkang Centre">
