@@ -6,7 +6,7 @@ include("connection.php");
 include_once("functions.php");
 
 $user_data = check_login($con);
-
+$date=date("Y-m-d");
 ?>
 <!DOCTYPE html>
 <html>
@@ -38,7 +38,7 @@ $user_data = check_login($con);
                     <div class="details" style="margin-left:50px;margin-top:200px;">
                         <h1>Schedule</h1>
                         <p style="font-size:20px;">View timeslots of the classes that you have.</p>
-                        <a href="schedule_teacher.php"><button class="btn btn-primary text-center  " type="submit" name="submit" s">View</button></a>
+                        <a href="schedule_teacher.php?dt='.$date.'"><button class="btn btn-primary text-center  " type="submit" name="submit" s">View</button></a>
                     </div>
                 </div>
                 <div class="col-md-6 " style="height:500px;">
@@ -127,7 +127,7 @@ $user_data = check_login($con);
                             <div class="details" style="margin-left:50px;margin-top:50px;">
                                 <h1>Schedule</h1>
                                 <p style="font-size:20px;">See your childs schedule here.</p>
-                                <a href ="schedule.php">
+                                <a href ="student.php">
                                 <button class="btn btn-primary text-center  " type="submit" name="submit" >View</button>
                                 </a>
     

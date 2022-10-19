@@ -5,9 +5,7 @@ include("connection.php");
 include("functions.php");
 include("check_teacher.php");
 $user_data = check_login($con);
-$id=$user_data['id'];
-$query = "select * from student where parentid = '$id' ";
-$result = mysqli_query($con, $query);
+
 
 
 ?>
@@ -39,21 +37,35 @@ $result = mysqli_query($con, $query);
 
     <body>
         <div class="container-fluid">
-           
+
             <div class="row">
-                <?php foreach($result as $parent) :?>
-          
-                <div class="col-lg-12">
-                    <div class="card text-center">
-                        <h5 class="card-header">Student Name: <?php echo $parent['student_name']?></h5>
-                        <div class="card-body">
-                            <h5 class="card-title">Student Level: <?php echo $parent['student_level']?></h5>
-                            <p class="card-text">Centre Name: <?php echo $parent['centre_name']?></p>
-                            <a href="student_leave.php?id=<?php echo $parent['id']?>" class="btn btn-primary"style="font-size:15px;">Submit Reason Of Absence</a>
+                <?php
+                $id = $user_data['id'];
+                $query = "select * from student where parentid = $id ";
+                $result = mysqli_query($con, $query);
+                ?>
+                <?php if(mysqli_num_rows($result)> 0) {?>
+                <?php foreach ($result as $parent) : ?>
+
+                    <div class="col-lg-12">
+                        <div class="card text-center">
+                            <h5 class="card-header">Student Name: <?php echo $parent['student_name'] ?></h5>
+                            <div class="card-body">
+                                <h5 class="card-title">Student Level: <?php echo $parent['student_level'] ?></h5>
+                                <p class="card-text">Centre Name: <?php echo $parent['centre_name'] ?></p>
+                                <a href="student_leave.php?id=<?php echo $parent['id'] ?>" class="btn btn-primary" style="font-size:15px;">Submit Reason Of Absence</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-            <?php endforeach;?>
+                <?php endforeach; ?>
+                <?php }else{?>
+                    <div class="col-lg-12">
+                        <div class="card text-center">
+                            <h5 class="card-header">Please Enrol Your Kid First.?></h5>
+                            
+                        </div>
+                    </div>
+                    <?php }?>
             </div>
 
 
@@ -61,7 +73,7 @@ $result = mysqli_query($con, $query);
 
 
 
-        </div>
+       
 
 
     </body>
