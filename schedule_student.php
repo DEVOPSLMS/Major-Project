@@ -2,41 +2,34 @@
 session_start();
 include("check_teacher.php");
 include 'connection.php';
-include 'schedule_teacher_calendar.php';
+include 'schedule_student_calendar.php';
 include("functions.php");
 include("check_roster.php");
+$name=$_GET['name'];
+
 $user_data = check_login($con);
 $username = $user_data['username'];
 $date = date($_GET['dt']);
 $calendar = new Calendar($date);
-$roster = mysqli_query($con, "SELECT * FROM roster WHERE teacher_name='$username'");
+$roster = mysqli_query($con, "SELECT * FROM roster ");
+
 
 foreach ($roster as $rosters) {
-    $description = $rosters['level'] . ' ' . $rosters['subject'] . ' ' ;
-    if ($rosters['level'] == 'P1') {
+    $students=$rosters['students'];
+    $student_names=explode(",",$students);
+    if(in_array($name,$student_names)){
+        $description = $rosters['level'] . ' ' . $rosters['subject'] . '';
+    if ($rosters['subject'] == 'Math') {
         $calendar->add_event($description, $rosters['centre_name'], $rosters['date'], 1, 'green','Timing ' .$rosters['timing'].'');
     }
-    if ($rosters['level'] == 'P2') {
-        $calendar->add_event($description, $rosters['centre_name'], $rosters['date'], 1, 'purple','Timing ' .$rosters['timing'].'');
+    if ($rosters['subject'] == 'Science') {
+        $calendar->add_event($description, $rosters['centre_name'], $rosters['date'], 1, 'purple', 'Timing ' .$rosters['timing'].'');
        
     }
-    if ($rosters['level'] == 'P3') {
-        $calendar->add_event($description, $rosters['centre_name'], $rosters['date'], 1, 'blue','Timing ' .$rosters['timing'].'');
+    if ($rosters['subject'] == 'English') {
+        $calendar->add_event($description, $rosters['centre_name'], $rosters['date'], 1, 'blue', 'Timing ' .$rosters['timing'].'');
     }
-    if ($rosters['level'] == 'P4') {
-        $calendar->add_event($description, $rosters['centre_name'], $rosters['date'], 1, 'red','Timing ' .$rosters['timing'].'');
-    }
-    if ($rosters['level'] == 'P5(N)') {
-        $calendar->add_event($description, $rosters['centre_name'], $rosters['date'], 1, 'gold','Timing ' .$rosters['timing'].'');
-    }
-    if ($rosters['level'] == 'P5(F)') {
-        $calendar->add_event($description, $rosters['centre_name'], $rosters['date'], 1, 'yellow','Timing ' .$rosters['timing'].'');
-    }
-    if ($rosters['level'] == 'P6(N)') {
-        $calendar->add_event($description, $rosters['centre_name'], $rosters['date'], 1, 'grey','Timing ' .$rosters['timing'].'');
-    }
-    if ($rosters['level'] == 'P6(F)') {
-        $calendar->add_event($description, $rosters['centre_name'], $rosters['date'], 1, 'pink','Timing ' .$rosters['timing'].'');
+   
     }
 }
 
@@ -101,7 +94,7 @@ $minus = date("Y-m-d", strtotime("-1 month", $dt)) . "\n";
 
     @media (max-width: 900px) {
         .content {
-            width: 100%;
+            width: 500px;
             margin: 0 auto;
         }
 
@@ -112,10 +105,6 @@ $minus = date("Y-m-d", strtotime("-1 month", $dt)) . "\n";
             border-bottom: 1px solid #ebebeb;
             color: #666666;
         }
-        .day_num{
-            padding:0 !important;
-        }
-
     }
 </style>
 <br><br> <br><br> <br><br> <br><br> <br><br> <br><br> <br><br>
@@ -124,9 +113,9 @@ $minus = date("Y-m-d", strtotime("-1 month", $dt)) . "\n";
     <div class="container-fluid">
 
         <div class="content home">
-            <?php echo "<a class='btn'href='schedule_teacher.php?dt=" . $minus . "'>PREV MONTH</a>";
+            <?php echo "<a class='btn'href='schedule_student.php?dt=" . $minus . "&name=".$name."'>PREV MONTH</a>";
             ?>
-            <?php echo "<a class='btn'style='float:right;'' href='schedule_teacher.php?dt=" . $plus . "'>NEXT MONTH</a>";
+            <?php echo "<a class='btn'style='float:right;'' href='schedule_student.php?dt=" . $plus . "&name=".$name."'>NEXT MONTH</a>";
             ?>
             <?= $calendar ?>
             <br>

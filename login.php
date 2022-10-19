@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
           $errs_password='Password is Incorrect!';
         }
       } else {
-        $errs='Username Is Incorrect!';
+        $errs='Userid Is Incorrect!';
       }
     }
   } else {
@@ -118,8 +118,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     }
 
     form {
-      height: 700px;
-      width: 400px;
+      height: 670px;
+      width: 430px;
       background-color: rgba(255, 255, 255, 0.13);
       position: absolute;
       transform: translate(-50%, -50%);
@@ -238,7 +238,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     @media (max-width: 950px) {
       form {
-        width: 110%
+        height:90%;
+        width: 100%;
+        padding: 0px !important;
+        margin: 0px !important;
+        
+      }
+      html{
+        overflow-x: hidden;
       }
     }
   </style>
@@ -267,16 +274,16 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
       <div class="form-check">
         <input class="form-check-input" type="checkbox" value="check" name="check" id="flexCheckDefault">
         <label class="form-check-label" for="flexCheckDefault">
-          Remember Me
+          Remember Me(Expires After 1 Week)
         </label>
         
       </div>
-      <span>(Expires After 1 Week)</span>
+     
       <button type="submit" value="Login">Log In</button>
 
       <br><br>
-      <p>Don't Have An Account? <a href="signup.php"><span>Sign Up Here.</span></a></p>
-      <p>Forgot Password? <a href="password-reset.php"><span>Click Here To Reset.</span></a></p>
+      <p style="margin-left:20px;">Don't Have An Account? <a href="signup.php"><span>Sign Up Here.</span></a></p>
+      <p style="margin-left:20px;">Forgot Password? <a href="password-reset.php"><span>Click Here To Reset.</span></a></p>
 
     </form>
 
