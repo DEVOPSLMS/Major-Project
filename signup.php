@@ -129,8 +129,7 @@ if (isset($_POST["submit"])) {
   }
 
   form {
-    height: 1050px;
-    width: 800px;
+    
     background-color: rgba(255, 255, 255, 0.13);
     position: absolute;
     transform: translate(-50%, -50%);
@@ -141,6 +140,7 @@ if (isset($_POST["submit"])) {
     border: 2px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
     padding: 50px 35px;
+    margin-top:100px;
   }
 
   form * {
@@ -211,6 +211,29 @@ if (isset($_POST["submit"])) {
     border-radius: 5px;
     cursor: pointer;
   }
+  
+  .help {
+      display: block;
+      height: 50px;
+      width: 100%;
+      background-color: rgba(255, 255, 255, 0.07);
+      border-radius: 3px;
+      padding: 0 10px;
+      margin-top: 8px;
+      font-size: 14px;
+      font-weight: 300;
+    }
+    
+    @media (max-width: 950px) {
+      form {
+        
+      margin-top:300px;
+        
+      }
+      .shape{
+        display:none;      }
+      
+    }
 </style>
 
 <body>
@@ -220,12 +243,12 @@ if (isset($_POST["submit"])) {
       <div class="shape"></div>
     </div>
 
-    <div class="form-group">
+
       <form id="form" method="POST" enctype="multipart/form-data" class="needs-validation" autocomplete="off">
         <h3>Sign Up Here</h3>
         <div class="mb-3">
           <label>Email</label>
-          <input type="email" class="form-control" id="exampleFormControlInput1" name="email" placeholder="Email" required>
+          <input type="email" class="help" id="exampleFormControlInput1" name="email" placeholder="Email" required>
           <span style="color:red;"><?php echo $errs_email?></span>
           <div class="invalid-tooltip">
             Please choose a unique and valid username.
@@ -233,31 +256,31 @@ if (isset($_POST["submit"])) {
         </div>
         <div class="mb-3">
           <label>Username</label>
-          <input type="text" class="form-control" id="exampleFormControlInput1" name="username" placeholder="Username" required>
+          <input type="text" class="help"  id="exampleFormControlInput1" name="username" placeholder="Username" required>
         </div>
         <span style="color:red;"><?php echo $errs_username?></span>
         <div class="mb-3">
           <label>Userid</label>
-          <input type="text" class="form-control" id="exampleFormControlInput1" name="userid" placeholder="Userid" required>
+          <input type="text" class="help" id="exampleFormControlInput1" name="userid" placeholder="Userid" required>
         </div>
         <span style="color:red;"><?php echo $errs_userid?></span>
         <div class="mb-3">
           <label>Password</label>
-          <input type="password" class="form-control" id="exampleFormControlInput1" name="password" placeholder="Password" required>
+          <input type="password" class="help" id="exampleFormControlInput1" name="password" placeholder="Password" required>
         </div>
         <span style="color:red;"><?php echo $errs_password?></span>
         <div class="mb-3">
           <label>Confirm Password</label>
-          <input type="password" class="form-control" id="exampleFormControlInput1" name="confirm" placeholder="Confirm Password" required>
+          <input type="password" class="help" id="exampleFormControlInput1" name="confirm" placeholder="Confirm Password" required>
         </div>
         <span style="color:red;"><?php echo $errs_confirm?></span>
         <div class="mb-3">
           <label>Phone Number</label>
-          <input type="text" class="form-control" id="exampleFormControlInput1" name="number" placeholder="Phone Number" required>
+          <input type="text" class="help" id="exampleFormControlInput1" name="number" placeholder="Phone Number" required>
         </div>
         <label>Role</label>
         <div class="mb-3">
-          <select class="form-select" name="role" required>
+          <select class="help"name="role" required>
             <option selected style="color:black;">Role Select</option>
             <option value="parent" style="color:black;">Parent</option>
             <option value="l" style="color:black;">L&D</option>
@@ -357,7 +380,7 @@ if (isset($_POST["submit"])) {
         <p class="text-center">Already Have An Account? <a href="login.php"><span>Login Here.</span></a></p>
       </form>
     </div>
-  </div>
+
 
 
 
