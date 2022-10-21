@@ -118,8 +118,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     }
 
     form {
-      height: 670px;
-      width: 430px;
+      
+   
       background-color: rgba(255, 255, 255, 0.13);
       position: absolute;
       transform: translate(-50%, -50%);
@@ -238,8 +238,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     @media (max-width: 950px) {
       form {
-        height:90%;
-        width: 100%;
+        
         padding: 0px !important;
         margin: 0px !important;
         
