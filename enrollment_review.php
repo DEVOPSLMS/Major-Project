@@ -40,6 +40,28 @@ $rowcount = mysqli_num_rows($result);
 
         <?php include("header.php") ?>
 
+        <?php 
+
+        if($rowcount == 0){
+            echo 
+            "<style>
+                #enrollment-table{
+                    display: none;
+                }
+                #text-message{
+                    display: block;
+                }
+            </style>";
+        }else{
+            echo
+            "<style>
+                #text-message{
+                    display: none;
+                }
+            </style>";
+        }
+        ?>
+
     </header>
 </header>
 
@@ -53,9 +75,9 @@ $rowcount = mysqli_num_rows($result);
         <div>
             <!-- insert if no reviews scenario -->
 
-            <!-- <h3 id="text-message" class="text-center">There are currently no enrollments</h3> -->
+            <h3 id="text-message" class="text-center" style="color: red;">There are currently no enrollments</h3>
 
-            <table id="enrollment_table">
+            <table id="enrollment-table">
                 <tr style="border-bottom: 1px grey solid">
                     <td class="col-sm-2"></td>
                     <td class="col-sm-4">
