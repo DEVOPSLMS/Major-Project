@@ -5,7 +5,7 @@ include("connection.php");
 include("functions.php");
 include("check_teacher.php");
 $user_data = check_login($con);
-
+include("insert-payslip.php");
 // remove  OR status = 'Enrolled' OR status = 'Disapproved' when done 
 $query = "SELECT * FROM student WHERE status = 'Pending Interview' OR status = 'Pending Approval'";
 $result = mysqli_query($con, $query);

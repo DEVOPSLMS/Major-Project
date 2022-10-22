@@ -4,6 +4,7 @@ include("check_roster.php");
 include("connection.php");
 include("functions.php");
 include("check_teacher.php");
+include("insert-payslip.php");
 $user_data = check_login($con);
 $query = "select * from user where role = 'teacher' ";
 $teacher = mysqli_query($con, $query);

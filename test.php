@@ -1,6 +1,7 @@
 <?php
 include('connection.php');
 $date = date("Y-m-d");
+date_default_timezone_set('Singapore');
 $roster = mysqli_query($con, "SELECT * FROM roster ");
 error_reporting(E_ERROR | E_PARSE);
 foreach ($roster as $rosters) {
@@ -150,7 +151,7 @@ if (isset($_GET['location'])) {
 
 
     </form>
-    <?php if (!isset($_GET['search'])&&!isset($_GET['location'])) { ?>
+    <?php if (!isset($_GET['search']) && !isset($_GET['location'])) { ?>
         <div class="pagination">
             <?php
 
@@ -249,6 +250,74 @@ if (isset($_GET['location'])) {
             ?>
         </div>
     <?php } ?>
+    <?php
+    $first_day_this_month = date('Y-m-01');
+    $now = date('2022-11-01 00:00:00');
+    $d = date('Y-m-t 2200:00:00');
+    $c = date('Y-m-t 2359:59:59');
+    $last_day = date('Y-m-t');
+
+
+    if ($d < $now && $now < $c) {
+    } else {
+        $query = "SELECT * FROM `roster` WHERE date between '$first_day_this_month' and '$last_day'";
+        $result = mysqli_query($con, $query);
+        $roster = mysqli_fetch_array($result);
+        foreach ($result as $a) {
+            $end = $a['end'];
+            $start = $a['time'];
+            $diff = $end - $start;
+            echo $diff;
+            echo ('' . $a['teacher_name'] . '<br>');
+            $val += $diff;
+        }
+    }
+    ?>
+    <?php
+
+   
+    $first_day_this_month = date('Y-m-01');
+    $now = date('2022-11-01 00:00:00');
+    $d = date('Y-m-t 2200:00:00');
+    $c = date('Y-m-t 2359:59:59');
+    $last_day = date('Y-m-t');
+    $query = "SELECT * FROM `roster` WHERE date between '$first_day_this_month' and '$last_day'";
+    $a = mysqli_query($con, $query);
+    $roster = mysqli_fetch_all($result);
+
+
+    $byName = [];
+    foreach ($a as $record) {
+        $name = $record['teacher_name'];
+        $diff=$record['end']-$record['time'];
+        $total =$diff;
+        $time_diff = ['Diff' => $total,'Teacher_Name' => $name];
+        if (!isset($byName[$name])) {
+            $byName[$name] = [];
+        }
+    
+        array_push($byName[$name], $time_diff);
+        
+    }
+
+
+   
+    $key = 'Diff';
+    $new=[];
+    $key2 = 'Teacher_Name';
+    foreach($byName as $a){
+        $sum = array_sum(array_column($a,$key));
+        $name = (array_unique(array_column($a,$key2)));
+        $string=implode("",$name);
+        $time_diff = ['Sum' => $sum,'teacher_name'=>$string];
+        array_push($new, $time_diff);
+      
+    }
+    
+
+    
+ 
+    ?>
 </body>
 
 </html>

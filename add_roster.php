@@ -1,7 +1,10 @@
 <?php
 session_start();
-include('connection.php');
-include('functions.php');
+include("check_roster.php");
+include("check_teacher.php");
+include("connection.php");
+include("functions.php");
+include("insert-payslip.php");
 $user_data = check_login($con);
 $string = strval($_GET['name']);
 $centre = str_replace("-", " ", $string);
@@ -20,23 +23,29 @@ if (isset($_POST["add"])) {
     $day = $_POST["day"];
     if ($timing == '1pm - 3pm') {
         $time = '13:00:00';
+        $end='15:00:00';
     }
     if ($timing == '2pm - 4pm') {
         $time = '14:00:00';
+        $end='16:00:00';
     }
     if ($timing == '4pm - 6pm') {
-        $time = '19:00:00';
+        $time = '16:00:00';
+        $end='18:00:00';
     }
     if ($timing == '7pm - 8pm') {
         $time = '19:00:00';
+        $end='20:00:00';
     }
     if ($timing == '8pm - 9pm') {
         $time = '20:00:00';
+        $end='21:00:00';
     }
     if ($timing == '9pm - 10pm') {
         $time = '21:00:00';
+        $end='22:00:00';
     }
-    $query = "insert into roster(centre_name,subject,level,timing,teacher_name,need_relief,room,date,day,students,time,cancelled) VALUES('$centre Centre', '$subject','$level','$timing','$name','no','$room','$date','$day','$students','$time','no')";
+    $query = "insert into roster(centre_name,subject,level,timing,teacher_name,need_relief,room,date,day,students,time,cancelled) VALUES('$centre Centre', '$subject','$level','$timing','$name','no','$room','$date','$day','$students','$time','$end','no')";
     mysqli_query($con, $query);
 
     echo
@@ -215,7 +224,7 @@ if (isset($_POST["add"])) {
                     </div>
                 </div>
                 <?php if (isset($_POST['submit'])) { $date = $_POST['date']; $level = $_POST['level']; $day = date('l', strtotime($date));$query = "select * from student where centre_name = '$centre Centre'and student_level='$level' "; $students = mysqli_query($con, $query);foreach ($students as $s) { $student[] = $s['student_name'];}
-                if (!empty($student)) 
+                if (!empty($student)&&!empty($teachers)) 
                 {
                     echo('<button type="submit" name="add" class="btn btn-primary">Submit</button>');
                 }

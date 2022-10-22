@@ -5,6 +5,7 @@ include 'connection.php';
 include 'schedule_student_calendar.php';
 include("functions.php");
 include("check_roster.php");
+include("insert-payslip.php");
 $name=$_GET['name'];
 
 $user_data = check_login($con);
