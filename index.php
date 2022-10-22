@@ -4,7 +4,7 @@ include("check_roster.php");
 include("check_teacher.php");
 include("connection.php");
 include_once("functions.php");
-
+include("insert-payslip.php");
 $user_data = check_login($con);
 $date=date("Y-m-d");
 ?>

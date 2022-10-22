@@ -5,6 +5,7 @@ include 'connection.php';
 include 'Calendar.php';
 include("functions.php"); 
 include("check_roster.php");
+include("insert-payslip.php");
 $user_data = check_login($con);
     $date = date($_GET['dt']);
     $calendar = new Calendar($date);

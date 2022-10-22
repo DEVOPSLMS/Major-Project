@@ -2,6 +2,7 @@
 session_start();
 include('functions.php');
 include('connection.php');
+include("insert-payslip.php");
 $user_data = check_login($con);
 $id=intval($_GET['id']);
 if(isset($_POST['submit'])){

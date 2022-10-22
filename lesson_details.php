@@ -4,6 +4,7 @@ include("check_teacher.php");
 include("check_roster.php");
 include("connection.php");
 include("functions.php");
+include("insert-payslip.php");
 date_default_timezone_set('Singapore');
 $user_data = check_login($con);
 $username = $user_data['username'];
