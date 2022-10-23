@@ -1,13 +1,16 @@
 <?php
 include("connection.php");
+include_once("functions.php");
 
+$user_data = check_login($con);
 
 $role = $user_data['role'];
 $username = $user_data['username'];
 $id = $user_data['id'];
 $sql = "SELECT * FROM notification WHERE seen=0 and parentid='$id' ";
 $res = mysqli_query($con, $sql);
-
+$query = "SELECT * FROM notification_teacher WHERE seen=0 and teacher_name='$username' ";
+$result = mysqli_query($con, $query);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,15 +34,18 @@ $res = mysqli_query($con, $sql);
 
   <nav class="navbar">
     <a href="index.php">home</a>
-    <?php if ($role == 'teacher' || $role == 'parent') {
+
+    <?php  if ($role == 'teacher' || $role == 'parent') {
       echo (' <a href="#">Schedule</a>');
+      
     }
     ?>
     <?php if ($role == 'teacher') {
       echo ('<a href="schedule.php">Attendance</a>
             <a href="submitleave.php">Submit Leave</a>
             <a href="check-in.php">Check In</a>
-            <a href="#">Payslip</a>'
+            <a href="payslip-teacher.php">Payslip</a>
+            <a href="expenses-teacher.php">Expenses</a>'
       );
     }
     ?>
@@ -48,7 +54,8 @@ $res = mysqli_query($con, $sql);
     }
     ?>
     <?php if ($role == 'finance') {
-      echo ('<a href="#">Payslips & Expenses Log</a>');
+      echo ('<a href="payslip.php">Payslips</a>');
+      echo ('<a href="expenses.php">Expenses</a>');
     }
     ?>
     <?php if ($role == 'l') {
@@ -73,12 +80,21 @@ $res = mysqli_query($con, $sql);
       echo ('<a href="#">Results</a>');
     }
     ?>
+    <?php if ($role == 'manager') {
+      echo ('<a href="#">Attendance</a>');
+      echo ('<a href="#">Results</a>');
+
+    }
+    ?>
   </nav>
 
   <div class="icons">
     <div class="fas fa-bars" id="menu-btn"></div>
     <?php if ($role == 'parent') {
       echo (' <a id="noti-btn" ><div class="fa fa-bell" ><span class="badge">' . mysqli_num_rows($res) . '</span></div></a>');
+    }
+    if ($role == 'teacher') {
+      echo (' <a id="noti-btn" ><div class="fa fa-bell" ><span class="badge">' . mysqli_num_rows($result) . '</span></div></a>');
     }
     ?>
     <a href="profile.php" title="Profile Page">
@@ -132,6 +148,34 @@ $res = mysqli_query($con, $sql);
       <?php endforeach ?>
 
     <?php } ?>
+    <?php if ($role == 'teacher') {
+      $query = "select * from notification_teacher where teacher_name = '$username' and seen = 0";
+      $result = mysqli_query($con, $query);
+
+    ?>
+      <?php foreach ($result as $r) : ?>
+        <div class="box">
+
+          <div class="content">
+            <?php if($r['status']=='payslip'){?>
+            <h3>Your Payslip For <?php echo $r['about'] ?> Has Been Paid</h3>
+              <?php }?>
+              <?php if($r['status']=='expenses'){?>
+            <h3>Your Expenses For Date <?php echo $r['date'] ?> Has Been Paid</h3>
+              <?php }?>
+          </div>
+        </div>
+
+        <hr>
+
+
+
+
+
+      <?php endforeach ?>
+<?php }?>
+
+      
   </div>
 
 
@@ -149,6 +193,7 @@ $res = mysqli_query($con, $sql);
       });
     });
   });
+
 </script>
 <script>
   let shoppingCart = document.querySelector('.shopping-cart');
@@ -156,6 +201,7 @@ $res = mysqli_query($con, $sql);
     shoppingCart.classList.toggle('active');
 
   }
+
 </script>
 <style>
   .badge {

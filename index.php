@@ -87,7 +87,17 @@ $date=date("Y-m-d");
                                 <h1>Payslip</h1>
                                 <p style="font-size:20px;">Check your payslips.</p>
     
-                                <button class="btn btn-primary text-center  " type="submit" name="submit" >View</button>
+                                <a href="payslip-teacher.php"><button class="btn btn-primary text-center  " type="submit" name="submit" >View</button></a>
+    
+    
+                            </div>
+                </div>
+                <div class="col-lg-12 border border-dark" style="height:300px;">
+                <div class="details text-center" style="margin-left:50px;margin-top:100px;">
+                                <h1>Expenses</h1>
+                                <p style="font-size:20px;">Click to submit expenses.</p>
+    
+                                <a href="expenses-teacher.php"><button class="btn btn-primary text-center  " type="submit" name="submit" >Submit Expenses</button></a>
     
     
                             </div>
@@ -173,14 +183,14 @@ $date=date("Y-m-d");
                     <div class="details" style="margin-left:50px;margin-top:200px;">
                         <h1>View payslips</h1>
                         <p style="font-size:20px;">Record down payment sent and store in database.</p>
-                        <button class="btn btn-primary text-center  " type="submit" name="submit" >View</button>
+                        <a href="payslip.php"><button class="btn btn-primary text-center  " type="submit" name="submit" >View</button></a>
                     </div>
                 </div>
                 <div class="col-md-6 border border-dark" style="height:500px;">
                     <div class="details" style="margin-left:50px;margin-top:200px;">
                         <h1>Expenses</h1>
                         <p style="font-size:20px;">Click to see expenses log.</p>
-                        <button class="btn btn-primary text-center  " type="submit" name="submit" >View</button>
+                        <a href="expenses.php"><button class="btn btn-primary text-center  " type="submit" name="submit" >View</button></a>
                     </div>
                 </div>
                 <div class="col-lg-12 border border-dark text-center" style="height:300px;">

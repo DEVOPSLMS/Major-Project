@@ -153,7 +153,7 @@ $id = $user_data['id'];
            
         <?php }
         else{
-            echo("<h1 class='   text-center'>No Record Found</h1>");
+            echo("<h1 class='text-center'>No Record Found</h1>");
         }
         }
         ?>

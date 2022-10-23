@@ -10,7 +10,7 @@ $c = date('Y-m-t 2359:59:59');
 $last_day = date('Y-m-t');
 $month=date("M");
 if($d < $now && $now < $c){
-    $query = "SELECT * FROM `roster` WHERE date between '$first_day_this_month' and '$last_day'";
+    $query = "SELECT * FROM `roster` WHERE cancelled='no'and date between '$first_day_this_month' and '$last_day'";
     $a = mysqli_query($con, $query);
     
     
@@ -53,8 +53,9 @@ if($d < $now && $now < $c){
         $centre=$a['centre'];
         $total=$sum * 10;
         $status='false';
-    
-        $query = "insert into payslip(teacher_name,total_hours,centre,month,total_amount,status) VALUES('$name','$sum','$centre','$month','$total','$status')";
+        $reference = random_num(15);
+        $year=date("Y");
+        $query = "insert into payslip(teacher_name,total_hours,centre,month,year,total_amount,status,reference) VALUES('$name','$sum','$centre','$month',$year,'$total','$status','$reference')";
         mysqli_query($con, $query);
     }
 }
