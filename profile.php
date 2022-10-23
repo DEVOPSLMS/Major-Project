@@ -82,6 +82,8 @@ if(isset($_POST['profile'])){
 
   $email=$_POST['email'];
   $number=$_POST['number'];
+
+  $relief=$_POST['relief'];
   foreach ($_POST['teach'] as $teach) {
 
     $teachList = implode(', ', $_POST['teach']);
@@ -100,7 +102,7 @@ if(isset($_POST['profile'])){
       </script>");
     }
     else{
-      $sql = "UPDATE `user` SET `email`='$email',`number`='$number',`preferred`='$preferredList',`teach`='$teachList'WHERE id=$id";
+      $sql = "UPDATE `user` SET `email`='$email',`number`='$number',`preferred`='$preferredList',`teach`='$teachList',`relief`='$relief'WHERE id=$id";
       mysqli_query($con, $sql);
       echo
             "
@@ -262,6 +264,19 @@ if(isset($_POST['profile'])){
                   <hr>');
               }
               ?>
+              <?php
+              if ($user_data['role'] == 'teacher') {
+                echo (' <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Can Relief</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                   ' . $user_data['relief'] . '
+                    </div>
+                  </div>
+                  <hr>');
+              }
+              ?>
 
               <div class="row">
                 <div class="col-sm-3">
@@ -416,9 +431,27 @@ if(isset($_POST['profile'])){
 
             </div>
             <?php }?>
+            <?php  if($user_details['role'] =='teacher') {?>
+              <div class="form-group">
+              <label for="inputEmail4" style="font-size:20px;">Can Relief</label>
+                        <select class="form-control" style="height:50px;font-size:20px;" required name="relief">
+                            <?php if($user_details['relief']=='yes'){
+                              echo(" <option value='yes'>Yes</option>");
+                              echo(" <option value='no'>No</option>");
+                            }
+                            ?>
+                       <?php if($user_details['relief']=='no'){
+                             
+                              echo(" <option value='no'>No</option>");
+                              echo(" <option value='yes'>Yes</option>");
+                            }
+                            ?>
 
+                            
 
-
+                        </select>
+              </div>
+              <?php }?>
 
 
 

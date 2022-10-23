@@ -10,7 +10,7 @@ $id = $_GET['id'];
 $roster = mysqli_query($con, "SELECT * FROM roster WHERE id='$id' ");
 
 $roster_details = mysqli_fetch_assoc($roster);
-$teacher = mysqli_query($con, "SELECT * FROM user WHERE role='teacher' ");
+$teacher = mysqli_query($con, "SELECT * FROM user WHERE role='teacher'and relief='yes' ");
 $date = $roster_details['date'];
 $centre = $roster_details['centre_name'];
 $day = $roster_details['day'];
