@@ -45,7 +45,7 @@ if (isset($_POST["add"])) {
         $time = '21:00:00';
         $end='22:00:00';
     }
-    $query = "insert into roster(centre_name,subject,level,timing,teacher_name,need_relief,room,date,day,students,time,cancelled) VALUES('$centre Centre', '$subject','$level','$timing','$name','no','$room','$date','$day','$students','$time','$end','no')";
+    $query = "insert into roster(centre_name,subject,level,timing,teacher_name,need_relief,room,date,day,students,time,end,cancelled) VALUES('$centre Centre', '$subject','$level','$timing','$name','no','$room','$date','$day','$students','$time','$end','no')";
     mysqli_query($con, $query);
 
     echo
