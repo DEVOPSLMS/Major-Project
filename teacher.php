@@ -58,7 +58,7 @@ $teacher = mysqli_query($con, $query);
                             <h5 class="card-title">Preferred Centres: <?php echo ($t['preferred']) ?></h5>
                             <p class="card-text">Phone Number: <?php echo ($t['number']) ?></p>
                             <p class="card-text">Can Relief: <?php echo ($t['relief']) ?></p>
-
+                            <p class="card-text">Status: <?php echo ($t['status']) ?></p>
                         </div>
                         <div class="card-footer">
                             <a href="teacher_schedule.php?name=<?php echo($t['username'])?>&dt=<?php echo(date("Y-m-d"))?>" class="btn btn-primary" style="font-size:15px;">See <?php echo($t['username'])?>'s Schedule</a>

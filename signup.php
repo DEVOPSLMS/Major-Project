@@ -39,7 +39,7 @@ if (isset($_POST["submit"])) {
       if ($see_userid && mysqli_num_rows($see_userid) > 0) {
         $errs_userid='Userid Already Exists';
       } else {
-        if ($check != $password) {
+        if ($check != $confirm) {
           $errs_password='Passwords Do Not Match';
           $errs_confirm='Passwords Do Not Match';
         } else {
