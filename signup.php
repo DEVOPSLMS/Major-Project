@@ -10,7 +10,7 @@ if (isset($_POST["submit"])) {
   $name = $_POST["username"];
   $email = $_POST["email"];
   $number = $_POST["number"];
-  $confim = $_POST["confirm"];
+  $confirm = $_POST["confirm"];
   $check = $_POST['password'];
   $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
   $image = $_FILES["image"];
