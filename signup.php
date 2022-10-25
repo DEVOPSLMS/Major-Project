@@ -31,62 +31,78 @@ if (isset($_POST["submit"])) {
   $query3 = "select * from user where userid = '$userid' limit 1";
   $see_userid = mysqli_query($con, $query3);
   if ($result && mysqli_num_rows($result) > 0) {
-    $errs_username='Username Already Exists';
+    $errs_username = 'Username Already Exists';
   } else {
     if ($see_email && mysqli_num_rows($see_email) > 0) {
-      $errs_email='Email Already Exists';
+      $errs_email = 'Email Already Exists';
+      if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $errs_email = "Invalid Email";
+      }
     } else {
       if ($see_userid && mysqli_num_rows($see_userid) > 0) {
-        $errs_userid='Userid Already Exists';
+        $errs_userid = 'Userid Already Exists';
       } else {
         if ($check != $confirm) {
-          $errs_password='Passwords Do Not Match';
-          $errs_confirm='Passwords Do Not Match';
+          $errs_password = 'Passwords Do Not Match';
+          $errs_confirm = 'Passwords Do Not Match';
+          
         } else {
-          if ($_FILES["image"]["error"] == 4) {
-            echo
-            "<script> alert('Image Does Not Exist'); </script>";
+          $uppercase = preg_match('@[A-Z]@', $check);
+          $lowercase = preg_match('@[a-z]@', $check);
+          $number    = preg_match('@[0-9]@', $check);
+          $specialChars = preg_match('@[^\w]@', $check);
+
+          if (!$uppercase || !$lowercase || !$number || !$specialChars || strlen($check) < 8) {
+            $errs_password = 'Password should be at least 8 characters in length and should include at least one upper case letter, one number, and one special character.';
+          $errs_confirm = 'Password should be at least 8 characters in length and should include at least one upper case letter, one number, and one special character.';
+            
           } else {
-            $fileName = $_FILES["image"]["name"];
-            $fileSize = $_FILES["image"]["size"];
-            $tmpName = $_FILES["image"]["tmp_name"];
-
-            $validImageExtension = ['jpg', 'jpeg', 'png'];
-            $imageExtension = explode('.', $fileName);
-            $imageExtension = strtolower(end($imageExtension));
-            if (!in_array($imageExtension, $validImageExtension)) {
+            if ($_FILES["image"]["error"] == 4) {
               echo
-              "
-            <script>
-              alert('Invalid Image Extension');
-            </script>
-            ";
-            } else if ($fileSize > 1000000) {
-              echo
-              "
-            <script>
-              alert('Image Size Is Too Large');
-            </script>
-            ";
+              "<script> alert('Image Does Not Exist'); </script>";
             } else {
-              $newImageName = uniqid();
-              $newImageName .= '.' . $imageExtension;
-
-              move_uploaded_file($tmpName, 'profile/' . $newImageName);
-              $user_id = random_num(20);
-              $query = "insert into user(email,username,userid,password,role,user_id,image,number,relief,preferred,teach,status) values ('$email','$name','$userid','$password','$role','$user_id','$newImageName','$number','yes','$preferredList','$teachList','present ')";
-
-              mysqli_query($con, $query);
-
-              echo
-              "
-            <script>
-              alert('Successfully Added');
-              document.location.href = 'login.php';
-            </script>
-            ";
+              $fileName = $_FILES["image"]["name"];
+              $fileSize = $_FILES["image"]["size"];
+              $tmpName = $_FILES["image"]["tmp_name"];
+  
+              $validImageExtension = ['jpg', 'jpeg', 'png'];
+              $imageExtension = explode('.', $fileName);
+              $imageExtension = strtolower(end($imageExtension));
+              if (!in_array($imageExtension, $validImageExtension)) {
+                echo
+                "
+              <script>
+                alert('Invalid Image Extension');
+              </script>
+              ";
+              } else if ($fileSize > 1000000) {
+                echo
+                "
+              <script>
+                alert('Image Size Is Too Large');
+              </script>
+              ";
+              } else {
+                $newImageName = uniqid();
+                $newImageName .= '.' . $imageExtension;
+  
+                move_uploaded_file($tmpName, 'profile/' . $newImageName);
+                $user_id = random_num(20);
+                $query = "insert into user(email,username,userid,password,role,user_id,image,number,relief,preferred,teach,status) values ('$email','$name','$userid','$password','$role','$user_id','$newImageName','$number','yes','$preferredList','$teachList','present ')";
+  
+                mysqli_query($con, $query);
+  
+                echo
+                "
+              <script>
+                alert('Successfully Added');
+                document.location.href = 'login.php';
+              </script>
+              ";
+              }
             }
           }
+          
         }
       }
     }
@@ -129,7 +145,7 @@ if (isset($_POST["submit"])) {
   }
 
   form {
-    
+
     background-color: rgba(255, 255, 255, 0.13);
     position: absolute;
     transform: translate(-50%, -50%);
@@ -140,7 +156,7 @@ if (isset($_POST["submit"])) {
     border: 2px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
     padding: 50px 35px;
-    margin-top:100px;
+    margin-top: 100px;
   }
 
   form * {
@@ -211,29 +227,31 @@ if (isset($_POST["submit"])) {
     border-radius: 5px;
     cursor: pointer;
   }
-  
+
   .help {
-      display: block;
-      height: 50px;
-      width: 100%;
-      background-color: rgba(255, 255, 255, 0.07);
-      border-radius: 3px;
-      padding: 0 10px;
-      margin-top: 8px;
-      font-size: 14px;
-      font-weight: 300;
+    display: block;
+    height: 50px;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.07);
+    border-radius: 3px;
+    padding: 0 10px;
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: 300;
+  }
+
+  @media (max-width: 950px) {
+    form {
+
+      margin-top: 300px;
+
     }
-    
-    @media (max-width: 950px) {
-      form {
-        
-      margin-top:300px;
-        
-      }
-      .shape{
-        display:none;      }
-      
+
+    .shape {
+      display: none;
     }
+
+  }
 </style>
 
 <body>
@@ -244,142 +262,142 @@ if (isset($_POST["submit"])) {
     </div>
 
 
-      <form id="form" method="POST" enctype="multipart/form-data" class="needs-validation" autocomplete="off">
-        <h3>Sign Up Here</h3>
-        <div class="mb-3">
-          <label>Email</label>
-          <input type="email" class="help" id="exampleFormControlInput1" name="email" placeholder="Email" required>
-          <span style="color:red;"><?php echo $errs_email?></span>
-          <div class="invalid-tooltip">
-            Please choose a unique and valid username.
-          </div>
+    <form id="form" method="POST" enctype="multipart/form-data" class="needs-validation" autocomplete="off">
+      <h3>Sign Up Here</h3>
+      <div class="mb-3">
+        <label>Email</label>
+        <input type="email" class="help" id="exampleFormControlInput1" name="email" placeholder="Email" required value="<?php echo $_POST['email']; ?>">
+        <span style="color:red;"><?php echo $errs_email ?></span>
+        <div class="invalid-tooltip">
+          Please choose a unique and valid username.
         </div>
-        <div class="mb-3">
-          <label>Username</label>
-          <input type="text" class="help"  id="exampleFormControlInput1" name="username" placeholder="Username" required>
-        </div>
-        <span style="color:red;"><?php echo $errs_username?></span>
-        <div class="mb-3">
-          <label>Userid</label>
-          <input type="text" class="help" id="exampleFormControlInput1" name="userid" placeholder="Userid" required>
-        </div>
-        <span style="color:red;"><?php echo $errs_userid?></span>
-        <div class="mb-3">
-          <label>Password</label>
-          <input type="password" class="help" id="exampleFormControlInput1" name="password" placeholder="Password" required>
-        </div>
-        <span style="color:red;"><?php echo $errs_password?></span>
-        <div class="mb-3">
-          <label>Confirm Password</label>
-          <input type="password" class="help" id="exampleFormControlInput1" name="confirm" placeholder="Confirm Password" required>
-        </div>
-        <span style="color:red;"><?php echo $errs_confirm?></span>
-        <div class="mb-3">
-          <label>Phone Number</label>
-          <input type="text" class="help" id="exampleFormControlInput1" name="number" placeholder="Phone Number" required>
-        </div>
-        <label>Role</label>
-        <div class="mb-3">
-          <select class="help"name="role" required>
-            <option selected style="color:black;">Role Select</option>
-            <option value="parent" style="color:black;">Parent</option>
-            <option value="l" style="color:black;">L&D</option>
-            <option value="teacher" style="color:black;">Teacher</option>
-            <option value="admin" style="color:black;">Admin</option>
-            <option value="finance" style="color:black;">Finance</option>
-            <option value="manager" style="color:black;">Centre Manager</option>
+      </div>
+      <div class="mb-3">
+        <label>Username</label>
+        <input type="text" class="help" id="exampleFormControlInput1" name="username" placeholder="Username" required value="<?php echo $_POST['username']; ?>">
+      </div>
+      <span style="color:red;"><?php echo $errs_username ?></span>
+      <div class="mb-3">
+        <label>Userid</label>
+        <input type="text" class="help" id="exampleFormControlInput1" name="userid" placeholder="Userid" required value="<?php echo $_POST['userid']; ?>">
+      </div>
+      <span style="color:red;"><?php echo $errs_userid ?></span>
+      <div class="mb-3">
+        <label>Password</label>
+        <input type="password" class="help" id="exampleFormControlInput1" name="password" placeholder="Password" required value="<?php echo $_POST['password']; ?>">
+      </div>
+      <span style="color:red;"><?php echo $errs_password ?></span>
+      <div class="mb-3">
+        <label>Confirm Password</label>
+        <input type="password" class="help" id="exampleFormControlInput1" name="confirm" placeholder="Confirm Password" required value="<?php echo $_POST['confirm']; ?>">
+      </div>
+      <span style="color:red;"><?php echo $errs_confirm ?></span>
+      <div class="mb-3">
+        <label>Phone Number</label>
+        <input type="text" class="help" id="exampleFormControlInput1" name="number" placeholder="Phone Number" required value="<?php echo $_POST['number']; ?>">
+      </div>
+      <label>Role</label>
+      <div class="mb-3">
+        <select class="help" name="role" required>
+          <option selected style="color:black;">Role Select</option>
+          <option value="parent" style="color:black;">Parent</option>
+          <option value="l" style="color:black;">L&D</option>
+          <option value="teacher" style="color:black;">Teacher</option>
+          <option value="admin" style="color:black;">Admin</option>
+          <option value="finance" style="color:black;">Finance</option>
+          <option value="manager" style="color:black;">Centre Manager</option>
 
-          </select>
-        </div>
+        </select>
+      </div>
 
-        <label class="form-check-label" for="inlineCheckbox2">Preferred Centre(Only For Teachers)</label>
-        <br>
+      <label class="form-check-label" for="inlineCheckbox2">Preferred Centre(Only For Teachers)</label>
+      <br>
 
-        <div class="form-check form-check-inline">
+      <div class="form-check form-check-inline">
 
-          <input class="form-check-input" name="preferred[]" type="checkbox" id="inlineCheckbox1" value="Hougang Centre">
-          <label class="form-check-label" for="inlineCheckbox1">Hougang Centre</label>
-        </div>
+        <input class="form-check-input" name="preferred[]" type="checkbox" id="inlineCheckbox1" value="Hougang Centre">
+        <label class="form-check-label" for="inlineCheckbox1">Hougang Centre</label>
+      </div>
 
-        <div class="form-check form-check-inline">
+      <div class="form-check form-check-inline">
 
-          <input class="form-check-input" name="preferred[]" type="checkbox" id="inlineCheckbox1" value="Sengkang Centre">
-          <label class="form-check-label" for="inlineCheckbox1">Sengkang Centre</label>
-        </div>
-        <div class="form-check form-check-inline">
+        <input class="form-check-input" name="preferred[]" type="checkbox" id="inlineCheckbox1" value="Sengkang Centre">
+        <label class="form-check-label" for="inlineCheckbox1">Sengkang Centre</label>
+      </div>
+      <div class="form-check form-check-inline">
 
-          <input class="form-check-input" name="preferred[]" type="checkbox" id="inlineCheckbox1" value="Punggol Centre">
-          <label class="form-check-label" for="inlineCheckbox1">Punggol Centre</label>
-        </div>
-        <div class="form-check form-check-inline">
+        <input class="form-check-input" name="preferred[]" type="checkbox" id="inlineCheckbox1" value="Punggol Centre">
+        <label class="form-check-label" for="inlineCheckbox1">Punggol Centre</label>
+      </div>
+      <div class="form-check form-check-inline">
 
-          <input class="form-check-input" name="preferred[]" type="checkbox" id="inlineCheckbox1" value="Fernvale Centre">
-          <label class="form-check-label" for="inlineCheckbox1">Fernvale Centre</label>
-        </div>
-        <div class="form-check form-check-inline">
+        <input class="form-check-input" name="preferred[]" type="checkbox" id="inlineCheckbox1" value="Fernvale Centre">
+        <label class="form-check-label" for="inlineCheckbox1">Fernvale Centre</label>
+      </div>
+      <div class="form-check form-check-inline">
 
-          <input class="form-check-input" name="preferred[]" type="checkbox" id="inlineCheckbox1" value="Teck Ghee Centre">
-          <label class="form-check-label" for="inlineCheckbox1">Teck Ghee Centre</label>
-        </div>
-        <div class="form-check form-check-inline">
+        <input class="form-check-input" name="preferred[]" type="checkbox" id="inlineCheckbox1" value="Teck Ghee Centre">
+        <label class="form-check-label" for="inlineCheckbox1">Teck Ghee Centre</label>
+      </div>
+      <div class="form-check form-check-inline">
 
-          <input class="form-check-input" name="preferred[]" type="checkbox" id="inlineCheckbox1" value="Kolam Ayer Centre">
-          <label class="form-check-label" for="inlineCheckbox1">Kolam Ayer Centre</label>
-        </div>
-        <br>
-        <label class="form-check-label" for="inlineCheckbox2">Avaliability(Only For Teachers)</label>
-        <br>
-        <div class="form-check form-check-inline">
+        <input class="form-check-input" name="preferred[]" type="checkbox" id="inlineCheckbox1" value="Kolam Ayer Centre">
+        <label class="form-check-label" for="inlineCheckbox1">Kolam Ayer Centre</label>
+      </div>
+      <br>
+      <label class="form-check-label" for="inlineCheckbox2">Avaliability(Only For Teachers)</label>
+      <br>
+      <div class="form-check form-check-inline">
 
-          <input class="form-check-input" name="teach[]" type="checkbox" id="inlineCheckbox1" value="Weekdays">
-          <label class="form-check-label" for="inlineCheckbox1">Weekdays</label>
-        </div>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" name="teach[]" type="checkbox" id="inlineCheckbox2" value="Weekend">
-          <label class="form-check-label" for="inlineCheckbox2">Weekend</label>
-        </div>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" name="teach[]" type="checkbox" id="inlineCheckbox2" value="Monday">
-          <label class="form-check-label" for="inlineCheckbox2">Monday</label>
-        </div>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" name="teach[]" type="checkbox" id="inlineCheckbox2" value="Tuesday">
-          <label class="form-check-label" for="inlineCheckbox2">Tuesday</label>
-        </div>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" name="teach[]" type="checkbox" id="inlineCheckbox2" value="Wednesday">
-          <label class="form-check-label" for="inlineCheckbox2">Wednesday</label>
-        </div>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" name="teach[]" type="checkbox" id="inlineCheckbox2" value="Thursday">
-          <label class="form-check-label" for="inlineCheckbox2">Thursday</label>
-        </div>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" name="teach[]" type="checkbox" id="inlineCheckbox2" value="Friday">
-          <label class="form-check-label" for="inlineCheckbox2">Friday</label>
-        </div>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" name="teach[]" type="checkbox" id="inlineCheckbox2" value="Saturday">
-          <label class="form-check-label" for="inlineCheckbox2">Saturday</label>
-        </div>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" name="teach[]" type="checkbox" id="inlineCheckbox2" value="Sunday">
-          <label class="form-check-label" for="inlineCheckbox2">Sunday</label>
-        </div>
-        <br> <br>
-        <div class="form-group text-center">
-          <label for="image">Profile Image : </label>
-          <input type="file" name="image" id="image" required accept=".jpg, .jpeg, .png" value="">
-        </div>
+        <input class="form-check-input" name="teach[]" type="checkbox" id="inlineCheckbox1" value="Weekdays">
+        <label class="form-check-label" for="inlineCheckbox1">Weekdays</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" name="teach[]" type="checkbox" id="inlineCheckbox2" value="Weekend">
+        <label class="form-check-label" for="inlineCheckbox2">Weekend</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" name="teach[]" type="checkbox" id="inlineCheckbox2" value="Monday">
+        <label class="form-check-label" for="inlineCheckbox2">Monday</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" name="teach[]" type="checkbox" id="inlineCheckbox2" value="Tuesday">
+        <label class="form-check-label" for="inlineCheckbox2">Tuesday</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" name="teach[]" type="checkbox" id="inlineCheckbox2" value="Wednesday">
+        <label class="form-check-label" for="inlineCheckbox2">Wednesday</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" name="teach[]" type="checkbox" id="inlineCheckbox2" value="Thursday">
+        <label class="form-check-label" for="inlineCheckbox2">Thursday</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" name="teach[]" type="checkbox" id="inlineCheckbox2" value="Friday">
+        <label class="form-check-label" for="inlineCheckbox2">Friday</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" name="teach[]" type="checkbox" id="inlineCheckbox2" value="Saturday">
+        <label class="form-check-label" for="inlineCheckbox2">Saturday</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" name="teach[]" type="checkbox" id="inlineCheckbox2" value="Sunday">
+        <label class="form-check-label" for="inlineCheckbox2">Sunday</label>
+      </div>
+      <br> <br>
+      <div class="form-group text-center">
+        <label for="image">Profile Image : </label>
+        <input type="file" name="image" id="image" required accept=".jpg, .jpeg, .png" >
+      </div>
 
 
 
-        <button type="submit" name="submit">Sign Up</button>
-        <br>
-        <br>
-        <p class="text-center">Already Have An Account? <a href="login.php"><span>Login Here.</span></a></p>
-      </form>
-    </div>
+      <button type="submit" name="submit">Sign Up</button>
+      <br>
+      <br>
+      <p class="text-center">Already Have An Account? <a href="login.php"><span>Login Here.</span></a></p>
+    </form>
+  </div>
 
 
 

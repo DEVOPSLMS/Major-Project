@@ -50,8 +50,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
       }
     }
   } else {
-    $errs='Enter Userid';
-    $errs_password='Enter Password';
+    if(empty($user_name) ){
+      $errs='Enter Userid';
+    }
+    if(empty($password) ){
+      $errs_password='Enter Password';
+    }
+    
   }
 }
 
@@ -265,10 +270,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
       <h3>Login Here</h3>
 
       <label for="username">Userid</label>
-      <input class="help" type="text" placeholder="Userid" name="username" id="username">
+      <input class="help" type="text" placeholder="Userid" name="username" id="username"value="<?php echo $_POST['username']?>">
       <span style="color:red;"><?php echo $errs?></span>
       <label for="password">Password</label>
-      <input class="help" type="password" placeholder="Password" name="password" id="password">
+      <input class="help" type="password" placeholder="Password" name="password" id="password"value="<?php echo $_POST['password']?>">
       <span style="color:red;"><?php echo $errs_password?></span>
       <div class="form-check">
         <input class="form-check-input" type="checkbox" value="check" name="check" id="flexCheckDefault">
