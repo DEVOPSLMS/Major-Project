@@ -38,61 +38,36 @@ $teacher = mysqli_query($con, $query);
     </header>
 </header>
 <br><br><br><br><br><br><br><br><br>
+
 <body>
 
-    <a href="index.php">
-        <button class="btn btn-primary text-center" type="submit" name="submit" >Back</button>
-    </a>
+
     <br><br><br><br>
-    <div class="container-fluid">
+    <div class="container">
 
         <br>
         <div class="row">
-            <div class="col-lg-2 p-5">
-                <h2>Name Of Teacher</h2>
-                <br> <br>
-                <?php foreach ($teacher as $teachers) : ?>
-                    <h4><?php echo $teachers['username']; ?></h4>
-                    <br><br>
-                <?php endforeach; ?>
+            <?php foreach ($teacher as $t) : ?>
+                <div class="col-lg-4">
+                    <div class="card text-center">
+                        <div class="card-header">
+                            Teacher's Name: <?php echo ($t['username']) ?>
+                        </div>
+                        <img class="card-img-top" src="profile/<?php echo ($t['image']) ?>" style="width:350px;height:350px;" alt="Card image cap">
+                        <div class="card-body" style="height:150px;">
+                            <h5 class="card-title">Preferred Centres: <?php echo ($t['preferred']) ?></h5>
+                            <p class="card-text">Phone Number: <?php echo ($t['number']) ?></p>
+                            <p class="card-text">Can Relief: <?php echo ($t['relief']) ?></p>
 
-            </div>
-            <div class="col-lg-3 p-5">
-                <h2>Contact number</h2>
-                <br> <br>
-                <?php foreach ($teacher as $teachers) : ?>
-                    <h4><?php echo $teachers['number']; ?></h4>
-                    <br><br>
-                <?php endforeach; ?>
-            </div>
-            <div class="col-lg-2 p-5">
-                <h3>Email</h3>
-                <br> <br>
-                <?php foreach ($teacher as $teachers) : ?>
-                    <h4><?php echo $teachers['email']; ?></h4>
-                    <br><br>
-                <?php endforeach; ?>
-            </div>
-            <div class="col-lg-2 p-5 ">
-                <h3>Status</h3>
-                <br> <br>
-                <?php foreach ($teacher as $teachers)  
-                     if($teachers['status']=='present'){
-                        echo('<div><i class="fa fa-circle" style="font-size:25px;margin-left:15px;color:#00FF6F;"></div></i><br><br><br>');
-                       
-                     }else{
-                        echo('<i class="fa fa-circle" style="font-size:25px;margin-left:15px;color:red;"></i><br><br>');
-                     }
-               ?>
-            </div>
-            <div class="col-lg-2 p-5">
-                <h3>Preferred Centres</h3>
-                <br> <br>
-                <?php foreach ($teacher as $teachers) : ?>
-                    <h4><?php echo $teachers['preferred']; ?></h4>
-                    <br><br>
-                <?php endforeach; ?>
-            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="teacher_schedule.php?name=<?php echo($t['username'])?>&dt=<?php echo(date("Y-m-d"))?>" class="btn btn-primary" style="font-size:15px;">See <?php echo($t['username'])?>'s Schedule</a>
+                        </div>
+                    </div>
+
+                </div>
+            <?php endforeach ?>
+        </div>
     </div>
 
 
