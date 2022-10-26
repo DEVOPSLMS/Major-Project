@@ -6,17 +6,17 @@ include("connection.php");
 include_once("functions.php");
 include("insert-payslip.php");
 $user_data = check_login($con);
-$date=date("Y-m-d");
+$date = date("Y-m-d");
 ?>
 <!DOCTYPE html>
 <html>
 
 <head>
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <title>Home Page</title>
     <link rel="stylesheet" href="css/index.css">
 </head>
@@ -28,17 +28,16 @@ $date=date("Y-m-d");
 
 
 <body>
-    <br><br><br> <br>    <br>    <br>    <br>    <br>    <br>    
-<?php if($user_data['role'] == 'teacher')
-        {
-            echo('<div class="container-fluid">
+    <br><br><br> <br> <br> <br> <br> <br> <br>
+    <?php if ($user_data['role'] == 'teacher') {
+        echo ('<div class="container-fluid">
         
             <div class="row">
                 <div class="col-md-6 border border-dark" style="height:500px;">
                     <div class="details" style="margin-left:50px;margin-top:200px;">
                         <h1>Schedule</h1>
                         <p style="font-size:20px;">View timeslots of the classes that you have.</p>
-                        <a href="schedule_teacher.php?dt='.$date.'"><button class="btn btn-primary text-center  " type="submit" name="submit" s">View</button></a>
+                        <a href="schedule_teacher.php?dt=' . $date . '"><button class="btn btn-primary text-center  " type="submit" name="submit" s">View</button></a>
                     </div>
                 </div>
                 <div class="col-md-6 " style="height:500px;">
@@ -104,11 +103,10 @@ $date=date("Y-m-d");
                 </div>
             </div>
         </div>');
-        }?>
-    
-    <?php if($user_data['role'] == 'parent')
-        {
-            echo('<div class="container-fluid">
+    } ?>
+
+    <?php if ($user_data['role'] == 'parent') {
+        echo ('<div class="container-fluid">
         
             <div class="row">
                 <div class="col-md-6 border border-dark" style="height:500px;">
@@ -171,12 +169,21 @@ $date=date("Y-m-d");
     
                             </div>
                 </div>
+                <div class="col-lg-12 border border-dark" style="height:300px;">
+                <div class="details" style="margin-left:50px;margin-top:100px;">
+                                <h1>Withdrawl Your Child</h1>
+                                <p style="font-size:20px;">Withdrawl Your Child From YYD Education Centre</p>
+    
+                                <a href="withdrawl_child.php"><button class="btn text-center  " type="submit" name="submit">Withdrawl</button></a>
+    
+    
+                            </div>
+                </div>
             </div>
         </div>');
-        }?>
-      <?php if($user_data['role'] == 'finance')
-        {
-            echo('<div class="container-fluid">
+    } ?>
+    <?php if ($user_data['role'] == 'finance') {
+        echo ('<div class="container-fluid">
         
             <div class="row">
                 <div class="col-md-6 border border-dark" style="height:500px;">
@@ -209,10 +216,9 @@ $date=date("Y-m-d");
               
            
         </div>');
-        }?>  
-        <?php if($user_data['role'] == 'l')
-        {
-            echo(' <div class="container-fluid">
+    } ?>
+    <?php if ($user_data['role'] == 'l') {
+        echo (' <div class="container-fluid">
         
             <div class="row">
                 <div class="col-md-6 border border-dark" style="height:500px;">
@@ -256,10 +262,9 @@ $date=date("Y-m-d");
               
            
         </div>');
-        }?>  
-         <?php if($user_data['role'] == 'manager')
-        {
-            echo('  <div class="container-fluid">
+    } ?>
+    <?php if ($user_data['role'] == 'manager') {
+        echo ('  <div class="container-fluid">
         
             <div class="row">
                 <div class="col-md-6 border border-dark" style="height:700px;">
@@ -298,16 +303,23 @@ $date=date("Y-m-d");
                         </div>
     
                     </div>
+                    
                 </div>
-    
+                <div class="col-md-12 border border-dark " >
+                <div class="details text-center" style="margin-left:50px;margin-top:150px;height:300px;">
+                    <h1>View Withdrawls</h1>
+                    <p style="font-size:20px;">See all the withdrawls.</p>
+                    <a href="all_withdrawl.php"><button class="btn btn-primary text-center  " type="submit" name="submit" >View</button></a>
+                </div>
             </div>
+            </div>
+           
           
         </div>');
-        }?>  
-      
-      <?php if($user_data['role'] == 'admin')
-        {
-            echo(' <div class="container-fluid">
+    } ?>
+
+    <?php if ($user_data['role'] == 'admin') {
+        echo (' <div class="container-fluid">
         
             <div class="row">
                 <div class="col-md-6 border border-dark" style="height:500px;">
@@ -353,7 +365,7 @@ $date=date("Y-m-d");
               
            
         </div>');
-        }?>  
+    } ?>
 </body>
 
 </html>

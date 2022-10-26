@@ -220,10 +220,10 @@ if (isset($_POST["add"])) {
                         <label> Students </label>
 
 
-                        <textarea type="text" style="text-transform: lowercase;"class="form-control" id="staticEmail" style="font-size:100%;" name="students"><?php if (isset($_POST['submit'])) { $date = $_POST['date']; $level = $_POST['level']; $day = date('l', strtotime($date));$query = "select * from student where centre_name = '$centre Centre'and student_level='$level' "; $students = mysqli_query($con, $query);foreach ($students as $s) { $student[] = $s['student_name'];}if (!empty($student)) {$student_name = implode(',', ($student));echo$student_name;}else{echo('No Student For This Level And Centre.');}} ?></textarea>
+                        <textarea type="text" style="text-transform: lowercase;"class="form-control" id="staticEmail" style="font-size:100%;" name="students"><?php if (isset($_POST['submit'])) { $date = $_POST['date']; $level = $_POST['level']; $day = date('l', strtotime($date));$query = "select * from student where centre_name = '$centre Centre'and student_level='$level'and status='Enrolled' "; $students = mysqli_query($con, $query);foreach ($students as $s) { $student[] = $s['student_name'];}if (!empty($student)) {$student_name = implode(',', ($student));echo$student_name;}else{echo('No Student For This Level And Centre.');}} ?></textarea>
                     </div>
                 </div>
-                <?php if (isset($_POST['submit'])) { $date = $_POST['date']; $level = $_POST['level']; $day = date('l', strtotime($date));$query = "select * from student where centre_name = '$centre Centre'and student_level='$level' "; $students = mysqli_query($con, $query);foreach ($students as $s) { $student[] = $s['student_name'];}
+                <?php if (isset($_POST['submit'])) { $date = $_POST['date']; $level = $_POST['level']; $day = date('l', strtotime($date));$query = "select * from student where centre_name = '$centre Centre'and student_level='$level'and status='Enrolled' "; $students = mysqli_query($con, $query);foreach ($students as $s) { $student[] = $s['student_name'];}
                 if (!empty($student)&&!empty($teachers)) 
                 {
                     echo('<button type="submit" name="add" class="btn btn-primary">Submit</button>');

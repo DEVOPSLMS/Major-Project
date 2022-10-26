@@ -7,9 +7,7 @@ include("check_teacher.php");
 $user_data = check_login($con);
 include("insert-payslip.php");
 // remove  OR status = 'Enrolled' OR status = 'Disapproved' when done 
-$query = "SELECT * FROM student WHERE status = 'Pending Interview' OR status = 'Pending Approval'";
-$result = mysqli_query($con, $query);
-$rowcount = mysqli_num_rows($result);
+
 
 
 
@@ -36,36 +34,16 @@ $rowcount = mysqli_num_rows($result);
 
 </head>
 <header>
-    <header class="header">
 
-        <?php include("header.php") ?>
 
-        <?php 
+    <?php include("header.php") ?>
 
-        if($rowcount == 0){
-            echo 
-            "<style>
-                #enrollment-table{
-                    display: none;
-                }
-                #text-message{
-                    display: block;
-                }
-            </style>";
-        }else{
-            echo
-            "<style>
-                #text-message{
-                    display: none;
-                }
-            </style>";
-        }
-        ?>
+  
 
-    </header>
 </header>
 
 <body>
+
     <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
     <a class="btn btn-primary" style="position: absolute; left: 20px;" href="index.php">Back</a>
     <h2 class="text-center"><b>Enrollment Review</b></h2>
@@ -84,10 +62,33 @@ $rowcount = mysqli_num_rows($result);
                         <h3>Status</h3>
                     </td>
                 </tr>
-
+                <?php $query = "SELECT * FROM student WHERE status = 'Pending Interview' OR status = 'Pending Approval'";
+                $result = mysqli_query($con, $query);
+                $rowcount = mysqli_num_rows($result); 
+                if ($rowcount == 0) {
+                    echo
+                    "<style>
+                            #enrollment-table{
+                                display: none;
+                            }
+                            #text-message{
+                                display: block;
+                            }
+                        </style>";
+                } else {
+                    echo
+                    "<style>
+                            #text-message{
+                                display: none;
+                            }
+                          
+                        </style>";
+                }
+                ?>
                 <?php foreach ($result as $x) : ?>
-                    <?php 
-                    $xId = $x["id"]; 
+
+                    <?php
+                    $xId = $x["id"];
                     $xStudentName = $x["student_name"];
                     ?>
 
@@ -98,6 +99,7 @@ $rowcount = mysqli_num_rows($result);
 
 
                         <td class="col-sm-5">
+
                             <h4><?php echo $x["status"] ?></h4>
                         </td>
 
@@ -111,6 +113,10 @@ $rowcount = mysqli_num_rows($result);
                                     $editQuery = "UPDATE `student` SET `status` = 'Enrolled' WHERE id = $xId";
 
                                     mysqli_query($con, $editQuery);
+                                    $parentid = $x['parentid'];
+                                    $student_name = $x['student_name'];
+                                    $sql = "insert into notification(parentid,student_name,notification,status,seen) values ('$parentid','$student_name','approved','approve','0')";
+                                    mysqli_query($con, $sql);
                                     echo
                                     "<script>
                                         alert('Enrolled $xStudentName!');
@@ -122,6 +128,10 @@ $rowcount = mysqli_num_rows($result);
                                     $editQuery = "UPDATE `student` SET `status` = 'Disapproved' WHERE id = $xId";
 
                                     mysqli_query($con, $editQuery);
+                                    $parentid = $x['parentid'];
+                                    $student_name = $x['student_name'];
+                                    $sql = "insert into notification(parentid,student_name,notification,status,seen) values ('$parentid','$student_name','disapproved','disapprove','0')";
+                                    mysqli_query($con, $sql);
                                     echo
                                     "<script>
                                         alert('Disapproved $xStudentName!');
@@ -130,8 +140,8 @@ $rowcount = mysqli_num_rows($result);
                                 }
 
                                 ?>
-                                <button type='submit' name="approve<?php echo$xId?>" class='btn btn-primary' style='margin: 5px;'>Approve</button>
-                                <button type='submit' name="disapprove<?php echo$xId?>" class='btn btn-primary' style='margin: 5px;'>Disapprove</button>
+                                <button type='submit' name="approve<?php echo $xId ?>" class='btn btn-primary' style='margin: 5px;'>Approve</button>
+                                <button type='submit' name="disapprove<?php echo $xId ?>" class='btn btn-primary' style='margin: 5px;'>Disapprove</button>
                             </form>
 
                         </td>

@@ -146,7 +146,40 @@ $result = mysqli_query($con, $query);
 
 
       <?php endforeach ?>
+      <?php
+      $query = "select * from notification where parentid = '$id' and status='approve' and seen = 0";
+      $result = mysqli_query($con, $query); ?>
 
+      <?php foreach ($result as $r) : ?>
+        <div class="box">
+
+          <div class="content">
+            <h3>Your Child, <?php echo $r['student_name'] ?> Has Been Enrolled into YYD Education Centre</h3>
+
+          </div>
+        </div>
+
+        <hr>
+
+
+      <?php endforeach ?>
+      <?php
+      $query = "select * from notification where parentid = '$id' and status='disapprove' and seen = 0";
+      $result = mysqli_query($con, $query); ?>
+
+      <?php foreach ($result as $r) : ?>
+        <div class="box">
+
+          <div class="content">
+            <h3>Your Child, <?php echo $r['student_name'] ?> Has Been Disapproved To Join YYD Education Centre</h3>
+
+          </div>
+        </div>
+
+        <hr>
+
+
+      <?php endforeach ?>
     <?php } ?>
     <?php if ($role == 'teacher') {
       $query = "select * from notification_teacher where teacher_name = '$username' and seen = 0";
