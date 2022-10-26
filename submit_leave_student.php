@@ -42,7 +42,7 @@ $user_data = check_login($con);
             <div class="row">
                 <?php
                 $id = $user_data['id'];
-                $query = "select * from student where parentid = $id ";
+                $query = "select * from student where parentid = $id and status='Enrolled'";
                 $result = mysqli_query($con, $query);
                 ?>
                 <?php if(mysqli_num_rows($result)> 0) {?>
@@ -62,7 +62,7 @@ $user_data = check_login($con);
                 <?php }else{?>
                     <div class="col-lg-12">
                         <div class="card text-center">
-                            <h5 class="card-header">Please Enrol Your Kid First.?></h5>
+                            <h5 class="card-header">Please Enroll Your Kid First</h5>
                             
                         </div>
                     </div>
