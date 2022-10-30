@@ -63,38 +63,115 @@ $user_data = check_login($con);
     //hiding feedback when side buttons clicked
     function hideFeedback() {
         document.getElementById("feedbackBody").innerHTML =
-            "<style>" +
-            "#submitFeedback{" +
-            "    display: block;" +
-            "}" +
+            '<div id="submitFeedback" class="container">' +
+            '<h4>' +
+            '    Hello Sir/Madam,' +
+            '    <br>YYD Education Centre is still growing and we value any feedback you can provide us.' +
+            '    <br>We will not disclose the information you provide us to anyone.' +
+            '    <br>' +
+            '    <br>You can submit your feedback in this form below.' +
+            '    <br>Thank you for taking your time to provide us with insights and areas where we can improve on.' +
+            '    <br>Your feedback is greatly appreciated.' +
+            '</h4>' +
+            '<br><br>' +
+            '<form method="POST">' +
+            '    <table id="table-form">' +
+            '        <tr>' +
+            '            <td>' +
+            '                <h4>Name: </h4>' +
+            '            </td>' +
+            '            <td><input type="text" class="col-lg-12" name="name" id="Name" disabled placeholder="<?php echo $username ?>" style="border: 1px solid lightgrey;"></td>' +
+            '        </tr>' +
+            '        <tr>' +
+            '            <td>' +
+            '                <h4>Centre: </h4>' +
+            '            </td>' +
+            '            <td>' +
+            '                <select type="text" class="col-lg-12" name="centre" id="Centre" width="60px" style="border: 1px solid grey;">' +
+            '                    <option selected>Select a centre</option>' +
+            '                    <option value="hougang">Hougang</option>' +
+            '                    <option value="sengkang">Sengkang</option>' +
+            '                    <option value="punggol">Punggol</option>' +
+            '                    <option value="fernvale">Fernvale</option>' +
+            '                    <option value="teckghee"> Teck Ghee</option>' +
+            '                    <option value="kolamayer">Kolam Ayer</option>' +
+            '                </select>' +
+            '            </td>' +
+            '        </tr>' +
+            '        <tr>' +
+            '            <td>' +
+            '                <h4>Feedback: </h4>' +
+            '            </td>' +
+            '            <td><textarea name="feedback" id="Feedback" cols="60" rows="10" style="border: 1px solid grey;"></textarea></td>' +
+            '        </tr>' +
+            '        <tr>' +
+            '            <td></td>' +
+            '            <td style="text-align: right;">' +
+            '                <button class="btn btn-primary" type="submit" name="submit" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;margin:auto;">Submit</button>' +
+            '            </td>' +
+            '        </tr>' +
+            '    </table>' +
 
-            "#viewFeedbacks{" +
-            "    display: none;" +
-            "}" +
-            "</style>";
-            console.log("hidden");
+            '</form>' +
+
+            '</div>' +
+            '<style>' +
+            '   .sidenav a:nth-child(2) {' +
+            '       background-color: #5ebec4;' +
+            '   }' +
+            '</style>';
     }
 
     function showFeedback() {
-        document.getElementById("feedbackBody").innerHTML = "testing"+
-            "<style>" +
-            "#submitFeedback{" +
-            "    display: none;" +
-            "}" +
+        document.getElementById("feedbackBody").innerHTML =
+            '<div id="viewFeedbacks" style="border: 1px black solid; height:1000px;">' +
+            '<?php
+                $getfeedback = "SELECT * FROM feedback";
+                $result = mysqli_query($con, $getfeedback);
+                ?>' +
 
-            "#viewFeedbacks{" +
-            "    display: inline-block;" +
-            "}" +
-            "</style>";
-        
-        console.log("shown");
+            '    <?php foreach ($result as $x) : ?>' +
+            '        <table>' +
+            '            <tr>' +
+            '                <td>' +
+            '                    Name:' +
+            '                </td>' +
+            '                <td><?php echo $x['name'] ?></td>' +
+            '            </tr>' +
+            '            <tr>' +
+            '                <td>' +
+            '                    Centre:' +
+            '                </td>' +
+            '                <td>' +
+            '                    <?php echo $x['centre'] ?>' +
+            '                </td>' +
+            '            </tr>' +
+            '            <tr>' +
+            '                <td>' +
+            '                    Feedback:' +
+            '                </td>' +
+            '                <td><?php echo $x['feedback'] ?></td>' +
+            '            </tr>' +
+            '        </table>' +
+
+            '    <?php endforeach; ?>' +
+
+            '</div>' +
+            '<style>' +
+            '   .sidenav a:nth-child(3) {' +
+            '       background-color: #5ebec4;' +
+            '   }' +
+            '</style>';
     }
 </script>
 
 <body>
-    <div id="feedbackBody" class="container">
+    <div id="feedbackBody">
 
-        <div id="submitFeedback">
+        <!-- <script>
+            hideFeedback();
+        </script> -->
+        <!-- <div id="submitFeedback">
 
             <h4>
                 Hello Sir/Madam,
@@ -152,16 +229,25 @@ $user_data = check_login($con);
             </form>
 
 
-        </div>
+        </div> -->
 
-        <div id="viewFeedbacks" style="border: 1px black solid; height:1000px;">
+<!-- need to fix side nav design -->
+        <div id="viewFeedbacks" style="margin-left:318px; border: 1px black solid;">
             <?php
             $getfeedback = "SELECT * FROM feedback";
             $result = mysqli_query($con, $getfeedback);
+            $rowcount = mysqli_num_rows($result);
             ?>
 
+            <?php for ($i = 0; $i < $rowcount; $i++) { ?>
+                <div class="sidenav" style="position: relative;">
+                    <a>#<?php echo $i + 1 ?></a>
+                </div>
+            <?php } ?>
+
             <?php foreach ($result as $x) : ?>
-                <table>
+
+                <!-- <table>
                     <tr>
                         <td>
                             Name:
@@ -182,7 +268,7 @@ $user_data = check_login($con);
                         </td>
                         <td><?php echo $x['feedback'] ?></td>
                     </tr>
-                </table>
+                </table> -->
 
             <?php endforeach; ?>
 
@@ -191,9 +277,6 @@ $user_data = check_login($con);
     </div>
 </body>
 <style>
-    #viewFeedbacks{
-        /* display: none; */
-    }
     @media(max-width:500px) {
         .btn {
 
@@ -210,13 +293,12 @@ $user_data = check_login($con);
     }
 
     .sidenav {
-        margin-top: 200px;
         height: 100%;
         width: 19%;
         position: fixed;
         z-index: 1;
-        top: 0;
-        left: 0;
+        top: 200px;
+        /* left: 0; */
         overflow-x: hidden;
         padding-top: 20px;
         border: 1px black solid;
@@ -240,7 +322,8 @@ $user_data = check_login($con);
     }
 
     .sidenav a:hover {
-        background-color: #5ebec4;
+        background-color: #96d5d9;
+        /* background-color: #5ebec4; */
         /* color: black; */
     }
 
