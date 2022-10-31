@@ -17,6 +17,7 @@ $class = $lesson_details['timing'] . ' ' . $lesson_details['subject'] . ' ' . 'C
 
 
 ?>
+
 <?php
 $country = file_get_contents('http://api.hostip.info/get_html.php?ip=');
 
@@ -30,7 +31,11 @@ $only_country = explode(" ", $country);
 $query = @unserialize(file_get_contents('http://ip-api.com/php/'));
 
 $recorded = $query['zip'];
-
+$latitude = $_COOKIE['lat'];
+$longitude = $_COOKIE['lng'];
+$geocode = file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?latlng=' . $latitude . ',' . $longitude . '&sensor=false&key=AIzaSyC1sUOKVl7HdX71DpzLoXzgBv-rJaJAWpE');
+$output = json_decode($geocode);
+$formattedAddress = @$output->results[0]->formatted_address;
 
 ?>
 <?php
@@ -45,7 +50,7 @@ if (isset($_POST["submit"])) {
         $date = date('Y-m-d');
 
 
-        $query = "insert into attendance(student_name,status,date,class,teacher_name,centre_name,classid,recorded_at) values ('$student','$status','$date','$class','$teacher_name','$centre_name','$class_id','$recorded')";
+        $query = "insert into attendance(student_name,status,date,class,teacher_name,centre_name,classid,recorded_at) values ('$student','$status','$date','$class','$teacher_name','$centre_name','$class_id','$formattedAddress')";
 
         mysqli_query($con, $query);
         if ($status == 'late') {
@@ -82,6 +87,25 @@ if (isset($_POST["submit"])) {
 <script>
     function getValue(data) {
         console.log(data.value)
+    }
+</script>
+<script>
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+            x.innerHTML = "Geolocation is not supported by this browser.";
+        }
+    }
+
+    function showPosition(position) {
+
+        var lat = position.coords.latitude;
+        var lng = position.coords.longitude;
+        var lat_details = "lat=" + lat;
+        var lng_details = "lng=" + lng;
+        document.cookie = lat_details;
+        document.cookie = lng_details;
     }
 </script>
 <!DOCTYPE html>
@@ -195,9 +219,9 @@ if (isset($_POST["submit"])) {
                                 $student_details = mysqli_fetch_assoc($result);
 
                                 $date = date('Y-m-d');
-                                $id=$student_details['id'];
+                                $id = $student_details['id'];
                                 if ($student_details['date_start'] <= $date && $student_details['date_end'] >= $date) {
-                                    echo ('<a href="view_mc.php?id='.$id.'"><textarea type="text" class="form-control" style="width: 100%;" id="staticEmail" name="remarks">Student is sick view MC </textarea></a>');
+                                    echo ('<a href="view_mc.php?id=' . $id . '"><textarea type="text" class="form-control" style="width: 100%;" id="staticEmail" name="remarks">Student is sick view MC </textarea></a>');
                                 } else if ('null') {
                                     echo ('<textarea type="text" class="form-control" style="width: 100%;" id="staticEmail" name="remarks"></textarea>');
                                 }
