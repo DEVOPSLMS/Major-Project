@@ -63,7 +63,7 @@ $user_data = check_login($con);
     //hiding feedback when side buttons clicked
     function hideFeedback() {
         document.getElementById("feedbackBody").innerHTML =
-            '<div id="submitFeedback" class="container">' +
+            '<div id="submitFeedback" class="container" style="margin-top: -60px;">' +
             '<h4>' +
             '    Hello Sir/Madam,' +
             '    <br>YYD Education Centre is still growing and we value any feedback you can provide us.' +
@@ -123,38 +123,43 @@ $user_data = check_login($con);
     }
 
     function showFeedback() {
+        <?php
+        $getfeedback = "SELECT * FROM feedback";
+        $result = mysqli_query($con, $getfeedback);
+        ?>
         document.getElementById("feedbackBody").innerHTML =
-            '<div id="viewFeedbacks" style="border: 1px black solid; height:1000px;">' +
-            '<?php
-                $getfeedback = "SELECT * FROM feedback";
-                $result = mysqli_query($con, $getfeedback);
-                ?>' +
+            '<div id="viewFeedbacks" style="margin-left: 318px;">' +
 
-            '    <?php foreach ($result as $x) : ?>' +
-            '        <table>' +
-            '            <tr>' +
-            '                <td>' +
-            '                    Name:' +
-            '                </td>' +
-            '                <td><?php echo $x['name'] ?></td>' +
-            '            </tr>' +
-            '            <tr>' +
-            '                <td>' +
-            '                    Centre:' +
-            '                </td>' +
-            '                <td>' +
-            '                    <?php echo $x['centre'] ?>' +
-            '                </td>' +
-            '            </tr>' +
-            '            <tr>' +
-            '                <td>' +
-            '                    Feedback:' +
-            '                </td>' +
-            '                <td><?php echo $x['feedback'] ?></td>' +
-            '            </tr>' +
-            '        </table>' +
+            '    <div class="sidenav" style="padding-top: 0; width: 80%; border: 1px grey solid">' +
 
-            '    <?php endforeach; ?>' +
+
+            '        <?php foreach ($result as $x) : ?>' +
+
+            '            <table style="margin: 25px 25px;">' +
+            '                <tr>' +
+            '                    <td>' +
+            '                        <b>Name:</b>' +
+            '                    </td>' +
+            '                    <td><?php echo $x["name"] ?></td>' +
+            '                </tr>' +
+            '                <tr>' +
+            '                    <td>' +
+            '                        <b>Centre:</b>' +
+            '                    </td>' +
+            '                    <td>' +
+            '                        <?php echo $x["centre"] ?>' +
+            '                    </td>' +
+            '                </tr>' +
+            '                <tr>' +
+            '                    <td style="vertical-align: top;">' +
+            '                        <b>Feedback:</b>' +
+            '                    </td>' +
+            '                    <td style="word-wrap: break-word;"><?php echo $x["feedback"] ?></td>' +
+            '                </tr>' +
+            '            </table>' +
+
+            '        <?php endforeach; ?>' +
+            '    </div>' +
 
             '</div>' +
             '<style>' +
@@ -168,111 +173,11 @@ $user_data = check_login($con);
 <body>
     <div id="feedbackBody">
 
-        <!-- <script>
+        <script>
             hideFeedback();
-        </script> -->
-        <!-- <div id="submitFeedback">
-
-            <h4>
-                Hello Sir/Madam,
-                <br>YYD Education Centre is still growing and we value any feedback you can provide us.
-                <br>We will not disclose the information you provide us to anyone.
-                <br>
-                <br>You can submit your feedback in this form below.
-                <br>Thank you for taking your time to provide us with insights and areas where we can improve on.
-                <br>Your feedback is greatly appreciated.
-
-            </h4>
-            <br><br>
-
-            <form method="POST">
-                <table id="table-form">
-                    <tr>
-                        <td>
-                            <h4>Name: </h4>
-                        </td>
-                        <td><input type="text" class="col-lg-12" name="name" id="Name" disabled placeholder='<?php echo $username ?>' style="border: 1px solid lightgrey;"></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <h4>Centre: </h4>
-                        </td>
-                        <td>
-                            <select type="text" class="col-lg-12" name="centre" id="Centre" width="60px" style="border: 1px solid grey;">
-                                <option selected>Select a centre</option>
-                                <option value="hougang">Hougang</option>
-                                <option value="sengkang">Sengkang</option>
-                                <option value="punggol">Punggol</option>
-                                <option value="fernvale">Fernvale</option>
-                                <option value="teckghee"> Teck Ghee</option>
-                                <option value="kolamayer">Kolam Ayer</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <h4>Feedback: </h4>
-                        </td>
-                        <td><textarea name="feedback" id="Feedback" cols="60" rows="10" style="border: 1px solid grey;"></textarea></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td style="text-align: right;">
-                            <button class="btn btn-primary" type="submit" name="submit" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;margin:auto;">Submit</button>
-                        </td>
-                    </tr>
-                </table>
+        </script>
 
 
-
-
-            </form>
-
-
-        </div> -->
-
-<!-- need to fix side nav design -->
-        <div id="viewFeedbacks" style="margin-left:318px; border: 1px black solid;">
-            <?php
-            $getfeedback = "SELECT * FROM feedback";
-            $result = mysqli_query($con, $getfeedback);
-            $rowcount = mysqli_num_rows($result);
-            ?>
-
-            <?php for ($i = 0; $i < $rowcount; $i++) { ?>
-                <div class="sidenav" style="position: relative;">
-                    <a>#<?php echo $i + 1 ?></a>
-                </div>
-            <?php } ?>
-
-            <?php foreach ($result as $x) : ?>
-
-                <!-- <table>
-                    <tr>
-                        <td>
-                            Name:
-                        </td>
-                        <td><?php echo $x['name'] ?></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Centre:
-                        </td>
-                        <td>
-                            <?php echo $x['centre'] ?>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Feedback:
-                        </td>
-                        <td><?php echo $x['feedback'] ?></td>
-                    </tr>
-                </table> -->
-
-            <?php endforeach; ?>
-
-        </div>
 
     </div>
 </body>
@@ -293,8 +198,9 @@ $user_data = check_login($con);
     }
 
     .sidenav {
-        height: 100%;
-        width: 19%;
+        height: 70%;
+        /* width: 19%; */
+        width: 300px;
         position: fixed;
         z-index: 1;
         top: 200px;
@@ -310,6 +216,14 @@ $user_data = check_login($con);
         font-size: 25px;
         color: black;
         display: block;
+    }
+
+    .sidenav td {
+        padding: 6px 8px 6px 16px;
+        text-decoration: none;
+        font-size: 25px;
+        color: black;
+        /* display: block; */
     }
 
     .sidenav a {
