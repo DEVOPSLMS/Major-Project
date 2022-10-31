@@ -83,6 +83,17 @@ if (isset($_POST["add"])) {
 <header>
     <?php include('header.php') ?>
 </header>
+<script>
+function goBack() {
+    var a = document.getElementById("form1");
+  var x = document.getElementById("form2");
+  
+    x.style.display = "none";
+  
+    a.style.display = "block";
+  
+}
+</script>
 <body>
 
 
@@ -90,7 +101,7 @@ if (isset($_POST["add"])) {
 
 
     <div class="container">
-        <?php if (!isset($_POST['submit'])) { ?>
+        <?php if (!isset($_POST['submit'])|| isset($_POST['back'])) { ?>
             <form method="POST" id="form1">
                 <div class="form-row">
                     <div class="form-group col-md-12">
@@ -123,15 +134,18 @@ if (isset($_POST["add"])) {
             <?php 
             $date = $_POST['date'];
             $level = $_POST['level'];
+            
                 ?>
+                
             <form action="" method="POST" id="form2">
+                
                 <div class="form-row">
                     <div class="form-group col-md-12">
                         <label>Name Of Teacher </label>
                         <input type="hidden"value="<?php echo $level?>"name="level">
                                 <input type="hidden"value="<?php echo $date?>"name="date">
                         <select class="form-control" style="height:50px;font-size:20px;" required name="teacher_name">
-                            <option selected>Choose Teacher</option>
+                            <option value="">Choose Teacher</option>
                             <?php
                             if (isset($_POST['submit'])) {
 
@@ -165,7 +179,7 @@ if (isset($_POST["add"])) {
                     <div class="form-group col-md-12">
                         <label> Class Subject </label>
                         <select class="form-control" style="height:50px;font-size:20px;" required name="subject">
-                            <option selected>Subject</option>
+                            <option value="">Subject</option>
 
                             <option value="Math" name="subject">Math</option>
                             <option value="Science" name="subject">Science</option>
@@ -186,7 +200,7 @@ if (isset($_POST["add"])) {
                     <div class="form-group col-md-12">
                         <label> Room </label>
                         <select class="form-control" style="height:50px;font-size:20px;" name="room" required>
-                            <option selected>Class Number</option>
+                            <option value="">Class Number</option>
                             <option value="Class 1" name="room">Class 1</option>
                             <option value="Class 2" name="room">Class 2</option>
                             <option value="Class 3" name="room">Class 3</option>
@@ -197,7 +211,7 @@ if (isset($_POST["add"])) {
                         <label> Timing Of The Class </label>
 
                         <select class="form-control" style="height:50px;font-size:20px;" name="timing" required>
-                            <option selected>Timing</option>
+                            <option value="">Timing</option>
                             <?php if($day == 'Monday' || $day == 'Tuesday' || $day == 'Wednesday' || $day == 'Thursday' || $day == 'Friday'){
                            echo('
                            <option value="7pm - 8pm" name="timing">7-8pm</option>
@@ -230,9 +244,15 @@ if (isset($_POST["add"])) {
                 }
                 
                     } ?>
-                        
+                     
                    
             </form>
+            <?php
+                if (empty($student)||empty($teachers)) 
+                {
+                    echo('<form method="POST"><button type="submit" name="back" style="width:100%;font-size:15px;"class="btn">Go Back</button></form>');
+                }
+                ?>   
         <?php } ?>
     </div>
 </body>
