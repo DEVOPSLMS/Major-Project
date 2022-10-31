@@ -51,7 +51,7 @@ $user_data = check_login($con);
         <h2 style="font-weight:700;">Feedback</h2>
         <a onclick="hideFeedback()">Submit a Feedback</a>
 
-        <?php if ($role == 'teacher') { ?>
+        <?php if ($role !== 'parent') { ?>
             <a onclick="showFeedback()">View Feedbacks</a>
         <?php } ?>
 
@@ -140,7 +140,7 @@ $user_data = check_login($con);
             '                    <td>' +
             '                        <b>Name:</b>' +
             '                    </td>' +
-            '                    <td><?php echo $x["name"] ?></td>' +
+            '                    <td><?php echo $x["name"]?> <b> (<?php echo $x["role"] ?>) </b></td>' +
             '                </tr>' +
             '                <tr>' +
             '                    <td>' +
