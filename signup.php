@@ -299,7 +299,7 @@ if (isset($_POST["submit"])) {
       <label>Role</label>
       <div class="mb-3">
         <select class="help" name="role" required>
-          <option selected style="color:black;">Role Select</option>
+          <option value="" style="color:black;">Role Select</option>
           <option value="parent" style="color:black;">Parent</option>
           <option value="l" style="color:black;">L&D</option>
           <option value="teacher" style="color:black;">Teacher</option>
@@ -323,6 +323,7 @@ if (isset($_POST["submit"])) {
 
         <input class="form-check-input" name="preferred[]" type="checkbox" id="inlineCheckbox1" value="Sengkang Centre">
         <label class="form-check-label" for="inlineCheckbox1">Sengkang Centre</label>
+        
       </div>
       <div class="form-check form-check-inline">
 
