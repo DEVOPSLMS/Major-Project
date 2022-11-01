@@ -149,13 +149,6 @@ $checkin = mysqli_query($con, $query);
 
                         <input type="text" class="form-control " disabled id="exampleFormControlInput1" name="location" value="<?php echo ($formattedAddress) ?>" required>
 
-
-
-
-
-
-
-
                         <div class="valid-tooltip">
                             Looks good!
                         </div>
