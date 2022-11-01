@@ -114,56 +114,73 @@ if (empty($_POST['password'])) {
     <body>
         <div class="container-fluid">
             <?php if ($results['date_end'] >= $date) {
-                echo ('<h1 class="text-center">You Already Submitted an MC that will finish on '.$results['date_end'].'.Please wait until after '.$results['date_end'].' to submit a new MC</h1>');
+                echo ('<h1 class="text-center">You Already Submitted an MC that will finish on ' . $results['date_end'] . '.Please wait until after ' . $results['date_end'] . ' to submit a new MC</h1>');
             }
-            if($results['date_end'] < $date){
-                echo('<form method="POST" enctype="multipart/form-data" autocomplete="off">
-                <div class="form-group row">
-                    <label for="staticEmail" class="col-sm-2 col-form-label">Name</label>
-                    <div class="col-sm-10">
-                        <input type="text" readonly class="form-control-plaintext" name="name" id="staticEmail" value="'.$student_details['student_name'].'">
+            if ($results['date_end'] < $date) { ?>
+                <div class="container">
+                    <div class="card">
+                        <div class="card-header">
+                            Submit Leave
+                        </div>
+                        <div class="card-body">
+                            <form id="form" method="POST" enctype="multipart/form-data" class="needs-validation " style="margin:auto;" autocomplete="off">
+                                <div class="mb-3">
+                                    <label> Name: </label>
+
+                                    <input type="text" class="form-control " disabled id="exampleFormControlInput1" name="name" value="<?php echo ($student_details['student_name']) ?>" required>
+
+
+                                </div>
+                                <div class="form-group ">
+
+
+                                    <label for="reason">Reason Of Absence</label>
+                                    <select class=" form-control " id="reason" name="reason" required>
+                                        <option value="">Choose..</option>
+                                        <option value="sick" name="room">Sick</option>
+                                        <option value="vacation" name="room">Vacation</option>
+                                        <option value="other" name="room">Others</option>
+
+                                    </select>
+                                </div>
+                                <label>Leave Date*</label>
+                                <div class="form-group row" style="margin-left:2px;">
+
+
+
+
+                                    <input type="date" class="col-sm-5  form-control" name="date_start" id="staticEmail" required>
+                                    <input type="text" readonly class="col-sm-1 form-control-plaintext text-center" style="width:10%;" value="To" id="staticEmail">
+                                    <input type="date" class="col-sm-5 form-control" name="date_end" id="staticEmail" required>
+                                </div>
+                                <div class="form-group ">
+                                    <label for="exampleFormControlFile1">Attach picture of MC (if applicable)</label>
+                                    <input type="file" class="form-control-file" name="image" id="image" accept=".jpg, .jpeg, .png" id="exampleFormControlFile1" requiredvalue="">
+                                </div>
+
+
+
+                                <div class="form-group ">
+                                    <label for="exampleFormControlFile1">Comments (if any)*</label>
+                                    <textarea class="form-control" name="comments" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                </div>
+
+
+
+                                <div class="col-lg-12">
+                                    <button class="btn text-center" type="submit" name="submit" style="font-size:15px;float:right;">Submit Leave</button>
+
+                                </div>
+
+
+                            </form>
+                        </div>
                     </div>
                 </div>
-                <div class="form-group row">
-
-
-                    <label for="reason" class="col-sm-2 col-form-label">Reason Of Absence</label>
-                    <select class="col-sm-2 form-control " style="font-size:20px;width:20%;" id="reason" name="reason" required>
-                        <option selected></option>
-                        <option value="sick" name="room">Sick</option>
-                        <option value="vacation" name="room">Vacation</option>
-                        <option value="other" name="room">Others</option>
-
-                    </select>
-                </div>
-                <div class="form-group row">
-
-
-                    <label for="reason" class="col-sm-2 col-form-label">Leave Date*</label>
-                    <input type="date" class="col-sm-2 form-control" name="date_start" id="staticEmail"> <input type="text" readonly class="col-sm-1 form-control-plaintext text-center" style="width:10%;" value="To" id="staticEmail"><br><input type="date" class="col-sm-2 form-control" name="date_end" id="staticEmail">
-                </div>
-                <div class="form-group row">
-                    <label for="exampleFormControlFile1" class="col-sm-2 col-form-label">Attach picture of MC (if applicable)</label>
-                    <input type="file" class="col-sm-2 form-control-file" name="image" id="image" accept=".jpg, .jpeg, .png" id="exampleFormControlFile1" value="">
-                </div>
-                <div class="form-group row">
-                    <label for="exampleFormControlFile1" class="col-sm-2 col-form-label">Comments (if any)*</label>
-                    <textarea class="col-sm-8 form-control" name="comments" id="exampleFormControlTextarea1" style="width:50%;" rows="3"></textarea>
-                </div>
-
-                <div class="form-group row">
-                    <div class="col-sm-2">
-
-                    </div>
-                    <div class="col-sm-9">
-                        <button class="btn btn-primary " type="submit" name="submit">Submit Leave</button>
-                    </div>
-                </div>
-
-            </form>');
-            }
+               
+            <?php }
             ?>
-    
+
         </div>
 
 
