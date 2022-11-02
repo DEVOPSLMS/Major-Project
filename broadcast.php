@@ -1,10 +1,126 @@
 <?php
 session_start();
-include("check_roster.php");
-include("check_teacher.php");
+
 include("connection.php");
 include("functions.php");
+include("check_roster.php");
 include("insert-payslip.php");
+include("check_teacher.php");
 
 
 ?>
+
+<!-- broadcast for L&D -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Broadcast</title>
+    <link href="style.css" rel="stylesheet" type="text/css">
+
+    <link href="feedback.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+</head>
+
+
+<header>
+
+    <?php include("header.php"); ?>
+
+
+    <div class="sidenav">
+        <h2 style="font-weight:700;">Broadcast</h2>
+        <a onclick="">New message</a>
+        <a>Past messages</a>
+
+    </div>
+</header>
+
+
+<body>
+    Broadcast to:
+    <table>
+        <tr>
+            <td>Address to:</td>
+            <td><select name="address" id="Address">
+                    <option selected>Select</option>
+                    <option value="teacher">Teacher</option>
+                    <option value="relief teacher">Relief Teacher</option>
+                    <option value="parents">Parents</option>
+                </select></td>
+        </tr>
+        <tr>
+            <td><select class="col-lg-12" name="centre" id="Centre"> 
+            <option selected>Select a centre</option>
+                    <option value="hougang">Hougang Centre</option>
+                    <option value="sengkang">Sengkang Centre</option>
+                    <option value="punggol">Punggol Centre</option>
+                    <option value="fernvale">Fernvale Centre</option>
+                    <option value="teckghee">Teck Ghee Centre</option>
+                    <option value="kolamayer">Kolam Ayer Centre</option>
+                </select></td>
+        </tr>
+    </table>
+
+</body>
+
+
+<style>
+    .sidenav {
+        height: 70%;
+        /* width: 19%; */
+        width: 300px;
+        position: fixed;
+        z-index: 1;
+        top: 200px;
+        /* left: 0; */
+        overflow-x: hidden;
+        padding-top: 20px;
+        border: 1px black solid;
+    }
+
+    .sidenav h2 {
+        padding: 6px 8px 6px 16px;
+        text-decoration: none;
+        font-size: 25px;
+        color: black;
+        display: block;
+    }
+
+    .sidenav td {
+        padding: 6px 8px 6px 16px;
+        text-decoration: none;
+        font-size: 25px;
+        color: black;
+        /* display: block; */
+    }
+
+    .sidenav a {
+        padding: 6px 8px 6px 16px;
+        text-decoration: none;
+        font-size: 25px;
+        color: black;
+        display: block;
+        cursor: pointer;
+    }
+
+    .sidenav a:hover {
+        background-color: #96d5d9;
+        /* background-color: #5ebec4; */
+        /* color: black; */
+    }
+</style>
+
+<style>
+    .container {}
+</style>
+
+</html>
