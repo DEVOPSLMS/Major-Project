@@ -46,29 +46,41 @@ include("check_teacher.php");
 
 
 <body>
-    Broadcast to:
-    <table>
-        <tr>
-            <td>Address to:</td>
-            <td><select name="address" id="Address">
-                    <option selected>Select</option>
-                    <option value="teacher">Teacher</option>
-                    <option value="relief teacher">Relief Teacher</option>
-                    <option value="parents">Parents</option>
-                </select></td>
-        </tr>
-        <tr>
-            <td><select class="col-lg-12" name="centre" id="Centre"> 
-            <option selected>Select a centre</option>
-                    <option value="hougang">Hougang Centre</option>
-                    <option value="sengkang">Sengkang Centre</option>
-                    <option value="punggol">Punggol Centre</option>
-                    <option value="fernvale">Fernvale Centre</option>
-                    <option value="teckghee">Teck Ghee Centre</option>
-                    <option value="kolamayer">Kolam Ayer Centre</option>
-                </select></td>
-        </tr>
-    </table>
+    <div class="container" style="margin-top: 200px;">
+
+        Broadcast to:
+        <table id="table-form">
+            <tr>
+                <td>Address to:</td>
+                <td><select name="address" id="Address">
+                        <option selected>Select</option>
+                        <option value="teacher">Teacher</option>
+                        <option value="relief teacher">Relief Teacher</option>
+                        <option value="parents">Parents</option>
+                    </select></td>
+            </tr>
+            <tr>
+                <td>Centre: </td>
+                <td><select class="col-lg-12" name="centre" id="Centre">
+                        <option selected>Select a centre</option>
+                        <option value="hougang">Hougang Centre</option>
+                        <option value="sengkang">Sengkang Centre</option>
+                        <option value="punggol">Punggol Centre</option>
+                        <option value="fernvale">Fernvale Centre</option>
+                        <option value="teckghee">Teck Ghee Centre</option>
+                        <option value="kolamayer">Kolam Ayer Centre</option>
+                    </select></td>
+            </tr>
+            <tr>
+                <td>Message title:</td>
+                <td><input type="text"></td>
+            </tr>
+            <tr>
+                <td>Message: </td>
+                <td><textarea name="" id="" cols="30" rows="10"></textarea></td>
+            </tr>
+        </table>
+    </div>
 
 </body>
 
@@ -120,7 +132,25 @@ include("check_teacher.php");
 </style>
 
 <style>
-    .container {}
+    .container {
+        
+        padding-left: 100px;
+        padding-right: 50px;
+    }
+
+    #table-form {
+        font-size: 18px;
+    }
+
+    #table-form td {
+        padding: 8px;
+    }
+
+    #table-form tr td:nth-child(odd) {
+        text-align: right;
+        vertical-align: top;
+        font-weight: bolder;
+    }
 </style>
 
 </html>
