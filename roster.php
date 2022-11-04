@@ -51,19 +51,19 @@ foreach ($roster as $rosters) {
     $later =  strtotime(date($roster_time));
     $description = $rosters['level'] . ' ' . $rosters['subject'] . ' ' . 'Timing' . ' ' . $rosters['timing'];
     if ($diff > 2 && $rosters['need_relief'] == 'yes' && $rosters['cancelled'] == 'no') {
-        $calendar->add_event($description, $rosters['centre_name'], $rosters['date'], 1, 'green', 'Teacher Name:' . $rosters['teacher_name'] . '', 'Cancelled: ' . $rosters['cancelled'] . '', 'Relief Needed: ' . $rosters['need_relief'] . '<br><br><a style="color:black;font-size:15px;"class="change"href="change_teacher.php?id=' . $rosters['id'] . '">Change Teacher</a>');
+        $calendar->add_event($description,'Teacher Name:' . $rosters['teacher_name'] . '',  $rosters['date'], 1, 'green', 'Cancelled: ' . $rosters['cancelled'] . '', 'Relief Needed: ' . $rosters['need_relief'] . '<br><br><a style="color:black;font-size:15px;"class="change"href="change_teacher.php?id=' . $rosters['id'] . '">Change Teacher</a>');
     }
     if ($diff <= 2 && $diff > 1 && $rosters['need_relief'] == 'yes' && $rosters['cancelled'] == 'no') {
-        $calendar->add_event($description, $rosters['centre_name'], $rosters['date'], 1, 'orange', 'Teacher Name:' . $rosters['teacher_name'] . '', 'Cancelled: ' . $rosters['cancelled'] . '', 'Relief Needed: ' . $rosters['need_relief'] . '<br><br><a style="color:black;font-size:15px;"class="change"href="change_teacher.php?id=' . $rosters['id'] . '">Change Teacher</a>');
+        $calendar->add_event($description, 'Teacher Name:' . $rosters['teacher_name'] . '', $rosters['date'], 1, 'orange',  'Cancelled: ' . $rosters['cancelled'] . '', 'Relief Needed: ' . $rosters['need_relief'] . '<br><br><a style="color:black;font-size:15px;"class="change"href="change_teacher.php?id=' . $rosters['id'] . '">Change Teacher</a>');
     }
     if ($diff <= 1 && $diff > 0 && $rosters['need_relief'] == 'yes' && $rosters['cancelled'] == 'no') {
-        $calendar->add_event($description, $rosters['centre_name'], $rosters['date'], 1, 'red', 'Teacher Name:' . $rosters['teacher_name'] . '', 'Cancelled: ' . $rosters['cancelled'] . '', 'Relief Needed: ' . $rosters['need_relief'] . '<br><br>' . $hours." Hour and ".$min . ' Minutes Till Lesson Starts<br><br><a style="color:black;font-size:15px;"class="change"href="change_teacher.php?id=' . $rosters['id'] . '">Change Teacher</a>');
+        $calendar->add_event($description, 'Teacher Name:' . $rosters['teacher_name'] . '',  $rosters['date'], 1, 'red',  'Cancelled: ' . $rosters['cancelled'] . '', 'Relief Needed: ' . $rosters['need_relief'] . '<br><br>' . $hours." Hour and ".$min . ' Minutes Till Lesson Starts<br><br><a style="color:black;font-size:15px;"class="change"href="change_teacher.php?id=' . $rosters['id'] . '">Change Teacher</a>');
     }
     if ($rosters['need_relief'] == 'no') {
-        $calendar->add_event($description, $rosters['centre_name'], $rosters['date'], 1, 'purple', 'Teacher Name:' . $rosters['teacher_name'] . '', 'Cancelled: ' . $rosters['cancelled'] . '', 'Relief Needed: ' . $rosters['need_relief'] . '');
+        $calendar->add_event($description, 'Teacher Name:' . $rosters['teacher_name'] . '',  $rosters['date'], 1, 'purple', 'Cancelled: ' . $rosters['cancelled'] . '', 'Relief Needed: ' . $rosters['need_relief'] . '');
     }
     if ($rosters['cancelled'] == 'yes') {
-        $calendar->add_event($description, $rosters['centre_name'], $rosters['date'], 1, 'yellow', 'Teacher Name:' . $rosters['teacher_name'] . '', 'Cancelled: ' . $rosters['cancelled'] . '', 'Relief Needed: ' . $rosters['need_relief'] . '');
+        $calendar->add_event($description, 'Teacher Name:' . $rosters['teacher_name'] . '', $rosters['date'], 1, 'yellow',  'Cancelled: ' . $rosters['cancelled'] . '', 'Relief Needed: ' . $rosters['need_relief'] . '');
     }
 }
 

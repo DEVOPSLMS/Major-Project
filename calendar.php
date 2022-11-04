@@ -128,6 +128,85 @@ class Calendar {
         $this->active_day = $date != null ? date('d', strtotime($date)) : date('d');
     }
 
+    public function add_event($txt,$teacher,$date, $days = 1, $color = '',$cancel,$relief) {
+        $color = $color ? ' ' . $color : $color;
+        $this->events[] = [$txt, $teacher,$date, $days, $color,$cancel,$relief];
+    }
+
+    public function __toString() {
+        $num_days = date('t', strtotime($this->active_day . '-' . $this->active_month . '-' . $this->active_year));
+        $num_days_last_month = date('j', strtotime('last day of previous month', strtotime($this->active_day . '-' . $this->active_month . '-' . $this->active_year)));
+        $days = [0 => 'Sun', 1 => 'Mon', 2 => 'Tue', 3 => 'Wed', 4 => 'Thu', 5 => 'Fri', 6 => 'Sat'];
+        $first_day_of_week = array_search(date('D', strtotime($this->active_year . '-' . $this->active_month . '-1')), $days);
+        $html = '<div class="calendar">';
+        $html .= '<div class="date">';
+        $html .= '<div class="month-year">';
+        $html .= date('F Y', strtotime($this->active_year . '-' . $this->active_month . '-' . $this->active_day));
+        $html .= '</div>';
+        $html .= '</div>';
+        $html .= '<div class="days">';
+        foreach ($days as $day) {
+            $html .= '
+                <div class="day_name">
+                    ' . $day . '
+                </div>
+            ';
+        }
+        for ($i = $first_day_of_week; $i > 0; $i--) {
+            $html .= '
+                <div class="day_num ignore">
+                    ' . ($num_days_last_month-$i+1) . '
+                </div>
+            ';
+        }
+        for ($i = 1; $i <= $num_days; $i++) {
+            $selected = '';
+            if ($i == $this->active_day) {
+                $selected = ' selected';
+            }
+            $html .= '<div class="day_num' . $selected . '">';
+            $html .= '<span>' . $i . '</span>';
+            foreach ($this->events as $event) {
+               
+                for ($d = 0; $d <= ($event[3]-1); $d++) {
+                    if (date('y-m-d', strtotime($this->active_year . '-' . $this->active_month . '-' . $i . ' -' . $d . ' day')) == date('y-m-d', strtotime($event[2]))) {
+                        $html .= '<div class="event' . $event[4] . '">';
+                        $html .= '<p>'.$event[0].'</p>';
+                        $html .= '<br><p>'.$event[1].'</p>';
+                        $html .= '<br><p>'.$event[5].'</p>';
+                        $html .= '<br><p>'.$event[6].'</p>';
+                        
+                        $html .= '</div>';
+                    }
+                }
+            }
+            $html .= '</div>';
+        }
+        for ($i = 1; $i <= (42-$num_days-max($first_day_of_week, 0)); $i++) {
+            $html .= '
+                <div class="day_num ignore">
+                    ' . $i . '
+                </div>
+            ';
+        }
+        $html .= '</div>';
+        $html .= '</div>';
+        return $html;
+    }
+
+}
+?>
+<?php 
+class Week {
+    private $active_year, $active_month, $active_day;
+    private $events = [];
+
+    public function __construct($date = null) {
+        $this->active_year = $date != null ? date('Y', strtotime($date)) : date('Y');
+        $this->active_month = $date != null ? date('m', strtotime($date)) : date('m');
+        $this->active_day = $date != null ? date('d', strtotime($date)) : date('d');
+    }
+
     public function add_event($txt, $text,$date, $days = 1, $color = '',$teacher,$cancel,$relief) {
         $color = $color ? ' ' . $color : $color;
         $this->events[] = [$txt,$text, $date, $days, $color,$teacher,$cancel,$relief];
@@ -193,6 +272,5 @@ class Calendar {
         $html .= '</div>';
         return $html;
     }
-
 }
 ?>
