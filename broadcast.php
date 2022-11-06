@@ -33,42 +33,137 @@ include("check_teacher.php");
 
 <header>
 
-    <?php include("header.php"); ?>
+    <?php include("header.php");
+
+    if (isset($_POST["submit"])) {
+        $address = $_POST["address"];
+        $centre = $_POST["centre"];
+        $message_title = $_POST["message_title"];
+        $message = $_POST["message"];
+        date_default_timezone_set("Singapore");
+        $date = date("d F Y");
+
+        $query = "INSERT INTO broadcast(sender, recipient, centre, message_title, message, date) VALUES ('$username','$address','$centre','$message_title','$message', '$date')";
+        mysqli_query($con, $query);
+
+        echo
+        "<script>
+            alert('Feedback submitted!');
+            document.location.href = 'broadcast.php';
+        </script>";
+    }
+    ?>
+
 
 
     <div class="sidenav">
         <h2 style="font-weight:700;">Broadcast</h2>
-        <a onclick="">New message</a>
-        <a>Past messages</a>
+        <a onclick="newMessage()">New message</a>
+        <a onclick="pastMessages()">Past messages</a>
 
     </div>
 </header>
 
+<script>
+    function newMessage() {
+        document.getElementById("messageBroadcast").innerHTML =
+            '<h2><b>Broadcast to:</b></h2>' +
+            '<form method="POST">' +
+            '   <table id="table-form">' +
+            '       <tr>' +
+            '           <td>Address to:</td>' +
+            '           <td ><select name="address" id="Address" style="border: 1px solid lightgrey;" class="col-lg-12">' +
+            '                   <option selected>Select</option>' +
+            '                   <option value="teacher">Teacher</option>' +
+            '                   <option value="relief teacher">Relief Teacher</option>' +
+            '                   <option value="parents">Parents</option>' +
+            '               </select></td>' +
+            '       </tr>' +
+            '       <tr>' +
+            '           <td>Centre: </td>' +
+            '           <td><select class="col-lg-12" name="centre" id="Centre" style="border: 1px solid lightgrey;">' +
+            '                   <option selected>Select a centre</option>' +
+            '                   <option value="hougang">Hougang Centre</option>' +
+            '                   <option value="sengkang">Sengkang Centre</option>' +
+            '                   <option value="punggol">Punggol Centre</option>' +
+            '                   <option value="fernvale">Fernvale Centre</option>' +
+            '                   <option value="teckghee">Teck Ghee Centre</option>' +
+            '                   <option value="kolamayer">Kolam Ayer Centre</option>' +
+            '               </select></td>' +
+            '       </tr>' +
+            '       <tr>' +
+            '           <td>Message title:</td>' +
+            '           <td><input type="text" name="message_title" style="border: 1px solid lightgrey;" class="col-lg-12"></td>' +
+            '       </tr>' +
+            '       <tr>' +
+            '           <td>Message: </td>' +
+            '           <td><textarea name="message" id="" cols="60" rows="10" style="border: 1px solid lightgrey;"></textarea></td>' +
+            '       </tr>' +
+            '       <tr>' +
+            '           <td></td>' +
+            '           <td style="text-align: right;">' +
+            '               <button class="btn btn-primary" type="submit" name="submit" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;margin:auto;">Broadcast Message</button>' +
+            '           </td>' +
+            '       </tr>' +
+            '   </table>' +
+            '</form>' +
+            '<style>' +
+            '   .sidenav a:nth-child(2) {' +
+            '       background-color: #5ebec4;' +
+            '   }' +
+            '</style>';
+    }
+
+    function pastMessages() {
+        <?php
+        $getbroadcast = "SELECT * FROM broadcast";
+        $result = mysqli_query($con, $getbroadcast);
+        ?>
+        document.getElementById("messageBroadcast").innerHTML =
+            '<div>' +
+            '    <div class="sidenav" style="padding-top: 0; width: 80%; border: 1px grey solid">' +
+
+
+            '        <?php foreach ($result as $x) : ?>' +
+            '           <h2><b><?php echo $x["message_title"] , ', ', $x["date"] ?></b></h2>' +
+
+            '            <table style="margin: 25px 25px;">' +
+            '                <tr>' +
+            '                    <td>' +
+            '                        <b>Recipients:</b>' +
+            '                    </td>' +
+            '                    <td><?php echo $x["recipient"] ?></td>' +
+            '                </tr>' +
+            '                <tr>' +
+            '                    <td>' +
+            '                        <b>Message:</b>' +
+            '                    </td>' +
+            '                    <td>' +
+                                    '<?php echo $x["message"] ?>' +
+            '                    </td>' +
+            '                </tr>' +
+            '            </table>' +
+
+            '        <?php endforeach; ?>' +
+            '    </div>' +
+
+            '</div>' +
+            '<style>' +
+            '   .sidenav a:nth-child(3) {' +
+            '       background-color: #5ebec4;' +
+            '   }' +
+            '</style>';
+    }
+</script>
 
 <body>
-    Broadcast to:
-    <table>
-        <tr>
-            <td>Address to:</td>
-            <td><select name="address" id="Address">
-                    <option selected>Select</option>
-                    <option value="teacher">Teacher</option>
-                    <option value="relief teacher">Relief Teacher</option>
-                    <option value="parents">Parents</option>
-                </select></td>
-        </tr>
-        <tr>
-            <td><select class="col-lg-12" name="centre" id="Centre"> 
-            <option selected>Select a centre</option>
-                    <option value="hougang">Hougang Centre</option>
-                    <option value="sengkang">Sengkang Centre</option>
-                    <option value="punggol">Punggol Centre</option>
-                    <option value="fernvale">Fernvale Centre</option>
-                    <option value="teckghee">Teck Ghee Centre</option>
-                    <option value="kolamayer">Kolam Ayer Centre</option>
-                </select></td>
-        </tr>
-    </table>
+    <div class="container" style="margin-top: 200px;" id="messageBroadcast">
+
+        <script>newMessage()</script>
+        <!-- <script>pastMessages();</script> -->
+
+
+    </div>
 
 </body>
 
@@ -120,7 +215,24 @@ include("check_teacher.php");
 </style>
 
 <style>
-    .container {}
+    .container {
+
+        padding-left: 100px;
+        padding-right: 100px;
+    }
+
+    #table-form {
+        font-size: 18px;
+    }
+
+    #table-form td {
+        padding: 8px;
+    }
+
+    #table-form tr td:nth-child(odd) {
+        text-align: right;
+        vertical-align: top;
+    }
 </style>
 
 </html>

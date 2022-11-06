@@ -140,7 +140,7 @@ $user_data = check_login($con);
             '                    <td>' +
             '                        <b>Name:</b>' +
             '                    </td>' +
-            '                    <td><?php echo $x["name"]?> <b> (<?php echo $x["role"] ?>) </b></td>' +
+            '                    <td><?php echo $x["name"] ?> <b> (<?php echo $x["role"] ?>) </b></td>' +
             '                </tr>' +
             '                <tr>' +
             '                    <td>' +
