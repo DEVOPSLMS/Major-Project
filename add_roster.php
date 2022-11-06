@@ -122,7 +122,7 @@ function goBack() {
                     </div>
                     <div class="form-group col-md-12">
                         <label for="inputPassword4" style="font-size:20px;">Date</label>
-                        <input type="date" class="form-control" name="date" id="inputPassword4" style="height:50px;">
+                        <input type="date" class="form-control" name="date"style="height:50px;font-size:20px;" id="inputPassword4" style="height:50px;">
                     </div>
 
                 </div>
