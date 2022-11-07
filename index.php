@@ -241,7 +241,7 @@ $date = date("Y-m-d");
                                 <h1>Broadcast</h1>
                                 <p style="font-size:20px;">Broadcast messages to teacher/parents on important information.</p>
     
-                                <button class="btn btn-primary text-center  " type="submit" name="submit" >Broadcast</button>
+                                <a href="broadcast.php"><button class="btn btn-primary text-center  " type="submit" name="submit" >Broadcast</button></a>
     
     
                             </div>

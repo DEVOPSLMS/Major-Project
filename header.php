@@ -62,7 +62,7 @@ $result = mysqli_query($con, $query);
       echo ('
           <a href="centreroster.php">Lessons</a>');
       echo ('<a href="teacher.php">Teachers</a>');
-      echo ('<a href="#">Broadcast</a>');
+      echo ('<a href="broadcast.php">Broadcast</a>');
     }
     ?>
     <?php if ($role == 'admin') {
