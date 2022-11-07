@@ -49,67 +49,50 @@ $user_data = check_login($con);
 
     <div class="sidenav">
         <h2 style="font-weight:700;">Feedback</h2>
-        <a>Submit a Feedback</a>
+        <a href="feedback.php">Submit a Feedback</a>
 
         <?php if ($role !== 'parent') { ?>
-            <a href="feedbackView.php">View Feedbacks</a>
+            <a>View Feedbacks</a>
         <?php } ?>
 
     </div>
 
 </header>
 
+
 <body>
     <div id="feedbackBody">
-        <div id="submitFeedback" class="container" style="margin-top: -60px;">
-            <h4>
-                Hello Sir/Madam,
-                <br>YYD Education Centre is still growing and we value any feedback you can provide us.
-                <br>We will not disclose the information you provide us to anyone.
-                <br>
-                <br>You can submit your feedback in this form below.
-                <br>Thank you for taking your time to provide us with insights and areas where we can improve on.
-                <br>Your feedback is greatly appreciated.
-            </h4>
-            <br><br>
-            <form method="POST">
-                <table id="table-form">
-                    <tr>
-                        <td>
-                            <h4>Name: </h4>
-                        </td>
-                        <td><input type="text" class="col-lg-12" name="name" id="Name" disabled placeholder="<?php echo $username ?>" style="border: 1px solid lightgrey;"></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <h4>Centre: </h4>
-                        </td>
-                        <td>
-                            <select type="text" class="col-lg-12" name="centre" id="Centre" width="60px" style="border: 1px solid grey;">
-                                <option selected>Select a centre</option>
-                                <option value="hougang">Hougang Centre</option>
-                                <option value="sengkang">Sengkang Centre</option>
-                                <option value="punggol">Punggol Centre</option>
-                                <option value="fernvale">Fernvale Centre</option>
-                                <option value="teckghee"> Teck Ghee Centre</option>
-                                <option value="kolamayer">Kolam Ayer Centre</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <h4>Feedback: </h4>
-                        </td>
-                        <td><textarea name="feedback" id="Feedback" cols="60" rows="10" style="border: 1px solid grey;"></textarea></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td style="text-align: right;">
-                            <button class="btn btn-primary" type="submit" name="submit" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;margin:auto;">Submit</button>
-                        </td>
-                    </tr>
-                </table>
-            </form>
+        <?php
+        $getfeedback = "SELECT * FROM feedback";
+        $result = mysqli_query($con, $getfeedback);
+        ?>
+        <div id="viewFeedbacks" style="margin-left: 318px;">
+            <div class="sidenav" style="padding-top: 0; width: 80%; border: 1px grey solid">
+                <?php foreach ($result as $x) : ?>
+                    <table style="margin: 25px 25px;">
+                        <tr>
+                            <td>
+                                <b>Name:</b>
+                            </td>
+                            <td><?php echo $x["name"] ?> <b> (<?php echo $x["role"] ?>) </b></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <b>Centre:</b>
+                            </td>
+                            <td>
+                                <?php echo $x["centre"] ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: top;">
+                                <b>Feedback:</b>
+                            </td>
+                            <td style="word-wrap: break-word;"><?php echo $x["feedback"] ?></td>
+                        </tr>
+                    </table>
+                <?php endforeach; ?>
+            </div>
         </div>
 
 
@@ -118,10 +101,10 @@ $user_data = check_login($con);
     </div>
 </body>
 <style>
-    
-    .sidenav a:nth-child(2) {
-                background-color: #5ebec4;
-            }
+    .sidenav a:nth-child(3) {
+        background-color: #5ebec4;
+    }
+
     @media(max-width:500px) {
         .btn {
 
