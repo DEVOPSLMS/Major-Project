@@ -21,28 +21,64 @@ $student_details = mysqli_fetch_assoc($result);
 <head>
     <title>Enrollment Review</title>
 
+    <meta charset="utf-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+
 </head>
 <header>
     <header class="header">
 
         <?php include("header.php") ?>
 
-       
+
     </header>
 </header>
-<br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br>
 <style>
-    body{
-        font-size:130%;
+    body {
+        font-size: 130%;
     }
 </style>
+
 <body>
-<a class="btn btn-primary" style=" left: 20px;" href="enrollment_review.php">Back</a>
-<br><br>
-        <h2 class="text-center" style="border-bottom: 1px grey solid; padding-bottom: 20px;"><b>Enrollment Review</b></h2>
-    <a href="" class="btn btn-primary" style="position: absolute; right: 20px;">
-        <h3>Medical Declaration Form</h3>
-    </a>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+    <a class="btn btn-primary" style=" left: 20px;" href="enrollment_review.php">Back</a>
+    <br><br>
+    <h2 class="text-center" style="border-bottom: 1px grey solid; padding-bottom: 20px;"><b>Enrollment Review</b></h2>
+    <button type="button" class="btn btn-primary" style="position: absolute; right: 20px;" data-bs-toggle="modal" data-bs-target="#Modal">
+        Medical Declaration Form
+    </button>
+    <!-- Modal -->
+    <div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title" id="exampleModalLabel">Medical Declaration Form</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <?php
+                    echo '<table>
+                        <tr><td>Date:</td><td>',                                            $student_details["medical_date"], '</td></tr>
+                        <tr><td>Any Medical Conditions:</td><td>',                          $student_details["medical_conditions"], '</td></tr>
+                        <tr><td>If yes, please explain:</td><td>',                          $student_details["add_here"], '</td></tr>
+                        <tr><td>On daily medication to treat/prevent relapse:</td><td>',    $student_details["daily_medication"], '</td></tr>
+                        <tr><td>If yes, please explain:</td><td>',                          $student_details["explain_condition"], '</td></tr>
+                        <tr><td>Parent/Guardian Name:</td><td>',                            $student_details["medical_name"], '</td></tr>
+                        <tr><td>Parent/Guardian NRIC:</td><td>',                            $student_details["medical_nric"], '</td></tr>
+                        <tr><td>Translator Name (if any):</td><td>',                        $student_details["translator_name"], '</td></tr>
+                        <tr><td>Translator NRIC:</td><td>',                                 $student_details["translator_nric"], '</td></tr>
+                        
+                        </table>';
+                    ?>
+                </div>
+                <div class="modal-footer">
+                    <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <div style="margin: 20px;"><i>
             <h2><b><?php echo $student_details['student_name'] ?></b></h2>
@@ -323,55 +359,8 @@ $student_details = mysqli_fetch_assoc($result);
 <style>
     td:nth-child(odd) {
         /* text-align: right; */
-        width: 250px;
-    }
-
-    /* The Modal (background) */
-    .modal {
-        display: none;
-        /* Hidden by default */
-        position: fixed;
-        /* Stay in place */
-        z-index: 1;
-        /* Sit on top */
-        padding-top: 100px;
-        /* Location of the box */
-        left: 0;
-        top: 0;
-        width: 100%;
-        /* Full width */
-        height: 100%;
-        /* Full height */
-        overflow: auto;
-        /* Enable scroll if needed */
-        background-color: rgb(0, 0, 0);
-        /* Fallback color */
-        background-color: rgba(0, 0, 0, 0.4);
-        /* Black w/ opacity */
-    }
-
-    /* Modal Content */
-    .modal-content {
-        background-color: #fefefe;
-        margin: auto;
-        padding: 20px;
-        border: 1px solid #888;
-        width: 80%;
-    }
-
-    /* The Close Button */
-    .close {
-        color: #aaaaaa;
-        float: right;
-        font-size: 28px;
-        font-weight: bold;
-    }
-
-    .close:hover,
-    .close:focus {
-        color: #000;
-        text-decoration: none;
-        cursor: pointer;
+        width: 400px;
+        font-weight: bolder;
     }
 </style>
 
