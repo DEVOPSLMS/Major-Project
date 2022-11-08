@@ -68,9 +68,10 @@ $result = mysqli_query($con, $query);
     <?php if ($role == 'admin') {
       echo ('<a href="#">Students</a>');
       echo ('<a href="#">Storage</a>');
+      echo ('<a href="enrollment_review.php">Enrollment</a>');
     }
     ?>
-    <?php if ($role == 'parent' || $role == 'admin') {
+    <?php if ($role == 'parent') {
       echo ('<a href="enrollment.php">Enrollment</a>');
     }
     ?>
