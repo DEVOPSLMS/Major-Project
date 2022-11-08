@@ -51,6 +51,8 @@ $user_data = check_login($con);
         <h2 style="font-weight:700;">Feedback</h2>
         <a>Submit a Feedback</a>
 
+        <a href="feedbackSelfView.php">My Feedbacks</a>
+
         <?php if ($role !== 'parent') { ?>
             <a href="feedbackView.php">View Feedbacks</a>
         <?php } ?>

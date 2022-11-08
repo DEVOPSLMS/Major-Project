@@ -51,10 +51,10 @@ $user_data = check_login($con);
         <h2 style="font-weight:700;">Feedback</h2>
         <a href="feedback.php">Submit a Feedback</a>
 
-        <a href="feedbackSelfView.php">My Feedbacks</a>
+        <a>My Feedbacks</a>
 
         <?php if ($role !== 'parent') { ?>
-            <a>View Feedbacks</a>
+            <a href="feedbackView.php">View Feedbacks</a>
         <?php } ?>
 
     </div>
@@ -65,11 +65,15 @@ $user_data = check_login($con);
 <body>
     <div id="feedbackBody">
         <?php
-        $getfeedback = "SELECT * FROM feedback";
+        $getfeedback = "SELECT * FROM feedback WHERE name = '$username'";
         $result = mysqli_query($con, $getfeedback);
+        $rowcount = mysqli_num_rows($result); 
         ?>
         <div id="viewFeedbacks" style="margin-left: 318px;">
             <div class="sidenav" style="padding-top: 0; width: 80%; border: 1px grey solid">
+                <?php if ($rowcount == 0) {
+                    echo '<h2 style="color: red;">You have no past feedbacks sent</h2>';
+                } ?>
                 <?php foreach ($result as $x) : ?>
                     <table style="margin: 25px 25px;">
                         <tr>
@@ -103,7 +107,7 @@ $user_data = check_login($con);
     </div>
 </body>
 <style>
-    .sidenav a:nth-child(4) {
+    .sidenav a:nth-child(3) {
         background-color: #5ebec4;
     }
 

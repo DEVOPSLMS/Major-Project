@@ -70,9 +70,14 @@ include("check_teacher.php");
         <?php
         $getbroadcast = "SELECT * FROM broadcast";
         $result = mysqli_query($con, $getbroadcast);
+        $rowcount = mysqli_num_rows($result); 
+
         ?>
         <div>
-            <div class="sidenav" style="padding-top: 0; width: 80%; border: 1px grey solid">
+            <div class="sidenav" style="padding-top: 0; width: 78%; border: 1px grey solid">
+                <?php if($rowcount==0){
+                    echo '<h2 style="color: red;">There are no past messages</h2>'; 
+                }?>
                 <?php foreach ($result as $x) : ?>
                     <h2><b><?php echo $x["message_title"], ', ', $x["date"] ?></b></h2>
                     <table style="margin: 25px 25px;">
