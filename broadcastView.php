@@ -6,7 +6,7 @@ include("functions.php");
 include("check_roster.php");
 include("insert-payslip.php");
 include("check_teacher.php");
-
+include("check_attendance.php");
 
 ?>
 

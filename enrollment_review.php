@@ -6,6 +6,7 @@ include("functions.php");
 include("check_teacher.php");
 $user_data = check_login($con);
 include("insert-payslip.php");
+include("check_attendance.php");
 // remove  OR status = 'Enrolled' OR status = 'Disapproved' when done 
 
 

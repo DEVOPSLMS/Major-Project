@@ -4,6 +4,7 @@ include("check_roster.php");
 include("check_teacher.php");
 include("connection.php");
 include("functions.php");
+include("check_attendance.php");
 include("insert-payslip.php");
 $user_data = check_login($con);
 $username=$user_data['username'];

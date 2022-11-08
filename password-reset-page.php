@@ -1,5 +1,6 @@
 <?php 
 include('connection.php');
+
 if(isset($_POST['submit'])){
     $email=mysqli_real_escape_string($con,$_POST['email']);
     $new_password=$_POST['password'];
