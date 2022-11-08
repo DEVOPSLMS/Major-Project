@@ -52,7 +52,7 @@ foreach ($roster as $rosters) {
     $later =  strtotime(date($roster_time));
     $description = $rosters['level'] . ' ' . $rosters['subject'] . ' ' . 'Timing' . ' ' . $rosters['timing'];
     if ($diff > 2 && $rosters['need_relief'] == 'yes' && $rosters['cancelled'] == 'no') {
-        $calendar->add_event($description,'Teacher Name:' . $rosters['teacher_name'] . '',  $rosters['date'], 1, 'green', 'Cancelled: ' . $rosters['cancelled'] . '', 'Relief Needed: ' . $rosters['need_relief'] . '<br><br><a style="color:black;font-size:15px;"class="change"href="change_teacher.php?id=' . $rosters['id'] . '">Change Teacher</a>');
+        $calendar->add_event($description, 'Teacher Name:' . $rosters['teacher_name'] . '',  $rosters['date'], 1, 'green', 'Cancelled: ' . $rosters['cancelled'] . '', 'Relief Needed: ' . $rosters['need_relief'] . '<br><br><a style="color:black;font-size:15px;"class="change"href="change_teacher.php?id=' . $rosters['id'] . '">Change Teacher</a>');
     }
     if ($diff <= 2 && $diff > 1 && $rosters['need_relief'] == 'yes' && $rosters['cancelled'] == 'no') {
         $calendar->add_event($description, 'Teacher Name:' . $rosters['teacher_name'] . '', $rosters['date'], 1, 'orange',  'Cancelled: ' . $rosters['cancelled'] . '', 'Relief Needed: ' . $rosters['need_relief'] . '<br><br><a style="color:black;font-size:15px;"class="change"href="change_teacher.php?id=' . $rosters['id'] . '">Change Teacher</a>');
@@ -117,16 +117,8 @@ if (isset($_POST["submit"])) {
     if ($timing == '9pm - 10pm') {
         $time = '21:00:00';
     }
-    $query = "insert into roster(centre_name,subject,level,timing,teacher_name,need_relief,room,date,day,students,time,cancelled) VALUES('$centre Centre', '$subject','$level','$timing','$name','no','$room','$date','$day','$students','$time','no')";
-    mysqli_query($con, $query);
 
-    echo
-    "
-        <script>
-          alert('Successfully Added');
-          document.location.href = 'roster.php?name=" . $centre . "';
-        </script>
-        ";
+
 }
 
 ?>
@@ -158,7 +150,7 @@ if (isset($_POST["submit"])) {
         font-size: 16px;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
-        
+
     }
 
     body {
@@ -194,11 +186,12 @@ if (isset($_POST["submit"])) {
 
 
             font-size: 9px;
-         
-            
+
+
         }
-        .day_num{
-            padding:0 !important;
+
+        .day_num {
+            padding: 0 !important;
         }
 
         .content #add {
@@ -212,8 +205,9 @@ if (isset($_POST["submit"])) {
             border-bottom: 1px solid #ebebeb;
             color: #666666;
         }
-        .change{
-            font-size:9px !important;
+
+        .change {
+            font-size: 9px !important;
         }
     }
 </style>
@@ -223,7 +217,7 @@ if (isset($_POST["submit"])) {
         <?php include("header.php") ?>
 
     </header>
-    <br><br><br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br><br>
 
     <body>
 
