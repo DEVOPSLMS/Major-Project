@@ -23,7 +23,17 @@ $student_details = mysqli_fetch_assoc($result);
 
     <meta charset="utf-8">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  
 </head>
 <header>
     <header class="header">
@@ -40,8 +50,103 @@ $student_details = mysqli_fetch_assoc($result);
     }
 </style>
 
+<header>
+    <header class="header">
+
+        <?php include("header.php") ?>
+
+
+
+    </header>
+</header>
+<br><br><br><br><br><br><br><br><br><br>
+<style>
+    .container {
+        display: grid;
+        place-items: center;
+    }
+
+    .section {
+        display: none;
+    }
+
+    .section.active {
+        display: block;
+    }
+
+    .nav {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        align-items: center;
+    }
+
+    .nav button {
+        background: #ccc;
+        padding: 10px 15px;
+        margin-left: 6px;
+        border-radius: 50%;
+        cursor: pointer;
+        opacity: .5;
+        border: none;
+    }
+
+    .next,
+    .previous {
+        padding: 15px 10px;
+        border-radius: 6px;
+        background: deepskyblue;
+        color: white;
+        border: 0;
+        outline: none;
+        cursor: pointer;
+        width: 100px;
+        visibility: hidden;
+    }
+
+    .button-active {
+        opacity: 1 !important;
+        visibility: visible;
+    }
+</style>
+
+
+<script>
+    const sectionContent = ["r1", "r2", "r3"];
+    let currentSection = sectionContent[0];
+
+    const displayContent = (q, area) => {
+        document.getElementById(q).classList.add("active");
+        document.getElementById(q + "-button").classList.add("button-active");
+        currentSection = sectionContent[area.indexOf(q)];
+        const toNone = area.filter(e => e !== q);
+        for (i in toNone) {
+            document.getElementById(toNone[i]).classList.remove("active");
+            document.getElementById(toNone[i] + "-button").classList.remove("button-active");
+        }
+        if (sectionContent.indexOf(q) == 0) {
+            document.getElementById("previous").classList.remove("button-active");
+            document.getElementById("next").classList.add("button-active");
+        } else if (sectionContent.indexOf(q) == sectionContent.length - 1) {
+            document.getElementById("previous").classList.add("button-active");
+            document.getElementById("next").classList.remove("button-active");
+        } else {
+            document.getElementById("previous").classList.add("button-active");
+            document.getElementById("next").classList.add("button-active");
+        }
+    }
+
+    const displayR1 = () => displayContent("r1", sectionContent);
+    const displayR2 = () => displayContent("r2", sectionContent);
+    const displayR3 = () => displayContent("r3", sectionContent);
+
+    const displayNext = () => displayContent(sectionContent[sectionContent.indexOf(currentSection) + 1], sectionContent);
+    const displayPrevious = () => displayContent(sectionContent[sectionContent.indexOf(currentSection) - 1], sectionContent);
+</script>
+
 <body>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
     <a class="btn btn-primary" style=" left: 20px;" href="enrollment_review.php">Back</a>
     <br><br>
     <h2 class="text-center" style="border-bottom: 1px grey solid; padding-bottom: 20px;"><b>Enrollment Review</b></h2>
@@ -79,283 +184,255 @@ $student_details = mysqli_fetch_assoc($result);
         </div>
     </div>
 
+    <div class="container">
+        <nav class="nav">
+            <button class="button-active" id="r1-button" onclick="displayR1()">Student's Particulars</button>
+            <button id="r2-button" onclick="displayR2()">Father's Particulars</button>
+            <button id="r3-button" onclick="displayR3()">Mother's Particulars</button>
+        </nav>
 
-    <div style="margin: 20px;"><i>
-            <h2><b><?php echo $student_details['student_name'] ?></b></h2>
-        </i></div>
 
-    <table style="margin-left: 30px;">
+        <section id="r1" class="section active">
+            <div class="form-row">
+                <div class="form-group col-lg-4">
+                    <label for="inputCity">Name</label>
+                    <input type="text" class="form-control" name="student_name" id="inputCity" value="<?php echo $student_details['student_name'] ?>" disabled>
+                </div>
+                <div class="form-group col-lg-4">
+                    <label for="inputCity">NRIC</label>
+                    <input value="<?php echo $student_details['student_nric'] ?>" disabled type="text" class="form-control" name="student_nric" id="inputCity">
+                </div>
+                <div class="form-group col-lg-4">
+                    <label for="inputZip">Gender</label>
+                    <input value="<?php echo $student_details['student_gender'] ?>" disabled id="inputState" class="form-control" name="student_gender">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-lg-6">
+                    <label for="inputCity">Date Of Birth</label>
+                    <input value="<?php echo $student_details['student_dob'] ?>" disabled type="date" class="form-control" name="student_dob" id="inputCity">
+                </div>
+                <div class="form-group col-lg-6">
+                    <label for="inputCity">Race</label>
+                    <input value="<?php echo $student_details['student_race'] ?>" disabled id="inputState" class="form-control" name="student_race">
+                </div>
 
-        <tr>
-            <td>NRIC:</td>
-            <td><?php echo $student_details['student_nric'] ?></td>
-        </tr>
-        <tr>
-            <td>Gender:</td>
-            <td><?php echo $student_details['student_gender'] ?></td>
-        </tr>
-        <tr>
-            <td>Date of birth:</td>
-            <td><?php echo $student_details['student_dob'] ?></td>
-        </tr>
-        <tr>
-            <td>Race:</td>
-            <td><?php echo $student_details['student_race'] ?></td>
-        </tr>
-        <tr>
-            <td>Citizenship:</td>
-            <td><?php echo $student_details['student_citizenship'] ?></td>
-        </tr>
-        <tr>
-            <td>Nationality (For PR only):</td>
-            <td><?php echo $student_details['student_nationality'] ?></td>
-        </tr>
-        <tr>
-            <td>School attending:</td>
-            <td><?php echo $student_details['student_school'] ?></td>
-        </tr>
-        <tr>
-            <td>Primary Level:</td>
-            <td><?php echo $student_details['student_level'] ?></td>
-        </tr>
-        <tr>
-            <td>Normal/Foundation:</td>
-            <td><?php echo $student_details['student_normal_foundation'] ?></td>
-        </tr>
-        <tr>
-            <td>Residential Address:</td>
-            <td><?php echo $student_details['student_residential'] ?></td>
-        </tr>
-        <tr>
-            <td>Name of student's bank:</td>
-            <td><?php echo $student_details['student_bank'] ?></td>
-        </tr>
-        <tr>
-            <td>Student's account number:</td>
-            <td><?php echo $student_details['student_account'] ?></td>
-        </tr>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-lg-4">
+                    <label for="inputCity">Citizenship</label>
+                    <input value="<?php echo $student_details['student_citizenship'] ?>" disabled id="inputState" class="form-control" name="student_citizenship">
+                </div>
+                <div class="form-group col-lg-4">
+                    <label for="inputCity">If Permanent Resident, Which Nationality?</label>
+                    <input value="<?php echo $student_details['student_nationality'] ?>" disabled type="text" class="form-control" name="student_nationality" id="student_school">
+                </div>
+                <div class="form-group col-lg-4">
+                    <label for="inputCity">School Child Is Currently Attending</label>
+                    <input value="<?php echo $student_details['student_school'] ?>" disabled type="text" class="form-control" name="student_school" id="student_school">
+                </div>
 
-    </table>
+                <div class="form-group col-lg-6">
+                    <label for="inputCity">Primary Level</label>
+                    <input value="<?php echo $student_details['student_level'] ?>" disabled id="inputState" class="form-control" name="student_level">
+                </div>
+                <div class="form-group col-lg-6">
+                    <label for="inputCity">Normal/Foundation</label>
+                    <input value="<?php echo $student_details['student_normal_foundation'] ?>" disabled id="inputState" class="form-control" name="student_normal">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-lg-6">
+                    <label for="inputCity">Residential Address</label>
+                    <input value="<?php echo $student_details['student_residential'] ?>" disabled type="text" class="form-control" name="student_residential" id="student_school">
+                </div>
+
+                <div class="form-group col-lg-6">
+                    <label for="inputCity">Name Of Student's Bank</label>
+                    <input value="<?php echo $student_details['student_bank'] ?>" disabled type="text" class="form-control" name="student_bank" id="student_school">
+                </div>
+                <div class="form-group col-lg-6">
+                    <label for="inputCity">Student's Account Number</label>
+                    <input value="<?php echo $student_details['student_account'] ?>" disabled type="text" class="form-control" name="student_account" id="student_school">
+                </div>
+                <div class="form-group col-lg-6">
+                    <label for="inputCity">Which Centre Do You Want To Go To</label>
+                    <input value="<?php echo $student_details['centre_name'] ?>" disabled class="form-control" id="reason" name="centre_name">
+                </div>
+            </div>
+        </section>
+
+        <section id="r2" class="section">
+            <div class="form-row">
+                <div class="form-group col-lg-4">
+                    <label for="inputCity">Name</label>
+                    <input value="<?php echo $student_details['father_name'] ?>" disabled type="text" class="form-control" name="father_name" id="inputCity">
+                </div>
+                <div class="form-group col-lg-4">
+                    <label for="inputCity">NRIC</label>
+                    <input value="<?php echo $student_details['father_nric'] ?>" disabled type="text" class="form-control" name="father_nric" id="inputCity">
+                </div>
+                <div class="form-group col-lg-4">
+                    <label for="inputZip">Date Of Birth</label>
+                    <input value="<?php echo $student_details['father_dob'] ?>" disabled type="date" class="form-control" name="father_dob" id="inputCity">
+                </div>
+            </div>
+
+            <div class="form-row">
+
+                <div class="form-group col-lg-4">
+                    <label for="inputCity">Race</label>
+                    <input value="<?php echo $student_details['father_race'] ?>" disabled id="inputState" class="form-control" name="father_race">
+                </div>
+                <div class="form-group col-lg-4">
+                    <label for="inputCity">Citizenship</label>
+                    <input value="<?php echo $student_details['father_citizenship'] ?>" disabled id="inputState" class="form-control" name="father_citizenship">
+                </div>
+                <div class="form-group col-lg-4">
+                    <label for="inputCity">If Permanent Resident, Which Nationality?</label>
+                    <input value="<?php echo $student_details['father_nationality'] ?>" disabled type="text" class="form-control" name="father_nationality" id="student_school">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-lg-4">
+                    <label for="inputCity">Residential Address</label>
+                    <input value="<?php echo $student_details['father_residential'] ?>" disabled type="text" class="form-control" name="father_residential" id="student_school">
+                </div>
+                <div class="form-group col-lg-4">
+                    <label for="inputCity">Contact Number</label>
+                    <input value="<?php echo $student_details['father_number'] ?>" disabled type="number" class="form-control" name="father_number" id="student_school">
+                </div>
+                <div class="form-group col-lg-4">
+                    <label for="inputCity">Name Of Employer</label>
+                    <input value="<?php echo $student_details['father_employer'] ?>" disabled type="text" class="form-control" name="father_employer" id="student_school">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-lg-6">
+                    <label for="inputCity">Company Address</label>
+                    <input value="<?php echo $student_details['father_compnay'] ?>" disabled type="text" class="form-control" name="father_company" id="student_school">
+                </div>
+
+                <div class="form-group col-lg-6">
+                    <label for="inputCity">Occupation*</label>
+                    <input value="<?php echo $student_details['father_occupation'] ?>" disabled type="text" class="form-control" name="father_occupation" id="student_school">
+                </div>
+                <div class="form-group col-lg-6">
+                    <label for="inputCity">Gross Salary*</label>
+                    <input value="<?php echo $student_details['father_salary'] ?>" disabled type="text" class="form-control" name="father_salary" value="$" id="student_school">
+                </div>
+                <div class="form-group col-lg-6">
+                    <label for="inputCity">Other Salary*</label>
+                    <input value="<?php echo $student_details['father_other'] ?>" disabled type="text" class="form-control" name="father_other" value="$" id="student_school">
+                </div>
+            </div>
+        </section>
+
+        <section id="r3" class="section">
+            <div class="form-row">
+                <div class="form-group col-lg-4">
+                    <label for="inputCity">Name</label>
+                    <input value="<?php echo $student_details['mother_name'] ?>" disabled type="text" class="form-control" name="mother_name" id="inputCity">
+                </div>
+                <div class="form-group col-lg-4">
+                    <label for="inputCity">NRIC</label>
+                    <input value="<?php echo $student_details['mother_nric'] ?>" disabled type="text" class="form-control" name="mother_nric" id="inputCity">
+                </div>
+                <div class="form-group col-lg-4">
+                    <label for="inputZip">Date Of Birth</label>
+                    <input value="<?php echo $student_details['mother_dob'] ?>" disabled type="date" class="form-control" name="mother_dob" id="inputCity">
+                </div>
+            </div>
+
+            <div class="form-row">
+
+                <div class="form-group col-lg-4">
+                    <label for="inputCity">Race</label>
+                    <input value="<?php echo $student_details['mother_race'] ?>" disabled id="inputState" class="form-control" name="mother_race">
+
+                </div>
+                <div class="form-group col-lg-4">
+                    <label for="inputCity">Citizenship</label>
+                    <input value="<?php echo $student_details['mother_citizenship'] ?>" disabled id="inputState" class="form-control" name="mother_citizenship">
+
+                </div>
+                <div class="form-group col-lg-4">
+                    <label for="inputCity">If Permanent Resident, Which Nationality?</label>
+                    <input value="<?php echo $student_details['mother_nationality'] ?>" disabled type="text" class="form-control" name="mother_nationality" id="student_school">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-lg-4">
+                    <label for="inputCity">Residential Address</label>
+                    <input value="<?php echo $student_details['mother_residential'] ?>" disabled type="text" class="form-control" name="mother_residential" id="student_school">
+                </div>
+                <div class="form-group col-lg-4">
+                    <label for="inputCity">Contact Number</label>
+                    <input value="<?php echo $student_details['mother_number'] ?>" disabled type="number" class="form-control" name="mother_number" id="student_school">
+                </div>
+                <div class="form-group col-lg-4">
+                    <label for="inputCity">Name Of Employer</label>
+                    <input value="<?php echo $student_details['mother_employer'] ?>" disabled type="text" class="form-control" name="mother_employer" id="student_school">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-lg-6">
+                    <label for="inputCity">Company Address</label>
+                    <input value="<?php echo $student_details['mother_company'] ?>" disabled type="text" class="form-control" name="mother_company" id="student_school">
+                </div>
+
+                <div class="form-group col-lg-6">
+                    <label for="inputCity">Occupation*</label>
+                    <input value="<?php echo $student_details['mother_occupation'] ?>" disabled type="text" class="form-control" name="mother_occupation" id="student_school">
+                </div>
+                <div class="form-group col-lg-6">
+                    <label for="inputCity">Gross Salary*</label>
+                    <input value="<?php echo $student_details['mother_salary'] ?>" disabled type="text" class="form-control" name="mother_salary" value="$" id="student_school">
+                </div>
+                <div class="form-group col-lg-6">
+                    <label for="inputCity">Other Salary*</label>
+                    <input value="<?php echo $student_details['mother_other'] ?>" disabled type="text" class="form-control" name="mother_other" value="$" id="student_school">
+                </div>
+            </div>
+        </section>
+
+        <nav>
+            <button class="previous" id="previous" onclick="displayPrevious()">Previous</button>
+            <button class="next button-active" id="next" onclick="displayNext()">Next</button>
+        </nav>
+    </div>
+
+
 
 
     <div style="margin: 20px;"><i>
             <h2><b><?php echo $student_details['father_name'] ?> (Father)</b></h2>
         </i></div>
 
-    <table style="margin-left: 30px;">
-
-        <tr>
-            <td>NRIC:</td>
-            <td><?php echo $student_details['father_nric'] ?></td>
-        </tr>
-        <tr>
-            <td>Date of birth:</td>
-            <td><?php echo $student_details['father_dob'] ?></td>
-        </tr>
-        <tr>
-            <td>Race:</td>
-            <td><?php echo $student_details['father_race'] ?></td>
-        </tr>
-        <tr>
-            <td>Citizenship:</td>
-            <td><?php echo $student_details['father_citizenship'] ?></td>
-        </tr>
-        <tr>
-            <td>Nationality (For PR only):</td>
-            <td><?php echo $student_details['father_nationality'] ?></td>
-        </tr>
-        <tr>
-            <td>Residential Address:</td>
-            <td><?php echo $student_details['father_residential'] ?></td>
-        </tr>
-        <tr>
-            <td>Contact No.:</td>
-            <td><?php echo $student_details['father_number'] ?></td>
-        </tr>
-        <tr>
-            <td>Name of Employer:</td>
-            <td><?php echo $student_details['father_employer'] ?></td>
-        </tr>
-        <tr>
-            <td>Company Address:</td>
-            <td><?php echo $student_details['father_company'] ?></td>
-        </tr>
-        <tr>
-            <td>Occupation:</td>
-            <td><?php echo $student_details['father_occupation'] ?></td>
-        </tr>
-        <tr>
-            <td>Gross Salary:</td>
-            <td><?php echo $student_details['father_salary'] ?></td>
-        </tr>
-        <tr>
-            <td>Other Salary:</td>
-            <td><?php echo $student_details['father_other'] ?></td>
-        </tr>
-
-    </table>
 
     <div style="margin: 20px;"><i>
             <h2><b><?php echo $student_details['mother_name'] ?> (Mother)</b></h2>
         </i></div>
 
-    <table style="margin-left: 30px;">
-
-        <tr>
-            <td>NRIC:</td>
-            <td><?php echo $student_details['mother_nric'] ?></td>
-        </tr>
-        <tr>
-            <td>Date of birth:</td>
-            <td><?php echo $student_details['mother_dob'] ?></td>
-        </tr>
-        <tr>
-            <td>Race:</td>
-            <td><?php echo $student_details['mother_race'] ?></td>
-        </tr>
-        <tr>
-            <td>Citizenship:</td>
-            <td><?php echo $student_details['mother_citizenship'] ?></td>
-        </tr>
-        <tr>
-            <td>Nationality (For PR only):</td>
-            <td><?php echo $student_details['mother_nationality'] ?></td>
-        </tr>
-        <tr>
-            <td>Residential Address:</td>
-            <td><?php echo $student_details['mother_residential'] ?></td>
-        </tr>
-        <tr>
-            <td>Contact No.:</td>
-            <td><?php echo $student_details['mother_number'] ?></td>
-        </tr>
-        <tr>
-            <td>Name of Employer:</td>
-            <td><?php echo $student_details['mother_employer'] ?></td>
-        </tr>
-        <tr>
-            <td>Company Address:</td>
-            <td><?php echo $student_details['mother_company'] ?></td>
-        </tr>
-        <tr>
-            <td>Occupation:</td>
-            <td><?php echo $student_details['mother_occupation'] ?></td>
-        </tr>
-        <tr>
-            <td>Gross Salary:</td>
-            <td><?php echo $student_details['mother_salary'] ?></td>
-        </tr>
-        <tr>
-            <td>Other Salary:</td>
-            <td><?php echo $student_details['mother_other'] ?></td>
-        </tr>
-
-    </table>
 
 
     <div style="margin: 20px;"><i>
             <h2><b><?php echo $student_details['guardian_name'] ?> (Guardian if applicable)</b></h2>
         </i></div>
 
-    <table style="margin-left: 30px;">
-
-        <tr>
-            <td>NRIC:</td>
-            <td><?php echo $student_details['guardian_nric'] ?></td>
-        </tr>
-        <tr>
-            <td>Date of birth:</td>
-            <td><?php echo $student_details['guardian_dob'] ?></td>
-        </tr>
-        <tr>
-            <td>Race:</td>
-            <td><?php echo $student_details['guardian_race'] ?></td>
-        </tr>
-        <tr>
-            <td>Citizenship:</td>
-            <td><?php echo $student_details['guardian_citizenship'] ?></td>
-        </tr>
-        <tr>
-            <td>Nationality (For PR only):</td>
-            <td><?php echo $student_details['guardian_nationality'] ?></td>
-        </tr>
-        <tr>
-            <td>Residential Address:</td>
-            <td><?php echo $student_details['guardian_residential'] ?></td>
-        </tr>
-        <tr>
-            <td>Contact No.:</td>
-            <td><?php echo $student_details['guardian_number'] ?></td>
-        </tr>
-        <tr>
-            <td>Name of Employer:</td>
-            <td><?php echo $student_details['guardian_employer'] ?></td>
-        </tr>
-        <tr>
-            <td>Company Address:</td>
-            <td><?php echo $student_details['guardian_company'] ?></td>
-        </tr>
-        <tr>
-            <td>Occupation:</td>
-            <td><?php echo $student_details['guardian_occupation'] ?></td>
-        </tr>
-        <tr>
-            <td>Gross Salary:</td>
-            <td><?php echo $student_details['guardian_salary'] ?></td>
-        </tr>
-        <tr>
-            <td>Other Salary:</td>
-            <td><?php echo $student_details['guardian_other'] ?></td>
-        </tr>
-
-    </table>
 
 
     <div style="margin: 20px;"><i>
             <h2><b>Emergency Contact</b></h2>
         </i></div>
 
-    <table style="margin-left: 30px;">
-
-        <tr>
-            <td>Name:</td>
-            <td><?php echo $student_details['emergency_name'] ?></td>
-        </tr>
-        <tr>
-            <td>Relationship to student:</td>
-            <td><?php echo $student_details['emergency_relationship'] ?></td>
-        </tr>
-        <tr>
-            <td>Contact No.:</td>
-            <td><?php echo $student_details['emergency_contact'] ?></td>
-        </tr>
-
-
-    </table>
 
 
     <div style="margin: 20px;"><i>
             <h2><b>Other Family Members</b></h2>
         </i></div>
 
-    <table style="margin-left: 30px; margin-bottom: 200px;">
-
-        <tr>
-            <td>Name:</td>
-            <td><?php echo $student_details['family_name'] ?></td>
-        </tr>
-        <tr>
-            <td>Relationship to student:</td>
-            <td><?php echo $student_details['family_relationship'] ?></td>
-        </tr>
-        <tr>
-            <td>Contact No.:</td>
-            <td><?php echo $student_details['family_contact'] ?></td>
-        </tr>
-
-    </table>
 </body>
-
 <style>
     td:nth-child(odd) {
         /* text-align: right; */

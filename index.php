@@ -204,9 +204,10 @@ $date = date("Y-m-d");
                 <div class="details" style="margin-left:50px;margin-top:100px;">
                                 <h1>Feedback</h1>
                                 <p style="font-size:20px;">Send feedback to whichever department</p>
+                                <a href="feedback.php">
     
                                 <button class="btn btn-primary text-center  " type="submit" name="submit" >Send</button>
-    
+                                </a>
     
                             </div>
                 </div>
@@ -250,9 +251,9 @@ $date = date("Y-m-d");
                 <div class="details" style="margin-left:50px;margin-top:100px;">
                                 <h1>Feedback</h1>
                                 <p style="font-size:20px;">View or send feedback to other departments.</p>
-    
+                                <a href="feedback.php">
                                 <button class="btn btn-primary text-center  " type="submit" name="submit" >View</button>
-    
+                                </a>
     
                             </div>
                 </div>
@@ -295,9 +296,9 @@ $date = date("Y-m-d");
                             <div class="details" style="margin-left:50px;margin-top:150px;">
                                 <h1>Feedback</h1>
                                 <p style="font-size:20px;">Send feedback to other departments.</p>
-    
+                                <a href="feedback.php">
                                 <button class="btn btn-primary text-center  " type="submit" name="submit">View</button>
-    
+                                </a>
     
                             </div>
                         </div>
@@ -353,9 +354,9 @@ $date = date("Y-m-d");
                 <div class="details" style="margin-left:50px;margin-top:100px;">
                                 <h1>Feedback</h1>
                                 <p style="font-size:20px;">Send feedback to other departments.</p>
-    
+                                <a href="feedback.php">
                                 <button class="btn btn-primary text-center  " type="submit" name="submit" >View</button>
-    
+                                <a>
     
                             </div>
                 </div>
