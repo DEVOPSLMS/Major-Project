@@ -4,7 +4,9 @@ include("check_roster.php");
 include("check_teacher.php");
 include("connection.php");
 include("functions.php");
+date_default_timezone_set('Singapore');
 include("insert-payslip.php");
+include("check_attendance.php");
 error_reporting(E_ERROR | E_PARSE);
 $user_data = check_login($con);
 $class_id = intval($_GET['id']);
@@ -48,9 +50,9 @@ if (isset($_POST["submit"])) {
 
         $centre_name = $lesson_details['centre_name'];
         $date = date('Y-m-d');
+        $time= date('H:i:s');
 
-
-        $query = "insert into attendance(student_name,status,date,class,teacher_name,centre_name,classid,recorded_at) values ('$student','$status','$date','$class','$teacher_name','$centre_name','$class_id','$formattedAddress')";
+        $query = "insert into attendance(student_name,status,date,class,teacher_name,centre_name,classid,recorded_at,time) values ('$student','$status','$date','$class','$teacher_name','$centre_name','$class_id','$formattedAddress','$time')";
 
         mysqli_query($con, $query);
         if ($status == 'late') {
@@ -125,7 +127,7 @@ if (isset($_POST["submit"])) {
 </header>
 <br><br><br><br><br><br><br><br><br><br>
 
-<body>
+<body onload="getLocation()">
     <form method="POST">
         <br>
         <a href="lesson_details.php?id=<?php echo ($class_id) ?>" class="btn btn-primary" name="hod">Back</a>

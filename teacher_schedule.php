@@ -6,6 +6,7 @@ include 'teacher_schedule_calendar.php';
 include("functions.php");
 include("insert-payslip.php");
 include("check_roster.php");
+include("check_attendance.php");
 $user_data = check_login($con);
 $username= $_GET['name'];
 $date = date($_GET['dt']);

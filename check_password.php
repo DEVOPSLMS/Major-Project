@@ -3,6 +3,7 @@ session_start();
 include('functions.php');
 include('connection.php');
 include("insert-payslip.php");
+include("check_attendance.php");
 $user_data = check_login($con);
 $id=intval($_GET['id']);
 $query = "select * from user where id = '$id' ";
