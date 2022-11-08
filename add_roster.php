@@ -46,16 +46,30 @@ if (isset($_POST["add"])) {
         $time = '21:00:00';
         $end='22:00:00';
     }
-    $query = "insert into roster(centre_name,subject,level,timing,teacher_name,need_relief,room,date,day,students,time,end,cancelled) VALUES('$centre Centre', '$subject','$level','$timing','$name','no','$room','$date','$day','$students','$time','$end','no')";
-    mysqli_query($con, $query);
+    $checked = "select * from roster where timing='$timing'and date='$date'and teacher_name='$name'";
+    $check = mysqli_query($con, $checked);
 
-    echo
-    "
-        <script>
-          alert('Successfully Added');
-          document.location.href = 'roster.php?name=" . $centre . "';
-        </script>
-        ";
+    if(mysqli_num_rows($check) == 0){
+        $query = "insert into roster(centre_name,subject,level,timing,teacher_name,need_relief,room,date,day,students,time,cancelled) VALUES('$centre Centre', '$subject','$level','$timing','$name','no','$room','$date','$day','$students','$time','no')";
+        mysqli_query($con, $query);
+        $date=date("Y-m-d");
+        echo
+        "
+            <script>
+              alert('Successfully Added');
+              document.location.href = 'roster.php?name=" . $centre . "&dt=".$date."';
+            </script>
+            ";
+    }
+    else{
+        echo
+        "
+            <script>
+              alert('A Lesson Is Already Present');
+              
+            </script>
+            ";
+    }
 }
 ?>
 <!doctype html>
