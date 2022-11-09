@@ -7,6 +7,8 @@ include("functions.php");
 date_default_timezone_set('Singapore');
 include("insert-payslip.php");
 include("check_attendance.php");
+include("add_level.php");
+include("check_withdrawl.php");
 error_reporting(E_ERROR | E_PARSE);
 $user_data = check_login($con);
 $class_id = intval($_GET['id']);

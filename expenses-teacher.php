@@ -6,6 +6,8 @@ include("connection.php");
 include("functions.php");
 include("check_attendance.php");
 include("insert-payslip.php");
+include("add_level.php");
+include("check_withdrawl.php");
 $user_data = check_login($con);
 $username=$user_data['username'];
 if (isset($_POST["submit"])) {

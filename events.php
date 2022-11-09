@@ -7,6 +7,8 @@ include("functions.php");
 include("check_roster.php");
 include("insert-payslip.php");
 include("check_attendance.php");
+include("add_level.php");
+include("check_withdrawl.php");
 $user_data = check_login($con);
     $date = date($_GET['dt']);
     $calendar = new Calendar($date);

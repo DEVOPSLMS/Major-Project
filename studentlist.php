@@ -5,6 +5,8 @@ include("connection.php");
 include("functions.php");
 include("check_teacher.php");
 include("insert-payslip.php");
+include("add_level.php");
+include("check_withdrawl.php");
 $user_data = check_login($con);
 if (!isset($_GET['centre']) && !isset($_GET['primary'])&&!isset($_GET['search'])) {
     $student = mysqli_query($con, "SELECT * FROM student WHERE status='Enrolled' ");

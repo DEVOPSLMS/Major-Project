@@ -6,6 +6,8 @@ include("connection.php");
 include("functions.php");
 include("insert-payslip.php");
 include("check_attendance.php");
+include("add_level.php");
+include("check_withdrawl.php");
 $user_data = check_login($con);
 $id = $_GET['id'];
 $roster = mysqli_query($con, "SELECT * FROM roster WHERE id='$id' ");

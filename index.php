@@ -6,6 +6,8 @@ include("connection.php");
 include_once("functions.php");
 include("insert-payslip.php");
 include("check_attendance.php");
+include("add_level.php");
+include("check_withdrawl.php");
 $user_data = check_login($con);
 $date = date("Y-m-d");
 ?>

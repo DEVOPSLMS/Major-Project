@@ -5,7 +5,8 @@ include("connection.php");
 include("functions.php");
 include("check_teacher.php");
 include("insert-payslip.php");
-
+include("add_level.php");
+include("check_withdrawl.php");
 include("check_attendance.php");
 $user_data = check_login($con);
 $student_id = $_GET['studentid'];

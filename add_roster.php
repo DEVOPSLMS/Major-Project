@@ -5,7 +5,9 @@ include("check_teacher.php");
 include("connection.php");
 include("functions.php");
 include("insert-payslip.php");
+
 include("check_attendance.php");
+
 $user_data = check_login($con);
 $string = strval($_GET['name']);
 $centre = str_replace("-", " ", $string);
