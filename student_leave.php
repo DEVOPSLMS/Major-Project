@@ -6,6 +6,8 @@ include("functions.php");
 include("check_teacher.php");
 include("insert-payslip.php");
 include("check_attendance.php");
+include("add_level.php");
+include("check_withdrawl.php");
 $user_data = check_login($con);
 $id = intval($_GET['id']);
 error_reporting(E_ERROR | E_PARSE);

@@ -6,6 +6,8 @@ include("functions.php");
 include("check_teacher.php");
 include("insert-payslip.php");
 include("check_attendance.php");
+include("add_level.php");
+include("check_withdrawl.php");
 $user_data = check_login($con);
 if (isset($_POST['submit'])) {
   $id = $_GET['id'];
@@ -17,11 +19,10 @@ if (isset($_POST['submit'])) {
   $level = $details['student_level'];
   $day = $_POST['day'];
   $username = $user_data['username'];
-
-  $query = "insert into withdrawl(student_name,centre_name,level,last_day,parent_name) VALUES('$student_name','$centre','$level','$day','$username')";
+  $date=date("Y-m-d");
+  $query = "insert into withdrawl(student_name,centre_name,level,last_day,parent_name,date) VALUES('$student_name','$centre','$level','$day','$username','$date')";
   mysqli_query($con, $query);
-  $sql = ("UPDATE  student SET `status`='Withdrawn' WHERE id = '$id' ");
-  mysqli_query($con, $sql);
+
   echo
   "
         <script>

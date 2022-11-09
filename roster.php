@@ -6,6 +6,7 @@ include("connection.php");
 include("functions.php");
 include 'Calendar.php';
 include("check_attendance.php");
+
 date_default_timezone_set('Singapore');
 $user_data = check_login($con);
 $string = strval($_GET['name']);

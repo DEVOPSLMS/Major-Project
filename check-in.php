@@ -6,6 +6,8 @@ include("functions.php");
 include("check_teacher.php");
 include("check_attendance.php");
 include("insert-payslip.php");
+include("add_level.php");
+include("check_withdrawl.php");
 $a = @unserialize(file_get_contents('http://ip-api.com/php/'));
 date_default_timezone_set('Singapore');
 $recorded = $a['zip'];

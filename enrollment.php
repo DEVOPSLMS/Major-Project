@@ -6,6 +6,8 @@ include("functions.php");
 include("check_roster.php");
 include("insert-payslip.php");
 include("check_attendance.php");
+include("add_level.php");
+include("check_withdrawl.php");
 $user_data = check_login($con);
 if (isset($_POST["submit"])) {
     $student_name = $_POST["student_name"];
