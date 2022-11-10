@@ -8,12 +8,23 @@ include("insert-payslip.php");
 include("check_attendance.php");
 include("add_level.php");
 include("check_withdrawl.php");
+include("check_recurring_roster.php");
 $user_data = check_login($con);
 $string = strval($_GET['name']);
 $centre = str_replace("-", " ", $string);
 
 
+
 if (isset($_POST["add"])) {
+
+    // $now = date("Y-m-d");
+    // $date = new DateTime($now);
+    // $date->modify('next thursday');
+    // echo $date->format('Y-m-d');
+
+    // $startdate = strtotime("Thursday");
+    // $enddate = strtotime("+6 weeks", $startdate);
+    // echo date('Y-m-d', $startdate);
 
     $name = $_POST["teacher_name"];
     $centre_name = $_POST['centre_name'];
@@ -54,6 +65,14 @@ if (isset($_POST["add"])) {
         $query = "insert into recurring(centre_name,subject,level,timing,teacher_name,room,day,students,time,end) VALUES('$centre_name', '$subject','$level','$timing','$name','$room','$day','$students','$time','$end')";
         mysqli_query($con, $query);
         $date = date("Y-m-d");
+        
+        $datelate = new DateTime($date);
+        $datelate = date_modify($datelate, $day);
+        $datelate = date_format($datelate, 'Y-m-d');
+        //adds on respective day
+        $current = "INSERT INTO roster(centre_name,subject,level,timing,teacher_name,need_relief,room,date,day,students,time,cancelled) VALUES('$centre_name', '$subject','$level','$timing','$name','no','$room','$datelate','$day','$students','$time','no')";
+        mysqli_query($con, $current);
+
         echo
         "
             <script>

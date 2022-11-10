@@ -4,8 +4,9 @@ include("check_teacher.php");
 include("check_roster.php");
 include("connection.php");
 include("functions.php");
-include 'Calendar.php';
+include('Calendar.php');
 include("check_attendance.php");
+include("check_recurring_roster.php");
 
 date_default_timezone_set('Singapore');
 $user_data = check_login($con);
@@ -188,6 +189,7 @@ $students = mysqli_query($con, $query);
 
             <div class="content home">
 
+            <a class="btn btn-primary  " id="add" style="width:100%;" type="button" href="recurring_roster.php">Add Recurring</a>
 
                 <a class="btn btn-primary  " id="add" style="width:100%;" type="button" href="add_roster.php?name=<?php echo $centre ?>">Add Lesson</a>
                 <br>
