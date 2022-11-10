@@ -8,6 +8,7 @@ include("insert-payslip.php");
 include("check_attendance.php");
 include("add_level.php");
 include("check_withdrawl.php");
+include("check_recurring_roster.php");
 $user_data = check_login($con);
 $username = $user_data['username'];
 error_reporting(E_ERROR | E_PARSE);

@@ -8,6 +8,7 @@ include("insert-payslip.php");
 include("check_attendance.php");
 include("add_level.php");
 include("check_withdrawl.php");
+include("check_recurring_roster.php");
 $user_data = check_login($con);
 $query = "select * from user where role = 'teacher' ";
 $teacher = mysqli_query($con, $query);

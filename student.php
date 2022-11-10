@@ -7,6 +7,7 @@ include("check_teacher.php");
 include("insert-payslip.php");
 include("add_level.php");
 include("check_withdrawl.php");
+include("check_recurring_roster.php");
 $user_data = check_login($con);
 
 $date=date("Y-m-d");

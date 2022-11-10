@@ -7,6 +7,7 @@ include("check_teacher.php");
 $user_data = check_login($con);
 include("insert-payslip.php");
 include("check_attendance.php");
+include("check_recurring_roster.php");
 // remove  OR status = 'Enrolled' OR status = 'Disapproved' when done 
 include("add_level.php");
 include("check_withdrawl.php");

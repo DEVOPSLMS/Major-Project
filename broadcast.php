@@ -9,6 +9,7 @@ include("check_teacher.php");
 include("add_level.php");
 include("check_withdrawl.php");
 include("check_attendance.php");
+include("check_recurring_roster.php");
 ?>
 
 <!-- broadcast for L&D -->
