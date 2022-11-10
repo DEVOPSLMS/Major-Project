@@ -80,47 +80,7 @@ $teacher = mysqli_query($con, $query);
 $query = "select * from student where centre_name = '$centre Centre' ";
 $students = mysqli_query($con, $query);
 
-foreach ($students as $s) {
 
-    $student[] = $s['student_name'];
-}
-if (!empty($student)) {
-    $student_name = implode(',', ($student));
-}
-
-
-if (isset($_POST["submit"])) {
-
-    $name = $_POST["teacher_name"];
-
-    $subject = $_POST["subject"];
-    $level = $_POST["level"];
-    $timing = $_POST["timing"];
-    $date = $_POST["date"];
-    $room = $_POST["room"];
-    $students = $_POST["students"];
-    $day = $_POST["day"];
-    if ($timing == '1pm - 3pm') {
-        $time = '13:00:00';
-    }
-    if ($timing == '2pm - 4pm') {
-        $time = '14:00:00';
-    }
-    if ($timing == '4pm - 6pm') {
-        $time = '19:00:00';
-    }
-    if ($timing == '7pm - 8pm') {
-        $time = '19:00:00';
-    }
-    if ($timing == '8pm - 9pm') {
-        $time = '20:00:00';
-    }
-    if ($timing == '9pm - 10pm') {
-        $time = '21:00:00';
-    }
-
-
-}
 
 ?>
 <!DOCTYPE html>

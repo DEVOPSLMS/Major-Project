@@ -6,6 +6,8 @@ include("connection.php");
 include("functions.php");
 include("insert-payslip.php");
 include("check_attendance.php");
+include("add_level.php");
+include("check_withdrawl.php");
 $user_data = check_login($con);
 $string = strval($_GET['name']);
 $centre = str_replace("-", " ", $string);
@@ -270,10 +272,10 @@ if (isset($_POST["add"])) {
                                                                                                                                                                     $query = "select * from student where centre_name = '$centre_name'and student_level='$level'and status='Enrolled' ";
                                                                                                                                                                     $students = mysqli_query($con, $query);
                                                                                                                                                                     foreach ($students as $s) {
-                                                                                                                                                                        $student[] = $s['student_name'];
+                                                                                                                                                                        $st[] = $s['student_name'];
                                                                                                                                                                     }
-                                                                                                                                                                    if (!empty($student)) {
-                                                                                                                                                                        $student_name = implode(',', ($student));
+                                                                                                                                                                    if (!empty($st)) {
+                                                                                                                                                                        $student_name = implode(',', ($st));
                                                                                                                                                                         echo $student_name;
                                                                                                                                                                     } else {
                                                                                                                                                                         echo ('No Student For This Level And Centre.');
@@ -288,9 +290,9 @@ if (isset($_POST["add"])) {
                     $query = "select * from student where centre_name = '$centre Centre'and student_level='$level'and status='Enrolled' ";
                     $students = mysqli_query($con, $query);
                     foreach ($students as $s) {
-                        $student[] = $s['student_name'];
+                        $st[] = $s['student_name'];
                     }
-                    if (!empty($student) && !empty($teachers)) {
+                    if (!empty($st) && !empty($teachers)) {
                         echo ('<button type="submit" name="add" class="btn btn-primary">Submit</button>');
                     }
                 } ?>
@@ -298,7 +300,7 @@ if (isset($_POST["add"])) {
 
             </form>
             <?php
-            if (empty($student) || empty($teachers)) {
+            if (empty($st) || empty($teachers)) {
                 echo ('<form method="POST"><button type="submit" name="back" style="width:100%;font-size:15px;"class="btn">Go Back</button></form>');
             }
             ?>
