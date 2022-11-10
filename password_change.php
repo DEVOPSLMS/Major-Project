@@ -14,6 +14,18 @@ if(isset($_POST['submit'])){
         echo("<script>alert('Passwords Does Not Match')</script>");
     }
     else{
+        $uppercase = preg_match('@[A-Z]@', $password);
+        $lowercase = preg_match('@[a-z]@', $password);
+        $number    = preg_match('@[0-9]@', $password);
+        $specialChars = preg_match('@[^\w]@', $password);
+    }
+    
+    if (!$uppercase || !$lowercase || !$number || !$specialChars || strlen($password) < 8) {
+        $errs_password = 'Password should be at least 8 characters in length and should include at least one upper case letter, one number, and one special character.';
+      $errs_confirm = 'Password should be at least 8 characters in length and should include at least one upper case letter, one number, and one special character.';
+        
+      }
+    else{
 
         $password = password_hash($_POST["new_password"], PASSWORD_DEFAULT);
         $sql = "UPDATE `user` SET `password`='$password' WHERE id=$id";
@@ -54,12 +66,14 @@ if(isset($_POST['submit'])){
     <div class="form-group">
     <label>New Password</label>
     <input type="password" placeholder="Enter Password"style="height:50px;" name="new_password"class="form-control">
+    <span style="color:red;"><?php echo $errs_password ?></span>
     </div>
     <div class="form-group">
         <label>Confirm Password</label>
         <input type="password" placeholder="Confirm Password"style="height:50px;" name="check_password"class="form-control">
+        <span style="color:red;"><?php echo $errs_confirm ?></span>
         </div>
-        <button type="submit"class="btn"name="submit"style="font-size:15px;float:right;">Submit</button>
+        <button type="submit"class="btn"name="submit"style="font-size:15px;float:right;width:100%;">Submit</button>
         </form>
 </div>
 </body>

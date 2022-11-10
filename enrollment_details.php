@@ -8,6 +8,7 @@ include("insert-payslip.php");
 include("add_level.php");
 include("check_withdrawl.php");
 include("check_attendance.php");
+include("check_recurring_roster.php");
 $user_data = check_login($con);
 $student_id = $_GET['studentid'];
 
@@ -46,7 +47,7 @@ $student_details = mysqli_fetch_assoc($result);
 
     </header>
 </header>
-<br><br><br><br><br><br><br><br><br><br>
+
 <style>
     body {
         font-size: 130%;
@@ -62,7 +63,7 @@ $student_details = mysqli_fetch_assoc($result);
 
     </header>
 </header>
-<br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br>
 <style>
     .container {
         display: grid;
@@ -83,6 +84,7 @@ $student_details = mysqli_fetch_assoc($result);
         padding: 0;
         display: flex;
         align-items: center;
+        margin-left:35%;
     }
 
     .nav button {
@@ -106,11 +108,13 @@ $student_details = mysqli_fetch_assoc($result);
         cursor: pointer;
         width: 100px;
         visibility: hidden;
+
     }
 
     .button-active {
         opacity: 1 !important;
         visibility: visible;
+        
     }
 </style>
 
@@ -187,11 +191,11 @@ $student_details = mysqli_fetch_assoc($result);
         </div>
     </div>
 
-    <div class="container">
+    <div class="container-fluid">
         <nav class="nav">
-            <button class="button-active" id="r1-button" onclick="displayR1()">Student's Particulars</button>
-            <button id="r2-button" onclick="displayR2()">Father's Particulars</button>
-            <button id="r3-button" onclick="displayR3()">Mother's Particulars</button>
+            <button class="button-active" style="height:100px;"id="r1-button" onclick="displayR1()">Student's Particulars</button>
+            <button id="r2-button"style="height:100px;" onclick="displayR2()">Father's Particulars</button>
+            <button id="r3-button" style="height:100px;"onclick="displayR3()">Mother's Particulars</button>
         </nav>
 
 
@@ -399,7 +403,7 @@ $student_details = mysqli_fetch_assoc($result);
             </div>
         </section>
 
-        <nav>
+        <nav style="margin-left:42%;">
             <button class="previous" id="previous" onclick="displayPrevious()">Previous</button>
             <button class="next button-active" id="next" onclick="displayNext()">Next</button>
         </nav>
@@ -407,33 +411,6 @@ $student_details = mysqli_fetch_assoc($result);
 
 
 
-
-    <div style="margin: 20px;"><i>
-            <h2><b><?php echo $student_details['father_name'] ?> (Father)</b></h2>
-        </i></div>
-
-
-    <div style="margin: 20px;"><i>
-            <h2><b><?php echo $student_details['mother_name'] ?> (Mother)</b></h2>
-        </i></div>
-
-
-
-    <div style="margin: 20px;"><i>
-            <h2><b><?php echo $student_details['guardian_name'] ?> (Guardian if applicable)</b></h2>
-        </i></div>
-
-
-
-    <div style="margin: 20px;"><i>
-            <h2><b>Emergency Contact</b></h2>
-        </i></div>
-
-
-
-    <div style="margin: 20px;"><i>
-            <h2><b>Other Family Members</b></h2>
-        </i></div>
 
 </body>
 <style>

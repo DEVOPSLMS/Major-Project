@@ -33,7 +33,7 @@ foreach ($result as $a) {
     $query2 = "select * from roster where date >='$last'";
     $result2 = mysqli_query($con, $query2);
     foreach ($result2 as $b) {
-        echo$b['id'];
+       
         $id2=$b['id'];
         $student = explode(",", $b['students']);
         $new_arr = array();

@@ -7,6 +7,7 @@ include("functions.php");
 include("insert-payslip.php");
 include("check_withdrawl.php");
 include("check_attendance.php");
+include("check_recurring_roster.php");
 include("add_level.php");
 $user_data = check_login($con);
 $string = strval($_GET['name']);
