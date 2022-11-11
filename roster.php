@@ -11,11 +11,14 @@ include("check_recurring_roster.php");
 date_default_timezone_set('Singapore');
 $user_data = check_login($con);
 $string = strval($_GET['name']);
-$centre = str_replace("-", " ", $string);
+$centre = str_replace("%20", " ", $string);
 
 $date = date($_GET['dt']);
 $calendar = new Calendar($date);
-$roster = mysqli_query($con, "SELECT * FROM roster WHERE centre_name='$centre Centre' ");
+
+$q= "SELECT * FROM roster WHERE centre_name= '$centre'";
+
+$roster = mysqli_query($con, $q);
 
 
 foreach ($roster as $rosters) {
@@ -204,9 +207,10 @@ $students = mysqli_query($con, $query);
 
 
 
-
             </div>
         </div>
+      
+
     </body>
 
 </html>

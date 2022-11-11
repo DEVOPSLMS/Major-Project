@@ -45,30 +45,19 @@
   <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   <?php
-  $arr = array("string1", "string2", "string3", "string4", "string5");
-  $new_arr = array();
-  foreach ($arr as $value) {
-    if ($value == "string3") {
-      continue;
-    } else {
-      $new_arr[] = $value;
+  include("connection.php");
+  $query="select * from recurring";
+  $result=mysqli_query($con,$query);
+  $colors = array("red", "green", "blue", "yellow");
+
+
+  foreach($result as $b){
+    foreach ($colors as $value) {
+      echo "$value <br>";
     }
   }
-  echo implode(",", $new_arr);
-  $now = date("Y-m-d");
-  $date = new DateTime($now);
-  $date->modify('next tuesday');
-  echo $date->format('Y-m-d');
-  ?>
-  <script>
-    $(function() {
-      $("#datepicker").datepicker({
-        minDate: 7,
-        maxDate: "+1M"
-      });
-    });
-  </script>
-  <p>Date: <input type="text"class="form-control" id="datepicker"></p>
+
+?>
 
 </body>
 

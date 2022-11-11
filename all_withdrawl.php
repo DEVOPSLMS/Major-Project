@@ -50,13 +50,12 @@ $user_data = check_login($con);
         <form action="" method="get"id="filter-posts-form" onchange="this.form.submit()">
             <select class="form-control" id="centre" style="width:100%;height:50px;" required name="centre">
                 <option selected>Location</option>
-                <option value="Hougang Centre">Hougang Centre</option>
-                <option value="Sengkang Centre">Sengkang Centre</option>
-                <option value="Punggol Centre">Punggol Centre</option>
-                <option value="Fernvale Centre">Fernvale Centre</option>
-                <option value="Teck Ghee Centre">Teck Ghee Centre</option>
-                <option value="Kolam Ayer Centre">Kolam Ayer Centre</option>
-
+                <?php
+                            $q = "select * from centre";
+                            $all_centre = mysqli_query($con, $q);
+                            foreach ($all_centre as $a) : ?>
+                                <option value="<?php echo $a['centre_name']?>"><?php echo $a['centre_name']?></option>
+                            <?php endforeach ?>
             </select>
         </form>
         <br><br><br>

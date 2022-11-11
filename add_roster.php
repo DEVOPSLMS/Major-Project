@@ -53,7 +53,7 @@ if (isset($_POST["add"])) {
     $check = mysqli_query($con, $checked);
 
     if(mysqli_num_rows($check) == 0){
-        $query = "insert into roster(centre_name,subject,level,timing,teacher_name,need_relief,room,date,day,students,time,cancelled) VALUES('$centre Centre', '$subject','$level','$timing','$name','no','$room','$date','$day','$students','$time','no')";
+        $query = "insert into roster(centre_name,subject,level,timing,teacher_name,need_relief,room,date,day,students,time,end,cancelled) VALUES('$centre', '$subject','$level','$timing','$name','no','$room','$date','$day','$students','$time','$end','no')";
         mysqli_query($con, $query);
         $date=date("Y-m-d");
         echo
@@ -183,7 +183,7 @@ function goBack() {
                                     $teachList = explode(", ", $t['teach']);
                                     $preferredList = explode(", ", $t['preferred']);
                                     
-                                    if (in_array("$centre Centre", $preferredList)) {
+                                    if (in_array("$centre", $preferredList)) {
                                         if (in_array($day, $teachList) || in_array($add_day, $teachList)) {
                                             $name = $t['username'];
                                             echo ('<option value="' . $name . '">' . $name . '</option>');
@@ -252,10 +252,10 @@ function goBack() {
                         <label> Students </label>
 
 
-                        <textarea type="text" style="text-transform: lowercase;"class="form-control" id="staticEmail" style="font-size:100%;" name="students"><?php if (isset($_POST['submit'])) { $date = $_POST['date']; $level = $_POST['level']; $day = date('l', strtotime($date));$query = "select * from student where centre_name = '$centre Centre'and student_level='$level'and status='Enrolled' "; $students = mysqli_query($con, $query);foreach ($students as $s) { $st[] = $s['student_name'];}if (!empty($st)) {$student_name = implode(',', ($st));echo$student_name;}else{echo('No Student For This Level And Centre.');}} ?></textarea>
+                        <textarea type="text" style="text-transform: lowercase;"class="form-control" id="staticEmail" style="font-size:100%;" name="students"><?php if (isset($_POST['submit'])) { $date = $_POST['date']; $level = $_POST['level']; $day = date('l', strtotime($date));$query = "select * from student where centre_name = '$centre'and student_level='$level'and status='Enrolled' "; $students = mysqli_query($con, $query);foreach ($students as $s) { $st[] = $s['student_name'];}if (!empty($st)) {$student_name = implode(',', ($st));echo$student_name;}else{echo('No Student For This Level And Centre.');}} ?></textarea>
                     </div>
                 </div>
-                <?php if (isset($_POST['submit'])) { $date = $_POST['date']; $level = $_POST['level']; $day = date('l', strtotime($date));$query = "select * from student where centre_name = '$centre Centre'and student_level='$level'and status='Enrolled' "; $students = mysqli_query($con, $query);foreach ($students as $s) { $st[] = $s['student_name'];}
+                <?php if (isset($_POST['submit'])) { $date = $_POST['date']; $level = $_POST['level']; $day = date('l', strtotime($date));$query = "select * from student where centre_name = '$centre'and student_level='$level'and status='Enrolled' "; $students = mysqli_query($con, $query);foreach ($students as $s) { $st[] = $s['student_name'];}
                 if (!empty($st)&&!empty($teachers)) 
                 {
                     echo('<button type="submit" name="add" class="btn btn-primary">Submit</button>');

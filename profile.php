@@ -82,12 +82,12 @@ if (isset($_POST["submit"])) {
 }
 
 
-if(isset($_POST['profile'])){
+if (isset($_POST['profile'])) {
 
-  $email=$_POST['email'];
-  $number=$_POST['number'];
+  $email = $_POST['email'];
+  $number = $_POST['number'];
 
-  $relief=$_POST['relief'];
+  $relief = $_POST['relief'];
   foreach ($_POST['teach'] as $teach) {
 
     $teachList = implode(', ', $_POST['teach']);
@@ -100,23 +100,22 @@ if(isset($_POST['profile'])){
   $query2 = "select * from user where email = '$email' limit 1";
   $see_email = mysqli_query($con, $query2);
   $details = mysqli_fetch_assoc($see_email);
-    if ($see_email && mysqli_num_rows($see_email) > 0 && $details['id'] != $id) {
-      echo("<script>
+  if ($see_email && mysqli_num_rows($see_email) > 0 && $details['id'] != $id) {
+    echo ("<script>
       alert('Email Is Already Been Used!');
       </script>");
-    }
-    else{
-      $sql = "UPDATE `user` SET `email`='$email',`number`='$number',`preferred`='$preferredList',`teach`='$teachList',`relief`='$relief'WHERE id=$id";
-      mysqli_query($con, $sql);
-      echo
-            "
+  } else {
+    $sql = "UPDATE `user` SET `email`='$email',`number`='$number',`preferred`='$preferredList',`teach`='$teachList',`relief`='$relief'WHERE id=$id";
+    mysqli_query($con, $sql);
+    echo
+    "
           <script>
             alert('Successfully Updated');
             document.location.href = 'profile.php';
           </script>
           ";
-    }
   }
+}
 
 ?>
 <!DOCTYPE html>
@@ -301,7 +300,7 @@ if(isset($_POST['profile'])){
                   <a class="btn " style="font-size:15px;" data-toggle="modal" data-target="#studentaddmodal">Edit</a>
                 </div>
                 <div class="col-sm-6">
-                  <a class="btn  " href="check_password.php?id=<?php echo($id)?>"style="font-size:15px;float:right" >Change Password</a>
+                  <a class="btn  " href="check_password.php?id=<?php echo ($id) ?>" style="font-size:15px;float:right">Change Password</a>
                 </div>
               </div>
             </div>
@@ -332,7 +331,7 @@ if(isset($_POST['profile'])){
 
           <div class="modal-body" style="font-size:20px;">
 
-           
+
 
 
 
@@ -351,111 +350,111 @@ if(isset($_POST['profile'])){
 
 
             </div>
-<?php  if($user_details['role'] =='teacher') {?>
-            <div class="form-group">
-              <label> Preferred Centre </label>
-              <br>
-              <div class="form-check form-check-inline">
-
-                <input class="form-check-input" name="preferred[]" type="checkbox" id="inlineCheckbox1" value="Hougang Centre"<?php if(in_array('Hougang Centre',$centre_names)){echo("checked");}?>>
-                <label class="form-check-label" for="inlineCheckbox1">Hougang Centre</label>
-              </div>
-
-              <div class="form-check form-check-inline">
-
-                <input class="form-check-input" name="preferred[]" type="checkbox" id="inlineCheckbox1" value="Sengkang Centre"<?php if(in_array('Sengkang Centre',$centre_names)){echo("checked");}?>>
-                <label class="form-check-label" for="inlineCheckbox1">Sengkang Centre</label>
-              </div>
-              <div class="form-check form-check-inline">
-
-                <input class="form-check-input" name="preferred[]" type="checkbox" id="inlineCheckbox1" value="Punggol Centre"<?php if(in_array('Punggol Centre',$centre_names)){echo("checked");}?>>
-                <label class="form-check-label" for="inlineCheckbox1">Punggol Centre</label>
-              </div>
-              <div class="form-check form-check-inline">
-
-                <input class="form-check-input" name="preferred[]" type="checkbox" id="inlineCheckbox1" value="Fernvale Centre"<?php if(in_array('Fernvale Centre',$centre_names)){echo("checked");}?>>
-                <label class="form-check-label" for="inlineCheckbox1">Fernvale Centre</label>
-              </div>
-              <div class="form-check form-check-inline">
-
-                <input class="form-check-input" name="preferred[]" type="checkbox" id="inlineCheckbox1" value="Teck Ghee Centre"<?php if(in_array('Teck Ghee Centre',$centre_names)){echo("checked");}?>>
-                <label class="form-check-label" for="inlineCheckbox1">Teck Ghee Centre</label>
-              </div>
-              <div class="form-check form-check-inline">
-
-                <input class="form-check-input" name="preferred[]" type="checkbox" id="inlineCheckbox1" value="Kolam Ayer Centre"<?php if(in_array('Kolam Ayer Centre',$centre_names)){echo("checked");}?>>
-                <label class="form-check-label" for="inlineCheckbox1">Kolam Ayer Centre</label>
-              </div>
-
-
-            </div>
-            <?php }?>
-            <?php  if($user_details['role'] =='teacher') {?>
-            <div class="form-group">
-              <label> Avaliability </label>
-
-              <div class="form-check form-check-inline">
-
-                <input class="form-check-input" name="teach[]" type="checkbox" id="inlineCheckbox1" value="Weekdays"<?php if(in_array('Weekdays',$teach_names)){echo("checked");}?>>
-                <label class="form-check-label" for="inlineCheckbox1">Weekdays</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" name="teach[]" type="checkbox" id="inlineCheckbox2" value="Weekend"<?php if(in_array('Weekend',$teach_names)){echo("checked");}?>>
-                <label class="form-check-label" for="inlineCheckbox2">Weekend</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" name="teach[]" type="checkbox" id="inlineCheckbox2" value="Monday"<?php if(in_array('Monday',$teach_names)){echo("checked");}?>>
-                <label class="form-check-label" for="inlineCheckbox2">Monday</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" name="teach[]" type="checkbox" id="inlineCheckbox2" value="Tuesday"<?php if(in_array('Tuesday',$teach_names)){echo("checked");}?>>
-                <label class="form-check-label" for="inlineCheckbox2">Tuesday</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" name="teach[]" type="checkbox" id="inlineCheckbox2" value="Wednesday"<?php if(in_array('Wednesday',$teach_names)){echo("checked");}?>>
-                <label class="form-check-label" for="inlineCheckbox2">Wednesday</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" name="teach[]" type="checkbox" id="inlineCheckbox2" value="Thursday"<?php if(in_array('Thursday',$teach_names)){echo("checked");}?>>
-                <label class="form-check-label" for="inlineCheckbox2">Thursday</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" name="teach[]" type="checkbox" id="inlineCheckbox2" value="Friday"<?php if(in_array('Friday',$teach_names)){echo("checked");}?>>
-                <label class="form-check-label" for="inlineCheckbox2">Friday</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" name="teach[]" type="checkbox" id="inlineCheckbox2" value="Saturday"<?php if(in_array('Saturday',$teach_names)){echo("checked");}?>>
-                <label class="form-check-label" for="inlineCheckbox2">Saturday</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" name="teach[]" type="checkbox" id="inlineCheckbox2" value="Sunday"<?php if(in_array('Sunday',$teach_names)){echo("checked");}?>>
-                <label class="form-check-label" for="inlineCheckbox2">Sunday</label>
-              </div>
-
-
-            </div>
-            <?php }?>
-            <?php  if($user_details['role'] =='teacher') {?>
+            <?php if ($user_details['role'] == 'teacher') { ?>
               <div class="form-group">
-              <label for="inputEmail4" style="font-size:20px;">Can Relief</label>
-                        <select class="form-control" style="height:50px;font-size:20px;" required name="relief">
-                            <?php if($user_details['relief']=='yes'){
-                              echo(" <option value='yes'>Yes</option>");
-                              echo(" <option value='no'>No</option>");
-                            }
-                            ?>
-                       <?php if($user_details['relief']=='no'){
-                             
-                              echo(" <option value='no'>No</option>");
-                              echo(" <option value='yes'>Yes</option>");
-                            }
-                            ?>
+                <label> Preferred Centre </label>
+                <br>
+                <?php 
+                $q="select * from centre";
+                $all_centre=mysqli_query($con,$q);
+                foreach ($all_centre as $a):?>
+                <div class="form-check form-check-inline">
 
-                            
+                  <input class="form-check-input" name="preferred[]" type="checkbox" id="inlineCheckbox1" value="<?php echo $a['centre_name']?>" <?php if (in_array($a['centre_name'], $centre_names)) {
+                                                                                                                                    echo ("checked");
+                                                                                                                                  } ?>>
+                  <label class="form-check-label" for="inlineCheckbox1"><?php echo $a['centre_name']?></label>
+                </div>
 
-                        </select>
+               <?php endforeach?>
+
+
               </div>
-              <?php }?>
+            <?php } ?>
+            <?php if ($user_details['role'] == 'teacher') { ?>
+              <div class="form-group">
+                <label> Avaliability </label>
+
+                <div class="form-check form-check-inline">
+
+                  <input class="form-check-input" name="teach[]" type="checkbox" id="inlineCheckbox1" value="Weekdays" <?php if (in_array('Weekdays', $teach_names)) {
+                                                                                                                          echo ("checked");
+                                                                                                                        } ?>>
+                  <label class="form-check-label" for="inlineCheckbox1">Weekdays</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" name="teach[]" type="checkbox" id="inlineCheckbox2" value="Weekend" <?php if (in_array('Weekend', $teach_names)) {
+                                                                                                                        echo ("checked");
+                                                                                                                      } ?>>
+                  <label class="form-check-label" for="inlineCheckbox2">Weekend</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" name="teach[]" type="checkbox" id="inlineCheckbox2" value="Monday" <?php if (in_array('Monday', $teach_names)) {
+                                                                                                                        echo ("checked");
+                                                                                                                      } ?>>
+                  <label class="form-check-label" for="inlineCheckbox2">Monday</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" name="teach[]" type="checkbox" id="inlineCheckbox2" value="Tuesday" <?php if (in_array('Tuesday', $teach_names)) {
+                                                                                                                        echo ("checked");
+                                                                                                                      } ?>>
+                  <label class="form-check-label" for="inlineCheckbox2">Tuesday</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" name="teach[]" type="checkbox" id="inlineCheckbox2" value="Wednesday" <?php if (in_array('Wednesday', $teach_names)) {
+                                                                                                                          echo ("checked");
+                                                                                                                        } ?>>
+                  <label class="form-check-label" for="inlineCheckbox2">Wednesday</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" name="teach[]" type="checkbox" id="inlineCheckbox2" value="Thursday" <?php if (in_array('Thursday', $teach_names)) {
+                                                                                                                          echo ("checked");
+                                                                                                                        } ?>>
+                  <label class="form-check-label" for="inlineCheckbox2">Thursday</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" name="teach[]" type="checkbox" id="inlineCheckbox2" value="Friday" <?php if (in_array('Friday', $teach_names)) {
+                                                                                                                        echo ("checked");
+                                                                                                                      } ?>>
+                  <label class="form-check-label" for="inlineCheckbox2">Friday</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" name="teach[]" type="checkbox" id="inlineCheckbox2" value="Saturday" <?php if (in_array('Saturday', $teach_names)) {
+                                                                                                                          echo ("checked");
+                                                                                                                        } ?>>
+                  <label class="form-check-label" for="inlineCheckbox2">Saturday</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" name="teach[]" type="checkbox" id="inlineCheckbox2" value="Sunday" <?php if (in_array('Sunday', $teach_names)) {
+                                                                                                                        echo ("checked");
+                                                                                                                      } ?>>
+                  <label class="form-check-label" for="inlineCheckbox2">Sunday</label>
+                </div>
+
+
+              </div>
+            <?php } ?>
+            <?php if ($user_details['role'] == 'teacher') { ?>
+              <div class="form-group">
+                <label for="inputEmail4" style="font-size:20px;">Can Relief</label>
+                <select class="form-control" style="height:50px;font-size:20px;" required name="relief">
+                  <?php if ($user_details['relief'] == 'yes') {
+                    echo (" <option value='yes'>Yes</option>");
+                    echo (" <option value='no'>No</option>");
+                  }
+                  ?>
+                  <?php if ($user_details['relief'] == 'no') {
+
+                    echo (" <option value='no'>No</option>");
+                    echo (" <option value='yes'>Yes</option>");
+                  }
+                  ?>
+
+
+
+                </select>
+              </div>
+            <?php } ?>
 
 
 

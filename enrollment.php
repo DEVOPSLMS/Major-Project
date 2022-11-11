@@ -322,13 +322,14 @@ if (isset($_POST["submit"])) {
                             <div class="form-group col-lg-6">
                                 <label for="inputCity">Which Centre Do You Want To Go To</label>
                                 <select class="form-control" id="reason" name="centre_name" required>
-                                    <option selected>Choose Centre</option>
-                                    <option value="Hougang Centre">Hougang Centre</option>
-                                    <option value="Sengkang Centre">Sengkang Centre</option>
-                                    <option value="Punggol Centre">Punggol Centre</option>
-                                    <option value="Fernvale Centre">Fernvale Centre</option>
-                                    <option value="Teck Ghee Centre">Teck Ghee Centre</option>
-                                    <option value="Kolam Ayer Centre">Kolam Ayer Centre</option>
+                                    <option value="">Choose Centre</option>
+                                    <?php
+                                    $q = "select * from centre";
+                                    $all_centre = mysqli_query($con, $q); 
+                                    foreach ($all_centre as $a):?>
+                                    <option value="<?php echo $a['centre_name']?>"><?php echo $a['centre_name']?></option>
+                                    <?php endforeach?>
+                                 
 
                                 </select>
                             </div>
@@ -612,7 +613,7 @@ if (isset($_POST["submit"])) {
                             </div>
                             <div class="form-group col-lg-4">
                                 <label for="inputCity">Signature Of Parent/Legal Guardian*</label>
-                                <input type="file" class="form-control"accept=".jpg, .jpeg, .png" style="height:40px;"required>
+                                <input type="file" class="form-control" accept=".jpg, .jpeg, .png" style="height:40px;" required>
                             </div>
                             <div class="form-group col-lg-4">
                                 <label for="inputZip">Date</label>

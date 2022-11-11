@@ -283,39 +283,18 @@ if (isset($_POST["submit"])) {
 
       <label class="form-check-label" for="inlineCheckbox2">Preferred Centre(Only For Teachers)</label>
       <br>
-
+    <?php 
+    $query="select *from centre";
+    $result=mysqli_query($con,$query);
+    foreach($result as $a):
+    ?>
       <div class="form-check form-check-inline">
 
-        <input class="form-check-input" name="preferred[]" type="checkbox" id="inlineCheckbox1" value="Hougang Centre">
-        <label class="form-check-label" for="inlineCheckbox1">Hougang Centre</label>
+        <input class="form-check-input" name="preferred[]" type="checkbox" id="inlineCheckbox1" value="<?php echo$a['centre_name']?>">
+        <label class="form-check-label" for="inlineCheckbox1"><?php echo$a['centre_name']?></label>
       </div>
-
-      <div class="form-check form-check-inline">
-
-        <input class="form-check-input" name="preferred[]" type="checkbox" id="inlineCheckbox1" value="Sengkang Centre">
-        <label class="form-check-label" for="inlineCheckbox1">Sengkang Centre</label>
-        
-      </div>
-      <div class="form-check form-check-inline">
-
-        <input class="form-check-input" name="preferred[]" type="checkbox" id="inlineCheckbox1" value="Punggol Centre">
-        <label class="form-check-label" for="inlineCheckbox1">Punggol Centre</label>
-      </div>
-      <div class="form-check form-check-inline">
-
-        <input class="form-check-input" name="preferred[]" type="checkbox" id="inlineCheckbox1" value="Fernvale Centre">
-        <label class="form-check-label" for="inlineCheckbox1">Fernvale Centre</label>
-      </div>
-      <div class="form-check form-check-inline">
-
-        <input class="form-check-input" name="preferred[]" type="checkbox" id="inlineCheckbox1" value="Teck Ghee Centre">
-        <label class="form-check-label" for="inlineCheckbox1">Teck Ghee Centre</label>
-      </div>
-      <div class="form-check form-check-inline">
-
-        <input class="form-check-input" name="preferred[]" type="checkbox" id="inlineCheckbox1" value="Kolam Ayer Centre">
-        <label class="form-check-label" for="inlineCheckbox1">Kolam Ayer Centre</label>
-      </div>
+<?php endforeach;?>
+     
       <br>
       <label class="form-check-label" for="inlineCheckbox2">Avaliability(Only For Teachers)</label>
       <br>

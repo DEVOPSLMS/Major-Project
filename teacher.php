@@ -58,7 +58,7 @@ $teacher = mysqli_query($con, $query);
                             Teacher's Name: <?php echo ($t['username']) ?>
                         </div>
                         <img class="card-img-top" src="profile/<?php echo ($t['image']) ?>" style="width:350px;height:350px;" alt="Card image cap">
-                        <div class="card-body" style="height:150px;">
+                        <div class="card-body" style="height:180px;">
                             <h5 class="card-title">Preferred Centres: <?php echo ($t['preferred']) ?></h5>
                             <p class="card-text">Phone Number: <?php echo ($t['number']) ?></p>
                             <p class="card-text">Can Relief: <?php echo ($t['relief']) ?></p>
