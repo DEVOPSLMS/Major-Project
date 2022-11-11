@@ -30,8 +30,26 @@ $date = date("Y-m-d");
 
 </header>
 
+<script>
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+            x.innerHTML = "Geolocation is not supported by this browser.";
+        }
+    }
 
-<body>
+    function showPosition(position) {
+
+        var lat = position.coords.latitude;
+        var lng = position.coords.longitude;
+        var lat_details = "lat=" + lat;
+        var lng_details = "lng=" + lng;
+        document.cookie = lat_details;
+        document.cookie = lng_details;
+    }
+</script>
+<body onload="getLocation()">
     <br><br><br> <br> <br> <br> <br> <br> <br>
     <?php if ($user_data['role'] == 'teacher') {
         echo ('<div class="container-fluid">

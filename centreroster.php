@@ -12,33 +12,25 @@ include("check_recurring_roster.php");
 error_reporting(E_ERROR | E_PARSE);
 $user_data = check_login($con);
 $username = $user_data['username'];
-if($user_data['role'] != 'l'){
+if ($user_data['role'] != 'l') {
     (header('location:index.php'));
 }
 date_default_timezone_set('Singapore');
-if (isset($_POST["submit"])) {
-    $name = $_POST["name"];
-    $subject = $_POST["subject"];
-    $centre = $_POST["centre"];
-    $timing = $_POST["timing"];
-    $date = $_POST["date"];
-    $room = $_POST["room"];
-    $query = "insert into roster(centre_name,subject,level,timing,teacher_name,need_relief,room,date,day,students) VALUES('$centre', '$subject','$level','$timing','$name','no','$room','$date','$day','$students')";
-    mysqli_query($con, $query);
-
-    echo
-    "
-        <script>
-          alert('Successfully Added');
-          document.location.href = 'centreroster.php';
-        </script>
-        ";
+if (isset($_POST['submit'])) {
+    $centre = $_POST['centre'];
+    $description = $_POST['description'];
+    $query = "insert into centre (centre_name,description,name)values('$centre Centre','$description','$centre')";
+    $result = mysqli_query($con, $query);
+    echo ("<script>
+    alert('Successfully Added');
+    document.location.href = 'centreroster.php';
+  </script>");
 }
 
 
 
 
-$date=date('Y-m-d');
+$date = date('Y-m-d');
 
 $earlier = new DateTime(date("Y-m-d"));
 $later = new DateTime("2022-10-09");
@@ -82,81 +74,85 @@ $teacher = mysqli_query($con, $query);
     <body>
         <div class="container-fluid">
             <h1 class="text-center">All Centres</h1>
-            <div class="row">
-                <div class="col-lg-4 p-5">
-                    <div class="card">
-                        <div class="card-header">
-                            Hougang Centre
+            <div class="col-lg-12">
+                <button type="button" class="btn " data-toggle="modal" data-target=".bd-example-modal-lg" style="width:100%;">Add Centre</button>
+
+                <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                    <form action="" method="POST">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Add Centre</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+
+                                <div class="modal-body">
+
+                                    <label style="font-size:20px;">Centre Name(No Need To Include Centre Just The Name Etc: Pasir Ris)</label>
+                                    <input type="text" name="centre" class="form-control" required style="height:40px;font-size:20px;">
+                                    <label style="font-size:20px;">Description</label>
+                                    <textarea type="text" name="description" class="form-control"required style="height:40px;font-size:20px;"></textarea>
+
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn" style="font-size:20px;" data-dismiss="modal">Close</button>
+                                    <button type="submit" name="submit" class="btn " style="font-size:20px;">Add Centre</button>
+                                </div>
+
+                            </div>
                         </div>
-                        <div class="card-body">
-                            <h5 class="card-title">Special title treatment</h5>
-                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                            <a href="roster.php?name=Hougang&dt=<?php echo$date?>" class="btn "style="font-size:15px;">See All Hougang Lessons</a>
-                        </div>
-                    </div>
+                    </form>
                 </div>
-                <div class="col-lg-4 p-5">
-                    <div class="card">
-                        <div class="card-header">
-                            Sengkang Centre
+
+
+
+
+                <div class="row">
+                    <?php
+                    $query = "select * from centre";
+                    $result = mysqli_query($con, $query);
+                    foreach ($result as $a) : ?>
+                            <?php $id=$a['id'];?>
+                        <div class="col-lg-4 p-5">
+                            <div class="card">
+                                <div class="card-header">
+                                    <?php echo $a['centre_name'] ?>
+                                    <a onclick='
+            if(confirm("Are you sure?") == false) {
+                return false;
+            } else {
+              
+         
+                href="delete_centre.php?id=<?php echo$id?>"
+                    
+            }'><button type="button" class="close" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button></a>
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">Special title treatment</h5>
+                                    <p class="card-text"><?php echo $a['description'] ?></p>
+                                    <?php
+                                    $date = date("Y-m-d");
+
+
+                                    $url = ("roster.php?name=" . $a['centre_name'] . "&dt=" . $date . "");
+
+                                    echo ("<a href='" . ($url) . "' class='btn 'style='font-size:15px;'>See All " . $a['name'] . " Lessons</a>")
+
+                                    ?>
+
+
+                                </div>
+                            </div>
                         </div>
-                        <div class="card-body">
-                            <h5 class="card-title">Special title treatment</h5>
-                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                            <a href="roster.php?name=Sengkang&dt=<?php echo$date?>" class="btn "style="font-size:15px;">See All Sengkang Lessons</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 p-5">
-                    <div class="card">
-                        <div class="card-header">
-                            Punggol Centre
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">Special title treatment</h5>
-                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                            <a href="roster.php?name=Punggol&dt=<?php echo$date?>" class="btn "style="font-size:15px;">See All Punggol Lessons</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 p-5">
-                    <div class="card">
-                        <div class="card-header">
-                        Fernvale  Centre
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">Special title treatment</h5>
-                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                            <a href="roster.php?name=Fernvale&dt=<?php echo$date?>" class="btn "style="font-size:15px;">See All Fernvale Lessons</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 p-5">
-                    <div class="card">
-                        <div class="card-header">
-                        Teck Ghee  Centre
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">Special title treatment</h5>
-                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                            <a href="roster.php?name=Teck-Ghee&dt=<?php echo$date?>" class="btn "style="font-size:15px;">See All Teck Ghee Lessons</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 p-5">
-                    <div class="card">
-                        <div class="card-header">
-                        Kolam Ayer Centre
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">Special title treatment</h5>
-                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                            <a href="roster.php?name=Kolam-Ayer&dt=<?php echo$date?>" class="btn "style="font-size:15px;">See All Kolam Ayer Lessons</a>
-                        </div>
-                    </div>
+                    <?php endforeach; ?>
+
                 </div>
             </div>
-        </div>
 
 
 

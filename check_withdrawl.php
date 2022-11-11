@@ -9,8 +9,9 @@ foreach ($result as $a) {
     $string=$a['student_name'];
  
     if ($a['last_day'] == $date) {
-        $id = $a['id'];
-        $sql = ("UPDATE  student SET `status`='Withdrawn' WHERE id = '$id' ");
+        $student_name = $a['student_name'];
+        $sql = ("UPDATE  student SET `status`='Withdrawn' WHERE student_name = '$student_name' ");
+   
         mysqli_query($con, $sql);
         foreach($result3 as $r){
             $id3=$r['id'];
