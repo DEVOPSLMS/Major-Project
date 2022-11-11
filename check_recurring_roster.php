@@ -56,7 +56,7 @@ if ($now == $sunday) {
 
 
                 //adds next week
-                $nextWeek = "INSERT INTO roster(centre_name,subject,level,timing,teacher_name,need_relief,room,date,day,students,time,end,cancelled) VALUES('$centre', '$subject','$level','$timing','$teacher','no','$room','$newdate','$day','$students','$time','$end','no')";
+                $nextWeek = "INSERT INTO roster(centre_name,subject,level,timing,teacher_name,need_relief,room,date,day,students,time,end,cancelled,attendance_taken) VALUES('$centre', '$subject','$level','$timing','$teacher','no','$room','$newdate','$day','$students','$time','$end','no','no')";
                 mysqli_query($con, $nextWeek);
             }
         }

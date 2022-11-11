@@ -50,7 +50,7 @@ if (isset($_POST["submit"])) {
 
     foreach (array_combine($students, $_POST['status']) as $student => $status) {
         $teacher_name = $lesson_details['teacher_name'];
-
+        $lesson_id=$lesson_details['id'];
         $centre_name = $lesson_details['centre_name'];
         $date = date('Y-m-d');
         $time= date('H:i:s');
@@ -58,6 +58,10 @@ if (isset($_POST["submit"])) {
         $query = "insert into attendance(student_name,status,date,class,teacher_name,centre_name,classid,recorded_at,time) values ('$student','$status','$date','$class','$teacher_name','$centre_name','$class_id','$formattedAddress','$time')";
 
         mysqli_query($con, $query);
+       
+        $update_roster=("UPDATE roster SET `attendance_taken`='yes' WHERE id = $lesson_id ");
+  
+        mysqli_query($con,$update_roster);
         if ($status == 'late') {
 
             $query = "select * from student where student_name = '$student' ";
