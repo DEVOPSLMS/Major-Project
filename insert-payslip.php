@@ -14,7 +14,7 @@ $sql="SELECT * FROM `payslip` WHERE month='$month'and year='$year'";
 $payslip= mysqli_query($con, $sql);
 if(mysqli_num_rows($payslip) == 0){
     if($d < $now && $now < $c){
-        $query = "SELECT * FROM `roster` WHERE cancelled='no'and date between '$first_day_this_month' and '$last_day'";
+        $query = "SELECT * FROM `roster` WHERE cancelled='no'and attendance_taken='yes'and date between '$first_day_this_month' and '$last_day'";
         $a = mysqli_query($con, $query);
         
         

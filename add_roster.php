@@ -53,7 +53,7 @@ if (isset($_POST["add"])) {
     $check = mysqli_query($con, $checked);
 
     if(mysqli_num_rows($check) == 0){
-        $query = "insert into roster(centre_name,subject,level,timing,teacher_name,need_relief,room,date,day,students,time,end,cancelled) VALUES('$centre', '$subject','$level','$timing','$name','no','$room','$date','$day','$students','$time','$end','no')";
+        $query = "insert into roster(centre_name,subject,level,timing,teacher_name,need_relief,room,date,day,students,time,end,cancelled,attendance_taken) VALUES('$centre', '$subject','$level','$timing','$name','no','$room','$date','$day','$students','$time','$end','no','no')";
         mysqli_query($con, $query);
         $date=date("Y-m-d");
         echo

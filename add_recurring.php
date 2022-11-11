@@ -66,12 +66,8 @@ if (isset($_POST["add"])) {
         mysqli_query($con, $query);
         $date = date("Y-m-d");
         
-        $datelate = new DateTime($date);
-        $datelate = date_modify($datelate, $day);
-        $datelate = date_format($datelate, 'Y-m-d');
-        //adds on respective day
-        $current = "INSERT INTO roster(centre_name,subject,level,timing,teacher_name,need_relief,room,date,day,students,time,cancelled) VALUES('$centre_name', '$subject','$level','$timing','$name','no','$room','$datelate','$day','$students','$time','no')";
-        mysqli_query($con, $current);
+
+
 
         echo
         "
