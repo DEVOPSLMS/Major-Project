@@ -10,6 +10,10 @@ include("add_level.php");
 include("check_withdrawl.php");
 include("check_recurring_roster.php");
 $user_data = check_login($con);
+if ($user_data['role'] != 'l') {
+    header('HTTP/1.0 403 Forbidden');
+    exit;
+}
 $id = $_GET['id'];
 $roster = mysqli_query($con, "SELECT * FROM roster WHERE id='$id' ");
 

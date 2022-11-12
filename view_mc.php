@@ -10,6 +10,10 @@ include("add_level.php");
 include("check_withdrawl.php");
 include("check_recurring_roster.php");
 $user_data = check_login($con);
+if ($user_data['role'] != 'teacher') {
+    header('HTTP/1.0 403 Forbidden');
+    exit;
+}
 $id = intval($_GET['id']);
 $query = "select * from student_leave where id = '$id'";
 $result = mysqli_query($con, $query);

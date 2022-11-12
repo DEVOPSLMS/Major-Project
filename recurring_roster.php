@@ -13,7 +13,10 @@ include("check_recurring_roster.php");
 include("check_recurring_roster.php");
 $user_data = check_login($con);
 
-
+if ($user_data['role'] != 'l') {
+    header('HTTP/1.0 403 Forbidden');
+    exit;
+}
 ?>
 
 

@@ -148,6 +148,15 @@ if (isset($_POST['profile'])) {
   img {
     cursor: pointer;
   }
+
+  @media (max-width: 950px) {
+    #password_change {
+      float: left !important;
+    }
+    #studentaddmodal{
+      width:195%;
+    }
+  }
 </style>
 <script type="text/javascript">
   function openSelect(file) {
@@ -296,12 +305,15 @@ if (isset($_POST['profile'])) {
               </div>
               <hr>
               <div class="row">
-                <div class="col-sm-6">
+
+                <div class="col-sm-1">
                   <a class="btn " style="font-size:15px;" data-toggle="modal" data-target="#studentaddmodal">Edit</a>
                 </div>
-                <div class="col-sm-6">
-                  <a class="btn  " href="check_password.php?id=<?php echo ($id) ?>" style="font-size:15px;float:right">Change Password</a>
+                <div class="col-sm-11">
+                  <a class="btn  " id="password_change" href="check_password.php?id=<?php echo ($id) ?>" style="font-size:15px;float:right">Change Password</a>
                 </div>
+
+
               </div>
             </div>
           </div>
@@ -354,19 +366,19 @@ if (isset($_POST['profile'])) {
               <div class="form-group">
                 <label> Preferred Centre </label>
                 <br>
-                <?php 
-                $q="select * from centre";
-                $all_centre=mysqli_query($con,$q);
-                foreach ($all_centre as $a):?>
-                <div class="form-check form-check-inline">
+                <?php
+                $q = "select * from centre";
+                $all_centre = mysqli_query($con, $q);
+                foreach ($all_centre as $a) : ?>
+                  <div class="form-check form-check-inline">
 
-                  <input class="form-check-input" name="preferred[]" type="checkbox" id="inlineCheckbox1" value="<?php echo $a['centre_name']?>" <?php if (in_array($a['centre_name'], $centre_names)) {
-                                                                                                                                    echo ("checked");
-                                                                                                                                  } ?>>
-                  <label class="form-check-label" for="inlineCheckbox1"><?php echo $a['centre_name']?></label>
-                </div>
+                    <input class="form-check-input" name="preferred[]" type="checkbox" id="inlineCheckbox1" value="<?php echo $a['centre_name'] ?>" <?php if (in_array($a['centre_name'], $centre_names)) {
+                                                                                                                                                      echo ("checked");
+                                                                                                                                                    } ?>>
+                    <label class="form-check-label" for="inlineCheckbox1"><?php echo $a['centre_name'] ?></label>
+                  </div>
 
-               <?php endforeach?>
+                <?php endforeach ?>
 
 
               </div>

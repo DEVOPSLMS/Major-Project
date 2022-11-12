@@ -16,7 +16,10 @@ include("add_level.php");
 include("check_withdrawl.php");
 include("check_recurring_roster.php");
 $user_data = check_login($con);
-
+if ($user_data['role'] != 'teacher') {
+    header('HTTP/1.0 403 Forbidden');
+    exit;
+}
 $id = $user_data['id'];
 $sql = "select * from submit_leave_teacher where teacherid = '$id' ORDER BY id desc ";
 $teacher_leave = mysqli_query($con, $sql);
@@ -154,6 +157,18 @@ if (empty($_POST['password'])) {
         body {
             font-size: 130%;
         }
+        @media (max-width: 950px) {
+            #datepicker{
+                width:95%;
+            }
+            #datepicker2{
+                width:95%;
+            }
+            .btn{
+                width:100%;
+            }
+    }
+        
     </style>
     <br><br><br><br><br><br><br><br><br><br>
 

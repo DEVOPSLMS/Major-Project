@@ -9,6 +9,10 @@ include("add_level.php");
 include("check_withdrawl.php");
 include("check_recurring_roster.php");
 $user_data = check_login($con);
+if ($user_data['role'] != 'admin') {
+    header('HTTP/1.0 403 Forbidden');
+    exit;
+}
 if (!isset($_GET['centre']) && !isset($_GET['primary']) && !isset($_GET['search'])) {
     $student = mysqli_query($con, "SELECT * FROM student WHERE status='Enrolled' ");
     $num = mysqli_num_rows($student);

@@ -6,6 +6,12 @@ include("functions.php");
 error_reporting(E_ERROR | E_PARSE);
 $query = "select * from user where role = 'teacher' ";
 $teacher = mysqli_query($con, $query);
+$user_data = check_login($con);
+
+if ($user_data['role'] != 'admin') {
+    header('HTTP/1.0 403 Forbidden');
+    exit;
+}
 if (isset($_POST["submit"])) {
   $name = $_POST["username"];
   $email = $_POST["email"];
@@ -140,6 +146,7 @@ if (isset($_POST["submit"])) {
 </header>
 
 <style media="screen">
+
   ::placeholder {
     color: #e5e5e5;
   }
@@ -215,13 +222,18 @@ if (isset($_POST["submit"])) {
     form {
 
       margin-top: 300px;
-
+      width:450px;
     }
 
-    .shape {
-      display: none;
+    #image{
+      margin-left:100px;
     }
-
+    #avaliable{
+      margin-top:30px;
+    }
+    html{
+      font-size:100% !important;
+    }
   }
 </style>
 
@@ -296,7 +308,7 @@ if (isset($_POST["submit"])) {
 <?php endforeach;?>
      
       <br>
-      <label class="form-check-label" for="inlineCheckbox2">Avaliability(Only For Teachers)</label>
+      <label class="form-check-label" id="avaliable"for="inlineCheckbox2">Avaliability(Only For Teachers)</label>
       <br>
       <div class="form-check form-check-inline">
 
@@ -343,10 +355,9 @@ if (isset($_POST["submit"])) {
 
 
 
-      <button type="submit" name="submit">Sign Up</button>
-      <br>
-      <br>
-      <p class="text-center">Already Have An Account? <a href="login.php"><span>Login Here.</span></a></p>
+      <button type="submit" name="submit">Sign Up User</button>
+    
+     
     </form>
   </div>
 

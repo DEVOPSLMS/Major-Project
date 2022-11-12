@@ -13,7 +13,8 @@ error_reporting(E_ERROR | E_PARSE);
 $user_data = check_login($con);
 $username = $user_data['username'];
 if ($user_data['role'] != 'l') {
-    (header('location:index.php'));
+    header('HTTP/1.0 403 Forbidden');
+    exit;
 }
 date_default_timezone_set('Singapore');
 if (isset($_POST['submit'])) {

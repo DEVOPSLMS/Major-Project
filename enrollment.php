@@ -10,6 +10,10 @@ include("add_level.php");
 include("check_withdrawl.php");
 include("check_recurring_roster.php");
 $user_data = check_login($con);
+if ($user_data['role'] != 'parent') {
+    header('HTTP/1.0 403 Forbidden');
+    exit;
+}
 if (isset($_POST["submit"])) {
     $student_name = $_POST["student_name"];
     $student_nric = $_POST["student_nric"];
@@ -202,6 +206,23 @@ if (isset($_POST["submit"])) {
         body {
             font-size: 120%;
         }
+        @media (max-width: 950px) {
+           
+        .nav {
+            display:none;
+        }
+      
+    
+        html{
+            font-size:80% !important;
+        }
+        .button {
+            
+            display:inline-block;
+
+        }
+        
+  }
     </style>
     <br><br><br><br><br><br><br><br><br><br>
 
@@ -222,11 +243,11 @@ if (isset($_POST["submit"])) {
             </div>
 
             <div class="form-group">
-
+  
 
                 <form method="POST">
                     <section id="r1" class="section active">
-
+                        <h3 style="text-align:center;"id="text">Student's Particulars</h3>
                         <div class="form-row">
                             <div class="form-group col-lg-4">
                                 <label for="inputCity">Name</label>
@@ -341,6 +362,7 @@ if (isset($_POST["submit"])) {
 
                     </section>
                     <section id="r2" class="section">
+                    <h3 id="text"style="text-align:center;">Father's Particulars</h3>
                         <div class="form-row">
                             <div class="form-group col-lg-4">
                                 <label for="inputCity">Name</label>
@@ -418,6 +440,7 @@ if (isset($_POST["submit"])) {
                         </div>
                     </section>
                     <section id="r3" class="section">
+                    <h3 style="text-align:center;display:none;"id="text">Mother's Particulars</h3>
                         <div class="form-row">
                             <div class="form-group col-lg-4">
                                 <label for="inputCity">Name</label>
@@ -495,6 +518,7 @@ if (isset($_POST["submit"])) {
                         </div>
                     </section>
                     <section id="r4" class="section">
+                    <h3 style="text-align:center;"id="text">Guardian's Particulars</h3>
                         <div class="form-row">
                             <div class="form-group col-lg-4">
                                 <label for="inputCity">Name</label>
@@ -572,6 +596,7 @@ if (isset($_POST["submit"])) {
                         </div>
                     </section>
                     <section id="r5" class="section">
+                    <h3 style="text-align:center;"id="text">Emergency Contacts</h3>
                         <div class="form-row">
                             <div class="form-group col-lg-4">
                                 <label for="inputCity">Name*</label>
@@ -588,6 +613,7 @@ if (isset($_POST["submit"])) {
                         </div>
                     </section>
                     <section id="r6" class="section">
+                    <h3 style="text-align:center;"id="text">Other Family Members</h3>
                         <div class="form-row">
                             <div class="form-group col-lg-4">
                                 <label for="inputCity">Name*</label>
@@ -604,6 +630,8 @@ if (isset($_POST["submit"])) {
                         </div>
                     </section>
                     <section id="r7" class="section">
+                    <h3 style="text-align:center;"id="text">Declaration</h3>
+                    <br>
                         <h4>I Hereby Authorize YYD Education Centre Ltd, To Collect, Use, Store And Disclose Information (Including Personal Information), Including, But Not Limited To, Information Provided In This Application Form And Obtained During Our House Visits, In Accordance To The Personal Data Protection Act 2012 (PDPA) In Singapore For The Processing Of This Application And The Administration Of Membership Under YYD Education Centre Ltd. I Acknowledge That The Personal Data And Information Mentioned Above May Be Retained By YYD Education Centre For A Reasonable Length Of Time And I Authorize Such Retention For Future Recruitment Purposes. I Understand That The Provision Of Information Which Is Untrue, Or Failure To Provide Certain Information May Affect The Outcome Of My Application. I Herby Declare That The Information Provided By Me In This Application Form Are True, Complete And Accurate. I Hereby Undertake To Inform YYD Education Centre Of Any Changes Or Error In My Information As Soon As Possible.</h4>
                         <br>
                         <div class="form-row">
@@ -622,6 +650,7 @@ if (isset($_POST["submit"])) {
                         </div>
                     </section>
                     <section id="r8" class="section">
+                    <h3 style="text-align:center;"id="text">Medical Declaration Form</h3>
                         <div class="form-row">
                             <div class="form-group col-lg-4">
                                 <label for="inputCity">Date*</label>
@@ -712,9 +741,13 @@ if (isset($_POST["submit"])) {
 
                 </form>
             </div>
-            <nav style="margin-left:48%;">
-                <button class="previous" id="previous" onclick="displayPrevious()">Previous</button>
-                <button class="next button-active" id="next" onclick="displayNext()">Next</button>
+            <nav style="margin-left:48%;"class="button">
+        <div class="row">
+        <button class="previous" id="previous" onclick="displayPrevious()">Previous</button>
+               
+               <button class="next button-active" id="next" onclick="displayNext()">Next</button>
+        </div>
+               
             </nav>
         </div>
 

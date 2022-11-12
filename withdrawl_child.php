@@ -10,7 +10,10 @@ include("add_level.php");
 include("check_withdrawl.php");
 include("check_recurring_roster.php");
 $user_data = check_login($con);
-
+if ($user_data['role'] != 'parent') {
+    header('HTTP/1.0 403 Forbidden');
+    exit;
+}
 
 ?>
 <!doctype html>

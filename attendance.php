@@ -19,7 +19,10 @@ $lesson_details = mysqli_fetch_assoc($result);
 $date = date('jS M');
 $students = (explode(',', $lesson_details['students']));
 $class = $lesson_details['timing'] . ' ' . $lesson_details['subject'] . ' ' . 'Class' . ' ' . $date;
-
+if ($user_data['role'] != 'teacher') {
+    header('HTTP/1.0 403 Forbidden');
+    exit;
+}
 
 ?>
 
@@ -117,6 +120,13 @@ if (isset($_POST["submit"])) {
         document.cookie = lng_details;
     }
 </script>
+<style>
+    @media (max-width: 950px) {
+          .btn{
+            font-size:15px;
+          }
+    }
+</style>
 <!DOCTYPE html>
 <html lang="en">
 

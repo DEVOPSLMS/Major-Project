@@ -20,7 +20,10 @@ $student_name = $student_details['student_name'];
 $sql = "select * from student_leave where student_name = '$student_name' ORDER BY id desc ";
 $student_leave = mysqli_query($con, $sql);
 $results = mysqli_fetch_assoc($student_leave);
-
+if ($user_data['role'] != 'parent') {
+    header('HTTP/1.0 403 Forbidden');
+    exit;
+}
 $date = date('Y-m-d');
 if (isset($_POST["submit"])) {
     $name = $student_details['student_name'];
@@ -112,6 +115,21 @@ if (empty($_POST['password'])) {
         body {
             font-size: 130%;
         }
+        @media (max-width: 950px) {
+           
+       
+           #staticEmail{
+            width:95%;
+           }
+           #text{
+            margin-right:10px;
+           }
+           .btn{
+            width:100%;
+           }
+         
+         
+        }
     </style>
     <br><br><br><br><br><br><br><br><br><br>
 
@@ -154,7 +172,7 @@ if (empty($_POST['password'])) {
 
 
                                     <input type="date" class="col-sm-5  form-control" name="date_start" id="staticEmail" required>
-                                    <input type="text" readonly class="col-sm-1 form-control-plaintext text-center" style="width:10%;" value="To" id="staticEmail">
+                                    <p class="col-sm-1 text-center"id="text"style="margin-top:5px;">To</p>
                                     <input type="date" class="col-sm-5 form-control" name="date_end" id="staticEmail" required>
                                 </div>
                                 <div class="form-group ">

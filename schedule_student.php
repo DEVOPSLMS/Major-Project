@@ -17,7 +17,10 @@ $username = $user_data['username'];
 $date = date($_GET['dt']);
 $calendar = new Calendar($date);
 $roster = mysqli_query($con, "SELECT * FROM roster ");
-
+if ($user_data['role'] != 'parent') {
+    header('HTTP/1.0 403 Forbidden');
+    exit;
+}
 
 foreach ($roster as $rosters) {
     $students=$rosters['students'];
@@ -98,9 +101,26 @@ $minus = date("Y-m-d", strtotime("-1 month", $dt)) . "\n";
     }
 
     @media (max-width: 900px) {
+        @media (max-width: 950px) {
         .content {
-            width: 500px;
+            width: 150%;
             margin: 0 auto;
+        }
+
+        .event {
+
+            width:100%;
+            font-size: 20px;
+
+
+        }
+
+        .day_num {
+            padding: 0 !important;
+        }
+
+        .content #add {
+            text-align: center !important;
         }
 
         .content h2 {
@@ -110,6 +130,11 @@ $minus = date("Y-m-d", strtotime("-1 month", $dt)) . "\n";
             border-bottom: 1px solid #ebebeb;
             color: #666666;
         }
+
+        .change {
+            font-size: 9px !important;
+        }
+    }
     }
 </style>
 <br><br> <br><br> <br><br> <br><br> <br><br> <br><br> <br><br>

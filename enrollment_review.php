@@ -12,7 +12,10 @@ include("check_recurring_roster.php");
 include("add_level.php");
 include("check_withdrawl.php");
 
-
+if ($user_data['role'] != 'admin') {
+    header('HTTP/1.0 403 Forbidden');
+    exit;
+}
 
 
 
