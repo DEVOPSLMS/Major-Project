@@ -11,7 +11,10 @@ include("check_recurring_roster.php");
 $user_data = check_login($con);
 
 $date=date("Y-m-d");
-
+if ($user_data['role'] != 'parent') {
+    header('HTTP/1.0 403 Forbidden');
+    exit;
+}
 ?>
 <!doctype html>
 <html lang="en">

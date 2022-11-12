@@ -49,6 +49,14 @@ $date = date("Y-m-d");
         document.cookie = lng_details;
     }
 </script>
+<style>
+       @media (max-width: 950px) {
+      html{
+        font-size:65%!important;
+      }
+
+    }
+</style>
 <body onload="getLocation()">
     <br><br><br> <br> <br> <br> <br> <br> <br>
     <?php if ($user_data['role'] == 'teacher') {
@@ -146,7 +154,7 @@ $date = date("Y-m-d");
                                 <h1>Submit reason of absence</h1>
                                 <p style="font-size:20px;">Submit your reason of absence for your child here.</p>
     
-                               <a href="submit_leave_student.php"> <button class="btn btn-primary text-center  " type="submit" name="submit" >Submit</button></a>
+                               <a href="submit_leave_student.php"> <button id="submit_student"class="btn btn-primary text-center  " type="submit" name="submit" >Submit</button></a>
     
     
                             </div>

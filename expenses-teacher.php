@@ -11,6 +11,10 @@ include("check_withdrawl.php");
 include("check_recurring_roster.php");
 $user_data = check_login($con);
 $username = $user_data['username'];
+if ($user_data['role'] != 'teacher') {
+    header('HTTP/1.0 403 Forbidden');
+    exit;
+}
 if (isset($_POST["submit"])) {
     $username = $user_data['username'];
     $price = $_POST['price'];

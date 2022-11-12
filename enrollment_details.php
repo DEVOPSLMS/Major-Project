@@ -10,6 +10,10 @@ include("check_withdrawl.php");
 include("check_attendance.php");
 include("check_recurring_roster.php");
 $user_data = check_login($con);
+if ($user_data['role'] != 'admin') {
+    header('HTTP/1.0 403 Forbidden');
+    exit;
+}
 $student_id = $_GET['studentid'];
 
 

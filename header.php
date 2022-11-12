@@ -11,6 +11,7 @@ $sql = "SELECT * FROM notification WHERE seen=0 and parentid='$id' ";
 $res = mysqli_query($con, $sql);
 $query = "SELECT * FROM notification_teacher WHERE seen=0 and teacher_name='$username' ";
 $result = mysqli_query($con, $query);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -69,6 +70,7 @@ $result = mysqli_query($con, $query);
       echo ('<a href="#">Students</a>');
       echo ('<a href="#">Storage</a>');
       echo ('<a href="enrollment_review.php">Enrollment</a>');
+      echo ('<a href="signup.php">Add New User</a>');
     }
     ?>
     <?php if ($role == 'parent') {

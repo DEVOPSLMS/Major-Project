@@ -12,7 +12,10 @@ include("check_recurring_roster.php");
 $user_data = check_login($con);
 $query = "select * from user where role = 'teacher' ";
 $teacher = mysqli_query($con, $query);
-
+if ($user_data['role'] != 'l') {
+    header('HTTP/1.0 403 Forbidden');
+    exit;
+}
 ?>
 
 <!DOCTYPE html>

@@ -12,7 +12,10 @@ date_default_timezone_set('Singapore');
 $user_data = check_login($con);
 $string = strval($_GET['name']);
 $centre = str_replace("%20", " ", $string);
-
+if ($user_data['role'] != 'l') {
+    header('HTTP/1.0 403 Forbidden');
+    exit;
+}
 $date = date($_GET['dt']);
 $calendar = new Calendar($date);
 
@@ -141,16 +144,16 @@ $students = mysqli_query($con, $query);
         color: #666666;
     }
 
-    @media (max-width: 900px) {
+    @media (max-width: 950px) {
         .content {
-            width: 100%;
+            width: 150%;
             margin: 0 auto;
         }
 
         .event {
 
-
-            font-size: 9px;
+            width:100%;
+            font-size: 20px;
 
 
         }

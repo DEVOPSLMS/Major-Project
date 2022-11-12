@@ -11,7 +11,10 @@ include("check_withdrawl.php");
 include("check_recurring_roster.php");
 $user_data = check_login($con);
 
-
+if ($user_data['role'] != 'parent') {
+    header('HTTP/1.0 403 Forbidden');
+    exit;
+}
 
 ?>
 
@@ -36,6 +39,12 @@ $user_data = check_login($con);
     <style>
         body {
             font-size: 130%;
+        }
+        @media (max-width: 950px) {
+           
+          html{
+            font-size:80%;
+          }
         }
     </style>
     <br><br><br><br><br><br><br><br><br><br>

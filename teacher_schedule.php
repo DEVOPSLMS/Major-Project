@@ -15,7 +15,10 @@ $username= $_GET['name'];
 $date = date($_GET['dt']);
 $calendar = new Calendar($date);
 $roster = mysqli_query($con, "SELECT * FROM roster WHERE teacher_name='".$_GET['name']."'");
-
+if ($user_data['role'] != 'teacher') {
+    header('HTTP/1.0 403 Forbidden');
+    exit;
+}
 foreach ($roster as $rosters) {
     $description = $rosters['level'] . ' ' . $rosters['subject'] . ' ' ;
     if ($rosters['level'] == 'P1') {

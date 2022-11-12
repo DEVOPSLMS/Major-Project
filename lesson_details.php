@@ -21,7 +21,10 @@ $lesson_details = mysqli_fetch_assoc($result);
 $date = date('Y-m-d');
 $classid = $lesson_details['id'];
 
-
+if ($user_data['role'] != 'teacher') {
+    header('HTTP/1.0 403 Forbidden');
+    exit;
+}
 
 
 ?>

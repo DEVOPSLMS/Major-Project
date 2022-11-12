@@ -222,6 +222,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
       html{
         overflow-x: hidden;
       }
+
     }
   </style>
 </head>
@@ -257,7 +258,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
       <button type="submit" value="Login">Log In</button>
 
       <br><br>
-      <p style="margin-left:20px;">Don't Have An Account? <a href="signup.php"><span>Sign Up Here.</span></a></p>
+      
       <p style="margin-left:20px;">Forgot Password? <a href="password-reset.php"><span>Click Here To Reset.</span></a></p>
 
     </form>

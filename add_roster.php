@@ -13,7 +13,10 @@ $user_data = check_login($con);
 $string = strval($_GET['name']);
 $centre = str_replace("-", " ", $string);
 
-
+if ($user_data['role'] != 'l') {
+    header('HTTP/1.0 403 Forbidden');
+    exit;
+}
 if (isset($_POST["add"])) {
 
     $name = $_POST["teacher_name"];
