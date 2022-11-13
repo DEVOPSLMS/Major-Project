@@ -102,7 +102,7 @@ if (isset($_POST["submit"])) {
                 "
               <script>
                 alert('Successfully Added');
-                document.location.href = 'login.php';
+                document.location.href = 'signup.php';
               </script>
               ";
               }
@@ -221,18 +221,20 @@ if (isset($_POST["submit"])) {
   @media (max-width: 950px) {
     form {
 
-      margin-top: 300px;
-      width:450px;
+      margin-top: 120%;
+      width:90%;
     }
 
-    #image{
-      margin-left:100px;
-    }
+ 
     #avaliable{
       margin-top:30px;
     }
-    html{
-      font-size:100% !important;
+  
+    #home{
+      margin-right:40%;
+    }
+    #image{
+      margin-left:10%;
     }
   }
 </style>
@@ -357,7 +359,8 @@ if (isset($_POST["submit"])) {
 
 
       <button type="submit" name="submit">Sign Up User</button>
-    
+      <br><br>
+      <p id="home"style="margin-left:40%;"><a href="index.php"><span>Go Back To Home.</span></a></p>
      
     </form>
   </div>
