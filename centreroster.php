@@ -70,6 +70,13 @@ $teacher = mysqli_query($con, $query);
         <?php include("header.php") ?>
 
     </header>
+    <style>
+        @media (max-width: 950px) {
+      .btn{
+       width:100%;
+      }
+    }
+    </style>
     <br><br><br><br><br><br><br><br><br><br><br>
 
     <body>
@@ -94,7 +101,7 @@ $teacher = mysqli_query($con, $query);
                                     <label style="font-size:20px;">Centre Name(No Need To Include Centre Just The Name Etc: Pasir Ris)</label>
                                     <input type="text" name="centre" class="form-control" required style="height:40px;font-size:20px;">
                                     <label style="font-size:20px;">Description</label>
-                                    <textarea type="text" name="description" class="form-control"required style="height:40px;font-size:20px;"></textarea>
+                                    <textarea type="text" name="description" class="form-control" required style="height:40px;font-size:20px;"></textarea>
 
 
                                 </div>
@@ -116,7 +123,7 @@ $teacher = mysqli_query($con, $query);
                     $query = "select * from centre";
                     $result = mysqli_query($con, $query);
                     foreach ($result as $a) : ?>
-                            <?php $id=$a['id'];?>
+                        <?php $id = $a['id']; ?>
                         <div class="col-lg-4 p-5">
                             <div class="card">
                                 <div class="card-header">
@@ -127,11 +134,11 @@ $teacher = mysqli_query($con, $query);
             } else {
               
          
-                href="delete_centre.php?id=<?php echo$id?>"
+                href="delete_centre.php?id=<?php echo $id ?>"
                     
             }'><button type="button" class="close" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button></a>
+                                            <span aria-hidden="true">&times;</span>
+                                        </button></a>
                                 </div>
                                 <div class="card-body">
                                     <h5 class="card-title">Special title treatment</h5>

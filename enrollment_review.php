@@ -51,7 +51,7 @@ if ($user_data['role'] != 'admin') {
 <body>
 
     <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-    <a class="btn btn-primary" style="position: absolute; left: 20px;" href="index.php">Back</a>
+   
     <h2 class="text-center"><b>Enrollment Review</b></h2>
     <br><br>
 

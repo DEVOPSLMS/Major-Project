@@ -50,13 +50,14 @@ $date = date("Y-m-d");
     }
 </script>
 <style>
-       @media (max-width: 950px) {
-      html{
-        font-size:65%!important;
-      }
+    @media (max-width: 950px) {
+        html {
+            font-size: 65% !important;
+        }
 
     }
 </style>
+
 <body onload="getLocation()">
     <br><br><br> <br> <br> <br> <br> <br> <br>
     <?php if ($user_data['role'] == 'teacher') {
@@ -294,30 +295,30 @@ $date = date("Y-m-d");
            
         </div>');
     } ?>
-    <?php if ($user_data['role'] == 'manager') {
-        echo ('  <div class="container-fluid">
-        
+    <?php if ($user_data['role'] == 'manager') { ?>
+        echo (' <div class="container-fluid">
+
             <div class="row">
                 <div class="col-md-6 border border-dark" style="height:700px;">
                     <div class="details" style="margin-left:50px;margin-top:300px;">
                         <h1>Attendance</h1>
                         <p style="font-size:20px;">See the attendance for all of the students for all of the
-    centres.</p>
-                        <button class="btn btn-primary text-center  " type="submit" name="submit" >View</button>
+                            centres.</p>
+                        <button class="btn btn-primary text-center  " type="submit" name="submit">View</button>
                     </div>
                 </div>
                 <div class="col-md-6 " style="height:700px;">
-    
+
                     <div class="row" style="height:50%;">
                         <div class="col-md-12 border border-dark">
                             <div class="details" style="margin-left:50px;margin-top:150px;">
                                 <h1>Results</h1>
                                 <p style="font-size:20px;">See the results for all of the students for all of the
-    centres.</p>
-    
-                                <button class="btn btn-primary text-center  " type="submit" name="submit" >View</button>
-    
-    
+                                    centres.</p>
+
+                                <button class="btn btn-primary text-center  " type="submit" name="submit">View</button>
+
+
                             </div>
                         </div>
                     </div>
@@ -327,27 +328,34 @@ $date = date("Y-m-d");
                                 <h1>Feedback</h1>
                                 <p style="font-size:20px;">Send feedback to other departments.</p>
                                 <a href="feedback.php">
-                                <button class="btn btn-primary text-center  " type="submit" name="submit">View</button>
+                                    <button class="btn btn-primary text-center  " type="submit" name="submit">View</button>
                                 </a>
-    
+
                             </div>
                         </div>
-    
+
                     </div>
-                    
+
                 </div>
-                <div class="col-md-12 border border-dark " >
-                <div class="details text-center" style="margin-left:50px;margin-top:150px;height:300px;">
-                    <h1>View Withdrawls</h1>
-                    <p style="font-size:20px;">See all the withdrawls.</p>
-                    <a href="all_withdrawl.php"><button class="btn btn-primary text-center  " type="submit" name="submit" >View</button></a>
+                <div class="col-md-6 border border-dark ">
+                    <div class="details text-center" style="margin-left:50px;margin-top:150px;height:300px;">
+                        <h1>View Withdrawls</h1>
+                        <p style="font-size:20px;">See all the withdrawls.</p>
+                        <a href="all_withdrawl.php"><button class="btn btn-primary text-center  " type="submit" name="submit">View</button></a>
+                    </div>
+                </div>
+                <div class="col-md-6 border border-dark ">
+                    <div class="details text-center" style="margin-left:50px;margin-top:150px;height:300px;">
+                        <h1>Change P5</h1>
+                        <p style="font-size:20px;">See all P5 Students.</p>
+                        <a href="studentlistp5.php"><button class="btn btn-primary text-center  " type="submit" name="submit">View</button></a>
+                    </div>
                 </div>
             </div>
-            </div>
-           
-          
+
+
         </div>');
-    } ?>
+    <?php } ?>
 
     <?php if ($user_data['role'] == 'admin') {
         echo (' <div class="container-fluid">

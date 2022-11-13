@@ -67,7 +67,7 @@ $result = mysqli_query($con, $query);
     }
     ?>
     <?php if ($role == 'admin') {
-      echo ('<a href="#">Students</a>');
+      echo ('<a href="studentlist.php">Students</a>');
       echo ('<a href="#">Storage</a>');
       echo ('<a href="enrollment_review.php">Enrollment</a>');
       echo ('<a href="signup.php">Add New User</a>');
@@ -78,15 +78,15 @@ $result = mysqli_query($con, $query);
     }
     ?>
     <?php if ($role == 'parent') {
-      echo ('<a href="#">Submit Reason Of Absence</a>');
-      echo ('<a href="#">Withdrawl of Child</a>');
+      echo ('<a href="submit_leave_student.php">Submit Reason Of Absence</a>');
+      echo ('<a href="withdrawl_child.php">Withdrawl of Child</a>');
       echo ('<a href="#">Results</a>');
     }
     ?>
     <?php if ($role == 'manager') {
       echo ('<a href="#">Attendance</a>');
       echo ('<a href="#">Results</a>');
-
+      echo ('<a href="studentlistp5.php">Change P5 Student</a>');
     }
     ?>
   </nav>

@@ -255,7 +255,7 @@ function goBack() {
                         <label> Students </label>
 
 
-                        <textarea type="text" style="text-transform: lowercase;"class="form-control" id="staticEmail" style="font-size:100%;" name="students"><?php if (isset($_POST['submit'])) { $date = $_POST['date']; $level = $_POST['level']; $day = date('l', strtotime($date));$query = "select * from student where centre_name = '$centre'and student_level='$level'and status='Enrolled' "; $students = mysqli_query($con, $query);foreach ($students as $s) { $st[] = $s['student_name'];}if (!empty($st)) {$student_name = implode(',', ($st));echo$student_name;}else{echo('No Student For This Level And Centre.');}} ?></textarea>
+                        <textarea type="text" style="text-transform: lowercase;font-size:20px;"class="form-control" id="staticEmail"  name="students"><?php if (isset($_POST['submit'])) { $date = $_POST['date']; $level = $_POST['level']; $day = date('l', strtotime($date));$query = "select * from student where centre_name = '$centre'and student_level='$level'and status='Enrolled' "; $students = mysqli_query($con, $query);foreach ($students as $s) { $st[] = $s['student_name'];}if (!empty($st)) {$student_name = implode(',', ($st));echo$student_name;}else{echo('No Student For This Level And Centre.');}} ?></textarea>
                     </div>
                 </div>
                 <?php if (isset($_POST['submit'])) { $date = $_POST['date']; $level = $_POST['level']; $day = date('l', strtotime($date));$query = "select * from student where centre_name = '$centre'and student_level='$level'and status='Enrolled' "; $students = mysqli_query($con, $query);foreach ($students as $s) { $st[] = $s['student_name'];}
