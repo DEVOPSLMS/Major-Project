@@ -156,7 +156,7 @@ if (isset($_POST["submit"])) {
     background-color: rgba(255, 255, 255, 0.13);
     position: absolute;
     transform: translate(-50%, -50%);
-    top: 50%;
+    top: 75%;
     left: 50%;
     border-radius: 10px;
     backdrop-filter: blur(10px);
@@ -255,26 +255,27 @@ if (isset($_POST["submit"])) {
           Please choose a unique and valid username.
         </div>
       </div>
+      <span style="color:red;"><?php echo $errs_username ?></span>
       <div class="mb-3">
         <label>Username</label>
         <input type="text" class="help" id="exampleFormControlInput1" name="username" placeholder="Username" required value="<?php echo $_POST['username']; ?>">
       </div>
-      <span style="color:red;"><?php echo $errs_username ?></span>
+      <span style="color:red;"><?php echo $errs_userid ?></span>
       <div class="mb-3">
         <label>Userid</label>
         <input type="text" class="help" id="exampleFormControlInput1" name="userid" placeholder="Userid" required value="<?php echo $_POST['userid']; ?>">
       </div>
-      <span style="color:red;"><?php echo $errs_userid ?></span>
+      <span style="color:red;"><?php echo $errs_password ?></span>
       <div class="mb-3">
         <label>Password</label>
         <input type="password" class="help" id="exampleFormControlInput1" name="password" placeholder="Password" required value="<?php echo $_POST['password']; ?>">
       </div>
-      <span style="color:red;"><?php echo $errs_password ?></span>
+      <span style="color:red;"><?php echo $errs_confirm ?></span>
       <div class="mb-3">
         <label>Confirm Password</label>
         <input type="password" class="help" id="exampleFormControlInput1" name="confirm" placeholder="Confirm Password" required value="<?php echo $_POST['confirm']; ?>">
       </div>
-      <span style="color:red;"><?php echo $errs_confirm ?></span>
+      <span style="color:red;"><?php echo $errs_number ?></span>
       <div class="mb-3">
         <label>Phone Number</label>
         <input type="text" class="help" id="exampleFormControlInput1" name="number" placeholder="Phone Number" required value="<?php echo $_POST['number']; ?>">
