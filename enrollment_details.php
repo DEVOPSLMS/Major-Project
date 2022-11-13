@@ -120,6 +120,23 @@ $student_details = mysqli_fetch_assoc($result);
         visibility: visible;
         
     }
+    @media (max-width: 950px) {
+     .nav{
+        display:none;
+     }
+     #text{
+        display:block;
+     }
+     #medical{
+        font-size:15px;
+        margin-right:10%;
+     }
+     .section{
+        margin-top:50px;
+     }
+    
+
+    }
 </style>
 
 
@@ -161,7 +178,7 @@ $student_details = mysqli_fetch_assoc($result);
     <a class="btn btn-primary" style=" left: 20px;" href="enrollment_review.php">Back</a>
     <br><br>
     <h2 class="text-center" style="border-bottom: 1px grey solid; padding-bottom: 20px;"><b>Enrollment Review</b></h2>
-    <button type="button" class="btn btn-primary" style="position: absolute; right: 20px;" data-bs-toggle="modal" data-bs-target="#Modal">
+    <button type="button" class="btn btn-primary"id="medical" style="position: absolute; right: 20px;" data-bs-toggle="modal" data-bs-target="#Modal">
         Medical Declaration Form
     </button>
     <!-- Modal -->
@@ -204,7 +221,9 @@ $student_details = mysqli_fetch_assoc($result);
 
 
         <section id="r1" class="section active">
+        <h3 id="text"style="text-align:center;">Student's Particulars</h3>
             <div class="form-row">
+                
                 <div class="form-group col-lg-4">
                     <label for="inputCity">Name</label>
                     <input type="text" class="form-control" name="student_name" id="inputCity" value="<?php echo $student_details['student_name'] ?>" disabled>
@@ -274,6 +293,7 @@ $student_details = mysqli_fetch_assoc($result);
         </section>
 
         <section id="r2" class="section">
+        <h3 id="text"style="text-align:center;">Father's Particulars</h3>
             <div class="form-row">
                 <div class="form-group col-lg-4">
                     <label for="inputCity">Name</label>
@@ -340,6 +360,7 @@ $student_details = mysqli_fetch_assoc($result);
         </section>
 
         <section id="r3" class="section">
+        <h3 id="text"style="text-align:center;">Mother's Particulars</h3>
             <div class="form-row">
                 <div class="form-group col-lg-4">
                     <label for="inputCity">Name</label>

@@ -283,7 +283,7 @@ if (isset($_POST["add"])) {
                         <label> Students </label>
 
 
-                        <textarea type="text" style="text-transform: lowercase;" class="form-control" id="staticEmail" style="font-size:100%;" name="students"><?php if (isset($_POST['submit'])) {
+                        <textarea type="text" style="text-transform: lowercase;font-size:20px;" class="form-control" id="staticEmail"  name="students"><?php if (isset($_POST['submit'])) {
                                                                                                                                                                     $date = $_POST['date'];
                                                                                                                                                                     $level = $_POST['level'];
                                                                                                                                                                     $day = date('l', strtotime($date));

@@ -56,21 +56,23 @@ if (!isset($_GET['centre']) && !isset($_GET['primary']) && !isset($_GET['search'
     </header>
 
     <style>
-        @media(max-width:500px) {
-            .btn {
+        @media(max-width:950px) {
 
-                /* It hides the button text
-                when screen size <=768px */
-                display: none;
+            #search {
+                width: 100%!important;
+                height: 40px!important;
+            }
+
+            #centre {
+                width: 100%!important;
+            }
+            #primary{
+                width: 110%!important;
             }
         }
 
         h1 {
             text-align: center;
-        }
-
-        body {
-            font-size: 130%;
         }
     </style>
 
@@ -107,9 +109,9 @@ if (!isset($_GET['centre']) && !isset($_GET['primary']) && !isset($_GET['search'
                             $q = "select * from centre";
                             $all_centre = mysqli_query($con, $q);
                             foreach ($all_centre as $a) : ?>
-                                <option value="<?php echo $a['centre_name']?>"><?php echo $a['centre_name']?></option>
+                                <option value="<?php echo $a['centre_name'] ?>"><?php echo $a['centre_name'] ?></option>
                             <?php endforeach ?>
-                           
+
 
                         </select>
 
@@ -135,9 +137,9 @@ if (!isset($_GET['centre']) && !isset($_GET['primary']) && !isset($_GET['search'
                 </th>
                 <th>
                     <form action="" method="get" onsubmit="this.form.submit()">
-                        <input type="text" name="search" placeholder="Search Student Name" class="form-control" style="width:50%;" value="<?php if (isset($_GET['search'])) {
-                                                                                                                                                echo $_GET['search'];
-                                                                                                                                            } ?>">
+                        <input type="text" name="search" id="search" placeholder="Search Student Name" class="form-control" style="width:50%;" value="<?php if (isset($_GET['search'])) {
+                                                                                                                                                            echo $_GET['search'];
+                                                                                                                                                        } ?>">
                     </form>
 
                 </th>
@@ -475,12 +477,12 @@ if (!isset($_GET['centre']) && !isset($_GET['primary']) && !isset($_GET['search'
 
                         <label> Location </label>
                         <select class="col-sm-10 form-select" id="centre_name" name="centre_name" required>
-                       
+
                             <?php
                             $q = "select * from centre";
                             $all_centre = mysqli_query($con, $q);
                             foreach ($all_centre as $a) : ?>
-                                <option value="<?php echo $a['centre_name']?>"><?php echo $a['centre_name']?></option>
+                                <option value="<?php echo $a['centre_name'] ?>"><?php echo $a['centre_name'] ?></option>
                             <?php endforeach ?>
 
                         </select>
