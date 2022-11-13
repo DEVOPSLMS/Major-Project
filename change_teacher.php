@@ -1,4 +1,9 @@
 <?php
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
 session_start();
 include("check_teacher.php");
 include("check_roster.php");
@@ -31,9 +36,57 @@ if ($day == 'Saturday' || $day == 'Sunday') {
 }
 if (isset($_POST['submit'])) {
     $name = $_POST['teacher_name'];
+
+    $description = $roster_details['level'] . ' ' . $roster_details['subject'] . ' ' . 'Timing' . ' ' . $roster_details['timing'];
     $sql = "UPDATE `roster` SET `teacher_name`='$name',`need_relief`='no'WHERE id=$id";
     mysqli_query($con, $sql);
-    header("location:centreroster.php");
+    $teacher_query = mysqli_query($con, "SELECT * from user where username ='$name'");
+    $teacher_results = mysqli_fetch_assoc($teacher_query);
+    $email = $teacher_results['email'];
+    $mail = new PHPMailer(true);
+
+
+
+    //Server settings
+    //Enable verbose debug output
+    $mail->isSMTP();                                            //Send using SMTP
+    $mail->Host = 'smtp.gmail.com';             // Specify main and backup SMTP server (server name)
+    $mail->Port = 465;          //Set the SMTP server to send through
+    $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+    $mail->Username   = 'majorprojectxampp@gmail.com';                     //SMTP username
+    $mail->Password   = 'bxyjywhmfqczzgyu';                               //SMTP password
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
+    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+
+    //Recipients
+    $mail->setFrom('majorprojectxampp@gmail.com');
+
+
+    $mail->addAddress($email);     //Add a recipient
+
+
+    //Attachments
+    //Optional name
+
+    //Content
+    $mail->isHTML(true);                                  //Set email format to HTML
+    $mail->Subject = 'Here is the subject';
+    $email_template = "
+    <h2>Hello! This Is YYD Education Centre</h2>
+    <img src='https://www.yyd.org.sg/images/logo.jpg'style='width:150px;height100px;'>
+    <h3>You have received this email to notify you that you have been assigned $description @ $centre, date of class would be $date.</h3>
+   
+    ";
+    $mail->Body = $email_template;
+    $mail->send();
+    echo
+    "
+<script>
+  alert('Successfully Changed');
+  document.location.href = 'centreroster.php';
+</script>
+";
+   
 }
 ?>
 <!doctype html>
