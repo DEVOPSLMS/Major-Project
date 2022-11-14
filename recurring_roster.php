@@ -9,7 +9,10 @@ include("insert-payslip.php");
 include("check_attendance.php");
 include("add_level.php");
 include("check_withdrawl.php");
+include("check_recurring_roster.php");
 $user_data = check_login($con);
+
+
 ?>
 
 
@@ -43,6 +46,7 @@ $user_data = check_login($con);
     <br><br><br><br><br><br><br><br><br><br>
     <div class="container">
 
+        <a href="centreroster.php">View Rosters</a>
         <a href="add_recurring.php"><button class="btn" style="font-size: 15px; width: 100%;">Add Recurring Roster</button></a>
         <br><br>
         <div class="card">
@@ -51,8 +55,13 @@ $user_data = check_login($con);
 
 
                     <?php
+                    $queryroster = "SELECT * FROM roster";
+                    $resultsroster = mysqli_query($con, $queryroster);
+
                     $query = "SELECT * FROM `recurring`";
                     $result = mysqli_query($con, $query);
+                    $rows = mysqli_num_rows($result);
+
                     foreach ($result as $a) :
                         $id = $a['id'];
                         $centre = $a['centre_name'];
@@ -63,7 +72,9 @@ $user_data = check_login($con);
                         $room = $a['room'];
                         $day = $a['day'];
                         $students = $a['students'];
-                  
+
+
+
                     ?>
 
                         <div class="col-lg-3">
@@ -76,7 +87,10 @@ $user_data = check_login($con);
                             </div>
                         </div>
 
-                    <?php endforeach ?>
+                    <?php
+                        
+                    endforeach;
+                    ?>
 
                 </div>
             </div>
