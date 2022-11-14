@@ -128,9 +128,9 @@ class Calendar {
         $this->active_day = $date != null ? date('d', strtotime($date)) : date('d');
     }
 
-    public function add_event($txt,$teacher,$date, $days = 1, $color = '',$cancel,$relief) {
+    public function add_event($txt,$teacher,$date, $days = 1, $color = '') {
         $color = $color ? ' ' . $color : $color;
-        $this->events[] = [$txt, $teacher,$date, $days, $color,$cancel,$relief];
+        $this->events[] = [$txt, $teacher,$date, $days, $color];
     }
 
     public function __toString() {
@@ -173,8 +173,7 @@ class Calendar {
                         $html .= '<div class="event' . $event[4] . '">';
                         $html .= '<p>'.$event[0].'</p>';
                         $html .= '<br><p>'.$event[1].'</p>';
-                        $html .= '<br><p>'.$event[5].'</p>';
-                        $html .= '<br><p>'.$event[6].'</p>';
+                        
                         
                         $html .= '</div>';
                     }
@@ -252,9 +251,8 @@ class Week {
                         $html .= '<div class="event' . $event[4] . '">';
                         $html .= '<p>'.$event[0].'</p>';
                         $html .= '<br><p>'.$event[1].'</p>';
-                        $html .= '<br><p>'.$event[5].'</p>';
-                        $html .= '<br><p>'.$event[6].'</p>';
-                        $html .= '<br><p>'.$event[7].'</p>';
+                        $html .= '<br><p>'.$event[3].'</p>';
+                        
                         $html .= '</div>';
                     }
                 }
