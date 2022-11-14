@@ -49,13 +49,13 @@
   $query="select * from recurring";
   $result=mysqli_query($con,$query);
   $colors = array("red", "green", "blue", "yellow");
-
-
-  foreach($result as $b){
-    foreach ($colors as $value) {
-      echo "$value <br>";
-    }
+  $string=("Hello,World");
+  $string1=explode(",",$string);
+  foreach($string1 as $s){
+    echo$s;
   }
+
+
 
 ?>
 
