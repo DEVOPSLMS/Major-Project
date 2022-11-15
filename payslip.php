@@ -81,10 +81,10 @@ if ($user_data['role'] != 'finance') {
                 href="update_payslip.php?id=<?php echo$id?>"
                     
             }' class="btn">Pay</a>
+            <button class='btn btn-success hoursbtn' style="font-size:15px">View last month's class details</button>
                             </div>
                         </div>
-
-
+                        
                     </div>
                 <?php endforeach ?>
             <?php }else{
@@ -92,6 +92,73 @@ if ($user_data['role'] != 'finance') {
             } ?>
         </div>
     </div>
+
+    <div class="modal fade" id="hoursmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Last month's class details</h5>
+                </div>
+
+                <?php
+            $connection = mysqli_connect("localhost", "root", "", "website");
+
+            if(isset($_GET['teachername'])) {
+                $teachername = $_GET['teachername'];
+            }
+            
+            $sql = "SELECT
+            DATE(date) as dname,
+            timing as timing
+            FROM roster
+            GROUP BY (date)";
+            $result = $connection->query($sql);
+            
+                 ?>
+
+                <body>
+
+                    <table class="table table-striped">
+                        <tr>
+                            <th>Date</th>
+                            <th>Timing</th>
+                        </tr>
+
+                        <?php while ($row = $result->fetch_object()): ?>
+
+                        <tr>
+                            <td>
+                                <?php echo $row->dname; ?>
+                            </td>
+                            <td>
+                                <?php echo $row->timing; ?>
+                            </td>
+                        <tr>
+
+                            <?php endwhile ; ?>
+
+                    </table>
+
+                </body>
+
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    $(document).ready(function () {
+
+        $('.hoursbtn').on('click', function () {
+
+            $('#hoursmodal').modal('show');
+        });
+    });
+</script>
 </body>
 
 </html>
