@@ -47,19 +47,81 @@ if ($user_data['role'] != 'finance') {
                                                                                                                                                                         echo $_GET['search'];
                                                                                                                                                                     } ?>">
         </form>
+        <br>
+        <form action="" method="get">
+            <div class="col-lg-12">
+
+
+                <div class="row">
+                    <select class="col-lg-6  form-control" id="primary" style="height:50px;width:100%;" required name="month">
+                        <option value="">Month</option>
+                        <option value="01">January</option>
+                        <option value="02">February</option>
+                        <option value="03">March</option>
+                        <option value="04">April</option>
+                        <option value="05">May</option>
+                        <option value="06">June</option>
+                        <option value="07">July</option>
+                        <option value="08">August</option>
+                        <option value="09">September</option>
+                        <option value="10">October</option>
+                        <option value="11">November</option>
+                        <option value="12">December</option>
+                    </select>
+                    <select class="col-lg-6 form-control" id="primary" style="height:50px;width:100%;" required name="year">
+                        <option value="">Year</option>
+                        <?php 
+                        $year_query = "select date from expenses where status = 'false'";
+                        $all_years = mysqli_query($con, $year_query);
+                        $key = "Date";
+                        $arr = [];
+                        foreach ($all_years as $year) {
+                            $date = date($year['date']);
+            
+                            $year = date("Y", strtotime($date));
+                            $str = explode(",", $year);
+                            $string = ['year' => $year];
+            
+                            array_push($arr, $string);
+                            $unique_year = implode(",", array_unique($str));
+                            
+                        }
+                       
+                       $array = array_unique($arr, SORT_REGULAR);
+
+                        foreach($array as $years):?>
+                         <option value="<?php echo $years['year']?>"><?php echo $years['year']?></option>
+                        <?php endforeach?>
+
+                    </select>
+                    <button class="btn" type="submit" name="filter" style="font-size:15px;">Filter</button>
+                </div>
+            </div>
+        </form>
         <br><br><br>
         <div class="row">
 
-
+          
             <?php
             if (isset($_GET['search'])) {
                 $search = $_GET['search'];
-                $query = "select * from expenses where status = 'false'  and reference LIKE '%" . $search . "%' OR name LIKE '%" . $search . "%'";
+                $query = "select * from expenses where  reference LIKE '%" . $search . "%' OR name LIKE '%" . $search . "%'and status = 'false'";
                 $result = mysqli_query($con, $query);
             }
             if (!isset($_GET['search'])) {
                 $query = "select * from expenses  where status='false' ";
                 $result = mysqli_query($con, $query);
+            }
+            if (isset($_GET['filter'])) {
+                $user_month = strval($_GET['month']);
+                $user_year = $_GET['year'];
+                $date_string=''.$user_year.'-'.$user_month.'-01';
+                $first_day=date($date_string);
+               
+                $last_day = date(''.$user_year.'-'.$user_month.'-t');
+                $query = "select * from expenses  where status='false'and date between '$first_day' and '$last_day' ";
+                $result = mysqli_query($con, $query);
+                
             }
             if (mysqli_num_rows($result) > 0) { ?>
                 <?php foreach ($result as $r) : ?>

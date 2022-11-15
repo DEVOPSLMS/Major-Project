@@ -45,18 +45,35 @@
   <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   <?php
-  include("connection.php");
-  $query="select * from recurring";
-  $result=mysqli_query($con,$query);
-  $colors = array("red", "green", "blue", "yellow");
-  $string=("Hello,World");
-  $string1=explode(",",$string);
-  foreach($string1 as $s){
-    echo$s;
-  }
 
+$curl = curl_init();
 
+curl_setopt_array($curl, array(
+  CURLOPT_URL => "https://api.ultramsg.com/instance23157/messages/chat",
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => "",
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 30,
+  CURLOPT_SSL_VERIFYHOST => 0,
+  CURLOPT_SSL_VERIFYPEER => 0,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => "POST",
+  CURLOPT_POSTFIELDS => "token=z6x0ae3e08b5t3c3&to=6589338416&body=WhatsApp API on UltraMsg.com works good&priority=10&referenceId=",
+  CURLOPT_HTTPHEADER => array(
+    "content-type: application/x-www-form-urlencoded"
+  ),
+));
 
+$response = curl_exec($curl);
+$err = curl_error($curl);
+
+curl_close($curl);
+
+if ($err) {
+  echo "cURL Error #:" . $err;
+} else {
+  echo $response;
+}
 ?>
 
 </body>

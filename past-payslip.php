@@ -50,7 +50,7 @@ if ($user_data['role'] != 'finance') {
             <?php
             if(isset($_GET['search'])){
                 $search=$_GET['search'];
-                $query = "select * from payslip where status = 'true' and reference LIKE '%" . $search . "%'OR teacher_name LIKE'%".$search."%' ";
+                $query = "select * from payslip where reference LIKE '%" . $search . "%'OR teacher_name LIKE'%".$search."%'and status = 'true' ";
             $result = mysqli_query($con, $query);
             }
             if(!isset($_GET['search'])){
