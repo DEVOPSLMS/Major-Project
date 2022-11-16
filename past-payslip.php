@@ -45,6 +45,54 @@ if ($user_data['role'] != 'finance') {
                                                     echo $_GET['search'];
                                                 } ?>">
                         </form>
+                        <br>
+        <form action="" method="get">
+            <div class="col-lg-12">
+
+
+                <div class="row">
+                    <select class="col-lg-6  form-control" id="primary" style="height:50px;width:100%;" required name="month">
+                        <option value="">Month</option>
+                        <option value="Jan">January</option>
+                        <option value="Feb">February</option>
+                        <option value="Mar">March</option>
+                        <option value="Apr">April</option>
+                        <option value="May">May</option>
+                        <option value="Jun">June</option>
+                        <option value="Jul">July</option>
+                        <option value="Aug">August</option>
+                        <option value="Sep">September</option>
+                        <option value="Oct">October</option>
+                        <option value="Nov">November</option>
+                        <option value="Dec">December</option>
+                    </select>
+                    <select class="col-lg-6 form-control" id="primary" style="height:50px;width:100%;" required name="year">
+                        <option value="">Year</option>
+                        <?php 
+                        $year_query = "select year from payslip where status = 'true'";
+                        $all_years = mysqli_query($con, $year_query);
+                      
+                        $arr = [];
+                        foreach ($all_years as $year) {
+                           $years=$year['year'];
+                            $string = ['year' => $years];
+            
+                            array_push($arr, $string);
+                     
+                            
+                        }
+                       
+                       $array = array_unique($arr, SORT_REGULAR);
+
+                        foreach($array as $years):?>
+                         <option value="<?php echo $years['year']?>"><?php echo $years['year']?></option>
+                        <?php endforeach?>
+
+                    </select>
+                    <button class="btn" type="submit" name="filter" style="font-size:15px;">Filter</button>
+                </div>
+            </div>
+        </form>
         <br><br><br>
         <div class="row">
             <?php
@@ -57,7 +105,14 @@ if ($user_data['role'] != 'finance') {
                 $query = "select * from payslip where status = 'true' ";
                 $result = mysqli_query($con, $query);
             }
-           
+            if (isset($_GET['filter'])) {
+                $user_month = strval($_GET['month']);
+                $user_year = $_GET['year'];
+            
+                $query = "select * from payslip  where status='true'and month='$user_month' and year ='$user_year'";
+                $result = mysqli_query($con, $query);
+                
+            }
             if (mysqli_num_rows($result) > 0) { ?>
                 <?php foreach ($result as $r) : ?>
                     <?php $id=$r['id'];?>
@@ -70,7 +125,87 @@ if ($user_data['role'] != 'finance') {
                                 <p class="card-text">Total Amount Of Hours Worked: <?php echo ($r['total_hours']) ?></p>
                                 <p class="card-text">Total Amount: $<?php echo ($r['total_amount']) ?></p>
                                 <p class="card-text">Reference Number: <?php echo ($r['reference']) ?></p>
+                                <button class='btn btn-success hoursbtn' data-toggle="modal" data-target=".bd-example-modal-lg"style="font-size:15px">Month's class details</button>
                                 
+                                <div class="modal fade bd-example-modal-lg" id="hoursmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Month's class details</h5>
+                                            </div>
+
+                                            <?php
+                                            $connection = mysqli_connect("localhost", "root", "", "website");
+
+
+                                            $month = $r['month'];
+                                            $year = $r['year'];
+
+                             
+
+                                            $teacher_name = $r['teacher_name'];
+                                           
+                                            $start_date = '' . $year . '-' . $month . '-01';
+                                          
+                                
+                                            $end_date=(''.$year.'-'.$month.'');
+                                            
+                                            
+                                            $end_date = date('Y-m-t', strtotime($end_date));
+                                            
+                                           $start_date = date('Y-m-d', strtotime($start_date));
+                                            $sql = "SELECT * from roster where teacher_name='$teacher_name'and date between '$start_date' and '$end_date' ";
+                                            $result = $connection->query($sql);
+
+                                            ?>
+
+
+
+                                            <table class="table table-striped">
+                                                <tr>
+                                                    <th>Date</th>
+                                                    <th>Timing</th>
+                                                    <th>Class</th>
+                                                    <th>Centre</th>
+                                                    <th>Attendance Taken</th>
+                                                    <th>Cancelled</th>
+                                                </tr>
+
+                                                <?php while ($row = $result->fetch_object()) : ?>
+
+                                                    <tr>
+                                                        <td>
+                                                            <?php echo $row->date; ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo $row->timing; ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo $row->level; ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo $row->centre_name; ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo $row->attendance_taken; ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo $row->cancelled; ?>
+                                                        </td>
+                                                    <tr>
+
+                                                    <?php endwhile; ?>
+
+                                            </table>
+
+
+
+
+                                            </form>
+
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -82,5 +217,6 @@ if ($user_data['role'] != 'finance') {
             } ?>
         </div>
     </div>
+
   </body>
 </html>
