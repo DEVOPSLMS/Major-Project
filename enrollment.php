@@ -440,7 +440,7 @@ if (isset($_POST["submit"])) {
                         </div>
                     </section>
                     <section id="r3" class="section">
-                    <h3 style="text-align:center;display:none;"id="text">Mother's Particulars</h3>
+                    <h3 style="text-align:center;"id="text">Mother's Particulars</h3>
                         <div class="form-row">
                             <div class="form-group col-lg-4">
                                 <label for="inputCity">Name</label>

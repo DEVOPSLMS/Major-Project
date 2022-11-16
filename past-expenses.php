@@ -116,6 +116,7 @@ if ($user_data['role'] != 'finance') {
                 $first_day=date($date_string);
                
                 $last_day = date(''.$user_year.'-'.$user_month.'-t');
+        
                 $query = "select * from expenses  where status='false'and date between '$first_day' and '$last_day' ";
                 $result = mysqli_query($con, $query);
                 
