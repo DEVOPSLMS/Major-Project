@@ -298,22 +298,22 @@ if (!isset($_GET['checkin']) && !isset($_GET['role']) && !isset($_GET['search'])
             $pagLink = "";
 
             if ($page >= 2) {
-                echo "<a href='view_checkin.php?centre=$centre&page=" . ($page - 1) . "'>  Prev </a>";
+                echo "<a href='view_checkin.php?role=$role&page=" . ($page - 1) . "'>  Prev </a>";
             }
 
             for ($i = 1; $i <= $total_pages; $i++) {
                 if ($i == $page) {
-                    $pagLink .= "<a class = 'active' href='view_checkin.php?centre=$centre&page="
+                    $pagLink .= "<a class = 'active' href='view_checkin.php?role=$role&page="
                         . $i . "'>" . $i . " </a>";
                 } else {
-                    $pagLink .= "<a href='view_checkin.php?centre=$centre&page=" . $i . "'>   
+                    $pagLink .= "<a href='view_checkin.php?role=$role&page=" . $i . "'>   
                         " . $i . " </a>";
                 }
             };
             echo $pagLink;
 
             if ($page < $total_pages) {
-                echo "<a href='view_checkin.php?centre=$centre&page=" . ($page + 1) . "'>  Next </a>";
+                echo "<a href='view_checkin.php?role=$role&page=" . ($page + 1) . "'>  Next </a>";
             }
 
             ?>
@@ -331,22 +331,22 @@ if (!isset($_GET['checkin']) && !isset($_GET['role']) && !isset($_GET['search'])
             $pagLink = "";
 
             if ($page >= 2) {
-                echo "<a href='studview_checkinentlist.php?primary=$role&page=" . ($page - 1) . "'>  Prev </a>";
+                echo "<a href='view_checkin.php?role=$role&page=" . ($page - 1) . "'>  Prev </a>";
             }
 
             for ($i = 1; $i <= $total_pages; $i++) {
                 if ($i == $page) {
-                    $pagLink .= "<a class = 'active' href='studentlist.php?primary=$role&page="
+                    $pagLink .= "<a class = 'active' href='view_checkin.php?role=$role&page="
                         . $i . "'>" . $i . " </a>";
                 } else {
-                    $pagLink .= "<a href='studentlist.php?primary=$role&page=" . $i . "'>   
+                    $pagLink .= "<a href='studentlist.php?role=$role&page=" . $i . "'>   
                         " . $i . " </a>";
                 }
             };
             echo $pagLink;
 
             if ($page < $total_pages) {
-                echo "<a href='studentlist.php?primary=$role&page=" . ($page + 1) . "'>  Next </a>";
+                echo "<a href='view_checkin.php?role=$role&page=" . ($page + 1) . "'>  Next </a>";
             }
 
             ?>
