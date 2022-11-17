@@ -295,18 +295,37 @@ $date = date("Y-m-d");
            
         </div>');
     } ?>
-    <?php if ($user_data['role'] == 'manager') { ?>
+    <?php if ($user_data['role'] == 'manager') { 
         echo (' <div class="container-fluid">
 
             <div class="row">
-                <div class="col-md-6 border border-dark" style="height:700px;">
-                    <div class="details" style="margin-left:50px;margin-top:300px;">
-                        <h1>Attendance</h1>
-                        <p style="font-size:20px;">See the attendance for all of the students for all of the
-                            centres.</p>
-                        <button class="btn btn-primary text-center  " type="submit" name="submit">View</button>
+            <div class="col-md-6 " style="height:700px;">
+
+            <div class="row" style="height:50%;">
+                <div class="col-md-12 border border-dark">
+                    <div class="details" style="margin-left:50px;margin-top:150px;">
+                        <h1>Attendence</h1>
+                        <p style="font-size:20px;">See the attendance for all of the students for all of the centres.</p>
+                        <a href="attendance.php">
+                            <button class="btn btn-primary text-center  " type="submit" name="submit">View</button>
+                        </a>
                     </div>
                 </div>
+            </div>
+            <div class="row" style="height:50%;">
+                <div class="col-lg-12 border border-dark">
+                    <div class="details" style="margin-left:50px;margin-top:150px;">
+                        <h1>Check-in</h1>
+                        <p style="font-size:20px;">Click to check-in to the centre.</p>
+                        <a href="check-in.php">
+                            <button class="btn btn-primary text-center  " type="submit" name="submit">Check-in</button>
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
                 <div class="col-md-6 " style="height:700px;">
 
                     <div class="row" style="height:50%;">
@@ -333,7 +352,6 @@ $date = date("Y-m-d");
 
                             </div>
                         </div>
-
                     </div>
 
                 </div>
@@ -355,7 +373,7 @@ $date = date("Y-m-d");
 
 
         </div>');
-    <?php } ?>
+     } ?>
 
     <?php if ($user_data['role'] == 'admin') {
         echo (' <div class="container-fluid">
@@ -378,7 +396,7 @@ $date = date("Y-m-d");
                         </a>
                     </div>
                 </div>
-                <div class="col-lg-7 border border-dark " style="height:300px;">
+                <div class="col-lg-4 border border-dark " style="height:300px;">
                 <div class="details" style="margin-left:50px;margin-top:100px;">
                                 <h1>Storage</h1>
                                 <p style="font-size:20px;">View and store all forms.</p>
@@ -388,7 +406,7 @@ $date = date("Y-m-d");
     
                             </div>
                 </div>
-                <div class="col-lg-5 border border-dark " style="height:300px;">
+                <div class="col-lg-4 border border-dark " style="height:300px;">
                 <div class="details" style="margin-left:50px;margin-top:100px;">
                                 <h1>Feedback</h1>
                                 <p style="font-size:20px;">Send feedback to other departments.</p>
@@ -398,7 +416,18 @@ $date = date("Y-m-d");
     
                             </div>
                 </div>
+                <div class="col-lg-4 border border-dark " style="height:300px;">
+                <div class="details" style="margin-left:50px;margin-top:100px;">
+                                <h1>View check-ins</h1>
+                                <p style="font-size:20px;">View all check-ins from other roles</p>
+                                <a href="view_checkin.php">
+                                <button class="btn btn-primary text-center  " type="submit" name="submit" >View</button>
+                                <a>
+    
+                            </div>
+                </div>
             </div>
+            
            
                 
               

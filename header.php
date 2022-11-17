@@ -71,6 +71,7 @@ $result = mysqli_query($con, $query);
       echo ('<a href="#">Storage</a>');
       echo ('<a href="enrollment_review.php">Enrollment</a>');
       echo ('<a href="signup.php">Add New User</a>');
+      echo ('<a href="view_checkin.php">View check-ins</a>');
     }
     ?>
     <?php if ($role == 'parent') {
