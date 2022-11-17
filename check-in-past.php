@@ -74,7 +74,7 @@ $id = $user_data['id'];
       
         
         <?php
-        $query = "select * from checkin where teacherid = '$id' ORDER BY date desc";
+        $query = "select * from checkin where userid = '$id' ORDER BY date desc";
         $checkin = mysqli_query($con, $query);
         if(!isset($_GET['date'])){
             if (mysqli_num_rows($checkin) > 0) { ?>

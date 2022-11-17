@@ -15,6 +15,7 @@ $recorded = $a['zip'];
 $user_data = check_login($con);
 $id = $user_data['id'];
 $username = $user_data['username'];
+$role = $user_data['role'];
 $latitude = $_COOKIE['lat'];
 $longitude = $_COOKIE['lng'];
 $geocode = file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?latlng=' . $latitude . ',' . $longitude . '&sensor=false&key=AIzaSyC1sUOKVl7HdX71DpzLoXzgBv-rJaJAWpE');
@@ -58,7 +59,7 @@ if (isset($_POST["submit"])) {
 
             move_uploaded_file($tmpName, 'checkin/' . $newImageName);
 
-            $query = "insert into checkin(location,image,feedback,date,teacherid,teacher_name) values ('$formattedAddress','$newImageName','$feedback','$date','$id','$username')";
+            $query = "insert into checkin(location,image,feedback,date,userid,username,role) values ('$formattedAddress','$newImageName','$feedback','$date','$id','$username','$role')";
 
             mysqli_query($con, $query);
 
@@ -76,7 +77,7 @@ if (isset($_POST["submit"])) {
 
 ?>
 <?php
-$query = "select * from checkin where teacherid = '$id' ORDER BY date desc";
+$query = "select * from checkin where userid = '$id' ORDER BY date desc";
 $checkin = mysqli_query($con, $query);
 ?>
 
