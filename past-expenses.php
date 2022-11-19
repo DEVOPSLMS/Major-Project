@@ -129,6 +129,7 @@ if ($user_data['role'] != 'finance') {
                     <div class="card text-center">
                         <div class="card-header">
                             <h3>Name Of Staff: <?php echo$r['name']?></h3>
+                            <h3>Date Submitted: <?php echo$r['date']?></h3>
                         </div>
                         <div class="card-body">
                         <?php
