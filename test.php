@@ -75,6 +75,19 @@ if ($err) {
   echo $response;
 }
 ?>
+<?php 
+if(isset($_POST['submit'])){
+  $filename=$_FILES["image"]['name'];
+  $filename2=$_FILES["file2"]['name'];
+  echo$filename;
+  echo$filename2;
+}
+?>
+<form action=""method="POST">
+  <input type="file"name="file2"id="image">
+  <input type="file"name="file1">
+  <button type="submit"name="submit">Submit</button>
+</form>
 
 </body>
 
