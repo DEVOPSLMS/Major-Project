@@ -102,6 +102,7 @@ $user_data = check_login($con);
                                 <option value="fernvale">Fernvale Centre</option>
                                 <option value="teckghee"> Teck Ghee Centre</option>
                                 <option value="kolamayer">Kolam Ayer Centre</option>
+                                <option value="tampines">Tampines</option>
                             </select>
                         </td>
                     </tr>
