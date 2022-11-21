@@ -58,7 +58,7 @@ include("check_recurring_roster.php");
 
 
 
-    <div class="sidenav">
+    <div id="Sidenav_" class="sidenav">
         <h2 style="font-weight:700;">Broadcast</h2>
         <a href="broadcast.php">New message</a>
         <a>Past messages</a>
@@ -67,19 +67,20 @@ include("check_recurring_roster.php");
 </header>
 
 <body>
-    <div class="container" style="margin-top: 200px;" id="messageBroadcast">
+    <div style="margin-top: 200px;" id="messageBroadcast">
 
         <?php
         $getbroadcast = "SELECT * FROM broadcast";
         $result = mysqli_query($con, $getbroadcast);
-        $rowcount = mysqli_num_rows($result); 
+        $rowcount = mysqli_num_rows($result);
 
         ?>
-        <div>
-            <div class="sidenav" style="padding-top: 0; width: 78%; border: 1px grey solid">
-                <?php if($rowcount==0){
-                    echo '<h2 style="color: red;">There are no past messages</h2>'; 
-                }?>
+        <div id="viewBroadcasts">
+            <div id="viewBroadcastsChild" style="border: 1px grey solid">
+                <h2 id="broadcastHeader" class="text-center" style="font-weight: 900; margin: 10px;">Broadcasted Messages</h2>
+                <?php if ($rowcount == 0) {
+                    echo '<h2 style="color: red;">There are no past messages</h2>';
+                } ?>
                 <?php foreach ($result as $x) : ?>
                     <h2><b><?php echo $x["message_title"], ', ', $x["date"] ?></b></h2>
                     <table style="margin: 25px 25px;">
@@ -102,12 +103,43 @@ include("check_recurring_roster.php");
             </div>
         </div>
 
+        <a id="icon_" href="javascript:void(0)" onclick="myFunction()" class="arrowicon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-caret-right-square-fill" viewBox="0 0 16 16">
+                <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm5.5 10a.5.5 0 0 0 .832.374l4.5-4a.5.5 0 0 0 0-.748l-4.5-4A.5.5 0 0 0 5.5 4v8z" />
+            </svg>
+        </a>
     </div>
 
 </body>
 
 
 <style>
+    #broadcastHeader {
+        display: none;
+    }
+
+    #viewBroadcasts {
+        width: 100%;
+        top: 200px;
+        position: fixed;
+    }
+
+    #viewBroadcastsChild {
+        margin-left: 300px;
+        border: 1px grey solid;
+        height: 678px;
+        z-index: 1;
+        left: 300;
+        overflow-x: hidden;
+    }
+
+    #viewBroadcastsChild td {
+        padding: 6px 8px 6px 16px;
+        text-decoration: none;
+        font-size: 25px;
+        color: black;
+    }
+
     .sidenav a:nth-child(3) {
         background-color: #5ebec4;
     }
@@ -123,6 +155,7 @@ include("check_recurring_roster.php");
         overflow-x: hidden;
         padding-top: 20px;
         border: 1px black solid;
+        background-color: white;
     }
 
     .sidenav h2 {
@@ -158,12 +191,6 @@ include("check_recurring_roster.php");
 </style>
 
 <style>
-    .container {
-
-        padding-left: 100px;
-        padding-right: 100px;
-    }
-
     #table-form {
         font-size: 18px;
     }
@@ -177,5 +204,71 @@ include("check_recurring_roster.php");
         vertical-align: top;
     }
 </style>
+<style>
+    @media(max-width:455px) {
+        #viewBroadcastsChild td {
+            font-size: 18px;
+        }
+    }
+
+    #icon_ {
+        position: fixed;
+        left: 0;
+        z-index: 10;
+        top: 50%;
+        display: none;
+    }
+
+    @media(max-width:990px) {
+        .sidenav {
+            display: none;
+        }
+
+        #broadcastHeader {
+            display: block;
+        }
+
+        #viewBroadcastsChild {
+            /* padding-top: 100px; */
+            margin-left: 0;
+        }
+
+        #viewBroadcasts {
+            position: relative;
+            top: 0px;
+        }
+
+        #icon_ {
+            display: block;
+        }
+
+
+        .sidenav.responsive {
+            display: block;
+        }
+
+        .arrowicon.responsive_ {
+            margin-left: 300px;
+        }
+    }
+</style>
+
+<script>
+    /* Toggle between adding and removing the "responsive" class to topnav when the user clicks on the icon */
+    function myFunction() {
+        var x = document.getElementById("Sidenav_");
+        var y = document.getElementById("icon_");
+        if (x.className === "sidenav") {
+            x.className += " responsive";
+        } else {
+            x.className = "sidenav";
+        }
+        if (y.className === "arrowicon") {
+            y.className += " responsive_";
+        } else {
+            y.className = "arrowicon";
+        }
+    }
+</script>
 
 </html>

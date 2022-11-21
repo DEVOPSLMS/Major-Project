@@ -58,7 +58,7 @@ include("check_recurring_roster.php");
 
 
 
-    <div class="sidenav">
+    <div id="Sidenav_" class="sidenav">
         <h2 style="font-weight:700;">Broadcast</h2>
         <a>New message</a>
         <a href="broadcastView.php">Past messages</a>
@@ -67,7 +67,7 @@ include("check_recurring_roster.php");
 </header>
 
 <body>
-    <div class="container" style="margin-top: 200px;" id="messageBroadcast">
+    <div class="" id="messageBroadcast">
         <h2><b>Broadcast to:</b></h2>
         <form method="POST">
             <table id="table-form">
@@ -90,6 +90,7 @@ include("check_recurring_roster.php");
                             <option value="fernvale">Fernvale Centre</option>
                             <option value="teckghee">Teck Ghee Centre</option>
                             <option value="kolamayer">Kolam Ayer Centre</option>
+                            <option value="tampines">Tampines Centre</option>
                         </select></td>
                 </tr>
                 <tr>
@@ -109,6 +110,11 @@ include("check_recurring_roster.php");
             </table>
         </form>
 
+        <a id="icon_" href="javascript:void(0)" onclick="myFunction()" class="arrowicon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-caret-right-square-fill" viewBox="0 0 16 16">
+                <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm5.5 10a.5.5 0 0 0 .832.374l4.5-4a.5.5 0 0 0 0-.748l-4.5-4A.5.5 0 0 0 5.5 4v8z" />
+            </svg>
+        </a>
 
     </div>
 
@@ -117,8 +123,9 @@ include("check_recurring_roster.php");
 
 <style>
     .sidenav a:nth-child(2) {
-                background-color: #5ebec4;
-            }
+        background-color: #5ebec4;
+    }
+
     .sidenav {
         height: 70%;
         /* width: 19%; */
@@ -130,6 +137,7 @@ include("check_recurring_roster.php");
         overflow-x: hidden;
         padding-top: 20px;
         border: 1px black solid;
+        background-color: white;
     }
 
     .sidenav h2 {
@@ -162,15 +170,25 @@ include("check_recurring_roster.php");
         /* background-color: #5ebec4; */
         /* color: black; */
     }
+
+    #messageBroadcast {
+        margin-top: 200px;
+        margin-left: 310px;
+    }
+
+    #icon_ {
+        position: fixed;
+        left: 0;
+        z-index: 10;
+        /* width: 30px;
+        height: 30px; */
+        top: 50%;
+
+        display: none;
+    }
 </style>
 
 <style>
-    .container {
-
-        padding-left: 100px;
-        padding-right: 100px;
-    }
-
     #table-form {
         font-size: 18px;
     }
@@ -183,6 +201,56 @@ include("check_recurring_roster.php");
         text-align: right;
         vertical-align: top;
     }
+
+    @media(max-width:990px) {
+        #submitFeedback {
+            padding-top: 100px;
+            margin-left: 0px;
+        }
+
+        #messageBroadcast {
+            margin-left: 0px;
+            margin-top: 300px;
+        }
+
+        .sidenav {
+            display: none;
+        }
+
+        #feedbackHeader {
+            display: block;
+        }
+
+        #icon_ {
+            display: block;
+        }
+
+        .sidenav.responsive {
+            display: block;
+        }
+
+        .arrowicon.responsive_ {
+            margin-left: 300px;
+        }
+    }
 </style>
+
+<script>
+    /* Toggle between adding and removing the "responsive" class to topnav when the user clicks on the icon */
+    function myFunction() {
+        var x = document.getElementById("Sidenav_");
+        var y = document.getElementById("icon_");
+        if (x.className === "sidenav") {
+            x.className += " responsive";
+        } else {
+            x.className = "sidenav";
+        }
+        if (y.className === "arrowicon") {
+            y.className += " responsive_";
+        } else {
+            y.className = "arrowicon";
+        }
+    }
+</script>
 
 </html>
