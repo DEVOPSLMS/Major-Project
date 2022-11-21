@@ -77,6 +77,8 @@ $user_data = check_login($con);
         ?>
         <div id="viewFeedbacks">
             <div id="viewFeedbacksChild">
+                <h2 id="feedbackHeader" class="text-center" style="font-weight: 900; margin: 10px;">My Feedbacks</h2>
+
                 <?php if ($rowcount == 0) {
                     echo '<h2 style="color: red;">You have no past feedbacks sent</h2>';
                 } ?>
@@ -115,6 +117,10 @@ $user_data = check_login($con);
 </body>
 
 <style>
+    #feedbackHeader {
+        display: none;
+    }
+
     #viewFeedbacks {
         width: 100%;
         top: 200px;
@@ -254,6 +260,10 @@ $user_data = check_login($con);
     @media(max-width:990px) {
         .sidenav {
             display: none;
+        }
+
+        #feedbackHeader {
+            display: block;
         }
 
         #viewFeedbacksChild {

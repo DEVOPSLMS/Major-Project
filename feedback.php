@@ -68,6 +68,7 @@ $user_data = check_login($con);
 <body>
     <div id="feedbackBody">
         <div id="submitFeedback" class="container" style="margin-top: -60px;">
+            <h2 id="feedbackHeader" class="text-center" style="font-weight: 900; margin: 10px;">Submit a Feedback</h2>
             <h4>
                 Hello Sir/Madam,
                 <br>YYD Education Centre is still growing and we value any feedback you can provide us.
@@ -150,9 +151,13 @@ $user_data = check_login($con);
 </script>
 
 <style>
+    #feedbackHeader{
+        display: none;
+    }
+
     #icon_ {
         position: fixed;
-        left: 0; 
+        left: 0;
         z-index: 10;
         /* width: 30px;
         height: 30px; */
@@ -173,7 +178,7 @@ $user_data = check_login($con);
         top: 200px;
         /* left: 0; */
         overflow-x: hidden;
-        padding-top: 20px;  
+        padding-top: 20px;
         background-color: white;
         border: 1px black solid;
     }
@@ -257,6 +262,10 @@ $user_data = check_login($con);
             display: none;
         }
 
+        #feedbackHeader{
+            display: block;
+        }
+
         #icon_ {
             display: block;
         }
@@ -264,7 +273,8 @@ $user_data = check_login($con);
         .sidenav.responsive {
             display: block;
         }
-        .arrowicon.responsive_{
+
+        .arrowicon.responsive_ {
             margin-left: 300px;
         }
     }
