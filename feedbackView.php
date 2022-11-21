@@ -74,6 +74,8 @@ $user_data = check_login($con);
         ?>
         <div id="viewFeedbacks">
             <div id="viewFeedbacksChild">
+                <h2 id="feedbackHeader" class="text-center" style="font-weight: 900; margin: 10px;">All Feedbacks</h2>
+
                 <?php foreach ($result as $x) : ?>
                     <table style="margin: 25px 25px;">
                         <tr>
@@ -111,7 +113,10 @@ $user_data = check_login($con);
     </div>
 </body>
 <style>
-    
+    #feedbackHeader{
+        display: none;
+    }
+
     #viewFeedbacks {
         width: 100%;
         top: 200px;
@@ -249,6 +254,10 @@ $user_data = check_login($con);
     @media(max-width:990px) {
         .sidenav {
             display: none;
+        }
+
+        #feedbackHeader{
+            display: block;
         }
 
         #viewFeedbacksChild {
