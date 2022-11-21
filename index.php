@@ -355,20 +355,27 @@ $date = date("Y-m-d");
                     </div>
 
                 </div>
-                <div class="col-md-6 border border-dark ">
+                <div class="col-md-4 border border-dark ">
                     <div class="details text-center" style="margin-left:50px;margin-top:150px;height:300px;">
                         <h1>View Withdrawls</h1>
                         <p style="font-size:20px;">See all the withdrawls.</p>
                         <a href="all_withdrawl.php"><button class="btn btn-primary text-center  " type="submit" name="submit">View</button></a>
                     </div>
                 </div>
-                <div class="col-md-6 border border-dark ">
+                <div class="col-md-4 border border-dark ">
                     <div class="details text-center" style="margin-left:50px;margin-top:150px;height:300px;">
                         <h1>Change P5</h1>
                         <p style="font-size:20px;">See all P5 Students.</p>
                         <a href="studentlistp5.php"><button class="btn btn-primary text-center  " type="submit" name="submit">View</button></a>
                     </div>
                 </div>
+                <div class="col-md-4 border border-dark ">
+                <div class="details text-center" style="margin-left:50px;margin-top:150px;height:300px;">
+                    <h1>Broadcast</h1>
+                    <p style="font-size:20px;">Broadcast messages to teacher/parents on important information.</p>
+                    <a href="broadcast.php"><button class="btn btn-primary text-center  " type="submit" name="submit">View</button></a>
+                </div>
+            </div>
             </div>
 
 

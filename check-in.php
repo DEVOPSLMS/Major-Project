@@ -14,6 +14,10 @@ date_default_timezone_set('Singapore');
 $recorded = $a['zip'];
 $user_data = check_login($con);
 $id = $user_data['id'];
+if ($user_data['role'] != 'manager') {
+    header('HTTP/1.0 403 Forbidden');
+    exit;
+}
 $username = $user_data['username'];
 $role = $user_data['role'];
 $latitude = $_COOKIE['lat'];
@@ -116,6 +120,9 @@ $checkin = mysqli_query($con, $query);
 
         html {
             font-size: 80%;
+        }
+        .btn{
+            font-size: 60%;
         }
     }
 </style>
