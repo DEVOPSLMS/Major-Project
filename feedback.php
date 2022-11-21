@@ -151,7 +151,7 @@ $user_data = check_login($con);
 
 <style>
     #icon_ {
-        position: absolute;
+        position: fixed;
         left: 0; 
         z-index: 10;
         /* width: 30px;
@@ -173,7 +173,7 @@ $user_data = check_login($con);
         top: 200px;
         /* left: 0; */
         overflow-x: hidden;
-        padding-top: 20px;
+        padding-top: 20px;  
         background-color: white;
         border: 1px black solid;
     }
