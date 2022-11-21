@@ -49,7 +49,6 @@ if ($user_data['role'] != 'manager' || $user_data['role'] != 'l') {
 
 
 
-
 </header>
 
 <body>
@@ -152,8 +151,6 @@ if ($user_data['role'] != 'manager' || $user_data['role'] != 'l') {
     </div>
 
 </body>
-
-
 
 
 </html>

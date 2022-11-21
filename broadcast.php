@@ -210,8 +210,6 @@ if (isset($_POST["submit"])) {
 
 
 
-
-
     <body style="margin-top:200px;">
 
 
@@ -344,5 +342,23 @@ if (isset($_POST["submit"])) {
             vertical-align: top;
         }
     </style>
+
+<script>
+    /* Toggle between adding and removing the "responsive" class to topnav when the user clicks on the icon */
+    function myFunction() {
+        var x = document.getElementById("Sidenav_");
+        var y = document.getElementById("icon_");
+        if (x.className === "sidenav") {
+            x.className += " responsive";
+        } else {
+            x.className = "sidenav";
+        }
+        if (y.className === "arrowicon") {
+            y.className += " responsive_";
+        } else {
+            y.className = "arrowicon";
+        }
+    }
+</script>
 
 </html>
