@@ -50,6 +50,69 @@ if($date == $now){
             $query = "UPDATE student SET `student_level`='$new' WHERE id = '$id'";
             $result = mysqli_query($con, $query);
         }
+        else if($a['student_level'] == 'P6(F)')
+        {
+            $id=$a['id'];
+            
+            $query = "UPDATE student SET `student_level`='S1(NA)' WHERE id = '$id'";
+            $result = mysqli_query($con, $query);
+        }
+        else if($a['student_level'] == 'S1(NA)')
+        {
+            $id=$a['id'];
+            
+            $query = "UPDATE student SET `student_level`='S2(NA)' WHERE id = '$id'";
+            $result = mysqli_query($con, $query);
+        }
+        else if($a['student_level'] == 'S2(NA)')
+        {
+            $id=$a['id'];
+            
+            $query = "UPDATE student SET `student_level`='S3(NA)' WHERE id = '$id'";
+            $result = mysqli_query($con, $query);
+        }
+        else if($a['student_level'] == 'S3(NA)')
+        {
+            $id=$a['id'];
+            
+            $query = "UPDATE student SET `student_level`='S4(NA)' WHERE id = '$id'";
+            $result = mysqli_query($con, $query);
+        }
+        else if($a['student_level'] == 'S4(NA)')
+        {
+            $id=$a['id'];
+            
+            $query = "UPDATE student SET `student_level`='S5(NA)' WHERE id = '$id'";
+            $result = mysqli_query($con, $query);
+        }
+        else if($a['student_level'] == 'P6(N)')
+        {
+            $id=$a['id'];
+            
+            $query = "UPDATE student SET `student_level`='S1(E)' WHERE id = '$id'";
+            $result = mysqli_query($con, $query);
+        }
+        else if($a['student_level'] == 'S1(E)')
+        {
+            $id=$a['id'];
+            
+            $query = "UPDATE student SET `student_level`='S2(E)' WHERE id = '$id'";
+            $result = mysqli_query($con, $query);
+        }
+        else if($a['student_level'] == 'S2(E)')
+        {
+            $id=$a['id'];
+            
+            $query = "UPDATE student SET `student_level`='S3(E)' WHERE id = '$id'";
+            $result = mysqli_query($con, $query);
+        }
+        else if($a['student_level'] == 'S3(E)')
+        {
+            $id=$a['id'];
+            
+            $query = "UPDATE student SET `student_level`='S4(E)' WHERE id = '$id'";
+            $result = mysqli_query($con, $query);
+        }
     
     }
 }
