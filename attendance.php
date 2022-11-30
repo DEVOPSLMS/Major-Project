@@ -55,6 +55,7 @@ if (isset($_POST["submit"])) {
         $teacher_name = $lesson_details['teacher_name'];
         $lesson_id=$lesson_details['id'];
         $centre_name = $lesson_details['centre_name'];
+        $level = $lesson_details['level'];
         $date = date('Y-m-d');
         $time= date('H:i:s');
 
