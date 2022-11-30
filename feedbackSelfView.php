@@ -51,7 +51,7 @@ $user_data = check_login($con);
     <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 
-    <div class="sidenav">
+    <div id="Sidenav_" class="sidenav">
         <h2 style="font-weight:700;">Feedback</h2>
         <a href="feedback.php">Submit a Feedback</a>
 
@@ -67,14 +67,18 @@ $user_data = check_login($con);
 
 
 <body>
+
+
     <div id="feedbackBody">
         <?php
         $getfeedback = "SELECT * FROM feedback WHERE name = '$username'";
         $result = mysqli_query($con, $getfeedback);
-        $rowcount = mysqli_num_rows($result); 
+        $rowcount = mysqli_num_rows($result);
         ?>
-        <div id="viewFeedbacks" style="margin-left: 318px;">
-            <div class="sidenav" style="padding-top: 0; width: 80%; border: 1px grey solid">
+        <div id="viewFeedbacks">
+            <div id="viewFeedbacksChild">
+                <h2 id="feedbackHeader" class="text-center" style="font-weight: 900; margin: 10px;">My Feedbacks</h2>
+
                 <?php if ($rowcount == 0) {
                     echo '<h2 style="color: red;">You have no past feedbacks sent</h2>';
                 } ?>
@@ -104,13 +108,41 @@ $user_data = check_login($con);
                 <?php endforeach; ?>
             </div>
         </div>
-
-
-
-
+        <a id="icon_" href="javascript:void(0)" onclick="myFunction()" class="arrowicon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-caret-right-square-fill" viewBox="0 0 16 16">
+                <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm5.5 10a.5.5 0 0 0 .832.374l4.5-4a.5.5 0 0 0 0-.748l-4.5-4A.5.5 0 0 0 5.5 4v8z" />
+            </svg>
+        </a>
     </div>
 </body>
+
 <style>
+    #feedbackHeader {
+        display: none;
+    }
+
+    #viewFeedbacks {
+        width: 100%;
+        top: 200px;
+        position: fixed;
+    }
+
+    #viewFeedbacksChild {
+        margin-left: 300px;
+        border: 1px grey solid;
+        height: 678px;
+        z-index: 1;
+        left: 300;
+        overflow-x: hidden;
+    }
+
+    #viewFeedbacksChild td {
+        padding: 6px 8px 6px 16px;
+        text-decoration: none;
+        font-size: 25px;
+        color: black;
+    }
+
     .sidenav a:nth-child(3) {
         background-color: #5ebec4;
     }
@@ -140,7 +172,10 @@ $user_data = check_login($con);
         /* left: 0; */
         overflow-x: hidden;
         padding-top: 20px;
+        background-color: white;
         border: 1px black solid;
+        z-index: 10;
+        margin-right: 300px
     }
 
     .sidenav h2 {
@@ -206,5 +241,72 @@ $user_data = check_login($con);
         font-weight: bolder;
     }
 </style>
+
+<style>
+    @media(max-width:455px) {
+        #viewFeedbacksChild td {
+            font-size: 18px;
+        }
+    }
+
+    #icon_ {
+        position: fixed;
+        left: 0;
+        z-index: 10;
+        top: 50%;
+        display: none;
+    }
+
+    @media(max-width:990px) {
+        .sidenav {
+            display: none;
+        }
+
+        #feedbackHeader {
+            display: block;
+        }
+
+        #viewFeedbacksChild {
+            /* padding-top: 100px; */
+            margin-left: 0;
+        }
+
+        #viewFeedbacks {
+            position: relative;
+            top: -35px;
+        }
+
+        #icon_ {
+            display: block;
+        }
+
+
+        .sidenav.responsive {
+            display: block;
+        }
+
+        .arrowicon.responsive_ {
+            margin-left: 300px;
+        }
+    }
+</style>
+
+<script>
+    /* Toggle between adding and removing the "responsive" class to topnav when the user clicks on the icon */
+    function myFunction() {
+        var x = document.getElementById("Sidenav_");
+        var y = document.getElementById("icon_");
+        if (x.className === "sidenav") {
+            x.className += " responsive";
+        } else {
+            x.className = "sidenav";
+        }
+        if (y.className === "arrowicon") {
+            y.className += " responsive_";
+        } else {
+            y.className = "arrowicon";
+        }
+    }
+</script>
 
 </html>

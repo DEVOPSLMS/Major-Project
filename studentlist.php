@@ -59,15 +59,16 @@ if (!isset($_GET['centre']) && !isset($_GET['primary']) && !isset($_GET['search'
         @media(max-width:950px) {
 
             #search {
-                width: 100%!important;
-                height: 40px!important;
+                width: 100% !important;
+                height: 40px !important;
             }
 
             #centre {
-                width: 100%!important;
+                width: 100% !important;
             }
-            #primary{
-                width: 110%!important;
+
+            #primary {
+                width: 110% !important;
             }
         }
 
@@ -130,6 +131,11 @@ if (!isset($_GET['centre']) && !isset($_GET['primary']) && !isset($_GET['search'
                             <option value="P5(F)">P5(F)</option>
                             <option value="P6(N)">P6(N)</option>
                             <option value="P6(F)">P6(F)</option>
+                            <option value="sec_1">Sec 1</option>
+                            <option value="sec_2">Sec 2</option>
+                            <option value="sec_3">Sec 3</option>
+                            <option value="sec_4">Sec 4</option>
+                            <option value="sec_5">Sec 5</option>
 
                         </select>
 

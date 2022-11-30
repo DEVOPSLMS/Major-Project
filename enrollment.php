@@ -88,17 +88,101 @@ if (isset($_POST["submit"])) {
     $translator_nric = $_POST["translator_nric"];
     $parentid = $user_data['id'];
 
-    $query = "insert into student(student_name,student_nric,student_gender,student_dob,student_race,student_citizenship,student_nationality,student_school,student_level,student_normal_foundation,student_residential,student_bank,student_account,father_name,father_nric,father_dob,father_race,father_citizenship,father_nationality,father_residential,father_number,father_employer,father_company,father_occupation,father_salary,father_other,mother_name,mother_nric,mother_dob,mother_race,mother_citizenship,mother_nationality,mother_residential,mother_number,mother_employer,mother_company,mother_occupation,mother_salary,mother_other,guardian_name,guardian_nric,guardian_dob,guardian_race,guardian_citizenship,guardian_nationality,guardian_residential,guardian_number,guardian_employer,guardian_company,guardian_occupation,guardian_salary,guardian_other,emergency_name,emergency_relationship,emergency_contact,family_name,family_relationship,family_contact,medical_date,medical_conditions,add_here,daily_medication,explain_condition,medical_name,medical_nric,translator_name,translator_nric,status,late_counter,centre_name,parentid,sick) 
-    VALUES('$student_name', '$student_nric','$student_gender','$student_dob','$student_race','$student_citizenship','$student_nationality','$student_school','$student_level','$student_normal','$student_residential','$student_bank','$student_account','$father_name','$father_nric','$father_dob','$father_race','$father_citizenship','$father_nationality','$father_residential','$father_number','$father_employer','$father_company','$father_occupation','$father_salary','$father_other','$mother_name','$mother_nric','$mother_dob','$mother_race','$mother_citizenship','$mother_nationality','$mother_residential','$mother_number','$mother_employer','$mother_company','$mother_occupation','$mother_salary','$mother_other','$guardian_name','$guardian_nric','$guardian_dob','$guardian_race','$guardian_citizenship','$guardian_nationality','$guardian_residential','$guardian_number','$guardian_employer','$guardian_company','$guardian_occupation','$guardian_salary','$guardian_other','$emergency_name','$emergency_relationship','$emergency_contact','$family_name','$family_relationship','$family_contact','$medical_date','$medical_conditions','$add_here','$daily_medication','$explain_condition','$medical_name','$medical_nric','$translator_name','$translator_nric','Pending Interview','0','$centre_name','$parentid','no')";
-    mysqli_query($con, $query);
+    $birth_cert = $_FILES["birth_cert"]["name"];
+    $birth_cert_fileSize = $_FILES["birth_cert"]["size"];
+    $birth_cert_tmpName = $_FILES["birth_cert"]["tmp_name"];
 
-    echo
-    "
-        <script>
-          alert('Successfully Added');
-          document.location.href = 'enrollment.php';
-        </script>
-        ";
+    $father_ic = $_FILES["father_ic"]["name"];
+    $father_ic_fileSize = $_FILES["father_ic"]["size"];
+    $father_ic_tmpName = $_FILES["father_ic"]["tmp_name"];
+
+    $father_payslip = $_FILES["father_payslip"]["name"];
+    $father_payslip_fileSize = $_FILES["father_payslip"]["size"];
+    $father_payslip_tmpName = $_FILES["father_payslip"]["tmp_name"];
+
+    $mother_ic = $_FILES["mother_ic"]["name"];
+    $mother_ic_fileSize = $_FILES["mother_ic"]["size"];
+    $mother_ic_tmpName = $_FILES["mother_ic"]["tmp_name"];
+
+    $mother_payslip = $_FILES["mother_payslip"]["name"];
+    $mother_payslip_fileSize = $_FILES["mother_payslip"]["size"];
+    $mother_payslip_tmpName = $_FILES["mother_payslip"]["tmp_name"];
+
+    $guardian_ic = $_FILES["guardian_ic"]["name"];
+    $guardian_ic_fileSize = $_FILES["guardian_ic"]["size"];
+    $guardian_ic_tmpName = $_FILES["guardian_ic"]["tmp_name"];
+
+    $guardian_payslip = $_FILES["guardian_payslip"]["name"];
+    $guardian_payslip_fileSize = $_FILES["guardian_payslip"]["size"];
+    $guardian_payslip_tmpName = $_FILES["guardian_payslip"]["tmp_name"];
+
+    $birth_cert_imageExtension = explode('.', $birth_cert);
+    $birth_cert_imageExtension = strtolower(end($birth_cert_imageExtension));
+    $newBirthCertName = uniqid();
+    $newBirthCertName .= '.' . $birth_cert_imageExtension;
+    move_uploaded_file($birth_cert_tmpName, 'birth_cert/' . $newBirthCertName);
+
+    $father_ic_imageExtension = explode('.', $father_ic);
+    $father_ic_imageExtension = strtolower(end($father_ic_imageExtension));
+    $newfather_ic = uniqid();
+    $newfather_ic .= '.' . $father_ic_imageExtension;
+    move_uploaded_file($father_ic_tmpName, 'parent_ic/' . $newfather_ic);
+
+    $father_payslip_imageExtension = explode('.', $father_payslip);
+    $father_payslip_imageExtension = strtolower(end($father_payslip_imageExtension));
+    $newfather_payslip = uniqid();
+    $newfather_payslip .= '.' . $father_payslip_imageExtension;
+    move_uploaded_file($father_payslip_tmpName, 'parent_payslip/' . $newfather_payslip);
+
+    $mother_ic_imageExtension = explode('.', $mother_ic);
+    $mother_ic_imageExtension = strtolower(end($mother_ic_imageExtension));
+    $newmother_ic = uniqid();
+    $newmother_ic .= '.' . $mother_ic_imageExtension;
+    move_uploaded_file($mother_ic_tmpName, 'parent_ic/' . $newmother_ic);
+
+    $mother_payslip_imageExtension = explode('.', $mother_payslip);
+    $mother_payslip_imageExtension = strtolower(end($mother_payslip_imageExtension));
+    $newmother_payslip = uniqid();
+    $newmother_payslip .= '.' . $mother_payslip_imageExtension;
+    move_uploaded_file($mother_payslip_tmpName, 'parent_payslip/' . $newmother_payslip);
+
+    $guardian_ic_imageExtension = explode('.', $guardian_ic);
+    $guardian_ic_imageExtension = strtolower(end($guardian_ic_imageExtension));
+    $newguardian_ic = uniqid();
+    $newguardian_ic .= '.' . $mother_ic_imageExtension;
+    move_uploaded_file($guardian_ic_tmpName, 'parent_ic/' . $newguardian_ic);
+
+    $guardian_payslip_imageExtension = explode('.', $guardian_payslip);
+    $guardian_payslip_imageExtension = strtolower(end($guardian_payslip_imageExtension));
+    $newguardian_payslip = uniqid();
+    $newguardian_payslip .= '.' . $guardian_payslip_imageExtension;
+    move_uploaded_file($guardian_payslip_tmpName, 'parent_payslip/' . $newguardian_payslip);
+
+
+
+    $query_check = mysqli_query($con, "select * from student where student_name='$student_name'");
+    $query_check2 = mysqli_query($con, "select * from student where student_nric='$student_nric'");
+    if (mysqli_num_rows($query_check) > 0 || mysqli_num_rows($query_check2) > 0) {
+        echo
+        "
+            <script>
+              alert('Student Already Exists');
+              
+            </script>
+            ";
+    } else {
+        $query = "insert into student(student_name,student_nric,student_gender,student_dob,student_race,student_citizenship,student_nationality,student_school,student_level,student_normal_foundation,student_residential,birth_cert,student_bank,student_account,father_name,father_nric,father_dob,father_race,father_citizenship,father_nationality,father_residential,father_number,father_employer,father_company,father_occupation,father_salary,father_other,father_ic,father_payslip,mother_name,mother_nric,mother_dob,mother_race,mother_citizenship,mother_nationality,mother_residential,mother_number,mother_employer,mother_company,mother_occupation,mother_salary,mother_other,mother_ic,mother_payslip,guardian_name,guardian_nric,guardian_dob,guardian_race,guardian_citizenship,guardian_nationality,guardian_residential,guardian_number,guardian_employer,guardian_company,guardian_occupation,guardian_salary,guardian_other,guardian_ic,guardian_payslip,emergency_name,emergency_relationship,emergency_contact,family_name,family_relationship,family_contact,medical_date,medical_conditions,add_here,daily_medication,explain_condition,medical_name,medical_nric,translator_name,translator_nric,status,late_counter,centre_name,parentid,sick) 
+        VALUES('$student_name', '$student_nric','$student_gender','$student_dob','$student_race','$student_citizenship','$student_nationality','$student_school','$student_level','$student_normal','$student_residential','$newBirthCertName','$student_bank','$student_account','$father_name','$father_nric','$father_dob','$father_race','$father_citizenship','$father_nationality','$father_residential','$father_number','$father_employer','$father_company','$father_occupation','$father_salary','$father_other','$newfather_ic','$newfather_payslip','$mother_name','$mother_nric','$mother_dob','$mother_race','$mother_citizenship','$mother_nationality','$mother_residential','$mother_number','$mother_employer','$mother_company','$mother_occupation','$mother_salary','$mother_other','$newmother_ic','$newmother_payslip','$guardian_name','$guardian_nric','$guardian_dob','$guardian_race','$guardian_citizenship','$guardian_nationality','$guardian_residential','$guardian_number','$guardian_employer','$guardian_company','$guardian_occupation','$guardian_salary','$guardian_other','$newguardian_ic','$newguardian_payslip','$emergency_name','$emergency_relationship','$emergency_contact','$family_name','$family_relationship','$family_contact','$medical_date','$medical_conditions','$add_here','$daily_medication','$explain_condition','$medical_name','$medical_nric','$translator_name','$translator_nric','Pending Interview','0','$centre_name','$parentid','no')";
+        mysqli_query($con, $query);
+
+        echo
+        "
+            <script>
+              alert('Successfully Added');
+              document.location.href = 'enrollment.php';
+            </script>
+            ";
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -206,23 +290,25 @@ if (isset($_POST["submit"])) {
         body {
             font-size: 120%;
         }
+
         @media (max-width: 950px) {
-           
-        .nav {
-            display:none;
-        }
-      
-    
-        html{
-            font-size:80% !important;
-        }
-        .button {
-            
-            display:inline-block;
+
+            .nav {
+                display: none;
+            }
+
+
+            html {
+                font-size: 80% !important;
+            }
+
+            .button {
+
+                display: inline-block;
+
+            }
 
         }
-        
-  }
     </style>
     <br><br><br><br><br><br><br><br><br><br>
 
@@ -243,11 +329,11 @@ if (isset($_POST["submit"])) {
             </div>
 
             <div class="form-group">
-  
 
-                <form method="POST">
+
+                <form method="POST" enctype="multipart/form-data">
                     <section id="r1" class="section active">
-                        <h3 style="text-align:center;"id="text">Student's Particulars</h3>
+                        <h3 style="text-align:center;" id="text">Student's Particulars</h3>
                         <div class="form-row">
                             <div class="form-group col-lg-4">
                                 <label for="inputCity">Name</label>
@@ -315,6 +401,11 @@ if (isset($_POST["submit"])) {
                                     <option value="P5(F)">P5(F)</option>
                                     <option value="P6(N)">P6(N)</option>
                                     <option value="P6(F)">P6(F)</option>
+                                    <option value="sec_1">Sec 1</option>
+                                    <option value="sec_2">Sec 2</option>
+                                    <option value="sec_3">Sec 3</option>
+                                    <option value="sec_4">Sec 4</option>
+                                    <option value="sec_5">Sec 5</option>
                                 </select>
                             </div>
                             <div class="form-group col-lg-6">
@@ -346,13 +437,17 @@ if (isset($_POST["submit"])) {
                                     <option value="">Choose Centre</option>
                                     <?php
                                     $q = "select * from centre";
-                                    $all_centre = mysqli_query($con, $q); 
-                                    foreach ($all_centre as $a):?>
-                                    <option value="<?php echo $a['centre_name']?>"><?php echo $a['centre_name']?></option>
-                                    <?php endforeach?>
-                                 
+                                    $all_centre = mysqli_query($con, $q);
+                                    foreach ($all_centre as $a) : ?>
+                                        <option value="<?php echo $a['centre_name'] ?>"><?php echo $a['centre_name'] ?></option>
+                                    <?php endforeach ?>
+
 
                                 </select>
+                            </div>
+                            <div class="form-group col-lg-12">
+                                <label for="inputCity">Student's Birth Certificate</label>
+                                <input type="file" class="form-control" style="height:40px;" name="birth_cert" id="image" required accept=".jpg, .jpeg, .png" value="">
                             </div>
                         </div>
 
@@ -362,7 +457,7 @@ if (isset($_POST["submit"])) {
 
                     </section>
                     <section id="r2" class="section">
-                    <h3 id="text"style="text-align:center;">Father's Particulars</h3>
+                        <h3 id="text" style="text-align:center;">Father's Particulars</h3>
                         <div class="form-row">
                             <div class="form-group col-lg-4">
                                 <label for="inputCity">Name</label>
@@ -437,10 +532,18 @@ if (isset($_POST["submit"])) {
                                 <label for="inputCity">Other Salary*</label>
                                 <input type="text" class="form-control" name="father_other" value="$" id="student_school">
                             </div>
+                            <div class="form-group col-lg-6">
+                                <label for="inputCity">Father's IC</label>
+                                <input type="file" class="form-control" style="height:40px;" name="father_ic" id="image" required accept=".jpg, .jpeg, .png" value="">
+                            </div>
+                            <div class="form-group col-lg-6">
+                                <label for="inputCity">Father's ir8a, cpf or payslip</label>
+                                <input type="file" class="form-control" style="height:40px;" name="father_payslip" id="image" required accept=".jpg, .jpeg, .png" value="">
+                            </div>
                         </div>
                     </section>
                     <section id="r3" class="section">
-                    <h3 style="text-align:center;"id="text">Mother's Particulars</h3>
+                        <h3 style="text-align:center;" id="text">Mother's Particulars</h3>
                         <div class="form-row">
                             <div class="form-group col-lg-4">
                                 <label for="inputCity">Name</label>
@@ -515,10 +618,18 @@ if (isset($_POST["submit"])) {
                                 <label for="inputCity">Other Salary*</label>
                                 <input type="text" class="form-control" name="mother_other" value="$" id="student_school">
                             </div>
+                            <div class="form-group col-lg-6">
+                                <label for="inputCity">Mother's IC</label>
+                                <input type="file" class="form-control" style="height:40px;" name="mother_ic" id="image" required accept=".jpg, .jpeg, .png" value="">
+                            </div>
+                            <div class="form-group col-lg-6">
+                                <label for="inputCity">Mother's ir8a, cpf or payslip</label>
+                                <input type="file" class="form-control" style="height:40px;" name="mother_payslip" id="image" required accept=".jpg, .jpeg, .png" value="">
+                            </div>
                         </div>
                     </section>
                     <section id="r4" class="section">
-                    <h3 style="text-align:center;"id="text">Guardian's Particulars</h3>
+                        <h3 style="text-align:center;" id="text">Guardian's Particulars</h3>
                         <div class="form-row">
                             <div class="form-group col-lg-4">
                                 <label for="inputCity">Name</label>
@@ -593,10 +704,18 @@ if (isset($_POST["submit"])) {
                                 <label for="inputCity">Other Salary*</label>
                                 <input type="text" class="form-control" name="guardian_other" value="$" id="student_school">
                             </div>
+                            <div class="form-group col-lg-6">
+                                <label for="inputCity">Guardian's IC</label>
+                                <input type="file" class="form-control" style="height:40px;" name="guardian_ic" id="image" required accept=".jpg, .jpeg, .png" value="">
+                            </div>
+                            <div class="form-group col-lg-6">
+                                <label for="inputCity">Guardian's ir8a, cpf or payslip</label>
+                                <input type="file" class="form-control" style="height:40px;" name="guardian_payslip" id="image" required accept=".jpg, .jpeg, .png" value="">
+                            </div>
                         </div>
                     </section>
                     <section id="r5" class="section">
-                    <h3 style="text-align:center;"id="text">Emergency Contacts</h3>
+                        <h3 style="text-align:center;" id="text">Emergency Contacts</h3>
                         <div class="form-row">
                             <div class="form-group col-lg-4">
                                 <label for="inputCity">Name*</label>
@@ -613,7 +732,7 @@ if (isset($_POST["submit"])) {
                         </div>
                     </section>
                     <section id="r6" class="section">
-                    <h3 style="text-align:center;"id="text">Other Family Members</h3>
+                        <h3 style="text-align:center;" id="text">Other Family Members</h3>
                         <div class="form-row">
                             <div class="form-group col-lg-4">
                                 <label for="inputCity">Name*</label>
@@ -630,8 +749,8 @@ if (isset($_POST["submit"])) {
                         </div>
                     </section>
                     <section id="r7" class="section">
-                    <h3 style="text-align:center;"id="text">Declaration</h3>
-                    <br>
+                        <h3 style="text-align:center;" id="text">Declaration</h3>
+                        <br>
                         <h4>I Hereby Authorize YYD Education Centre Ltd, To Collect, Use, Store And Disclose Information (Including Personal Information), Including, But Not Limited To, Information Provided In This Application Form And Obtained During Our House Visits, In Accordance To The Personal Data Protection Act 2012 (PDPA) In Singapore For The Processing Of This Application And The Administration Of Membership Under YYD Education Centre Ltd. I Acknowledge That The Personal Data And Information Mentioned Above May Be Retained By YYD Education Centre For A Reasonable Length Of Time And I Authorize Such Retention For Future Recruitment Purposes. I Understand That The Provision Of Information Which Is Untrue, Or Failure To Provide Certain Information May Affect The Outcome Of My Application. I Herby Declare That The Information Provided By Me In This Application Form Are True, Complete And Accurate. I Hereby Undertake To Inform YYD Education Centre Of Any Changes Or Error In My Information As Soon As Possible.</h4>
                         <br>
                         <div class="form-row">
@@ -650,7 +769,7 @@ if (isset($_POST["submit"])) {
                         </div>
                     </section>
                     <section id="r8" class="section">
-                    <h3 style="text-align:center;"id="text">Medical Declaration Form</h3>
+                        <h3 style="text-align:center;" id="text">Medical Declaration Form</h3>
                         <div class="form-row">
                             <div class="form-group col-lg-4">
                                 <label for="inputCity">Date*</label>
@@ -672,6 +791,11 @@ if (isset($_POST["submit"])) {
                                     <option value="P5(F)">P5(F)</option>
                                     <option value="P6(N)">P6(N)</option>
                                     <option value="P6(F)">P6(F)</option>
+                                    <option value="sec_1">Sec 1</option>
+                                    <option value="sec_2">Sec 2</option>
+                                    <option value="sec_3">Sec 3</option>
+                                    <option value="sec_4">Sec 4</option>
+                                    <option value="sec_5">Sec 5</option>
                                 </select>
                             </div>
                             <div class="form-group col-lg-6">
@@ -685,7 +809,7 @@ if (isset($_POST["submit"])) {
                             </div>
                             <div class="form-group col-lg-6">
                                 <label for="inputCity">If Yes, Please Add Here*</label>
-                                <textarea required name="add_here" class="form-control"></textarea>
+                                <textarea name="add_here" class="form-control"></textarea>
                             </div>
                             <div class="form-group col-lg-6">
                                 <label for="inputCity">Is Your Child On Daily Medication To Treat/Prevent Relapse?</label>
@@ -707,7 +831,7 @@ if (isset($_POST["submit"])) {
                             </div>
                             <div class="form-group col-lg-12">
                                 <label for="inputCity">If Yes, Please Explain In The Text Box.</label>
-                                <textarea required name="explain_condition" class="form-control"></textarea>
+                                <textarea name="explain_condition" class="form-control"></textarea>
                             </div>
                             <div class="form-group col-lg-3">
                                 <label for="inputCity">Parent / Guardian Name*</label>
@@ -741,13 +865,13 @@ if (isset($_POST["submit"])) {
 
                 </form>
             </div>
-            <nav style="margin-left:48%;"class="button">
-        <div class="row">
-        <button class="previous" id="previous" onclick="displayPrevious()">Previous</button>
-               
-               <button class="next button-active" id="next" onclick="displayNext()">Next</button>
-        </div>
-               
+            <nav style="margin-left:48%;" class="button">
+                <div class="row">
+                    <button class="previous" id="previous" onclick="displayPrevious()">Previous</button>
+
+                    <button class="next button-active" id="next" onclick="displayNext()">Next</button>
+                </div>
+
             </nav>
         </div>
 

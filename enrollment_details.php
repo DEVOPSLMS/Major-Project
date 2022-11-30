@@ -41,7 +41,7 @@ $student_details = mysqli_fetch_assoc($result);
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-  
+
 </head>
 <header>
     <header class="header">
@@ -82,15 +82,6 @@ $student_details = mysqli_fetch_assoc($result);
         display: block;
     }
 
-    .nav {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        align-items: center;
-        margin-left:35%;
-    }
-
     .nav button {
         background: #ccc;
         padding: 10px 15px;
@@ -99,6 +90,7 @@ $student_details = mysqli_fetch_assoc($result);
         cursor: pointer;
         opacity: .5;
         border: none;
+        height: 80px;
     }
 
     .next,
@@ -118,30 +110,41 @@ $student_details = mysqli_fetch_assoc($result);
     .button-active {
         opacity: 1 !important;
         visibility: visible;
-        
+
     }
+
     @media (max-width: 950px) {
-     .nav{
-        display:none;
-     }
-     #text{
-        display:block;
-     }
-     #medical{
-        font-size:15px;
-        margin-right:10%;
-     }
-     .section{
-        margin-top:50px;
-     }
-    
+        .nav {
+            display: none;
+        }
+
+        #text {
+            display: block;
+        }
+
+        #medical {
+            font-size: 15px;
+            margin-right: 10%;
+        }
+
+        .section {
+            margin-top: 50px;
+        }
+
+
+    }
+
+    @media (max-width: 990px) {
+        #backBtn {
+            margin-top: 100px;
+        }
 
     }
 </style>
 
 
 <script>
-    const sectionContent = ["r1", "r2", "r3"];
+    const sectionContent = ["r1", "r2", "r3", "r4", "r5", "r6"];
     let currentSection = sectionContent[0];
 
     const displayContent = (q, area) => {
@@ -168,17 +171,20 @@ $student_details = mysqli_fetch_assoc($result);
     const displayR1 = () => displayContent("r1", sectionContent);
     const displayR2 = () => displayContent("r2", sectionContent);
     const displayR3 = () => displayContent("r3", sectionContent);
+    const displayR4 = () => displayContent("r4", sectionContent);
+    const displayR5 = () => displayContent("r5", sectionContent);
+    const displayR6 = () => displayContent("r6", sectionContent);
 
     const displayNext = () => displayContent(sectionContent[sectionContent.indexOf(currentSection) + 1], sectionContent);
     const displayPrevious = () => displayContent(sectionContent[sectionContent.indexOf(currentSection) - 1], sectionContent);
 </script>
 
 <body>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
-    <a class="btn btn-primary" style=" left: 20px;" href="enrollment_review.php">Back</a>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+    <a id="backBtn" class="btn btn-primary" style=" left: 20px;" href="enrollment_review.php">Back</a>
     <br><br>
     <h2 class="text-center" style="border-bottom: 1px grey solid; padding-bottom: 20px;"><b>Enrollment Review</b></h2>
-    <button type="button" class="btn btn-primary"id="medical" style="position: absolute; right: 20px;" data-bs-toggle="modal" data-bs-target="#Modal">
+    <button type="button" class="btn btn-primary" id="medical" style="right: 20px; width:100%; margin-bottom: 20px;" data-bs-toggle="modal" data-bs-target="#Modal">
         Medical Declaration Form
     </button>
     <!-- Modal -->
@@ -213,17 +219,24 @@ $student_details = mysqli_fetch_assoc($result);
     </div>
 
     <div class="container-fluid">
-        <nav class="nav">
-            <button class="button-active" style="height:100px;"id="r1-button" onclick="displayR1()">Student's Particulars</button>
-            <button id="r2-button"style="height:100px;" onclick="displayR2()">Father's Particulars</button>
-            <button id="r3-button" style="height:100px;"onclick="displayR3()">Mother's Particulars</button>
+        <nav class="nav text-center" style="width: 100%; margin: 0 0 0 10%;">
+            <button class="button-active" style="height:100px;" id="r1-button" onclick="displayR1()">Student's Particulars</button>
+            <button id="r2-button" style="height:100px;" onclick="displayR2()">Father's Particulars</button>
+            <button id="r3-button" style="height:100px;" onclick="displayR3()">Mother's Particulars</button>
+            <button id="r4-button" style="height:100px;" onclick="displayR4()">Guardian's Particulars</button>
+            <button id="r5-button" style="height:100px;" onclick="displayR5()">Emergency Contact</button>
+            <button id="r6-button" style="height:100px;" onclick="displayR6()">Other Family Members</button>
         </nav>
 
+        <nav class="text-center" style="width: 100%;">
+            <button class="previous" id="previous" onclick="displayPrevious()">Previous</button>
+            <button class="next button-active" id="next" onclick="displayNext()">Next</button>
+        </nav>
 
         <section id="r1" class="section active">
-        <h3 id="text"style="text-align:center;">Student's Particulars</h3>
+            <h3 id="text" style="text-align:center;">Student's Particulars</h3>
             <div class="form-row">
-                
+
                 <div class="form-group col-lg-4">
                     <label for="inputCity">Name</label>
                     <input type="text" class="form-control" name="student_name" id="inputCity" value="<?php echo $student_details['student_name'] ?>" disabled>
@@ -293,7 +306,7 @@ $student_details = mysqli_fetch_assoc($result);
         </section>
 
         <section id="r2" class="section">
-        <h3 id="text"style="text-align:center;">Father's Particulars</h3>
+            <h3 id="text" style="text-align:center;">Father's Particulars</h3>
             <div class="form-row">
                 <div class="form-group col-lg-4">
                     <label for="inputCity">Name</label>
@@ -360,7 +373,7 @@ $student_details = mysqli_fetch_assoc($result);
         </section>
 
         <section id="r3" class="section">
-        <h3 id="text"style="text-align:center;">Mother's Particulars</h3>
+            <h3 id="text" style="text-align:center;">Mother's Particulars</h3>
             <div class="form-row">
                 <div class="form-group col-lg-4">
                     <label for="inputCity">Name</label>
@@ -427,11 +440,106 @@ $student_details = mysqli_fetch_assoc($result);
                 </div>
             </div>
         </section>
+        <section id="r4" class="section">
+            <h3 style="text-align:center;" id="text">Guardian's Particulars</h3>
+            <div class="form-row">
+                <div class="form-group col-lg-4">
+                    <label for="inputCity">Name</label>
+                    <input value="<?php echo $student_details['guardian_name'] ?>" disabled type="text" class="form-control" name="guardian_name" id="inputCity">
+                </div>
+                <div class="form-group col-lg-4">
+                    <label for="inputCity">NRIC</label>
+                    <input value="<?php echo $student_details['guardian_nric'] ?>" disabled type="text" class="form-control" name="guardian_nric" id="inputCity">
+                </div>
+                <div class="form-group col-lg-4">
+                    <label for="inputZip">Date Of Birth</label>
+                    <input value="<?php echo $student_details['guardian_dob'] ?>" disabled type="date" class="form-control" name="guardian_dob" id="inputCity">
+                </div>
+            </div>
 
-        <nav style="margin-left:42%;">
-            <button class="previous" id="previous" onclick="displayPrevious()">Previous</button>
-            <button class="next button-active" id="next" onclick="displayNext()">Next</button>
-        </nav>
+            <div class="form-row">
+
+                <div class="form-group col-lg-4">
+                    <label for="inputCity">Race</label>
+                    <input value="<?php echo $student_details['guardian_race'] ?>" disabled id="inputState" class="form-control" name="guardian_race">
+                </div>
+                <div class="form-group col-lg-4">
+                    <label for="inputCity">Citizenship</label>
+                    <input value="<?php echo $student_details['guardian_citizenship'] ?>" disabled id="inputState" class="form-control" name="guardian_citizenship">
+                </div>
+                <div class="form-group col-lg-4">
+                    <label for="inputCity">If Permanent Resident, Which Nationality?</label>
+                    <input value="<?php echo $student_details['guardian_nationality'] ?>" disabled type="text" class="form-control" name="guardian_nationality" id="student_school">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-lg-4">
+                    <label for="inputCity">Residential Address</label>
+                    <input value="<?php echo $student_details['guardian_residential'] ?>" disabled type="text" class="form-control" name="guardian_residential" id="student_school">
+                </div>
+                <div class="form-group col-lg-4">
+                    <label for="inputCity">Contact Number</label>
+                    <input value="<?php echo $student_details['guardian_number'] ?>" disabled type="number" class="form-control" name="guardian_number" id="student_school">
+                </div>
+                <div class="form-group col-lg-4">
+                    <label for="inputCity">Name Of Employer</label>
+                    <input value="<?php echo $student_details['guardian_employer'] ?>" disabled type="text" class="form-control" name="guardian_employer" id="student_school">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-lg-6">
+                    <label for="inputCity">Company Address</label>
+                    <input value="<?php echo $student_details['guardian_company'] ?>" disabled type="text" class="form-control" name="guardian_company" id="student_school">
+                </div>
+
+                <div class="form-group col-lg-6">
+                    <label for="inputCity">Occupation*</label>
+                    <input value="<?php echo $student_details['guardian_occupation'] ?>" disabled type="text" class="form-control" name="guardian_occupation" id="student_school">
+                </div>
+                <div class="form-group col-lg-6">
+                    <label for="inputCity">Gross Salary*</label>
+                    <input value="<?php echo $student_details['guardian_salary'] ?>" disabled type="text" class="form-control" name="guardian_salary" value="$" id="student_school">
+                </div>
+                <div class="form-group col-lg-6">
+                    <label for="inputCity">Other Salary*</label>
+                    <input value="<?php echo $student_details['guardian_other'] ?>" disabled type="text" class="form-control" name="guardian_other" value="$" id="student_school">
+                </div>
+            </div>
+        </section>
+        <section id="r5" class="section">
+            <h3 style="text-align:center;" id="text">Emergency Contacts</h3>
+            <div class="form-row">
+                <div class="form-group col-lg-4">
+                    <label for="inputCity">Name*</label>
+                    <input value="<?php echo $student_details['emergency_name'] ?>" disabled type="text" class="form-control" name="emergency_name" id="inputCity">
+                </div>
+                <div class="form-group col-lg-4">
+                    <label for="inputCity">Relationship To Student*</label>
+                    <input value="<?php echo $student_details['emergency_relationship'] ?>" disabled type="text" class="form-control" name="emergency_relationship" id="inputCity">
+                </div>
+                <div class="form-group col-lg-4">
+                    <label for="inputZip">Contact</label>
+                    <input value="<?php echo $student_details['emergency_contact'] ?>" disabled type="number" class="form-control" name="emergency_contact" id="inputCity">
+                </div>
+            </div>
+        </section>
+        <section id="r6" class="section">
+            <h3 style="text-align:center;" id="text">Other Family Members</h3>
+            <div class="form-row">
+                <div class="form-group col-lg-4">
+                    <label for="inputCity">Name*</label>
+                    <input value="<?php echo $student_details['family_name'] ?>" disabled type="text" class="form-control" name="family_name" id="inputCity">
+                </div>
+                <div class="form-group col-lg-4">
+                    <label for="inputCity">Relationship To Student*</label>
+                    <input value="<?php echo $student_details['family_relationship'] ?>" disabled type="text" class="form-control" name="family_relationship" id="inputCity">
+                </div>
+                <div class="form-group col-lg-4">
+                    <label for="inputZip">Contact</label>
+                    <input value="<?php echo $student_details['family_contact'] ?>" disabled type="number" class="form-control" name="family_contact" id="inputCity">
+                </div>
+            </div>
+        </section>
     </div>
 
 
