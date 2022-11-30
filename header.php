@@ -81,12 +81,12 @@ $result = mysqli_query($con, $query);
     <?php if ($role == 'parent') {
       echo ('<a href="submit_leave_student.php">Submit Reason Of Absence</a>');
       echo ('<a href="withdrawl_child.php">Withdrawl of Child</a>');
-      echo ('<a href="#">Results</a>');
+      echo ('<a href="submit_results.php">Results</a>');
     }
     ?>
     <?php if ($role == 'manager') {
-      echo ('<a href="#">Attendance</a>');
-      echo ('<a href="#">Results</a>');
+      echo ('<a href="attendance_dashboard.php">Attendance</a>');
+      echo ('<a href="results_dashboard.php">Results</a>');
       echo ('<a href="studentlistp5.php">Change P5 Student</a>');
     }
     ?>

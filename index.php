@@ -194,8 +194,9 @@ $date = date("Y-m-d");
                                 <h1>Results</h1>
                                 <p style="font-size:20px;">Send us your child results so we will know
                                 more about their progress</p>
-    
+                                <a href="submit_results.php">
                                 <button class="btn btn-primary text-center  " type="submit" name="submit">Submit</button>
+                                </a>
     
     
                             </div>
@@ -306,7 +307,7 @@ $date = date("Y-m-d");
                     <div class="details" style="margin-left:50px;margin-top:150px;">
                         <h1>Attendence</h1>
                         <p style="font-size:20px;">See the attendance for all of the students for all of the centres.</p>
-                        <a href="attendance.php">
+                        <a href="attendance_dashboard.php">
                             <button class="btn btn-primary text-center  " type="submit" name="submit">View</button>
                         </a>
                     </div>
@@ -334,9 +335,9 @@ $date = date("Y-m-d");
                                 <h1>Results</h1>
                                 <p style="font-size:20px;">See the results for all of the students for all of the
                                     centres.</p>
-
+                                <a href="results_dashboard.php">
                                 <button class="btn btn-primary text-center  " type="submit" name="submit">View</button>
-
+                                </a>
 
                             </div>
                         </div>
