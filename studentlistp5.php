@@ -110,12 +110,12 @@ if (!isset($_GET['centre']) && !isset($_GET['primary']) && !isset($_GET['search'
 
                         <select class="form-select" id="centre" style="width:150px;height:40px;" required name="centre">
                             <option selected>Location</option>
-                            <option value="Hougang Centre">Hougang Centre</option>
-                            <option value="Sengkang Centre">Sengkang Centre</option>
-                            <option value="Punggol Centre">Punggol Centre</option>
-                            <option value="Fernvale Centre">Fernvale Centre</option>
-                            <option value="Teck Ghee Centre">Teck Ghee Centre</option>
-                            <option value="Kolam Ayer Centre">Kolam Ayer Centre</option>
+                            <?php
+                            $q = "select * from centre";
+                            $all_centre = mysqli_query($con, $q);
+                            foreach ($all_centre as $a) : ?>
+                                <option value="<?php echo $a['centre_name'] ?>"><?php echo $a['centre_name'] ?></option>
+                            <?php endforeach ?>
 
                         </select>
 
@@ -189,7 +189,8 @@ if (!isset($_GET['centre']) && !isset($_GET['primary']) && !isset($_GET['search'
 
                 $connection = new mysqli($servername, $username, $password, $database);
                 $centre = $_GET['centre'];
-                $sql = "SELECT * FROM student WHERE centre_name='$centre'and status='Enrolled' AND student_level = 'P5(N)' OR student_level = 'P5(F)'";
+                $sql = "SELECT * FROM student WHERE student_level = 'P5(N)' and centre_name='$centre'and status ='Enrolled' OR  centre_name='$centre'and status ='Enrolled'and student_level = 'P5(F)'";
+      
                 $result = $connection->query($sql);
                 $rows = mysqli_num_rows($result);
                 $result = $connection->query($sql);
@@ -203,7 +204,7 @@ if (!isset($_GET['centre']) && !isset($_GET['primary']) && !isset($_GET['search'
 
                 $start_from = ($page - 1) * $per_page_record;
 
-                $query = "SELECT * FROM student WHERE centre_name='$centre'and status='Enrolled' AND student_level = 'P5(N)' OR student_level = 'P5(F)' LIMIT $start_from, $per_page_record";
+                $query = "SELECT * FROM student WHERE student_level = 'P5(N)' and centre_name='$centre'and status ='Enrolled' OR  centre_name='$centre'and status ='Enrolled'and student_level = 'P5(F)' LIMIT $start_from, $per_page_record";
                 $rs_result = mysqli_query($con, $query);
                 $rowcount = mysqli_num_rows($rs_result);
                 $total_records = $rows;
