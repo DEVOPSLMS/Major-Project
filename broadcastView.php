@@ -13,9 +13,11 @@ include("check_recurring_roster.php");
 $user_data = check_login($con);
 $username = $user_data['username'];
 date_default_timezone_set("Singapore");
-if ($user_data['role'] != 'manager' || $user_data['role'] != 'l') {
-    header('HTTP/1.0 403 Forbidden');
-    exit;
+if ($user_data['role'] != 'manager')  {
+    if ($user_data['role'] != 'l')  {
+        header('HTTP/1.0 403 Forbidden');
+        exit;
+    }
 }
 ?>
 
