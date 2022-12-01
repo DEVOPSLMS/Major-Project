@@ -55,21 +55,21 @@ if ($user_data['role'] != 'parent') {
             ?>
             <?php if (mysqli_num_rows($result) > 0) { ?>
                 <?php foreach ($result as $parent) : ?>
-                    <?php
-                    $sql = "select * from withdrawl where parent_name = '$name' ";
-                    $result2 = mysqli_query($con, $sql);
-                    $withdrawl = mysqli_fetch_assoc($result2);
-                    ?>
+                    
                     <div class="col-lg-12">
                         <div class="card text-center">
                             <h5 class="card-header">Student Name: <?php echo $parent['student_name'] ?></h5>
                             <div class="card-body">
                                 <h5 class="card-title">Student Level: <?php echo $parent['student_level'] ?></h5>
                                 <p class="card-text">Centre Name: <?php echo $parent['centre_name'] ?></p>
-                                <?php if ($withdrawl['student_name'] == $parent['student_name']) { ?>
+                                
+                                <?php 
+                                if ($parent['status'] == 'Withdrawn') { ?>
                                     <h3>Child Is Already Withdrawn</h3>
+                                    <?php echo $withdrawl['student_name']?>
                                 <?php } else { ?>
                                     <a href="withdrawl.php?id=<?php echo $parent['id'] ?>" class="btn btn-primary" style="font-size:15px;">Withdrawl Child</a>
+                                    <?php echo $withdrawl['student_name']?>
                                 <?php } ?>
                             </div>
                         </div>

@@ -49,7 +49,7 @@
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
-  CURLOPT_URL => "https://api.ultramsg.com/instance23157/messages/chat",
+  CURLOPT_URL => "https://api.ultramsg.com/{INSTANCE_ID}/messages/chat",
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => "",
   CURLOPT_MAXREDIRS => 10,
@@ -58,7 +58,7 @@ curl_setopt_array($curl, array(
   CURLOPT_SSL_VERIFYPEER => 0,
   CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
   CURLOPT_CUSTOMREQUEST => "POST",
-  CURLOPT_POSTFIELDS => "token=z6x0ae3e08b5t3c3&to=6589338416&body=WhatsApp API on UltraMsg.com works good&priority=10&referenceId=",
+  CURLOPT_POSTFIELDS => "token={TOKEN}&to=6589338416&body=WhatsApp API on UltraMsg.com works good&priority=10&referenceId=",
   CURLOPT_HTTPHEADER => array(
     "content-type: application/x-www-form-urlencoded"
   ),
