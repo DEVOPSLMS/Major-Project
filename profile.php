@@ -306,10 +306,10 @@ if (isset($_POST['profile'])) {
               <hr>
               <div class="row">
 
-                <div class="col-sm-1">
+                <div class="col-sm-6">
                   <a class="btn " style="font-size:15px;" data-toggle="modal" data-target="#studentaddmodal">Edit</a>
                 </div>
-                <div class="col-sm-11">
+                <div class="col-sm-6">
                   <a class="btn  " id="password_change" href="check_password.php?id=<?php echo ($id) ?>" style="font-size:15px;float:right">Change Password</a>
                 </div>
 

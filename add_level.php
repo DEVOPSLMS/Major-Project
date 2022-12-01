@@ -113,7 +113,27 @@ if($date == $now){
             $query = "UPDATE student SET `student_level`='S4(E)' WHERE id = '$id'";
             $result = mysqli_query($con, $query);
         }
-    
+        else if($a['student_level'] == 'S1(NT)')
+        {
+            $id=$a['id'];
+            
+            $query = "UPDATE student SET `student_level`='S2(NT)' WHERE id = '$id'";
+            $result = mysqli_query($con, $query);
+        }
+        else if($a['student_level'] == 'S2(NT)')
+        {
+            $id=$a['id'];
+            
+            $query = "UPDATE student SET `student_level`='S3(NT)' WHERE id = '$id'";
+            $result = mysqli_query($con, $query);
+        }
+        else if($a['student_level'] == 'S3(NT)')
+        {
+            $id=$a['id'];
+            
+            $query = "UPDATE student SET `student_level`='S4(NT)' WHERE id = '$id'";
+            $result = mysqli_query($con, $query);
+        }
     }
 }
 
