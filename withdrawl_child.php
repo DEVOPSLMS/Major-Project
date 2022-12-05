@@ -64,7 +64,9 @@ if ($user_data['role'] != 'parent') {
                                 <p class="card-text">Centre Name: <?php echo $parent['centre_name'] ?></p>
                                 
                                 <?php 
-                                if ($parent['status'] == 'Withdrawn') { ?>
+                                $student_name=$parent['student_name'];
+                                $withdrawl_query=mysqli_query($con,"SELECT * FROM Withdrawl WHERE student_name='$student_name' ");
+                                if (mysqli_num_rows($withdrawl_query)==1) { ?>
                                     <h3>Child Is Already Withdrawn</h3>
                                     <?php echo $withdrawl['student_name']?>
                                 <?php } else { ?>
