@@ -356,27 +356,34 @@ $date = date("Y-m-d");
                     </div>
 
                 </div>
-                <div class="col-md-4 border border-dark ">
+                <div class="col-md-3 border border-dark ">
                     <div class="details text-center" style="margin-left:50px;margin-top:150px;height:300px;">
                         <h1>View Withdrawls</h1>
                         <p style="font-size:20px;">See all the withdrawls.</p>
                         <a href="all_withdrawl.php"><button class="btn btn-primary text-center  " type="submit" name="submit">View</button></a>
                     </div>
                 </div>
-                <div class="col-md-4 border border-dark ">
+                <div class="col-md-3 border border-dark ">
                     <div class="details text-center" style="margin-left:50px;margin-top:150px;height:300px;">
                         <h1>Change P5</h1>
                         <p style="font-size:20px;">See all P5 Students.</p>
                         <a href="studentlistp5.php"><button class="btn btn-primary text-center  " type="submit" name="submit">View</button></a>
                     </div>
                 </div>
-                <div class="col-md-4 border border-dark ">
+                <div class="col-md-3 border border-dark ">
                 <div class="details text-center" style="margin-left:50px;margin-top:150px;height:300px;">
                     <h1>Broadcast</h1>
                     <p style="font-size:20px;">Broadcast messages to teacher/parents on important information.</p>
                     <a href="broadcast.php"><button class="btn btn-primary text-center  " type="submit" name="submit">View</button></a>
                 </div>
+                
             </div>
+            <div class="col-md-3 border border-dark ">
+                <div class="details text-center" style="margin-left:50px;margin-top:150px;height:300px;">
+                    <h1>See Centre Lesson Plans</h1>
+                    <p style="font-size:20px;">See the centre lesson plan you are in charge of</p>
+                    <a href="centreroster.php"><button class="btn btn-primary text-center  " type="submit" name="submit">View</button></a>
+                </div>
             </div>
 
 
@@ -404,7 +411,7 @@ $date = date("Y-m-d");
                         </a>
                     </div>
                 </div>
-                <div class="col-lg-4 border border-dark " style="height:300px;">
+                <div class="col-lg-3 border border-dark " style="height:300px;">
                 <div class="details" style="margin-left:50px;margin-top:100px;">
                                 <h1>Storage</h1>
                                 <p style="font-size:20px;">View and store all forms.</p>
@@ -414,7 +421,7 @@ $date = date("Y-m-d");
     
                             </div>
                 </div>
-                <div class="col-lg-4 border border-dark " style="height:300px;">
+                <div class="col-lg-3 border border-dark " style="height:300px;">
                 <div class="details" style="margin-left:50px;margin-top:100px;">
                                 <h1>Feedback</h1>
                                 <p style="font-size:20px;">Send feedback to other departments.</p>
@@ -424,11 +431,21 @@ $date = date("Y-m-d");
     
                             </div>
                 </div>
-                <div class="col-lg-4 border border-dark " style="height:300px;">
+                <div class="col-lg-3 border border-dark " style="height:300px;">
                 <div class="details" style="margin-left:50px;margin-top:100px;">
                                 <h1>View check-ins</h1>
                                 <p style="font-size:20px;">View all check-ins from other roles</p>
                                 <a href="view_checkin.php">
+                                <button class="btn btn-primary text-center  " type="submit" name="submit" >View</button>
+                                <a>
+    
+                            </div>
+                </div>
+                <div class="col-lg-3 border border-dark " style="height:300px;">
+                <div class="details" style="margin-left:50px;margin-top:100px;">
+                                <h1>View All Centre Lesson Plan</h1>
+                                <p style="font-size:20px;">View all centre lesson plans</p>
+                                <a href="centreroster.php">
                                 <button class="btn btn-primary text-center  " type="submit" name="submit" >View</button>
                                 <a>
     

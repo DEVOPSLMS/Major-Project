@@ -296,7 +296,7 @@ if (isset($_POST["submit"])) {
         </select>
       </div>
 
-      <label class="form-check-label" for="inlineCheckbox2">Preferred Centre(Only For Teachers)</label>
+      <label class="form-check-label" for="inlineCheckbox2">Preferred Centre(Only For Teachers & Centre Manager)</label>
       <br>
     <?php 
     $query="select *from centre";

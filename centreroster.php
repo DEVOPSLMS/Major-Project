@@ -12,9 +12,13 @@ include("check_recurring_roster.php");
 error_reporting(E_ERROR | E_PARSE);
 $user_data = check_login($con);
 $username = $user_data['username'];
-if ($user_data['role'] != 'l') {
-    header('HTTP/1.0 403 Forbidden');
-    exit;
+if ($user_data['role'] != 'manager') {
+    if ($user_data['role'] != 'l') {
+        if ($user_data['role'] != 'admin') {
+            header('HTTP/1.0 403 Forbidden');
+            exit;
+        }
+    }
 }
 date_default_timezone_set('Singapore');
 if (isset($_POST['submit'])) {
@@ -72,63 +76,72 @@ $teacher = mysqli_query($con, $query);
     </header>
     <style>
         @media (max-width: 950px) {
-      .btn{
-       width:100%;
-      }
-    }
+            .btn {
+                width: 100%;
+            }
+        }
     </style>
     <br><br><br><br><br><br><br><br><br><br><br>
 
     <body>
         <div class="container-fluid">
-            <h1 class="text-center">All Centres</h1>
-            <div class="col-lg-12">
-                <button type="button" class="btn " data-toggle="modal" data-target=".bd-example-modal-lg" style="width:100%;">Add Centre</button>
-
-                <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                    <form action="" method="POST">
-                        <div class="modal-dialog modal-lg">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Add Centre</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-
-                                <div class="modal-body">
-
-                                    <label style="font-size:20px;">Centre Name(No Need To Include Centre Just The Name Etc: Pasir Ris)</label>
-                                    <input type="text" name="centre" class="form-control" required style="height:40px;font-size:20px;">
-                                    <label style="font-size:20px;">Description</label>
-                                    <textarea type="text" name="description" class="form-control" required style="height:40px;font-size:20px;"></textarea>
-
-
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn" style="font-size:20px;" data-dismiss="modal">Close</button>
-                                    <button type="submit" name="submit" class="btn " style="font-size:20px;">Add Centre</button>
-                                </div>
-
-                            </div>
-                        </div>
-                    </form>
-                </div>
-
-
-
-
-                <div class="row">
+            <?php
+            if ($user_data['role'] == 'l') {
+            ?>
+                <h1 class="text-center">All Centres</h1>
+                <div class="col-lg-12">
                     <?php
-                    $query = "select * from centre";
-                    $result = mysqli_query($con, $query);
-                    foreach ($result as $a) : ?>
-                        <?php $id = $a['id']; ?>
-                        <div class="col-lg-4 p-5">
-                            <div class="card">
-                                <div class="card-header">
-                                    <?php echo $a['centre_name'] ?>
-                                    <a onclick='
+                    if ($user_data['role'] == 'l') {
+                    ?>
+                        <button type="button" class="btn " data-toggle="modal" data-target=".bd-example-modal-lg" style="width:100%;">Add Centre</button>
+                    <?php } ?>
+                    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                        <form action="" method="POST">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Add Centre</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+
+                                    <div class="modal-body">
+
+                                        <label style="font-size:20px;">Centre Name(No Need To Include Centre Just The Name Etc: Pasir Ris)</label>
+                                        <input type="text" name="centre" class="form-control" required style="height:40px;font-size:20px;">
+                                        <label style="font-size:20px;">Description</label>
+                                        <textarea type="text" name="description" class="form-control" required style="height:40px;font-size:20px;"></textarea>
+
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn" style="font-size:20px;" data-dismiss="modal">Close</button>
+                                        <button type="submit" name="submit" class="btn " style="font-size:20px;">Add Centre</button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+
+
+
+                    <div class="row">
+                        <?php
+                        $query = "select * from centre";
+                        $result = mysqli_query($con, $query);
+                        foreach ($result as $a) : ?>
+                            <?php $id = $a['id']; ?>
+                            <div class="col-lg-4 p-5">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <?php echo $a['centre_name'] ?>
+                                        <?php
+                                        if ($user_data['role'] == 'l') {
+                                        ?>
+                                            <a onclick='
             if(confirm("Are you sure?") == false) {
                 return false;
             } else {
@@ -137,32 +150,90 @@ $teacher = mysqli_query($con, $query);
                 href="delete_centre.php?id=<?php echo $id ?>"
                     
             }'><button type="button" class="close" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button></a>
-                                </div>
-                                <div class="card-body">
-                                    <h5 class="card-title">Special title treatment</h5>
-                                    <p class="card-text"><?php echo $a['description'] ?></p>
-                                    <?php
-                                    $date = date("Y-m-d");
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button></a>
+                                        <?php } ?>
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Special title treatment</h5>
+                                        <p class="card-text"><?php echo $a['description'] ?></p>
+                                        <?php
+                                        $date = date("Y-m-d");
 
 
-                                    $url = ("roster.php?name=" . $a['centre_name'] . "&dt=" . $date . "");
+                                        $url = ("roster.php?name=" . $a['centre_name'] . "&dt=" . $date . "");
 
-                                    echo ("<a href='" . ($url) . "' class='btn 'style='font-size:15px;'>See All " . $a['name'] . " Lessons</a>")
+                                        echo ("<a href='" . ($url) . "' class='btn 'style='font-size:15px;'>See All " . $a['name'] . " Lessons</a>")
 
-                                    ?>
+                                        ?>
 
 
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    <?php endforeach; ?>
+                        <?php endforeach; ?>
 
+                    </div>
                 </div>
-            </div>
+            <?php } ?>
+            <?php if ($user_data['role'] == 'manager'||$user_data['role'] == 'admin') {
+            ?>
+            <h1 class="text-center">Centre You Are In Charge Of</h1>
+                <div class="col-lg-12">
+                    
+                    
 
 
+
+
+                    <div class="row">
+                        <?php
+                        $username=$user_data['username'];
+                        $query = "select * from user where username='$username'";
+                        $result = mysqli_query($con, $query);
+                        $user_details=mysqli_fetch_assoc($result);
+                        $preferred = $user_details['preferred'];
+                        $all_preferred=explode(", ",$preferred);
+                 
+                        
+                        foreach ($all_preferred as $a) : ?>
+
+                            <?php
+                             $centre = $a;
+                             
+                            $query_centre = "select * from centre where centre_name='$centre'";
+                            $result_centre = mysqli_query($con, $query_centre);
+                            $final_result=mysqli_fetch_assoc($result_centre);
+                    
+                             ?>
+                            <div class="col-lg-4 p-5">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <?php echo $final_result['centre_name'] ?>
+                                        
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Special title treatment</h5>
+                                        <p class="card-text"><?php echo $final_result['description'] ?></p>
+                                        <?php
+                                        $date = date("Y-m-d");
+
+
+                                        $url = ("admin_manager_roster.php?name=" . $final_result['centre_name'] . "&dt=" . $date . "");
+
+                                        echo ("<a href='" . ($url) . "' class='btn 'style='font-size:15px;'>See All " . $final_result['name'] . " Lessons</a>")
+
+                                        ?>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+                <?php }?>
+        </div>
 
 
 
