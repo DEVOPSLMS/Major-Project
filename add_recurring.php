@@ -151,11 +151,11 @@ if (isset($_POST["add"])) {
                             <option value="P5(F)">P5(F)</option>
                             <option value="P6(N)">P6(N)</option>
                             <option value="P6(F)">P6(F)</option>
-                            <option value="sec_1">Sec 1</option>
-                            <option value="sec_2">Sec 2</option>
-                            <option value="sec_3">Sec 3</option>
-                            <option value="sec_4">Sec 4</option>
-                            <option value="sec_5">Sec 5</option>
+                            <option value="S1">Sec 1</option>
+                            <option value="S2">Sec 2</option>
+                            <option value="S3">Sec 3</option>
+                            <option value="S4">Sec 4</option>
+                            <option value="S5">Sec 5</option>
 
                         </select>
                     </div>
@@ -163,13 +163,12 @@ if (isset($_POST["add"])) {
                         <label for="inputPassword4" style="font-size:20px;">Date</label>
                         <select style="height: 50px; font-size:20px" class="form-control" id="reason" name="centre_name" required>
                             <option value="">Choose Centre</option>
-                            <option value="Hougang Centre">Hougang Centre</option>
-                            <option value="Sengkang Centre">Sengkang Centre</option>
-                            <option value="Punggol Centre">Punggol Centre</option>
-                            <option value="Fernvale Centre">Fernvale Centre</option>
-                            <option value="Teck Ghee Centre">Teck Ghee Centre</option>
-                            <option value="Kolam Ayer Centre">Kolam Ayer Centre</option>
-                            <option value="Tampines Centre">Tampines Centre</option>
+                            <?php
+                                    $q = "select * from centre";
+                                    $all_centre = mysqli_query($con, $q);
+                                    foreach ($all_centre as $a) : ?>
+                                        <option value="<?php echo $a['centre_name'] ?>"><?php echo $a['centre_name'] ?></option>
+                                    <?php endforeach ?>
 
                         </select>
                     </div>

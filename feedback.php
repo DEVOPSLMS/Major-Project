@@ -97,15 +97,14 @@ $user_data = check_login($con);
                             <h4>Centre: </h4>
                         </td>
                         <td>
-                            <select type="text" class="col-lg-12" name="centre" id="Centre" width="60px" style="border: 1px solid grey;">
-                                <option selected>Select a centre</option>
-                                <option value="hougang">Hougang Centre</option>
-                                <option value="sengkang">Sengkang Centre</option>
-                                <option value="punggol">Punggol Centre</option>
-                                <option value="fernvale">Fernvale Centre</option>
-                                <option value="teckghee"> Teck Ghee Centre</option>
-                                <option value="kolamayer">Kolam Ayer Centre</option>
-                                <option value="tampines">Tampines Centre</option>
+                            <select type="text" class="col-lg-12" name="centre" id="Centre" width="60px"required style="border: 1px solid grey;">
+                                <option value="">Select a centre</option>
+                                <?php
+                                $q = "select * from centre";
+                                $all_centre = mysqli_query($con, $q);
+                                foreach ($all_centre as $a) : ?>
+                                    <option value="<?php echo $a['centre_name'] ?>"><?php echo $a['centre_name'] ?></option>
+                                <?php endforeach ?>
                             </select>
                         </td>
                     </tr>
@@ -113,7 +112,7 @@ $user_data = check_login($con);
                         <td>
                             <h4>Feedback: </h4>
                         </td>
-                        <td><textarea name="feedback" id="Feedback" cols="60" rows="10" style="border: 1px solid grey;"></textarea></td>
+                        <td><textarea name="feedback" id="Feedback" cols="60" required rows="10" style="border: 1px solid grey;"></textarea></td>
                     </tr>
                     <tr>
                         <td></td>
