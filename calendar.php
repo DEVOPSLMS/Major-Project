@@ -96,6 +96,7 @@
     background-color: #fdfdfd;
     color: #ced2d4;
     cursor: inherit;
+    
 }
 .calendar .days .day_num.selected {
     background-color: #f1f2f3;

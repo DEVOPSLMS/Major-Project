@@ -12,10 +12,11 @@ date_default_timezone_set('Singapore');
 $user_data = check_login($con);
 $string = strval($_GET['name']);
 $centre = str_replace("%20", " ", $string);
-if ($user_data['role'] != 'l') {
-
+if ($user_data['role'] != 'manager') {
+    if($user_data['role'] != 'admin'){
     header('HTTP/1.0 403 Forbidden');
     exit;
+    }
 }
 
 
@@ -64,16 +65,16 @@ foreach ($roster as $rosters) {
     $later =  strtotime(date($roster_time));
     $description = $rosters['level'] . ' ' . $rosters['subject'] . ' ' . 'Timing' . ' ' . $rosters['timing'];
     if ($diff > 2 && $rosters['need_relief'] == 'yes' && $rosters['cancelled'] == 'no') {
-        $calendar->add_event($description, 'Teacher Name:' . $rosters['teacher_name'] . '<br><br><a style="color:black;font-size:15px;"class="change"href="change_teacher.php?id=' . $rosters['id'] . '">Change Teacher</a><br><br><a style="color:black;font-size:15px;"class="change"href="cancel_class.php?id=' . $rosters['id'] . '">Cancel Class</a>',  $rosters['date'], 1, 'green');
+        $calendar->add_event($description, 'Teacher Name:' . $rosters['teacher_name'] . '',  $rosters['date'], 1, 'green');
     }
     if ($diff <= 2 && $diff > 1 && $rosters['need_relief'] == 'yes' && $rosters['cancelled'] == 'no') {
-        $calendar->add_event($description, 'Teacher Name:' . $rosters['teacher_name'] . '<br><br><a style="color:black;font-size:15px;"class="change"href="change_teacher.php?id=' . $rosters['id'] . '">Change Teacher</a><br><br><a style="color:black;font-size:15px;"class="change"href="cancel_class.php?id=' . $rosters['id'] . '">Cancel Class</a>', $rosters['date'], 1, 'orange');
+        $calendar->add_event($description, 'Teacher Name:' . $rosters['teacher_name'] . '', $rosters['date'], 1, 'orange');
     }
     if ($diff <= 1 && $diff > 0 && $rosters['need_relief'] == 'yes' && $rosters['cancelled'] == 'no') {
-        $calendar->add_event($description, 'Teacher Name:' . $rosters['teacher_name'] . '<br><br><a style="color:black;font-size:15px;"class="change"href="change_teacher.php?id=' . $rosters['id'] . '">Change Teacher</a><br><br><a style="color:black;font-size:15px;"class="change"href="cancel_class.php?id=' . $rosters['id'] . '">Cancel Class</a>',  $rosters['date'], 1, 'red');
+        $calendar->add_event($description, 'Teacher Name:' . $rosters['teacher_name'] . '',  $rosters['date'], 1, 'red');
     }
     if ($rosters['need_relief'] == 'no' && $rosters['date'] > $date2  && $rosters['cancelled'] == 'no') {
-        $calendar->add_event($description, 'Teacher Name:' . $rosters['teacher_name'] . '<br><br><a style="color:black;font-size:15px;"class="change"href="cancel_class.php?id=' . $rosters['id'] . '">Cancel Class</a>',  $rosters['date'], 1, 'purple');
+        $calendar->add_event($description, 'Teacher Name:' . $rosters['teacher_name'] . '',  $rosters['date'], 1, 'purple');
     }
     if ($rosters['need_relief'] == 'no' && $rosters['date'] < $date2  && $rosters['cancelled'] == 'no') {
         $calendar->add_event($description, 'Teacher Name:' . $rosters['teacher_name'] . '',  $rosters['date'], 1, 'purple');
@@ -201,16 +202,12 @@ $students = mysqli_query($con, $query);
         <div class="container-fuid">
 
             <div class="content home">
-                <?php
-
-                ?>
-                <a class="btn btn-primary  " id="add" style="width:100%;" type="button" href="recurring_roster.php">Add Recurring</a>
-
-                <a class="btn btn-primary  " id="add" style="width:100%;" type="button" href="add_roster.php?name=<?php echo $centre ?>">Add Lesson</a>
+                
+                
                 <br>
-                <?php echo "<a class='btn'href='roster.php?name=" . $centre . "&dt=" . $minus . "'>PREV MONTH</a>";
+                <?php echo "<a class='btn'href='admin_manager_roster.php?name=" . $centre . "&dt=" . $minus . "'>PREV MONTH</a>";
                 ?>
-                <?php echo "<a class='btn'style='float:right;'' href='roster.php?name=" . $centre . "&dt=" . $plus . "'>NEXT MONTH</a>";
+                <?php echo "<a class='btn'style='float:right;'' href='admin_manager_roster.php?name=" . $centre . "&dt=" . $plus . "'>NEXT MONTH</a>";
                 ?>
 
                 <?= $calendar ?>
