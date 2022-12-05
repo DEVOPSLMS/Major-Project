@@ -31,282 +31,113 @@ $user_data = check_login($con);
 
 </head>
 <header>
-    <?php include("header.php");
-
-    if (isset($_POST["submit"])) {
-        $centre = $_POST["centre"];
-        $feedback = $_POST["feedback"];
-
-        $query = "INSERT INTO feedback(name, role, centre, feedback) VALUES ('$username','$role','$centre','$feedback')";
-        mysqli_query($con, $query);
-
-        echo
-        "<script>
-            alert('Feedback submitted!');
-            document.location.href = 'feedback.php';
-        </script>";
-    }
-
-    ?>
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-
-
-    <div id="Sidenav_" class="sidenav">
-        <h2 style="font-weight:700;">Feedback</h2>
-        <a href="feedback.php">Submit a Feedback</a>
-
-        <a>My Feedbacks</a>
-
-        <?php if ($role !== 'parent') { ?>
-            <a href="feedbackView.php">View Feedbacks</a>
-        <?php } ?>
-
-    </div>
+    <?php include("header.php");?>
+    <br><br><br><br><br><br><br>
 
 </header>
 
 
 <body>
 
+    <div class="container" style="margin-top: 200px;">
+        <h2 class="text-center"><b>View Feedbacks</b></h2>
+        <a href="feedback.php" class="btn  col-lg-12" type="submit" style="font-size:15px;background-color:lightgray;">Send New Feedback</a>
+        <?php if($role == 'admin') echo '<a href="feedbackView.php" class="btn  col-lg-12" type="submit" style="font-size:15px;"> All Feedbacks (Admin)</a>"' ?>
 
-    <div id="feedbackBody">
-        <?php
-        $getfeedback = "SELECT * FROM feedback WHERE name = '$username'";
-        $result = mysqli_query($con, $getfeedback);
-        $rowcount = mysqli_num_rows($result);
-        ?>
-        <div id="viewFeedbacks">
-            <div id="viewFeedbacksChild">
-                <h2 id="feedbackHeader" class="text-center" style="font-weight: 900; margin: 10px;">My Feedbacks</h2>
+        <br><br>
+        <form action="" method="get">
+            <div class="col-lg-12">
 
-                <?php if ($rowcount == 0) {
-                    echo '<h2 style="color: red;">You have no past feedbacks sent</h2>';
-                } ?>
-                <?php foreach ($result as $x) : ?>
-                    <table style="margin: 25px 25px;">
-                        <tr>
-                            <td>
-                                <b>Name:</b>
-                            </td>
-                            <td><?php echo $x["name"] ?> <b> (<?php echo $x["role"] ?>) </b></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <b>Centre:</b>
-                            </td>
-                            <td>
-                                <?php echo $x["centre"] ?>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="vertical-align: top;">
-                                <b>Feedback:</b>
-                            </td>
-                            <td style="word-wrap: break-word;"><?php echo $x["feedback"] ?></td>
-                        </tr>
-                    </table>
-                <?php endforeach; ?>
+
+                <div class="row">
+                    <select class="col-lg-6  form-control" id="primary" style="height:50px;width:100%;" required name="month">
+                        <option value="">Month</option>
+                        <option value="01">January</option>
+                        <option value="02">February</option>
+                        <option value="03">March</option>
+                        <option value="04">April</option>
+                        <option value="05">May</option>
+                        <option value="06">June</option>
+                        <option value="07">July</option>
+                        <option value="08">August</option>
+                        <option value="09">September</option>
+                        <option value="10">October</option>
+                        <option value="11">November</option>
+                        <option value="12">December</option>
+                    </select>
+                    <select class="col-lg-6 form-control" id="primary" style="height:50px;width:100%;" required name="year">
+                        <option value="">Year</option>
+                        <?php
+                        $arr = [];
+                        $year_query = "SELECT * FROM feedback WHERE name = '$username'";
+                        $all_years = mysqli_query($con, $year_query);
+
+                        $arr = [];
+                        foreach ($all_years as $year) {
+                            $date = $year['date'];
+                            $year = date("Y", strtotime($date));
+                            $string = ['year' => $year];
+
+                            array_push($arr, $string);
+                        }
+
+                        $array = array_unique($arr, SORT_REGULAR);
+
+                        foreach ($array as $years) : ?>
+                            <option value="<?php echo $years['year'] ?>"><?php echo $years['year'] ?></option>
+                        <?php endforeach ?>
+
+                    </select>
+                    <button class="btn" type="submit" name="filter" style="font-size:15px;width:100%;">Filter</button>
+                </div>
             </div>
-        </div>
-        <a id="icon_" href="javascript:void(0)" onclick="myFunction()" class="arrowicon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-caret-right-square-fill" viewBox="0 0 16 16">
-                <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm5.5 10a.5.5 0 0 0 .832.374l4.5-4a.5.5 0 0 0 0-.748l-4.5-4A.5.5 0 0 0 5.5 4v8z" />
-            </svg>
-        </a>
-    </div>
+        </form>
+        <br>
+        <?php
+        if (!isset($_GET['filter'])) {
+            $feedback = mysqli_query($con, "SELECT * FROM feedback WHERE name = '$username'");
+        }
+        if (isset($_GET['filter'])) {
+            $month = strval($_GET['month']);
+            $year = $_GET['year'];
+
+            $date_string = '' . $year . '-' . $month . '-01';
+            $first_day = date($date_string);
+
+            $last_day = date('' . $year . '-' . $month . '-t');
+            $feedback = mysqli_query($con, "SELECT * FROM feedback WHERE name = '$username' and date between '$first_day'and '$last_day'");
+        }
+
+        if (mysqli_num_rows($feedback) > 0) {
+
+            foreach ($feedback as $b) : ?>
+
+                <div class="card">
+                    <div class="card-header">
+                        Name: <?php echo $b['name'], " (", $b['role'], ")" ?>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-9">
+                                <h3><?php echo $b['feedback'] ?></h3>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="row">
+                                    <p class="col-lg-6"><i class="fa fa-calendar " aria-hidden="true"></i><?php echo $b['date'] ?></p>
+                                    <p class="col-lg-6"><i class="fa fa-map-marker" aria-hidden="true"></i><?php echo $b['centre'] ?></p>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <br>
+
+            <?php endforeach   ?>
+        <?php } else { ?>
+            <h1 class="text-center">No Record Found</h1>
+        <?php } ?>
 </body>
-
-<style>
-    #feedbackHeader {
-        display: none;
-    }
-
-    #viewFeedbacks {
-        width: 100%;
-        top: 200px;
-        position: fixed;
-    }
-
-    #viewFeedbacksChild {
-        margin-left: 300px;
-        border: 1px grey solid;
-        height: 678px;
-        z-index: 1;
-        left: 300;
-        overflow-x: hidden;
-    }
-
-    #viewFeedbacksChild td {
-        padding: 6px 8px 6px 16px;
-        text-decoration: none;
-        font-size: 25px;
-        color: black;
-    }
-
-    .sidenav a:nth-child(3) {
-        background-color: #5ebec4;
-    }
-
-    @media(max-width:500px) {
-        .btn {
-
-            /* It hides the button text
-                when screen size <=768px */
-            display: none;
-        }
-    }
-
-    .container {
-        padding-left: 100px;
-        padding-right: 50px;
-
-    }
-
-    .sidenav {
-        height: 70%;
-        /* width: 19%; */
-        width: 300px;
-        position: fixed;
-        z-index: 1;
-        top: 200px;
-        /* left: 0; */
-        overflow-x: hidden;
-        padding-top: 20px;
-        background-color: white;
-        border: 1px black solid;
-        z-index: 10;
-        margin-right: 300px
-    }
-
-    .sidenav h2 {
-        padding: 6px 8px 6px 16px;
-        text-decoration: none;
-        font-size: 25px;
-        color: black;
-        display: block;
-    }
-
-    .sidenav td {
-        padding: 6px 8px 6px 16px;
-        text-decoration: none;
-        font-size: 25px;
-        color: black;
-        /* display: block; */
-    }
-
-    .sidenav a {
-        padding: 6px 8px 6px 16px;
-        text-decoration: none;
-        font-size: 25px;
-        color: black;
-        display: block;
-        cursor: pointer;
-    }
-
-    .sidenav a:hover {
-        background-color: #96d5d9;
-        /* background-color: #5ebec4; */
-        /* color: black; */
-    }
-
-    .main {
-        margin-left: 160px;
-        /* Same as the width of the sidenav */
-        font-size: 28px;
-        /* Increased text to enable scrolling */
-        padding: 0px 10px;
-    }
-
-    @media screen and (max-height: 500px) {
-        .sidenav {
-            padding-top: 15px;
-        }
-
-        .sidenav a {
-            font-size: 18px;
-        }
-    }
-
-    #table-form {
-        font-size: 18px;
-    }
-
-    #table-form td {
-        padding: 8px;
-    }
-
-    #table-form tr td:nth-child(odd) {
-        text-align: right;
-        vertical-align: top;
-        font-weight: bolder;
-    }
-</style>
-
-<style>
-    @media(max-width:455px) {
-        #viewFeedbacksChild td {
-            font-size: 18px;
-        }
-    }
-
-    #icon_ {
-        position: fixed;
-        left: 0;
-        z-index: 10;
-        top: 50%;
-        display: none;
-    }
-
-    @media(max-width:990px) {
-        .sidenav {
-            display: none;
-        }
-
-        #feedbackHeader {
-            display: block;
-        }
-
-        #viewFeedbacksChild {
-            /* padding-top: 100px; */
-            margin-left: 0;
-        }
-
-        #viewFeedbacks {
-            position: relative;
-            top: -35px;
-        }
-
-        #icon_ {
-            display: block;
-        }
-
-
-        .sidenav.responsive {
-            display: block;
-        }
-
-        .arrowicon.responsive_ {
-            margin-left: 300px;
-        }
-    }
-</style>
-
-<script>
-    /* Toggle between adding and removing the "responsive" class to topnav when the user clicks on the icon */
-    function myFunction() {
-        var x = document.getElementById("Sidenav_");
-        var y = document.getElementById("icon_");
-        if (x.className === "sidenav") {
-            x.className += " responsive";
-        } else {
-            x.className = "sidenav";
-        }
-        if (y.className === "arrowicon") {
-            y.className += " responsive_";
-        } else {
-            y.className = "arrowicon";
-        }
-    }
-</script>
 
 </html>
