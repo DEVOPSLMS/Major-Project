@@ -85,7 +85,7 @@ $student_details = mysqli_fetch_assoc($result);
     .nav button {
         background: #ccc;
         padding: 10px 15px;
-        margin-left: 6px;
+        margin-left: 40px;
         border-radius: 50%;
         cursor: pointer;
         opacity: .5;
@@ -184,11 +184,11 @@ $student_details = mysqli_fetch_assoc($result);
     <a id="backBtn" class="btn btn-primary" style=" left: 20px;" href="enrollment_review.php">Back</a>
     <br><br>
     <h2 class="text-center" style="border-bottom: 1px grey solid; padding-bottom: 20px;"><b>Enrollment Review</b></h2>
-    <button type="button" class="btn btn-primary" id="medical" style="right: 20px; width:100%; margin-bottom: 20px;" data-bs-toggle="modal" data-bs-target="#Modal">
+    <button type="button" class="btn " id="medical" style="right: 20px; width:100%; margin-bottom: 20px;" data-bs-toggle="modal" data-bs-target="#Modal">
         Medical Declaration Form
     </button>
     <!-- Modal -->
-    <div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade bd-example-modal-lg" id="Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -207,6 +207,7 @@ $student_details = mysqli_fetch_assoc($result);
                         <tr><td>Parent/Guardian NRIC:</td><td>',                            $student_details["medical_nric"], '</td></tr>
                         <tr><td>Translator Name (if any):</td><td>',                        $student_details["translator_name"], '</td></tr>
                         <tr><td>Translator NRIC:</td><td>',                                 $student_details["translator_nric"], '</td></tr>
+                        
                         
                         </table>';
                     ?>
@@ -228,10 +229,7 @@ $student_details = mysqli_fetch_assoc($result);
             <button id="r6-button" style="height:100px;" onclick="displayR6()">Other Family Members</button>
         </nav>
 
-        <nav class="text-center" style="width: 100%;">
-            <button class="previous" id="previous" onclick="displayPrevious()">Previous</button>
-            <button class="next button-active" id="next" onclick="displayNext()">Next</button>
-        </nav>
+       
 
         <section id="r1" class="section active">
             <h3 id="text" style="text-align:center;">Student's Particulars</h3>
@@ -299,9 +297,15 @@ $student_details = mysqli_fetch_assoc($result);
                     <input value="<?php echo $student_details['student_account'] ?>" disabled type="text" class="form-control" name="student_account" id="student_school">
                 </div>
                 <div class="form-group col-lg-6">
-                    <label for="inputCity">Which Centre Do You Want To Go To</label>
+                    <label for="inputCity">Centre Name</label>
                     <input value="<?php echo $student_details['centre_name'] ?>" disabled class="form-control" id="reason" name="centre_name">
                 </div>
+                <div class="form-group col-lg-6">
+                <label for="inputCity">Birth Certificate</label>
+                <br>
+                <img  style="height:100%;width:100%;"src="birth_cert/<?php echo $student_details['birth_cert']?>">
+                </div>
+               
             </div>
         </section>
 
@@ -368,6 +372,17 @@ $student_details = mysqli_fetch_assoc($result);
                 <div class="form-group col-lg-6">
                     <label for="inputCity">Other Salary*</label>
                     <input value="<?php echo $student_details['father_other'] ?>" disabled type="text" class="form-control" name="father_other" value="$" id="student_school">
+                </div>
+                <div class="form-group col-lg-6">
+                <label for="inputCity">Father IC</label>
+                <br>
+                <img  style="height:100%;width:100%;"src="parent_ic/<?php echo $student_details['father_ic']?>">
+                </div>
+                <br>
+                <div class="form-group col-lg-6">
+                <label for="inputCity">Father Payslip</label>
+                <br>
+                <img  style="height:100%;width:100%;"src="parent_payslip/<?php echo $student_details['father_payslip']?>">
                 </div>
             </div>
         </section>
@@ -438,6 +453,17 @@ $student_details = mysqli_fetch_assoc($result);
                     <label for="inputCity">Other Salary*</label>
                     <input value="<?php echo $student_details['mother_other'] ?>" disabled type="text" class="form-control" name="mother_other" value="$" id="student_school">
                 </div>
+                <div class="form-group col-lg-6">
+                <label for="inputCity">Mother IC</label>
+                <br>
+                <img  style="height:100%;width:100%;"src="parent_ic/<?php echo $student_details['mother_ic']?>">
+                </div>
+                <br>
+                <div class="form-group col-lg-6">
+                <label for="inputCity">Mother Payslip</label>
+                <br>
+                <img  style="height:100%;width:100%;"src="parent_payslip/<?php echo $student_details['mother_payslip']?>">
+                </div>
             </div>
         </section>
         <section id="r4" class="section">
@@ -504,6 +530,17 @@ $student_details = mysqli_fetch_assoc($result);
                     <label for="inputCity">Other Salary*</label>
                     <input value="<?php echo $student_details['guardian_other'] ?>" disabled type="text" class="form-control" name="guardian_other" value="$" id="student_school">
                 </div>
+                <div class="form-group col-lg-6">
+                <label for="inputCity">Guardian IC</label>
+                <br>
+                <img  style="height:100%;width:100%;"src="parent_ic/<?php echo $student_details['guardian_ic']?>">
+                </div>
+                <br>
+                <div class="form-group col-lg-6">
+                <label for="inputCity">Guardian Payslip</label>
+                <br>
+                <img  style="height:100%;width:100%;"src="parent_payslip/<?php echo $student_details['guardian_payslip']?>">
+                </div>
             </div>
         </section>
         <section id="r5" class="section">
@@ -540,6 +577,14 @@ $student_details = mysqli_fetch_assoc($result);
                 </div>
             </div>
         </section>
+        <nav style="margin-left:48%;" class="button">
+                <div class="row">
+                    <button class="previous" id="previous" onclick="displayPrevious()">Previous</button>
+
+                    <button class="next button-active" id="next" onclick="displayNext()">Next</button>
+                </div>
+
+            </nav>
     </div>
 
 
