@@ -36,8 +36,9 @@ $user_data = check_login($con);
     if (isset($_POST["submit"])) {
         $centre = $_POST["centre"];
         $feedback = $_POST["feedback"];
+        $date = date("Y-m-d");
 
-        $query = "INSERT INTO feedback(name, role, centre, feedback) VALUES ('$username','$role','$centre','$feedback')";
+        $query = "INSERT INTO feedback(name, role, centre, feedback, date) VALUES ('$username','$role','$centre','$feedback','$date')";
         mysqli_query($con, $query);
 
         echo
@@ -48,170 +49,77 @@ $user_data = check_login($con);
     }
 
     ?>
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-
-
-    <div id="Sidenav_" class="sidenav">
-        <h2 style="font-weight:700;">Feedback</h2>
-        <a>Submit a Feedback</a>
-
-        <a href="feedbackSelfView.php">My Feedbacks</a>
-
-        <?php if ($role !== 'parent') { ?>
-            <a href="feedbackView.php">View Feedbacks</a>
-        <?php } ?>
-
-    </div>
+    <br><br><br><br><br><br><br><br><br><br><br>
 
 </header>
 
 <body>
-    <div id="feedbackBody">
-        <div id="submitFeedback" class="container" style="margin-top: -60px;">
-            <h2 id="feedbackHeader" class="text-center" style="font-weight: 900; margin: 10px;">Submit a Feedback</h2>
-            <h4>
-                Hello Sir/Madam,
-                <br>YYD Education Centre is still growing and we value any feedback you can provide us.
-                <br>We will not disclose the information you provide us to anyone.
-                <br>
-                <br>You can submit your feedback in this form below.
-                <br>Thank you for taking your time to provide us with insights and areas where we can improve on.
-                <br>Your feedback is greatly appreciated.
-            </h4>
-            <br><br>
-            <a id="icon_" href="javascript:void(0)" onclick="myFunction()" class="arrowicon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-caret-right-square-fill" viewBox="0 0 16 16">
-                    <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm5.5 10a.5.5 0 0 0 .832.374l4.5-4a.5.5 0 0 0 0-.748l-4.5-4A.5.5 0 0 0 5.5 4v8z" />
-                </svg>
-            </a>
-            <form method="POST">
-                <table id="table-form">
-                    <tr>
-                        <td>
-                            <h4>Name: </h4>
-                        </td>
-                        <td><input type="text" class="col-lg-12" name="name" id="Name" disabled placeholder="<?php echo $username ?>" style="border: 1px solid lightgrey;"></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <h4>Centre: </h4>
-                        </td>
-                        <td>
-                            <select type="text" class="col-lg-12" name="centre" id="Centre" width="60px" style="border: 1px solid grey;">
-                                <option selected>Select a centre</option>
-                                <option value="hougang">Hougang Centre</option>
-                                <option value="sengkang">Sengkang Centre</option>
-                                <option value="punggol">Punggol Centre</option>
-                                <option value="fernvale">Fernvale Centre</option>
-                                <option value="teckghee"> Teck Ghee Centre</option>
-                                <option value="kolamayer">Kolam Ayer Centre</option>
-                                <option value="tampines">Tampines Centre</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <h4>Feedback: </h4>
-                        </td>
-                        <td><textarea name="feedback" id="Feedback" cols="60" rows="10" style="border: 1px solid grey;"></textarea></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td style="text-align: right;">
-                            <button class="btn btn-primary" type="submit" name="submit" style="background-color:#5EBEC4;color:black;border-color:#5EBEC4;margin:auto;">Submit</button>
-                        </td>
-                    </tr>
-                </table>
-            </form>
+    <div class="container">
+        <h4 class="text-center">
+            Hello Sir/Madam,
+            <br>YYD Education Centre is still growing and we value any feedback you can provide us.
+            <br>We will not disclose the information you provide us to anyone.
+            <br>
+            <br>You can submit your feedback in this form below.
+            <br>Thank you for taking your time to provide us with insights and areas where we can improve on.
+            <br>Your feedback is greatly appreciated.
+        </h4>
+        <br><br>
+
+        <div class="card">
+            <div class="card-header">
+                Submit a Feedback
+            </div>
+            <div class="card-body">
+
+                <form id="form" method="POST" enctype="multipart/form-data" class="needs-validation " style="margin:auto;" autocomplete="off">
+                    <div class="mb-3">
+                        <label> Name </label>
+
+                        <input type="text" class="form-control" name="name" id="Name" disabled value="<?php echo $username ?>">
+
+                    </div>
+                    <div class="form-group">
+                        <label for="image">Centre </label>
+                        <select class="form-control" name="centre" id="Centre" required>
+                            <option value="">Select a centre</option>
+                            <?php
+                            $q = "select * from centre";
+                            $all_centre = mysqli_query($con, $q);
+                            foreach ($all_centre as $a) : ?>
+                                <option value="<?php echo $a['centre_name'] ?>"><?php echo $a['centre_name'] ?></option>
+                            <?php endforeach ?>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label> Feedback </label>
+                        <textarea name="feedback" id="" rows="4" class="form-control"></textarea>
+                    </div>
+
+
+
+
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <button class="btn col-lg-12" type="submit" name="submit" style="font-size:15px;background-color:lightblue;">Send Feedback</button>
+                            <a href="feedbackSelfView.php" class="btn  col-lg-12" type="submit" style="font-size:15px;background-color:lightgrey;">See Pasts Feedbacks</a>
+                            <?php if($role == 'admin') echo '<a href="feedbackView.php" class="btn  col-lg-12" type="submit" style="font-size:15px;"> All Feedbacks (Admin)</a>"' ?>
+                        </div>
+
+                    </div>
+
+
+                </form>
+
+            </div>
         </div>
-
-
-
-
     </div>
 </body>
 
 
-<script>
-    /* Toggle between adding and removing the "responsive" class to topnav when the user clicks on the icon */
-    function myFunction() {
-        var x = document.getElementById("Sidenav_");
-        var y = document.getElementById("icon_");
-        if (x.className === "sidenav") {
-            x.className += " responsive";
-        } else {
-            x.className = "sidenav";
-        }
-        if (y.className === "arrowicon") {
-            y.className += " responsive_";
-        } else {
-            y.className = "arrowicon";
-        }
-    }
-</script>
-
 <style>
-    #feedbackHeader{
+    #feedbackHeader {
         display: none;
-    }
-
-    #icon_ {
-        position: fixed;
-        left: 0;
-        z-index: 10;
-        /* width: 30px;
-        height: 30px; */
-        display: none;
-    }
-
-    .sidenav a:nth-child(2) {
-        background-color: #5ebec4;
-    }
-
-
-    .sidenav {
-        height: 70%;
-        /* width: 19%; */
-        width: 300px;
-        position: fixed;
-        z-index: 1;
-        top: 200px;
-        /* left: 0; */
-        overflow-x: hidden;
-        padding-top: 20px;
-        background-color: white;
-        border: 1px black solid;
-    }
-
-    .sidenav h2 {
-        padding: 6px 8px 6px 16px;
-        text-decoration: none;
-        font-size: 25px;
-        color: black;
-        display: block;
-    }
-
-    .sidenav td {
-        padding: 6px 8px 6px 16px;
-        text-decoration: none;
-        font-size: 25px;
-        color: black;
-        /* display: block; */
-    }
-
-    .sidenav a {
-        padding: 6px 8px 6px 16px;
-        text-decoration: none;
-        font-size: 25px;
-        color: black;
-        display: block;
-        cursor: pointer;
-    }
-
-    .sidenav a:hover {
-        background-color: #96d5d9;
-        /* background-color: #5ebec4; */
-        /* color: black; */
     }
 
     .main {
@@ -220,20 +128,6 @@ $user_data = check_login($con);
         font-size: 28px;
         /* Increased text to enable scrolling */
         padding: 0px 10px;
-    }
-
-    #table-form {
-        font-size: 18px;
-    }
-
-    #table-form td {
-        padding: 8px;
-    }
-
-    #table-form tr td:nth-child(odd) {
-        text-align: right;
-        vertical-align: top;
-        font-weight: bolder;
     }
 </style>
 <style>
@@ -246,61 +140,13 @@ $user_data = check_login($con);
         }
     }
 
-    @media(max-width:1750px) {
-        #submitFeedback {
-            margin-left: 300px;
-        }
-    }
+    @media(max-width:1750px) {}
 
-    @media(max-width:990px) {
-        #submitFeedback {
-            padding-top: 100px;
-            margin-left: 0px;
-        }
+    @media(max-width:990px) {}
 
-        .sidenav {
-            display: none;
-        }
+    @media(max-width:680px) {}
 
-        #feedbackHeader{
-            display: block;
-        }
-
-        #icon_ {
-            display: block;
-        }
-
-        .sidenav.responsive {
-            display: block;
-        }
-
-        .arrowicon.responsive_ {
-            margin-left: 300px;
-        }
-    }
-
-    @media(max-width:680px) {
-        /* #table-form tr td:nth-child(even) input {
-            width:100px;
-        }
-        #table-form tr td:nth-child(even) select {
-            width:100px;
-        }
-        #table-form tr td:nth-child(even) textarea {
-            width:100px;
-        } */
-
-    }
-
-    @media screen and (max-height: 500px) {
-        .sidenav {
-            padding-top: 15px;
-        }
-
-        .sidenav a {
-            font-size: 18px;
-        }
-    }
+    @media screen and (max-height: 500px) {}
 </style>
 
 
