@@ -138,11 +138,11 @@ function goBack() {
                             <option value="P5(F)">P5(F)</option>
                             <option value="P6(N)">P6(N)</option>
                             <option value="P6(F)">P6(F)</option>
-                            <option value="sec_1">Sec 1</option>
-                            <option value="sec_2">Sec 2</option>
-                            <option value="sec_3">Sec 3</option>
-                            <option value="sec_4">Sec 4</option>
-                            <option value="sec_5">Sec 5</option>
+                            <option value="S1">Sec 1</option>
+                            <option value="S2">Sec 2</option>
+                            <option value="S3">Sec 3</option>
+                            <option value="S4">Sec 4</option>
+                            <option value="S5">Sec 5</option>
 
                         </select>
                     </div>

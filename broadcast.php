@@ -18,14 +18,14 @@ include("check_recurring_roster.php");
 $user_data = check_login($con);
 $username = $user_data['username'];
 date_default_timezone_set("Singapore");
-if ($user_data['role'] != 'manager')  {
-    if ($user_data['role'] != 'l')  {
+if ($user_data['role'] != 'manager') {
+    if ($user_data['role'] != 'l') {
         header('HTTP/1.0 403 Forbidden');
         exit;
     }
 }
 
-   
+
 if (isset($_POST["submit"])) {
     $address = $_POST["address"];
     $centre = $_POST["centre"];
@@ -38,129 +38,143 @@ if (isset($_POST["submit"])) {
     mysqli_query($con, $query);
     if ($address == 'teacher') {
         $all_teacher = mysqli_query($con, "select * from user where role='teacher'");
+
         foreach ($all_teacher as $a) {
 
-            $email = $a['email'];
-            $mail = new PHPMailer(true);
+            $preferredList = explode(", ", $a['preferred']);
+            if (in_array("$centre", $preferredList)) {
+                $email = $a['email'];
+                $mail = new PHPMailer(true);
 
 
 
-            //Server settings
-            //Enable verbose debug output
-            $mail->isSMTP();                                            //Send using SMTP
-            $mail->Host = 'smtp.gmail.com';             // Specify main and backup SMTP server (server name)
-            $mail->Port = 465;          //Set the SMTP server to send through
-            $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-            $mail->Username   = 'majorprojectxampp@gmail.com';                     //SMTP username
-            $mail->Password   = 'bxyjywhmfqczzgyu';                               //SMTP password
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
-            //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+                //Server settings
+                //Enable verbose debug output
+                $mail->isSMTP();                                            //Send using SMTP
+                $mail->Host = 'smtp.gmail.com';             // Specify main and backup SMTP server (server name)
+                $mail->Port = 465;          //Set the SMTP server to send through
+                $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+                $mail->Username   = 'majorprojectxampp@gmail.com';                     //SMTP username
+                $mail->Password   = 'bxyjywhmfqczzgyu';                               //SMTP password
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
+                //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
-            //Recipients
-            $mail->setFrom('majorprojectxampp@gmail.com');
-
-
-            $mail->addAddress($email);     //Add a recipient
+                //Recipients
+                $mail->setFrom('majorprojectxampp@gmail.com');
 
 
-            //Attachments
-            //Optional name
+                $mail->addAddress($email);     //Add a recipient
 
-            //Content
-            $mail->isHTML(true);                                  //Set email format to HTML
-            $mail->Subject = $message_title;
-            $email_template = "
-            <h2>Hello! This Is YYD Education Centre</h2>
-            <img src='https://www.yyd.org.sg/images/logo.jpg'style='width:150px;height100px;'>
-            <h3>You Have Received This Email From $username to notify you about $message</h3>
-           
-            ";
-            $mail->Body = $email_template;
-            $mail->send();
+
+                //Attachments
+                //Optional name
+
+                //Content
+                $mail->isHTML(true);                                  //Set email format to HTML
+                $mail->Subject = $message_title;
+                $email_template = "
+                <h2>Hello! This Is YYD Education Centre</h2>
+                <img src='https://www.yyd.org.sg/images/logo.jpg'style='width:150px;height100px;'>
+                <h3>You Have Received This Email From $username to notify you about $message</h3>
+               
+                ";
+                $mail->Body = $email_template;
+                $mail->send();
+            }
         }
-    } elseif ($address == 'relief teacher') {
+    } elseif ($address == 'parents') {
         $all_parent = mysqli_query($con, "select * from user where role='parent'");
         foreach ($all_parent as $a) {
+            $parentid=$a['id'];
+            $all_students_of_parents = mysqli_query($con, "select * from student where parentid='$parentid'");
+            foreach($all_students_of_parents as $b){
+                $centre_name=$b['centre_name'];
+                if($centre_name==$centre){
+                    $email = $a['email'];
+                    $mail = new PHPMailer(true);
+        
+        
+        
+                    //Server settings
+                    //Enable verbose debug output
+                    $mail->isSMTP();                                            //Send using SMTP
+                    $mail->Host = 'smtp.gmail.com';             // Specify main and backup SMTP server (server name)
+                    $mail->Port = 465;          //Set the SMTP server to send through
+                    $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+                    $mail->Username   = 'majorprojectxampp@gmail.com';                     //SMTP username
+                    $mail->Password   = 'bxyjywhmfqczzgyu';                               //SMTP password
+                    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
+                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+        
+                    //Recipients
+                    $mail->setFrom('majorprojectxampp@gmail.com');
+        
+        
+                    $mail->addAddress($email);     //Add a recipient
+        
+        
+                    //Attachments
+                    //Optional name
+        
+                    //Content
+                    $mail->isHTML(true);                                  //Set email format to HTML
+                    $mail->Subject = $message_title;
+                    $email_template = "
+                    <h2>Hello! This Is YYD Education Centre</h2>
+                    <img src='https://www.yyd.org.sg/images/logo.jpg'style='width:150px;height100px;'>
+                    <h3>You Have Received This Email From $username to notify you about $message</h3>
+                   
+                    ";
+                    $mail->Body = $email_template;
+                    $mail->send();
 
-            $email = $a['email'];
-            $mail = new PHPMailer(true);
-
-
-
-            //Server settings
-            //Enable verbose debug output
-            $mail->isSMTP();                                            //Send using SMTP
-            $mail->Host = 'smtp.gmail.com';             // Specify main and backup SMTP server (server name)
-            $mail->Port = 465;          //Set the SMTP server to send through
-            $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-            $mail->Username   = 'majorprojectxampp@gmail.com';                     //SMTP username
-            $mail->Password   = 'bxyjywhmfqczzgyu';                               //SMTP password
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
-            //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
-
-            //Recipients
-            $mail->setFrom('majorprojectxampp@gmail.com');
-
-
-            $mail->addAddress($email);     //Add a recipient
-
-
-            //Attachments
-            //Optional name
-
-            //Content
-            $mail->isHTML(true);                                  //Set email format to HTML
-            $mail->Subject = $message_title;
-            $email_template = "
-            <h2>Hello! This Is YYD Education Centre</h2>
-            <img src='https://www.yyd.org.sg/images/logo.jpg'style='width:150px;height100px;'>
-            <h3>You Have Received This Email From $username to notify you about $message</h3>
+                }
+            }
            
-            ";
-            $mail->Body = $email_template;
-            $mail->send();
         }
     } else {
         $all_teacher = mysqli_query($con, "select * from user where role='teacher'and relief='yes'");
         foreach ($all_teacher as $a) {
-
-            $email = $a['email'];
-            $mail = new PHPMailer(true);
-
-
-
-            //Server settings
-            //Enable verbose debug output
-            $mail->isSMTP();                                            //Send using SMTP
-            $mail->Host = 'smtp.gmail.com';             // Specify main and backup SMTP server (server name)
-            $mail->Port = 465;          //Set the SMTP server to send through
-            $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-            $mail->Username   = 'majorprojectxampp@gmail.com';                     //SMTP username
-            $mail->Password   = 'bxyjywhmfqczzgyu';                               //SMTP password
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
-            //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
-
-            //Recipients
-            $mail->setFrom('majorprojectxampp@gmail.com');
+            $preferredList = explode(", ", $a['preferred']);
+            if (in_array("$centre", $preferredList)) {
+                $email = $a['email'];
+                $mail = new PHPMailer(true);
 
 
-            $mail->addAddress($email);     //Add a recipient
+
+                //Server settings
+                //Enable verbose debug output
+                $mail->isSMTP();                                            //Send using SMTP
+                $mail->Host = 'smtp.gmail.com';             // Specify main and backup SMTP server (server name)
+                $mail->Port = 465;          //Set the SMTP server to send through
+                $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+                $mail->Username   = 'majorprojectxampp@gmail.com';                     //SMTP username
+                $mail->Password   = 'bxyjywhmfqczzgyu';                               //SMTP password
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
+                //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+
+                //Recipients
+                $mail->setFrom('majorprojectxampp@gmail.com');
 
 
-            //Attachments
-            //Optional name
+                $mail->addAddress($email);     //Add a recipient
 
-            //Content
-            $mail->isHTML(true);                                  //Set email format to HTML
-            $mail->Subject = $message_title;
-            $email_template = "
+
+                //Attachments
+                //Optional name
+
+                //Content
+                $mail->isHTML(true);                                  //Set email format to HTML
+                $mail->Subject = $message_title;
+                $email_template = "
             <h2>Hello! This Is YYD Education Centre</h2>
             <img src='https://www.yyd.org.sg/images/logo.jpg'style='width:150px;height100px;'>
             <h3>You Have Received This Email From $username to notify you about $message</h3>
            
             ";
-            $mail->Body = $email_template;
-            $mail->send();
+                $mail->Body = $email_template;
+                $mail->send();
+            }
         }
     }
     echo
@@ -196,7 +210,7 @@ if (isset($_POST["submit"])) {
 
         .btn {
             font-size: 20%;
-            padding-left:5% !important;
+            padding-left: 5% !important;
         }
     }
 </style>
