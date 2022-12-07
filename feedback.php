@@ -169,24 +169,6 @@ $user_data = check_login($con);
         padding: 0px 10px;
     }
 </style>
-<style>
-    @media(max-width:500px) {
-        .btn {
-
-            /* It hides the button text
-                when screen size <=768px */
-            /* display: none; */
-        }
-    }
-
-    @media(max-width:1750px) {}
-
-    @media(max-width:990px) {}
-
-    @media(max-width:680px) {}
-
-    @media screen and (max-height: 500px) {}
-</style>
 
 
 </html>
