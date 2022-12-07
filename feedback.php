@@ -1,4 +1,9 @@
 <?php
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
 session_start();
 
 include("connection.php");
@@ -40,6 +45,37 @@ $user_data = check_login($con);
 
         $query = "INSERT INTO feedback(name, role, centre, feedback, date) VALUES ('$username','$role','$centre','$feedback','$date')";
         mysqli_query($con, $query);
+
+        $staff = mysqli_query($con, "SELECT * FROM user WHERE role='admin'");
+
+        foreach ($staff as $a) {
+
+            $email = $a['email'];
+            $mail = new PHPMailer(true);
+
+
+            $mail->isSMTP();
+            $mail->Host = 'smtp.gmail.com';
+            $mail->Port = 465;
+            $mail->SMTPAuth   = true;
+            $mail->Username   = 'majorprojectxampp@gmail.com';
+            $mail->Password   = 'bxyjywhmfqczzgyu';
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+
+            $mail->setFrom('majorprojectxampp@gmail.com');
+            $mail->addAddress($email); //receiveing feedbacks
+
+            $mail->isHTML(true);
+            $mail->Subject = "Feedback";
+            $email_template = "
+                <img src='https://www.yyd.org.sg/images/logo.jpg'style='width:150px;height100px;'>
+                <h3>You Have Received A Feedback From $username:</h3>
+                <br> <p>$feedback</p>
+               
+                ";
+            $mail->Body = $email_template;
+            $mail->send();
+        }
 
         echo
         "<script>
@@ -105,7 +141,7 @@ $user_data = check_login($con);
                         <div class="row">
                             <button class="btn col-lg-12" type="submit" name="submit" style="font-size:15px;background-color:lightblue;">Send Feedback</button>
                             <a href="feedbackSelfView.php" class="btn  col-lg-12" type="submit" style="font-size:15px;background-color:lightgrey;">See Pasts Feedbacks</a>
-                            <?php if($role == 'admin') echo '<a href="feedbackView.php" class="btn  col-lg-12" type="submit" style="font-size:15px;"> All Feedbacks (Admin)</a>"' ?>
+                            <?php if ($role == 'admin') echo '<a href="feedbackView.php" class="btn  col-lg-12" type="submit" style="font-size:15px;"> All Feedbacks (Admin)</a>"' ?>
                         </div>
 
                     </div>
