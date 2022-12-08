@@ -5,10 +5,10 @@ include("check_teacher.php");
 include("connection.php");
 include("functions.php");
 include("insert-payslip.php");
-include("check_withdrawl.php");
 include("check_attendance.php");
-include("check_recurring_roster.php");
 include("add_level.php");
+include("check_withdrawl.php");
+include("check_recurring_roster.php");
 $user_data = check_login($con);
 $string = strval($_GET['name']);
 $centre = str_replace("-", " ", $string);
@@ -17,15 +17,15 @@ if ($user_data['role'] != 'l') {
     header('HTTP/1.0 403 Forbidden');
     exit;
 }
+
 if (isset($_POST["add"])) {
     $id = $_GET["id"];
 
     $name = $_POST["teacher_name"];
-
+    $centre_name = $_POST['centre_name'];
     $subject = $_POST["subject"];
     $level = $_POST["level"];
     $timing = $_POST["timing"];
-    $date = $_POST["date"];
     $room = $_POST["room"];
     $students = $_POST["students"];
     $day = $_POST["day"];
@@ -53,18 +53,22 @@ if (isset($_POST["add"])) {
         $time = '21:00:00';
         $end = '22:00:00';
     }
-    $checked = "select * from roster where timing='$timing'and date='$date'and teacher_name='$name'";
+    $checked = "select * from recurring where timing='$timing'and teacher_name='$name' and day = '$day'";
     $check = mysqli_query($con, $checked);
 
     if (mysqli_num_rows($check) == 0) {
-        $query = "UPDATE roster SET subject = '$subject',level = '$level',timing = '$timing',teacher_name = '$name',room = '$room',students = '$students',day = '$day',time = '$time', end = '$end' WHERE id = $id";
+        $query = "UPDATE recurring SET centre_name = '$centre_name', subject = '$subject',level = '$level',timing = '$timing',teacher_name = '$name',room = '$room',students = '$students',day = '$day',time = '$time', end = '$end' WHERE id = $id";
         mysqli_query($con, $query);
         $date = date("Y-m-d");
+        
+
+
+
         echo
         "
             <script>
               alert('Successfully Edited');
-              document.location.href = 'roster.php?name=" . $centre . "&dt=" . $date . "';
+              document.location.href = 'recurring_roster.php';
             </script>
             ";
     } else {
@@ -118,31 +122,31 @@ if (isset($_POST["add"])) {
 
 <body>
 
-    <?php
+    <?php 
     $id = $_GET["id"];
+    
+    $recurringLessons = mysqli_query($con, "SELECT * FROM recurring WHERE id = $id");
+    $recurring_ = mysqli_fetch_assoc($recurringLessons);
 
-    $lessons = mysqli_query($con, "SELECT * FROM roster WHERE id = $id");
-    $selectedLesson = mysqli_fetch_assoc($lessons);
+    $name_ = $recurring_["teacher_name"];
+    $centre_name_ = $recurring_['centre_name'];
+    $subject_ = $recurring_["subject"];
+    $level_ = $recurring_["level"];
+    $timing_ = $recurring_["timing"];
+    $room_ = $recurring_["room"];
+    $students_ = $recurring_["students"];
+    $day_ = $recurring_["day"];
 
-    $level_ = $selectedLesson['level'];
-    // $date_ = $selectedLesson["date"];
-    $name_ = $selectedLesson["teacher_name"];
-    $subject_ = $selectedLesson["subject"];
-    $timing_ = $selectedLesson["timing"];
-    $room_ = $selectedLesson["room"];
-    $students_ = $selectedLesson["students"];
-    $day_ = $selectedLesson["day"];
-    $teacher_name_ = $selectedLesson['teacher_name'];
-    $time_ = $selectedLesson['time'];
     ?>
+
     <div class="container">
         <?php if (!isset($_POST['submit']) || isset($_POST['back'])) { ?>
             <form method="POST" id="form1">
                 <div class="form-row">
                     <div class="form-group col-md-12">
-                        <label for="inputEmail4" style="font-size:20px;">Primary Level (This will change students)</label>
+                        <label for="inputEmail4" style="font-size:20px;">Primary Level</label>
                         <select class="form-control" style="height:50px;font-size:20px;" required name="level">
-                            <option value="<?php echo $level_ ?>" selected><?php echo $level_ ?></option>
+                            <option selected value="<?php echo $level_ ?>"><?php echo $level_ ?></option>
 
                             <option value="P1">P1</option>
                             <option value="P2">P2</option>
@@ -160,6 +164,33 @@ if (isset($_POST["add"])) {
 
                         </select>
                     </div>
+                    <div class="form-group col-md-12">
+                        <label for="inputPassword4" style="font-size:20px;">Centre</label>
+                        <select style="height: 50px; font-size:20px" class="form-control" id="reason" name="centre_name" required>
+                            <option value="<?php echo $centre_name_ ?>"><?php echo $centre_name_ ?></option>
+                            <?php
+                                    $q = "select * from centre";
+                                    $all_centre = mysqli_query($con, $q);
+                                    foreach ($all_centre as $a) : ?>
+                                        <option value="<?php echo $a['centre_name'] ?>"><?php echo $a['centre_name'] ?></option>
+                                    <?php endforeach ?>
+
+                        </select>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label for="inputPassword4" style="font-size:20px;">Day</label>
+                        <select style="height: 50px; font-size:20px" class="form-control" id="reason" name="day" required>
+                            <option value="<?php echo $day_ ?>"><?php echo $day_ ?></option>
+                            <option value="Monday">Monday</option>
+                            <option value="Tuesday">Tuesday</option>
+                            <option value="Wednesday">Wednesday</option>
+                            <option value="Thursday">Thursday</option>
+                            <option value="Friday">Friday</option>
+                            <option value="Saturday">Saturday</option>
+                            <option value="Sunday">Sunday</option>
+
+                        </select>
+                    </div>
 
                 </div>
 
@@ -168,8 +199,9 @@ if (isset($_POST["add"])) {
         <?php } ?>
         <?php if (isset($_POST['submit'])) { ?>
             <?php
-            // $date = $_POST['date'];
+            $centre_name = $_POST['centre_name'];
             $level = $_POST['level'];
+            $day = $_POST['day'];
 
             ?>
 
@@ -178,16 +210,17 @@ if (isset($_POST["add"])) {
                 <div class="form-row">
                     <div class="form-group col-md-12">
                         <label>Name Of Teacher </label>
+                        <input type="hidden" value="<?php echo $centre_name ?>" name="centre_name">
                         <input type="hidden" value="<?php echo $level ?>" name="level">
-                        <input type="hidden" value="<?php echo $date ?>" name="date">
+                        <input type="hidden" value="<?php echo $day ?>" name="day">
                         <select class="form-control" style="height:50px;font-size:20px;" required name="teacher_name">
-                            <option value="<?php echo $teacher_name_ ?>"><?php echo $teacher_name_ ?></option>
+                            <option value="<?php echo $name_ ?>"><?php echo $name_ ?></option>
                             <?php
                             if (isset($_POST['submit'])) {
 
-                                $date = $_POST['date'];
+                                $centre_name = $_POST['centre_name'];
                                 $level = $_POST['level'];
-                                $day = date('l', strtotime($date));
+                                $day = $_POST['day'];
 
                                 if ($day == 'Monday' || $day == 'Tuesday' || $day == 'Wednesday' || $day == 'Thursday' || $day == 'Friday') {
                                     $add_day = 'Weekdays';
@@ -201,7 +234,7 @@ if (isset($_POST["add"])) {
                                     $teachList = explode(", ", $t['teach']);
                                     $preferredList = explode(", ", $t['preferred']);
 
-                                    if (in_array("$centre", $preferredList)) {
+                                    if (in_array("$centre_name", $preferredList)) {
                                         if (in_array($day, $teachList) || in_array($add_day, $teachList)) {
                                             $name = $t['username'];
                                             echo ('<option value="' . $name . '">' . $name . '</option>');
@@ -220,16 +253,6 @@ if (isset($_POST["add"])) {
                             <option value="Math" name="subject">Math</option>
                             <option value="Science" name="subject">Science</option>
                             <option value="English" name="subject">English</option>
-
-                        </select>
-                    </div>
-                    <div class="form-group col-md-12">
-                        <label> Day Of The Week </label>
-
-                        <select class="form-control" style="height:50px;font-size:20px;" name="day" required>
-
-                            <option value="<?php echo $day ?>"><?php echo $day ?></option>
-
 
                         </select>
                     </div>
@@ -269,34 +292,29 @@ if (isset($_POST["add"])) {
                         <label> Students </label>
 
 
-                        <textarea type="text" style="text-transform: lowercase;font-size:20px;" class="form-control" id="staticEmail" name="students"><?php if (isset($_POST['submit'])) {
-                                                                                                                                                            // $date = $_POST['date'];
-                                                                                                                                                            $level = $_POST['level'];
-                                                                                                                                                            // $day = date('l', strtotime($date));
-                                                                                                                                                            $query = "select * from student where centre_name = '$centre'and student_level='$level'and status='Enrolled' ";
-                                                                                                                                                            $students = mysqli_query($con, $query);
-                                                                                                                                                            foreach ($students as $s) {
-                                                                                                                                                                $st[] = $s['student_name'];
-                                                                                                                                                            }
-                                                                                                                                                            if (!empty($st)) {
-                                                                                                                                                                $student_name = implode(',', ($st));
-                                                                                                                                                                echo $student_name;
-                                                                                                                                                            } 
-                                                                                                                                                            elseif(!empty($st) && !empty($students_)){
-                                                                                                                                                                echo $students_;
-                                                                                                                                                            }
-                                                                                                                                                            else {
-                                                                                                                                                                echo ('No Student For This Level And Centre.');
-                                                                                                                                                            }                                                                                                                                                            
-                                                                                                                                                            
-                                                                                                                                                        } ?></textarea>
+                        <textarea type="text" style="text-transform: lowercase;font-size:20px;" class="form-control" id="staticEmail"  name="students"><?php if (isset($_POST['submit'])) {
+                                                                                                                                                                    $date = $_POST['date'];
+                                                                                                                                                                    $level = $_POST['level'];
+                                                                                                                                                                    $day = date('l', strtotime($date));
+                                                                                                                                                                    $query = "select * from student where centre_name = '$centre_name'and student_level='$level'and status='Enrolled' ";
+                                                                                                                                                                    $students = mysqli_query($con, $query);
+                                                                                                                                                                    foreach ($students as $s) {
+                                                                                                                                                                        $st[] = $s['student_name'];
+                                                                                                                                                                    }
+                                                                                                                                                                    if (!empty($st)) {
+                                                                                                                                                                        $student_name = implode(',', ($st));
+                                                                                                                                                                        echo $student_name;
+                                                                                                                                                                    } else {
+                                                                                                                                                                        echo ('No Student For This Level And Centre.');
+                                                                                                                                                                    }
+                                                                                                                                                                } ?></textarea>
                     </div>
                 </div>
                 <?php if (isset($_POST['submit'])) {
-                    // $date = $_POST['date'];
+                    $date = $_POST['date'];
                     $level = $_POST['level'];
-                    // $day = date('l', strtotime($date));
-                    $query = "select * from student where centre_name = '$centre'and student_level='$level'and status='Enrolled' ";
+                    $day = date('l', strtotime($date));
+                    $query = "select * from student where centre_name = '$centre Centre'and student_level='$level'and status='Enrolled' ";
                     $students = mysqli_query($con, $query);
                     foreach ($students as $s) {
                         $st[] = $s['student_name'];
@@ -314,7 +332,7 @@ if (isset($_POST["add"])) {
             }
             ?>
         <?php } ?>
-</div>
+    </div>
 </body>
 
 </html>

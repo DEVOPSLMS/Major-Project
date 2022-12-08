@@ -51,7 +51,7 @@ if ($user_data['role'] != 'l') {
     <div class="container">
 
         <a href="centreroster.php">View Rosters</a>
-        <a href="add_recurring.php"><button class="btn" style="font-size: 15px; width: 100%;">Add Recurring Roster</button></a>
+        <a href="add_recurring.php"><button class="btn" style="font-size: 15px; width: 100%;">Add Recurring Lessons</button></a>
         <br><br>
         <div class="card">
             <div class="col-lg-12">
@@ -85,6 +85,8 @@ if ($user_data['role'] != 'l') {
 
                             <div class="alert alert-primary alert-dismissible fade show" role="alert">
                                 <strong><?php echo $centre ?> </strong> <br><?php echo $level, ' ', $subject, ' ', $teacher_name, '<br>', $day, ' ', $timing ?>
+                                <br><br>
+                                <a href="recurringEdit.php?id=<?php echo $id ?>">Edit</a>
                                 <a href="recurring_roster_delete.php?id=<?php echo $id ?>"><button type="button" class="close" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button></a>

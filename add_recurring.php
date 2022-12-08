@@ -160,7 +160,7 @@ if (isset($_POST["add"])) {
                         </select>
                     </div>
                     <div class="form-group col-md-12">
-                        <label for="inputPassword4" style="font-size:20px;">Date</label>
+                        <label for="inputPassword4" style="font-size:20px;">Centre</label>
                         <select style="height: 50px; font-size:20px" class="form-control" id="reason" name="centre_name" required>
                             <option value="">Choose Centre</option>
                             <?php
