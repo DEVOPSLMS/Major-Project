@@ -122,7 +122,7 @@ if ($user_data['role'] != 'finance') {
                             <h5 class="card-header"><?php echo ($r['teacher_name']) ?>, <?php echo ($r['month']) ?>, <?php echo ($r['year']) ?></h5>
                             <div class="card-body">
                                 <h5 class="card-title"><?php echo ($r['centre']) ?></h5>
-                                <p class="card-text">Total Amount Of Hours Worked: <?php echo ($r['total_hours']) ?></p>
+                                <p class="card-text">Total Amount Of Session Worked: <?php echo ($r['total_hours']) ?></p>
                                 <p class="card-text">Total Amount: $<?php echo ($r['total_amount']) ?></p>
                                 <p class="card-text">Reference Number: <?php echo ($r['reference']) ?></p>
                                 <a style="font-size:15px;" onclick='
@@ -224,10 +224,9 @@ if ($user_data['role'] != 'finance') {
                                             <?php if (isset($_POST['paysubmit'])) {
                                                 session_start();
                                         $pay = $_POST['dollar'];
-                                        $total_hours = $r['total_hours'];
-                                        $total_amount = $pay * $total_hours;
+                                        
                                         $id=$r['id'];
-                                        $sql = ("UPDATE  payslip SET `total_amount`='$total_amount' WHERE id = $id ");
+                                        $sql = ("UPDATE  payslip SET `total_amount`='$pay' WHERE id = $id ");
                                         $result = mysqli_query($con, $sql);
                                         $currentpage_url = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
                                         echo '<script>window.location.href="'.$currentpage_url.'";</script>';
@@ -236,9 +235,9 @@ if ($user_data['role'] != 'finance') {
                                     ?>
                                             <form action=""method="POST">
                                             <div class="modal-body">
-                                                <label for="">Per Hour Pay</label>
-                                                <?php $per_hour= $r['total_amount'] / $r['total_hours'] ?>
-                                                <input type="text" class="form-control " value="<?php echo $per_hour ?>" name="dollar" style="font-size:20px;height:30px;">
+                                                <label for="">Total Amount Pay</label>
+                                                <?php  ?>
+                                                <input type="text" class="form-control " value="<?php echo $r['total_amount'] ?>" name="dollar" style="font-size:20px;height:30px;">
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" style="font-size:15px;" class="btn" data-dismiss="modal">Close</button>
