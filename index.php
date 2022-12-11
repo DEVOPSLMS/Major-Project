@@ -411,17 +411,8 @@ $date = date("Y-m-d");
                         </a>
                     </div>
                 </div>
-                <div class="col-lg-3 border border-dark " style="height:300px;">
-                <div class="details" style="margin-left:50px;margin-top:100px;">
-                                <h1>Storage</h1>
-                                <p style="font-size:20px;">View and store all forms.</p>
-    
-                                <button class="btn btn-primary text-center  " type="submit" name="submit" >View</button>
-    
-    
-                            </div>
-                </div>
-                <div class="col-lg-3 border border-dark " style="height:300px;">
+               
+                <div class="col-lg-4 border border-dark " style="height:300px;">
                 <div class="details" style="margin-left:50px;margin-top:100px;">
                                 <h1>Feedback</h1>
                                 <p style="font-size:20px;">Send feedback to other departments.</p>
@@ -431,7 +422,7 @@ $date = date("Y-m-d");
     
                             </div>
                 </div>
-                <div class="col-lg-3 border border-dark " style="height:300px;">
+                <div class="col-lg-4 border border-dark " style="height:300px;">
                 <div class="details" style="margin-left:50px;margin-top:100px;">
                                 <h1>View check-ins</h1>
                                 <p style="font-size:20px;">View all check-ins from other roles</p>
@@ -441,7 +432,7 @@ $date = date("Y-m-d");
     
                             </div>
                 </div>
-                <div class="col-lg-3 border border-dark " style="height:300px;">
+                <div class="col-lg-4 border border-dark " style="height:300px;">
                 <div class="details" style="margin-left:50px;margin-top:100px;">
                                 <h1>View All Centre Lesson Plan</h1>
                                 <p style="font-size:20px;">View all centre lesson plans</p>
