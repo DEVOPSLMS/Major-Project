@@ -75,6 +75,7 @@ $teacher = mysqli_query($con, $query);
 
     </header>
     <style>
+        
         @media (max-width: 950px) {
             .btn {
                 width: 100%;
