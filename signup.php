@@ -39,12 +39,11 @@ if (isset($_POST["submit"])) {
   if ($result && mysqli_num_rows($result) > 0) {
     $errs_username = 'Username Already Exists';
   } else {
-    if ($see_email && mysqli_num_rows($see_email) > 0) {
-      $errs_email = 'Email Already Exists';
+    
       if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $errs_email = "Invalid Email";
       }
-    } else {
+     else {
       if ($see_userid && mysqli_num_rows($see_userid) > 0) {
         $errs_userid = 'Userid Already Exists';
       } else {
