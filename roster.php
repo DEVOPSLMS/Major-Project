@@ -7,7 +7,7 @@ include("functions.php");
 include('Calendar.php');
 include("check_attendance.php");
 include("check_recurring_roster.php");
-
+include("check_withdrawl.php");
 date_default_timezone_set('Singapore');
 $user_data = check_login($con);
 $string = strval($_GET['name']);
@@ -72,7 +72,7 @@ foreach ($roster as $rosters) {
     if ($diff <= 1 && $diff > 0 && $rosters['need_relief'] == 'yes' && $rosters['cancelled'] == 'no') {
         $calendar->add_event($description, 'Teacher Name:' . $rosters['teacher_name'] . '<br><br><a style="color:black;font-size:15px;"class="change"href="change_teacher.php?id=' . $rosters['id'] . '">Change Teacher</a><br><br><a style="color:black;font-size:15px;"class="change"href="cancel_class.php?id=' . $rosters['id'] . '">Cancel Class</a>',  $rosters['date'], 1, 'red');
     }
-    if ($rosters['need_relief'] == 'no' && $rosters['date'] > $date2  && $rosters['cancelled'] == 'no') {
+    if ($rosters['need_relief'] == 'no' && $rosters['date'] >= $date2  && $rosters['cancelled'] == 'no') {
         $calendar->add_event($description, 'Teacher Name:' . $rosters['teacher_name'] . '<br><br><a style="color: white;" class="change" href="rosterEdit.php?id='. $rosters['id'] .'&name='. $centre .'">Edit Class</a><br><a style="color:black;font-size:15px;"class="change"href="cancel_class.php?id=' . $rosters['id'] . '">Cancel Class</a>',  $rosters['date'], 1, 'purple');
     }
     if ($rosters['need_relief'] == 'no' && $rosters['date'] < $date2  && $rosters['cancelled'] == 'no') {
