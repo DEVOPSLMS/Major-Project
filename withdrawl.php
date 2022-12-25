@@ -25,7 +25,8 @@ if (isset($_POST['submit'])) {
   $day = $_POST['day'];
   $username = $user_data['username'];
   $date=date("Y-m-d");
-  $query = "insert into withdrawl(student_name,centre_name,level,last_day,parent_name,date) VALUES('$student_name','$centre','$level','$day','$username','$date')";
+  $reason=$_POST['reason'];
+  $query = "insert into withdrawl(student_name,centre_name,level,last_day,parent_name,date,reason) VALUES('$student_name','$centre','$level','$day','$username','$date','$reason')";
   mysqli_query($con, $query);
 
   echo
@@ -99,7 +100,12 @@ if (isset($_POST['submit'])) {
             <label> Parent Name: </label>
             <input type="text" class="form-control" name="username" disabled value="<?php echo $user_data['username'] ?>">
           </div>
-
+          <div class="form-group">
+            <label> Reason For Withdrawal: </label>
+           
+            <textarea class="form-control" name="reason"rows="4"></textarea>
+           
+          </div>
 
 
 
