@@ -32,7 +32,7 @@ if (isset($_POST["submit"])) {
     $message_title = $_POST["message_title"];
     $message = $_POST["message"];
 
-    $date = date("Y-m-d");
+    $date = date("Y-m-d H:i:s");
 
     $query = "INSERT INTO broadcast(sender, recipient, centre, message_title, message, date) VALUES ('$username','$address','$centre','$message_title','$message', '$date')";
     mysqli_query($con, $query);
