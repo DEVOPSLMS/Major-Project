@@ -45,7 +45,7 @@ if ($user_data['role'] != 'parent') {
             <?php
             $id = $user_data['id'];
             $name = $user_data['username'];
-            $query = "select * from student where parentid = $id ";
+            $query = "select * from student where parentid = $id and status ='Enrolled'";
             $result = mysqli_query($con, $query);
 
             ?>
