@@ -16,6 +16,52 @@ include("add_level.php");
 include("check_withdrawl.php");
 include("check_recurring_roster.php");
 $user_data = check_login($con);
+if (isset($_POST["submit"])) {
+    $centre = $_POST["centre"];
+    $feedback = $_POST["feedback"];
+    $date = date("Y-m-d");
+    $role=$user_data['role'];
+    $username= $user_data['username'];
+    $query = "INSERT INTO feedback(name, role, centre, feedback, date) VALUES ('$username','$role','$centre','$feedback','$date')";
+    mysqli_query($con, $query);
+
+    $staff = mysqli_query($con, "SELECT * FROM user WHERE role='admin'");
+
+    foreach ($staff as $a) {
+
+        $email = $a['email'];
+        $mail = new PHPMailer(true);
+
+
+        $mail->isSMTP();
+        $mail->Host = 'smtp.gmail.com';
+        $mail->Port = 465;
+        $mail->SMTPAuth   = true;
+        $mail->Username   = 'majorprojectxampp@gmail.com';
+        $mail->Password   = 'bxyjywhmfqczzgyu';
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+
+        $mail->setFrom('majorprojectxampp@gmail.com');
+        $mail->addAddress($email); //receiveing feedbacks
+
+        $mail->isHTML(true);
+        $mail->Subject = "Feedback";
+        $email_template = "
+            <img src='https://www.yyd.org.sg/images/logo.jpg'style='width:150px;height100px;'>
+            <h3>You Have Received A Feedback From $username:</h3>
+            <br> <p>$feedback</p>
+           
+            ";
+        $mail->Body = $email_template;
+        $mail->send();
+    }
+
+    echo
+    "<script>
+        alert('Feedback submitted!');
+        document.location.href = 'feedback.php';
+    </script>";
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -38,51 +84,7 @@ $user_data = check_login($con);
 <header>
     <?php include("header.php");
 
-    if (isset($_POST["submit"])) {
-        $centre = $_POST["centre"];
-        $feedback = $_POST["feedback"];
-        $date = date("Y-m-d");
-
-        $query = "INSERT INTO feedback(name, role, centre, feedback, date) VALUES ('$username','$role','$centre','$feedback','$date')";
-        mysqli_query($con, $query);
-
-        $staff = mysqli_query($con, "SELECT * FROM user WHERE role='admin'");
-
-        foreach ($staff as $a) {
-
-            $email = $a['email'];
-            $mail = new PHPMailer(true);
-
-
-            $mail->isSMTP();
-            $mail->Host = 'smtp.gmail.com';
-            $mail->Port = 465;
-            $mail->SMTPAuth   = true;
-            $mail->Username   = 'majorprojectxampp@gmail.com';
-            $mail->Password   = 'bxyjywhmfqczzgyu';
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
-
-            $mail->setFrom('majorprojectxampp@gmail.com');
-            $mail->addAddress($email); //receiveing feedbacks
-
-            $mail->isHTML(true);
-            $mail->Subject = "Feedback";
-            $email_template = "
-                <img src='https://www.yyd.org.sg/images/logo.jpg'style='width:150px;height100px;'>
-                <h3>You Have Received A Feedback From $username:</h3>
-                <br> <p>$feedback</p>
-               
-                ";
-            $mail->Body = $email_template;
-            $mail->send();
-        }
-
-        echo
-        "<script>
-            alert('Feedback submitted!');
-            document.location.href = 'feedback.php';
-        </script>";
-    }
+    
 
     ?>
     <br><br><br><br><br><br><br><br><br><br><br>

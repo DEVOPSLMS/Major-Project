@@ -69,7 +69,7 @@ if ($user_data['role'] != 'teacher') {
                             <h5 class="card-header">For: <?php echo ($r['month']) ?>, <?php echo ($r['year'])?></h5>
                             <div class="card-body">
                                 <h5 class="card-title"><?php echo ($r['centre']) ?></h5>
-                                <p class="card-text">Total Amount Of Hours Worked: <?php echo ($r['total_hours']) ?></p>
+                                <p class="card-text">Total Amount Of Sessions Worked: <?php echo ($r['total_sessions']) ?></p>
                                 <p class="card-text">Total Amount: $<?php echo ($r['total_amount']) ?></p>
                                 <p class="card-text">Reference Number: <?php echo ($r['reference']) ?></p>
                                 
